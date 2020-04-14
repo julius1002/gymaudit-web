@@ -11,7 +11,7 @@ export class UnitService {
   
   constructor(private httpClient:HttpClient) { }
 
-  public getUnitsOfTrainee(traineeId:string): Observable<Unit>{
-    return this.httpClient.get<Unit>(environment.BACKEND_URL + `trainees/${traineeId}/units`); 
+  public getUnitsOfTrainee(traineeId:string): Observable<Unit[]>{
+    return this.httpClient.get<Unit[]>(environment.BACKEND_URL + `trainees/${traineeId}/units`); 
   }
 }

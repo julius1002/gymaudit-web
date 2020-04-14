@@ -6,7 +6,7 @@ import { WorkoutComponent } from './workout/workout.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'workout',
     pathMatch: 'full'
   },
   {

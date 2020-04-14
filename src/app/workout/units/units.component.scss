@@ -1,24 +1,25 @@
-.list-group-item{
-    cursor: pointer;
+.list-group-item {
+  cursor: pointer;
 }
 
-.row-div{
-    display: flex;
-    flex-direction: row;
+.nav-item {
+  cursor: pointer;
 }
 
-.col-div{
-    flex-direction: column;
+.row-div {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
 }
 
-.exercise{
-    padding-left:50px;
+h3 {
+  padding: 20px;
 }
 
-.list-group{
-    padding-top: 20px;
+.selectedExercise {
+  background-color: cadetblue;
 }
 
-.btn-outline-primary{
-    width:200px;
+.list-group {
+  width: 300px;
 }

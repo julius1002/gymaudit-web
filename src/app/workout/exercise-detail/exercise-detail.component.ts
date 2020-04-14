@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Exercise } from 'src/app/model/exercise';
-import { ExerciseService } from 'src/app/services/exercise.service';
 
 @Component({
   selector: 'app-exercise-detail',

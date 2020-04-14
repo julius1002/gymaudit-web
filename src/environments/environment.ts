@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  BACKEND_URL: "http://localhost:8080/"
+  BACKEND_URL: "http://localhost:8080/",
+  TRAINEEID: "1337" // has to be retrieved from the currently authenticated user
 };
 
 /*
