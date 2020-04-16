@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { WorkoutComponent } from './workout/workout.component';
+import { UnitsBarComponent } from './workout/units/units-bar.component';
+import { ExerciseListComponent } from './workout/exercise-list/exercise-list.component';
 
 
 const routes: Routes = [
@@ -14,8 +15,12 @@ const routes: Routes = [
     redirectTo: ''
   },
   {
-    path: 'workout',
-    component: WorkoutComponent
+    path: 'units',
+    component: UnitsBarComponent
+  },
+  {
+    path: 'exercises/#',
+    component: ExerciseListComponent
   }
   
 ];

@@ -7,7 +7,6 @@
       <li class="nav-item" *ngFor="let unit of units">
         <a
           class="nav-link"
-          (click)="selectUnit(unit)"
           [style.background-color]="unit === selectedUnit ? '#92a8d1' : ''"
           >{{ unit.name }}</a
         >
