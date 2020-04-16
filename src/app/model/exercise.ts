@@ -1,9 +1,12 @@
-export class Exercise{
+
+export interface Exercise{
+    id:string;
     name:string;
     exerciseType:ExerciseType;
     muscleGroups:MuscleGroup[];
     description:string;
     date:number;
+    pictureUrl:string;
 }
 
 export enum ExerciseType{
@@ -22,4 +25,5 @@ export enum MuscleGroup{
     TRAPS = "Nacken",
     SHOULDERS = "Schultern",
     ABS = "Bauch"
+    
 }

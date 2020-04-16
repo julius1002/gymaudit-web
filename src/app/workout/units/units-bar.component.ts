@@ -1,23 +1,22 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { UnitService } from "src/app/services/unit.service";
 import { Observable } from "rxjs";
 import { Unit } from "src/app/model/unit";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
+import { ExerciseListComponent } from '../exercise-list/exercise-list.component';
 
 @Component({
-  selector: "app-units",
-  templateUrl: "./units.component.html",
-  styleUrls: ["./units.component.scss"],
+  selector: "app-units-bar",
+  templateUrl: "./units-bar.component.html",
+  styleUrls: ["./units-bar.component.scss"],
 })
-export class UnitsComponent implements OnInit {
+export class UnitsBarComponent implements OnInit {
   exercises$: Observable<Exercise[]>;
   units$: Observable<Unit[]>;
-  
   selectedUnit: Unit;
-  selectedExercise: Exercise;
-
+  
   constructor(
     private unitService: UnitService,
     private exerciseService: ExerciseService
@@ -27,21 +26,11 @@ export class UnitsComponent implements OnInit {
     this.getUnitsFromTrainee();
   }
 
-  public getExercisesFromUnit(unit: Unit): void {
-    this.selectedUnit = unit;
-    this.exercises$ = this.exerciseService.getExercisesOfUnitOfTrainee(
-      environment.TRAINEEID,
-      unit.id
-    );
-    if (this.selectedExercise) {
-      this.selectedExercise = null;
-    }
-  }
-
-  public selectExercise(exercise: Exercise) {
-    this.selectedExercise = exercise;
-  }
   public getUnitsFromTrainee() {
     this.units$ = this.unitService.getUnitsOfTrainee(environment.TRAINEEID);
+  }
+
+  public selectUnit(unit:Unit){
+    this.selectedUnit = unit;
   }
 }

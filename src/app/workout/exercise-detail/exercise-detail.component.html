@@ -1,10 +1,45 @@
-<div class = "border rounded">
-<h2>Detailansicht - {{exercise.name}}</h2>
-Daten:
-<ul>
-    <li>{{exercise.exerciseType}}</li>
-    <li>{{exercise.muscleGroups}}</li>
-    <li>{{exercise.description}}</li>
-    <li>{{exercise.date}}</li>
-</ul>
+<div class="border rounded">
+  <h2>Detailansicht - {{ exercise.name }}</h2>
+  <div class="border-top my-3"></div>
+
+  <div class="container">
+    <div class="row">
+      <ng-container *ngIf="exercise.pictureUrl">
+        <div class="col">
+          <div class="exercise-image">
+            <img [src]="exercise.pictureUrl" />
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="col">
+        <h4>Muskelgruppen</h4>
+        <ul class="muscleGroup-list">
+          <li
+            class="muscleGroup-list-item"
+            *ngFor="let muscleGroup of exercise.muscleGroups"
+          >
+            {{ muscleGroupEnum[muscleGroup] }}
+          </li>
+        </ul>
+        <h4>Übungstyp</h4>
+        {{ exerciseTypeEnum[exercise.exerciseType] }}
+      </div>
+
+      <div class="col">
+        <h4>Beschreibung</h4>
+        {{ exercise.description }}
+        <h4>Zuletzt trainiert</h4>
+        {{ exercise.date | date: "EEEE d. MMMM y HH:mm" }}
+      </div>
+    </div>
+    
+    <button>
+      Bearbeiten
+    <fa-icon [icon]="faEdit"></fa-icon>
+  </button>
+  <button> Entfernen
+    <fa-icon [icon]="faTrash"></fa-icon>
+</button>
+  </div>
 </div>

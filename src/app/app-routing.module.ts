@@ -17,6 +17,7 @@ const routes: Routes = [
     path: 'workout',
     component: WorkoutComponent
   }
+  
 ];
 
 @NgModule({
