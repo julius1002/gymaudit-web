@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Exercise, ExerciseType, MuscleGroup } from "src/app/model/exercise";
-import { faEdit, faTrash} from  '@fortawesome/free-solid-svg-icons';
-
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ActivatedRoute } from "@angular/router";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-exercise-detail",
@@ -15,9 +16,8 @@ export class ExerciseDetailComponent implements OnInit {
 
   faEdit = faEdit;
   faTrash = faTrash;
-  
-  constructor() {}
 
-  ngOnInit(): void {
-  }
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {}
 }

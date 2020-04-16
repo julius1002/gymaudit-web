@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
-import { Unit } from "src/app/model/unit";
+import { Component, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { Observable } from "rxjs";
+import { map, delay } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
-import { faPlus  } from  '@fortawesome/free-solid-svg-icons';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
+import { ExerciseDetailComponent } from '../exercise-detail/exercise-detail.component';
 
 @Component({
   selector: "app-exercise-list",
@@ -12,24 +14,34 @@ import { faPlus  } from  '@fortawesome/free-solid-svg-icons';
   styleUrls: ["./exercise-list.component.scss"],
 })
 export class ExerciseListComponent implements OnInit {
+
+  @ViewChild(ExerciseDetailComponent) exerciseDetailComponent: ExerciseDetailComponent;
+
   selectedExercise: Exercise;
-  @Input() unit: Unit;
   exercises$: Observable<Exercise[]>;
+  unitId$: Observable<string>;
   faPlus = faPlus;
-  constructor(private exerciseService: ExerciseService) {}
+
+  constructor(
+    private exerciseService: ExerciseService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-  }
+    this.unitId$ = this.route.paramMap.pipe(
+      map((paramMap) => paramMap.get("id"))
+    );
+    this.getExercisesFromUnit();
+    }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.getExercisesFromUnit(this.unit);
-  }
-
-  public getExercisesFromUnit(unit: Unit): void {
-    this.unit = unit;
-    this.exercises$ = this.exerciseService.getExercisesOfUnitOfTrainee(
-      environment.TRAINEEID,
-      unit.id
+  public getExercisesFromUnit(): void {
+    this.unitId$.subscribe(
+      (unitId) =>
+        (this.exercises$ = this.exerciseService.getExercisesOfUnitOfTrainee(
+          environment.TRAINEEID,
+          unitId
+        ))
     );
 
     if (this.selectedExercise) {

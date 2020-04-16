@@ -5,7 +5,8 @@ import { Unit } from "src/app/model/unit";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
-import { ExerciseListComponent } from '../exercise-list/exercise-list.component';
+import { ExerciseListComponent } from "../exercise-list/exercise-list.component";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-units-bar",
@@ -13,24 +14,26 @@ import { ExerciseListComponent } from '../exercise-list/exercise-list.component'
   styleUrls: ["./units-bar.component.scss"],
 })
 export class UnitsBarComponent implements OnInit {
-  exercises$: Observable<Exercise[]>;
-  units$: Observable<Unit[]>;
+  units: Unit[];
   selectedUnit: Unit;
-  
-  constructor(
-    private unitService: UnitService,
-    private exerciseService: ExerciseService
-  ) {}
+
+  constructor(private unitService: UnitService, private router: Router) {}
 
   ngOnInit(): void {
     this.getUnitsFromTrainee();
   }
 
   public getUnitsFromTrainee() {
-    this.units$ = this.unitService.getUnitsOfTrainee(environment.TRAINEEID);
+    this.unitService
+      .getUnitsOfTrainee(environment.TRAINEEID)
+      .subscribe((units) => {
+        this.units = units;
+        this.setDefaultRoute(units);
+        
+      });
   }
 
-  public selectUnit(unit:Unit){
-    this.selectedUnit = unit;
+  public setDefaultRoute(units: Unit[]) {
+    this.router.navigateByUrl(`units/(exercises:${units[0].id})`);
   }
 }

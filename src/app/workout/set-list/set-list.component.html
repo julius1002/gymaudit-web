@@ -1,7 +1,9 @@
-<h1>Satzliste</h1>
+<h1>Sätze</h1>
+<ng-container *ngIf = "sets$">
 <ul class ="list-group">
     <li class = "list-group-item" *ngFor="let set of sets$| async">
         {{set.date | date: "EEEE d. MMMM y HH:mm"}}
 
     </li>
 </ul>
+</ng-container>

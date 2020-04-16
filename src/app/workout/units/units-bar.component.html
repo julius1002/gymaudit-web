@@ -1,25 +1,21 @@
 <div class="global-padding">
   <h1>Aktueller Trainingsplan</h1>
-  <ng-container *ngIf = "units$ | async as units ; else noUnits">
-  <h2>Einheiten</h2>
-  <nav class="navbar navbar-expand-sm bg-light">
-    <ul class="navbar-nav">
-      <li class="nav-item" *ngFor="let unit of units">
-        <a
-          class="nav-link"
-          [style.background-color]="unit === selectedUnit ? '#92a8d1' : ''"
-          >{{ unit.name }}</a
-        >
-      </li>
-    </ul>
-  </nav>
-</ng-container>
-<ng-template #noUnits> <!-- replace with loading, when units are loading via request-->
-  <label>Keine Einheiten vorhanden</label>
-</ng-template>
+  <ng-container *ngIf="units">
+    <h2>Einheiten</h2>
+    <nav class="navbar navbar-expand-sm bg-light">
+      <ul class="navbar-nav">
+        <li class="nav-item" *ngFor="let unit of units">
+          <span
+            class="nav-link"
+            [routerLink]="[{ outlets: { exercises: unit.id } }]"
+            routerLinkActive="active"
+          >
+            {{ unit.name }}
+          </span>
+        </li>
+      </ul>
+    </nav>
+  </ng-container>
 </div>
 
-
-<ng-container *ngIf="selectedUnit">
-  <app-exercise-list [unit] = "selectedUnit"> </app-exercise-list
-></ng-container>
+<router-outlet name="exercises"></router-outlet>

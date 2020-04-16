@@ -1,6 +1,7 @@
 <ng-container *ngIf="exercises$">
   <div class="global-padding">
-    <h3>Übungen der Einheit: {{ unit.name }}</h3>
+    <!-- <h3>Übungen der Einheit: {{ unit.name }}</h3>-->
+    <h3>Übungen der Einheit:</h3>
     <div class="row">
       <ul class="list-group-flush">
         <li
@@ -18,11 +19,11 @@
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </ul>
-      <ng-container *ngIf="selectedExercise">
+      <ng-container *ngIf ="selectedExercise">
         <app-exercise-detail [exercise]="selectedExercise">
         </app-exercise-detail>
-        <app-set-list [unit] = "unit" [exercise] = "selectedExercise"></app-set-list>
-
+        <app-set-list  [exercise] = "selectedExercise">
+        </app-set-list>
       </ng-container>
     </div>
   </div>

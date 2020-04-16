@@ -12,6 +12,6 @@ export class SetService {
   constructor(private httpClient:HttpClient) { }
 
   public getSetsOfExerciseOfUnitOfTrainee(traineeId:string, unitId:string, exerciseId): Observable<Set[]>{
-    return this.httpClient.get<Set[]>(environment.BACKEND_URL + `trainees/${traineeId}/units/${unitId}/exercises?exerciseId=${exerciseId}`); 
+    return this.httpClient.get<Set[]>(environment.BACKEND_URL + `trainees/${traineeId}/units/${unitId}/exercises/sets?exerciseId=${exerciseId}`); 
   }
 }

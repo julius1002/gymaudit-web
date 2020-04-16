@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UnitsBarComponent } from './workout/units/units-bar.component';
 import { ExerciseListComponent } from './workout/exercise-list/exercise-list.component';
+import { UnitsBarComponent } from './workout/units/units-bar.component';
 
 
 const routes: Routes = [
@@ -16,11 +16,14 @@ const routes: Routes = [
   },
   {
     path: 'units',
-    component: UnitsBarComponent
-  },
-  {
-    path: 'exercises/#',
-    component: ExerciseListComponent
+    component: UnitsBarComponent,
+    children: [
+     { 
+      path: ':id',
+      component: ExerciseListComponent,
+      outlet: 'exercises'
+    }
+    ]
   }
   
 ];
