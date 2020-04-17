@@ -1,12 +1,11 @@
 import { Component, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { Observable } from "rxjs";
-import { map, delay } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { ExerciseDetailComponent } from '../exercise-detail/exercise-detail.component';
 
 @Component({
   selector: "app-exercise-list",
@@ -14,11 +13,8 @@ import { ExerciseDetailComponent } from '../exercise-detail/exercise-detail.comp
   styleUrls: ["./exercise-list.component.scss"],
 })
 export class ExerciseListComponent implements OnInit {
-
-  @ViewChild(ExerciseDetailComponent) exerciseDetailComponent: ExerciseDetailComponent;
-
   selectedExercise: Exercise;
-  exercises$: Observable<Exercise[]>;
+  exercises: Exercise[];
   unitId$: Observable<string>;
   faPlus = faPlus;
 
@@ -33,16 +29,21 @@ export class ExerciseListComponent implements OnInit {
       map((paramMap) => paramMap.get("id"))
     );
     this.getExercisesFromUnit();
-    }
+  }
 
   public getExercisesFromUnit(): void {
-    this.unitId$.subscribe(
-      (unitId) =>
-        (this.exercises$ = this.exerciseService.getExercisesOfUnitOfTrainee(
-          environment.TRAINEEID,
-          unitId
-        ))
-    );
+    this.unitId$
+      .pipe(
+        switchMap((unitId) =>
+          this.exerciseService.getExercisesOfUnitOfTrainee(
+            environment.TRAINEEID,
+            unitId
+          )
+        )
+      )
+      .subscribe((exercises) =>
+        this.setExercisesAndSelectFirstAsDefault(exercises)
+      );
 
     if (this.selectedExercise) {
       this.selectedExercise = null;
@@ -51,5 +52,27 @@ export class ExerciseListComponent implements OnInit {
 
   public selectExercise(exercise: Exercise) {
     this.selectedExercise = exercise;
+
+    this.unitId$.subscribe((unitId) =>
+      this.ifExerciseExistingShowFirst(exercise, unitId)
+    );
+  }
+
+  public ifExerciseExistingShowFirst(exercise, unitId: string) {
+    if (exercise) {
+      this.router.navigateByUrl(
+        `units/(exercises:${unitId}/(exercises-detail:${exercise.id}))`,
+        { state: exercise }
+      );
+    } else {
+      this.router.navigateByUrl(`units/(exercises:${unitId})`, { state: null });
+    }
+  }
+
+  public setExercisesAndSelectFirstAsDefault(exercises: Exercise[]) {
+    this.exercises = exercises;
+    if (exercises) {
+      this.selectExercise(exercises[0]); //setzt erste ausgewählte übung (exercises:5e99748ee86df03c29bdeba0/(exercises-detail:detail))
+    }
   }
 }

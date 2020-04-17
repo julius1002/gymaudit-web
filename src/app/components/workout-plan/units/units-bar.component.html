@@ -1,0 +1,23 @@
+<h1>Aktueller Trainingsplan</h1>
+
+  <ng-container *ngIf="units">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand">Einheiten</a>
+      <div class="collapse navbar-collapse" >
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item" *ngFor="let unit of units">
+            <a
+              class="nav-link"
+              [routerLink]="[{ outlets: { exercises: unit.id } }]"
+              routerLinkActive="active"
+            >
+              {{ unit.name }}
+            </a>
+          </li>
+        </ul>
+        <!--  <button>Hinzufügen <fa-icon [icon]="faPlus"></fa-icon></button> -->
+      </div>
+    </nav>
+  </ng-container>
+
+<router-outlet name="exercises"></router-outlet>

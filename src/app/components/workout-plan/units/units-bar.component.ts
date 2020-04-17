@@ -7,6 +7,7 @@ import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
 import { ExerciseListComponent } from "../exercise-list/exercise-list.component";
 import { Router, ActivatedRoute } from "@angular/router";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-units-bar",
@@ -14,6 +15,7 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./units-bar.component.scss"],
 })
 export class UnitsBarComponent implements OnInit {
+  faPlus = faPlus;
   units: Unit[];
   selectedUnit: Unit;
 
@@ -29,11 +31,10 @@ export class UnitsBarComponent implements OnInit {
       .subscribe((units) => {
         this.units = units;
         this.setDefaultRoute(units);
-        
       });
   }
 
   public setDefaultRoute(units: Unit[]) {
-    this.router.navigateByUrl(`units/(exercises:${units[0].id})`);
+    this.router.navigateByUrl(`units/(exercises:${units[0].id})`); //setzt erste ausgewählte unit
   }
 }

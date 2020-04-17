@@ -12,6 +12,10 @@ export class ExerciseService {
   constructor(private httpClient:HttpClient) { }
 
   public getExercisesOfUnitOfTrainee(traineeId:string, unitId:string): Observable<Exercise[]>{
-    return this.httpClient.get<Exercise[]>(environment.BACKEND_URL + `trainees/${traineeId}/units/${unitId}`); 
+    return this.httpClient.get<Exercise[]>(`${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}`); 
+  }
+
+  public deleteExercise(traineeId:string, unitId:string, exerciseId:string){
+    return this.httpClient.delete<Exercise>(`${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}/exercises/${exerciseId}`);
   }
 }

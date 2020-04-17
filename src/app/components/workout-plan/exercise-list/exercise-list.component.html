@@ -1,0 +1,22 @@
+<ng-container *ngIf="exercises">
+    <h3>Übungen</h3>
+    <div class="row">
+      <ul class="list-group-flush">
+        <li
+          class="list-group-item"
+          *ngFor="let exercise of exercises"
+          (click)="selectExercise(exercise)"
+          [style.background-color]="
+            exercise === selectedExercise ? '#92a8d1' : ''
+          "
+        >
+          <span>{{ exercise.name }}</span>
+        </li>
+        <button>
+          Hinzufügen
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </ul>
+    <router-outlet name= "exercises-detail"></router-outlet>
+  </div>
+</ng-container>

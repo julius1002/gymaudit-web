@@ -1,4 +1,4 @@
-
+import { Set } from "src/app/model/set";
 export interface Exercise{
     id:string;
     name:string;
@@ -7,6 +7,8 @@ export interface Exercise{
     description:string;
     date:number;
     pictureUrl:string;
+    sets:Set[];
+    unitId:string;
 }
 
 export enum ExerciseType{
