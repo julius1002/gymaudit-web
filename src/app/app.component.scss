@@ -1,4 +1,12 @@
 .center {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
+}
+
+.active {
+  background-color: #92a8d1;
+}
+
+.menu-spacer {
+  flex: 1 1 auto;
+}

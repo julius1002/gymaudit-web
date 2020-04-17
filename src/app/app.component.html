@@ -1,25 +1,42 @@
-
-
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1>GymAudit</h1>
-    <span class="menu-spacer"></span>
-    <div>
-      <a mat-button  routerLink="home" routerLinkActive="active"> Home </a>
-      <a mat-button  routerLink="units" routerLinkActive="active">Trainingsplan </a>
-      <a mat-button  routerLinkActive="active">Fortschritt</a>
-    </div>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row>
-      <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+<div style="height: 80vh;">
+  <mat-toolbar color="secondary">
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>GymAudit</span>
+      <span class="menu-spacer"></span>
+      <div fxShow="true" fxHide.lt-md>
+        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+        <a routerLink="home" routerLinkActive="active" mat-button> Home </a>
+        <a routerLink="units" routerLinkActive="active" mat-button>
+          Trainingsplan
+        </a>
+        <a routerLinkActive="active" mat-button> Fortschritt </a>
+      </div>
     </mat-toolbar-row>
-</mat-toolbar>
+  </mat-toolbar>
 
-
-<div class ="center">
-<router-outlet></router-outlet>
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <a (click)="sidenav.toggle()" mat-list-item>Close</a>
+        <a routerLink="home" routerLinkActive="active" mat-list-item> Home </a>
+        <a routerLink="units" routerLinkActive="active" mat-list-item>
+          Trainingsplan
+        </a>
+        <a routerLinkActive="active" mat-list-item> Fortschritt </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill
+      ><div class="center">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
