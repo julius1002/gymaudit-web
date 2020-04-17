@@ -21,26 +21,5 @@ export class EditExerciseComponent implements OnInit {
   }
 
 
-  removeExercise(){
-    if (confirm('Buch wirklich löschen?')) {
-      this.unitId$
-    .pipe(
-      switchMap((unitId) =>
-        this.exerciseService.deleteExercise(
-          environment.TRAINEEID,
-          unitId,
-          "0"
-         // this.exercise.id
-        )
-      )
-    )
-    .subscribe(res => this.router.navigate(['.', {outlets: {exercises: res.unitId}}], { relativeTo: this.route.parent })
-   //.subscribe(res => this.router.navigate([{ outlets: { exercises: res.unitId }}], {relativeTo: this.route.parent})
-
-    );
-
-    }
-}
-
 
 }

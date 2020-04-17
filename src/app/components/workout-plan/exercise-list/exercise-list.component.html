@@ -1,9 +1,9 @@
 <ng-container *ngIf="exercises">
-    <h3>Übungen</h3>
-    <div class="row">
-      <ul class="list-group-flush">
+  <h3>Übungen</h3>
+  <div class="row">
+    <div class="col">
+      <ul>
         <li
-          class="list-group-item"
           *ngFor="let exercise of exercises"
           (click)="selectExercise(exercise)"
           [style.background-color]="
@@ -14,9 +14,10 @@
         </li>
         <button>
           Hinzufügen
-          <fa-icon [icon]="faPlus"></fa-icon>
+          <mat-icon>add</mat-icon>
         </button>
       </ul>
-    <router-outlet name= "exercises-detail"></router-outlet>
+    </div>
+    <router-outlet name="exercises-detail"></router-outlet>
   </div>
 </ng-container>

@@ -1,9 +1,8 @@
-<ng-container *ngIf="exercise$ | async as exercise">
-  <div class="border rounded">
-    <h2>Detailansicht - {{ exercise.name }}</h2>
-    <div class="border-top my-3"></div>
-
+<ng-container *ngIf="exercise">
+  <div>
     <div class="container">
+      <h2>Detailansicht - {{ exercise.name }}</h2>
+      <div class="border-top my-3"></div>
       <div class="row">
         <ng-container *ngIf="exercise.pictureUrl">
           <div class="col">
@@ -34,12 +33,16 @@
           {{ exercise.date | date: "EEEE d. MMMM y HH:mm" }}
         </div>
       </div>
+      <app-set-list [exercise]="exercise"> </app-set-list>
 
       <button (click)="navigateToEdit()">
         Bearbeiten
-        <fa-icon [icon]="faEdit"></fa-icon>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="removeExercise()">
+        Löschen
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
-    <app-set-list [exercise]="exercise"> </app-set-list>
   </div>
 </ng-container>

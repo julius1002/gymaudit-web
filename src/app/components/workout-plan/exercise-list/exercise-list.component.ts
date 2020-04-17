@@ -4,7 +4,6 @@ import { map, switchMap } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 
 @Component({
@@ -16,7 +15,6 @@ export class ExerciseListComponent implements OnInit {
   selectedExercise: Exercise;
   exercises: Exercise[];
   unitId$: Observable<string>;
-  faPlus = faPlus;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -26,8 +24,9 @@ export class ExerciseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.unitId$ = this.route.paramMap.pipe(
-      map((paramMap) => paramMap.get("id"))
+      map((paramMap) => paramMap.get("unitId"))
     );
+
     this.getExercisesFromUnit();
   }
 

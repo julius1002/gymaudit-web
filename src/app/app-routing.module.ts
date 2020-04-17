@@ -20,7 +20,7 @@ const routes: Routes = [
     component: UnitsBarComponent,
     children: [
       {
-        path: ":id",
+        path: ":unitId",
         component: ExerciseListComponent,
         outlet: "exercises",
         children: [
