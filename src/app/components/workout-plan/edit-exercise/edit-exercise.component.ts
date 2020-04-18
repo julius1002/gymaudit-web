@@ -33,7 +33,6 @@ export class EditExerciseComponent implements OnInit {
   }
 
   removeExercise() {
-    console.log(this.exercise.id);
     if (confirm("Buch wirklich löschen?")) {
       this.unitId$
         .pipe(

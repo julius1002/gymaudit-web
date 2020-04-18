@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ExerciseType, MuscleGroup, Exercise } from "src/app/model/exercise";
-import { map, switchMap } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Observable, zip, combineLatest } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
@@ -12,12 +12,13 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./exercise-detail.component.scss"],
 })
 export class ExerciseDetailComponent implements OnInit {
-  exercise: Exercise;
+  exercise$: Observable<Exercise>;
 
   exerciseTypeEnum = ExerciseType;
   muscleGroupEnum = MuscleGroup;
 
   unitId$: Observable<string>;
+  exerciseId$: Observable<string>;
 
   constructor(
     private router: Router,
@@ -26,36 +27,30 @@ export class ExerciseDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(map(() => window.history.state))
-      .subscribe((exercise) => (this.exercise = exercise));
-
     this.unitId$ = this.route.parent.paramMap.pipe(
       map((paramMap) => paramMap.get("unitId"))
+    );
+    this.exerciseId$ = this.route.paramMap.pipe(
+      map((paramMap) => paramMap.get("exerciseId"))
+    );
+    combineLatest(this.exerciseId$, this.unitId$).subscribe(
+      ([exerciseId, unitId]) =>
+        (this.exercise$ = this.exerciseService.getExerciseOfUnitOfTrainee(
+          environment.TRAINEEID,
+          unitId,
+          exerciseId
+        ))
     );
   }
 
   navigateToEdit() {
+    zip(this.exercise$, this.unitId$).subscribe(([exercise, unitId]) => {
+      this.router.navigateByUrl(
+        `units/(exercises:${unitId}/(exercise-detail:edit/${exercise.id}))`,
+        { state: exercise }
+      );
+    });
 
-    this.unitId$.subscribe(unitId => this.router.navigateByUrl(
-      
-        `units/(exercises:${unitId}/(exercise-detail:edit/${this.exercise.id}))`,
-      
-      { state: this.exercise }
-    ));
-
-    this.unitId$.pipe(
-      switchMap((unitId) =>
-        this.router.navigate(
-          [
-            "../"
-          ],
-          { state: this.exercise }
-        )
-      )
-      //`units/(exercises:${unitId}/(exercise-detail:${this.exercise.id}))`,
-    );
+    //`units/(exercises:${unitId}/(exercise-detail:${this.exercise.id}))`,
   }
-
-  
 }

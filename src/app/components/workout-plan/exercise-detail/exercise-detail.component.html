@@ -1,4 +1,4 @@
-<ng-container *ngIf="exercise">
+<ng-container *ngIf="exercise$ | async as exercise">
   <div>
     <div class="container">
       {{ exercise.name }} - Detailansicht
@@ -35,7 +35,7 @@
       </div>
       <app-set-list [exercise]="exercise"> </app-set-list>
 
-      <button (click) = "navigateToEdit()" >
+      <button (click)="navigateToEdit()">
         Bearbeiten
         <mat-icon>edit</mat-icon>
       </button>

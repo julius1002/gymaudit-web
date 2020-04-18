@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UnitService } from "src/app/services/unit.service";
 import { Unit } from "src/app/model/unit";
 import { environment } from "src/environments/environment";
@@ -13,7 +13,10 @@ export class UnitsBarComponent implements OnInit {
   units: Unit[];
   selectedUnit: Unit;
 
-  constructor(private unitService: UnitService, private router: Router) {}
+  constructor(
+    private unitService: UnitService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getUnitsFromTrainee();
@@ -28,11 +31,18 @@ export class UnitsBarComponent implements OnInit {
       });
   }
 
-  public navigateToExercises(unit:Unit){
-    this.router.navigateByUrl(`units/(exercises:${unit.id})`);
+  public selectUnit(unit: Unit) {
+    this.selectedUnit = unit;
+    if (location.pathname.includes("detail")) {
+      this.router
+        .navigate(["."])
+        .then(() => this.router.navigateByUrl(`units/(exercises:${unit.id})`));
+    } else {
+      this.router.navigate(["/units", { outlets: { exercises: [unit.id] } }]);
+    }
   }
 
   public setDefaultRoute(units: Unit[]) {
-    this.router.navigateByUrl(`units/(exercises:${units[0].id})`); //setzt erste ausgewählte unit
+    this.selectUnit(units[0]);
   }
 }

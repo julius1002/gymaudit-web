@@ -1,21 +1,37 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Exercise } from '../model/exercise';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+import { Exercise } from "../model/exercise";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ExerciseService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient:HttpClient) { }
-
-  public getExercisesOfUnitOfTrainee(traineeId:string, unitId:string): Observable<Exercise[]>{
-    return this.httpClient.get<Exercise[]>(`${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}`); 
+  public getExercisesOfUnitOfTrainee(
+    traineeId: string,
+    unitId: string
+  ): Observable<Exercise[]> {
+    return this.httpClient.get<Exercise[]>(
+      `${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}`
+    );
   }
 
-  public deleteExercise(traineeId:string, unitId:string, exerciseId:string){
-    return this.httpClient.delete<Exercise>(`${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}/exercises/${exerciseId}`);
+  public getExerciseOfUnitOfTrainee(
+    traineeId: string,
+    unitId: string,
+    exerciseId: string
+  ): Observable<Exercise> {
+    return this.httpClient.get<Exercise>(
+      `${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}/exercise?exerciseId=${exerciseId}`
+    );
+  }
+
+  public deleteExercise(traineeId: string, unitId: string, exerciseId: string) {
+    return this.httpClient.delete<Exercise>(
+      `${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}/exercises/${exerciseId}`
+    );
   }
 }

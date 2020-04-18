@@ -1,22 +1,22 @@
 <ng-container *ngIf="exercises">
-  <h3>Übungen</h3>
   <div class="row">
     <div class="col">
+      <a >Übungen</a>
       <ul>
         <li
-          *ngFor="let exercise of exercises"
+          *ngFor="let exercise of exercises;let i = index"
           (click)="selectExercise(exercise)"
           [style.background-color]="
-            exercise === selectedExercise ? '#92a8d1' : ''
-          "
+         exercise === selectedExercise ? '#92a8d1' : ''
+       "
         >
           <span>{{ exercise.name }}</span>
         </li>
-        <button>
-          Hinzufügen
-          <mat-icon>add</mat-icon>
-        </button>
       </ul>
+      <button>
+        Hinzufügen
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
     <router-outlet name="exercise-detail"></router-outlet>
   </div>

@@ -1,21 +1,19 @@
-<h1>Aktueller Trainingsplan</h1>
-
+<h1>Trainingsplan</h1>
 <ng-container *ngIf="units">
   <nav>
-    <a >Einheiten</a>
-    <div >
-      <ul >
+    <a>Einheiten</a>
+    <div>
+      <ul>
         <li *ngFor="let unit of units">
-           <!-- [routerLink]="[{ outlets: { exercises: unit.id } }]" -->
           <span
-          [routerLink]="[{ outlets: { exercises: unit.id } }]"
-          routerLinkActive = "active"
+            (click)="selectUnit(unit)"
+            [style.background-color]="unit === selectedUnit ? '#92a8d1' : ''"
           >
             {{ unit.name }}
           </span>
         </li>
       </ul>
-        <button>Hinzufügen <mat-icon>add</mat-icon></button>
+      <button>Hinzufügen <mat-icon>add</mat-icon></button>
     </div>
   </nav>
 </ng-container>
