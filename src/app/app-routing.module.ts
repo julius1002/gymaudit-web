@@ -25,10 +25,15 @@ const routes: Routes = [
         outlet: "exercises",
         children: [
           {
-            path: ":exerciseId",
+            path: "detail/:exerciseId",
             component: ExerciseDetailComponent,
-            outlet: "exercises-detail",
+            outlet: "exercise-detail"
           },
+          {
+            path: "edit/:exerciseId",
+            component: EditExerciseComponent,
+            outlet: "exercise-detail"
+          }
         ],
       },
     ],

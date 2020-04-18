@@ -59,12 +59,13 @@ export class ExerciseListComponent implements OnInit {
 
   public ifExerciseExistingShowFirst(exercise, unitId: string) {
     if (exercise) {
+      console.log(exercise)
       this.router.navigateByUrl(
-        `units/(exercises:${unitId}/(exercises-detail:${exercise.id}))`,
+        `units/(exercises:${unitId}/(exercise-detail:detail/${exercise.id}))`,
         { state: exercise }
       );
     } else {
-      this.router.navigateByUrl(`units/(exercises:${unitId})`, { state: null });
+      this.router.navigateByUrl(`(exercises:${unitId})`, { state: null });
     }
   }
 

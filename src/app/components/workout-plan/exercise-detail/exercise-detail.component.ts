@@ -35,26 +35,27 @@ export class ExerciseDetailComponent implements OnInit {
     );
   }
 
-  navigateToEdit() {}
+  navigateToEdit() {
 
-  removeExercise() {
-    console.log(this.exercise.id);
-    if (confirm("Buch wirklich löschen?")) {
-      this.unitId$
-        .pipe(
-          switchMap((unitId) =>
-            this.exerciseService.deleteExercise(
-              environment.TRAINEEID,
-              unitId,
-              this.exercise.id
-            )
-          )
+    this.unitId$.subscribe(unitId => this.router.navigateByUrl(
+      
+        `units/(exercises:${unitId}/(exercise-detail:edit/${this.exercise.id}))`,
+      
+      { state: this.exercise }
+    ));
+
+    this.unitId$.pipe(
+      switchMap((unitId) =>
+        this.router.navigate(
+          [
+            "../"
+          ],
+          { state: this.exercise }
         )
-        .subscribe((res) =>
-          this.router.navigate(["..", { outlets: { exercises: res.unitId } }], {
-            relativeTo: this.route.parent,
-          }) //funktioniert noch nicht!!!
-        );
-    }
+      )
+      //`units/(exercises:${unitId}/(exercise-detail:${this.exercise.id}))`,
+    );
   }
+
+  
 }

@@ -6,9 +6,10 @@
     <div >
       <ul >
         <li *ngFor="let unit of units">
+           <!-- [routerLink]="[{ outlets: { exercises: unit.id } }]" -->
           <span
-            [routerLink]="[{ outlets: { exercises: unit.id } }]"
-            routerLinkActive="active"
+          [routerLink]="[{ outlets: { exercises: unit.id } }]"
+          routerLinkActive = "active"
           >
             {{ unit.name }}
           </span>

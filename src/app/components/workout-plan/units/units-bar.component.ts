@@ -28,6 +28,10 @@ export class UnitsBarComponent implements OnInit {
       });
   }
 
+  public navigateToExercises(unit:Unit){
+    this.router.navigateByUrl(`units/(exercises:${unit.id})`);
+  }
+
   public setDefaultRoute(units: Unit[]) {
     this.router.navigateByUrl(`units/(exercises:${units[0].id})`); //setzt erste ausgewählte unit
   }

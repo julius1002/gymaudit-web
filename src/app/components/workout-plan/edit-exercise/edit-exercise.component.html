@@ -1,1 +1,44 @@
-<p>edit-exercise works!</p>
+<ng-container *ngIf="exercise">
+    <div>
+      <div class="container">
+        <h2>{{ exercise.name }} - Bearbeitung</h2>
+        <div class="border-top my-3"></div>
+        <div class="row">
+          <ng-container *ngIf="exercise.pictureUrl">
+            <div class="col">
+              <div class="exercise-image">
+                <img [src]="exercise.pictureUrl" />
+              </div>
+            </div>
+          </ng-container>
+  
+          <div class="col">
+            <h4>Muskelgruppen</h4>
+            <ul class="muscleGroup-list">
+              <li
+                class="muscleGroup-list-item"
+                *ngFor="let muscleGroup of exercise.muscleGroups"
+              >
+                {{ muscleGroupEnum[muscleGroup] }}
+              </li>
+            </ul>
+            <h4>Übungstyp</h4>
+            {{ exerciseTypeEnum[exercise.exerciseType] }}
+          </div>
+  
+          <div class="col">
+            <h4>Beschreibung</h4>
+            {{ exercise.description }}
+            <h4>Zuletzt trainiert</h4>
+            {{ exercise.date | date: "EEEE d. MMMM y HH:mm" }}
+          </div>
+        </div>
+        <!-- app-set-list [exercise]="exercise"> </app-set-list -->
+        <button (click)="removeExercise()">
+          Löschen
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  
