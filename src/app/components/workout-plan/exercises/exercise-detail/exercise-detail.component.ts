@@ -50,7 +50,5 @@ export class ExerciseDetailComponent implements OnInit {
         { state: exercise }
       );
     });
-
-    //`units/(exercises:${unitId}/(exercise-detail:${this.exercise.id}))`,
   }
 }

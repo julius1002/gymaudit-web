@@ -32,14 +32,6 @@ export class ExerciseListComponent implements OnInit {
   }
 
   public getExercisesFromUnit(): void {
-    /* this.unitId$.subscribe(
-      (unitId) =>
-        (this.exercises$ = this.exerciseService.getExercisesOfUnitOfTrainee(
-          environment.TRAINEEID,
-          unitId
-        ))
-    ); */
-
     this.unitId$
       .pipe(
         switchMap((unitId) =>
@@ -66,6 +58,14 @@ export class ExerciseListComponent implements OnInit {
     this.selectedExercise = exercise;
     this.router.navigateByUrl(
       `units/(exercises:${unitId}/(exercise-detail:detail/${exercise.id}))`
+    );
+  }
+
+  public navigateToAddExercise() {
+    this.unitId$.subscribe((unitId) =>
+      this.router.navigateByUrl(
+        `units/(exercises:${unitId}/(exercise-detail:add))`
+      )
     );
   }
 

@@ -24,35 +24,12 @@ export class EditExerciseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.unitId$ = this.route.paramMap.pipe(
-      map((paramMap) => paramMap.get("id"))
+    this.unitId$ = this.route.parent.paramMap.pipe(
+      map((paramMap) => paramMap.get("unitId"))
     );
+
     this.route.paramMap
       .pipe(map(() => window.history.state))
       .subscribe((exercise) => (this.exercise = exercise));
-  }
-
-  removeExercise() {
-    if (confirm("Buch wirklich löschen?")) {
-      this.unitId$
-        .pipe(
-          switchMap((unitId) =>
-            this.exerciseService.deleteExercise(
-              environment.TRAINEEID,
-              unitId,
-              this.exercise.id
-            )
-          )
-        )
-        .subscribe(
-          (res) =>
-            this.router.navigate(
-              ["..", { outlets: { exercises: res.unitId } }],
-              {
-                relativeTo: this.route.parent,
-              }
-            ) //funktioniert noch nicht!!!
-        );
-    }
   }
 }

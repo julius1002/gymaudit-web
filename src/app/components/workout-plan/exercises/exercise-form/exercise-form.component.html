@@ -1,7 +1,7 @@
 <ng-container *ngIf="exercise">
     <div>
       <div class="container">
-        <h2>{{ exercise.name }} - Bearbeitung</h2>
+        <h2>{{ exercise.name }} - Formular</h2>
         <div class="border-top my-3"></div>
         <div class="row">
           <ng-container *ngIf="exercise.pictureUrl">
@@ -34,10 +34,12 @@
           </div>
         </div>
         <!-- app-set-list [exercise]="exercise"> </app-set-list -->
+        <ng-container *ngIf = "editing === true">
         <button (click)="removeExercise()">
           Löschen
           <mat-icon>delete</mat-icon>
         </button>
+    </ng-container>
       </div>
     </div>
   </ng-container>
