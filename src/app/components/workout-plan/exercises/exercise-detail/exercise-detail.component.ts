@@ -35,8 +35,7 @@ export class ExerciseDetailComponent implements OnInit {
     );
     combineLatest(this.exerciseId$, this.unitId$).subscribe(
       ([exerciseId, unitId]) =>
-        (this.exercise$ = this.exerciseService.getExerciseOfUnitOfTrainee(
-          environment.TRAINEEID,
+        (this.exercise$ = this.exerciseService.getSingle(
           unitId,
           exerciseId
         ))

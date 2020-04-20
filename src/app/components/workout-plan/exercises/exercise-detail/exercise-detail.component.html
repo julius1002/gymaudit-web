@@ -1,7 +1,7 @@
 <ng-container *ngIf="exercise$ | async as exercise">
   <div>
     <div class="container">
-      {{ exercise.name }} - Detailansicht
+      Detailansicht - {{ exercise.name }}
       <div class="border-top my-3"></div>
       <div class="row">
         <ng-container *ngIf="exercise.pictureUrl">
@@ -13,6 +13,7 @@
         </ng-container>
 
         <div class="col">
+          <ng-container *ngIf="exercise.muscleGroups">
           Muskelgruppen
           <ul class="muscleGroup-list">
             <li
@@ -22,15 +23,21 @@
               {{ muscleGroupEnum[muscleGroup] }}
             </li>
           </ul>
+        </ng-container>
+        <ng-container *ngIf="exercise.exerciseType">
           Übungstyp
           {{ exerciseTypeEnum[exercise.exerciseType] }}
+        </ng-container>
         </div>
-
         <div class="col">
+          <ng-container *ngIf="exercise.description">
           Beschreibung
           {{ exercise.description }}
+        </ng-container>
+        <ng-container *ngIf="exercise.date">
           Zuletzt trainiert
           {{ exercise.date | date: "EEEE d. MMMM y HH:mm" }}
+        </ng-container>
         </div>
       </div>
       <app-set-list [exercise]="exercise"> </app-set-list>

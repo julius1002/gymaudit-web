@@ -6,13 +6,13 @@ import { UnitsBarComponent } from './components/workout-plan/units/units-bar.com
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ExerciseDetailComponent } from './components/workout-plan/exercise-detail/exercise-detail.component';
-import { ExerciseListComponent } from './components/workout-plan/exercise-list/exercise-list.component';
+import { ExerciseDetailComponent } from './components/workout-plan/exercises/exercise-detail/exercise-detail.component';
+import { ExerciseListComponent } from './components/workout-plan/exercises/exercise-list/exercise-list.component';
 
 import localeDe from "@angular/common/locales/de";
 import { registerLocaleData } from '@angular/common';
-import { SetListComponent } from './components/workout-plan/set-list/set-list.component';
-import { EditExerciseComponent } from './components/workout-plan/edit-exercise/edit-exercise.component';
+import { SetListComponent } from './components/workout-plan/exercises/exercise-detail/set-list/set-list.component';
+import { EditExerciseComponent } from './components/workout-plan/exercises/edit-exercise/edit-exercise.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -21,7 +21,13 @@ import {MatListModule} from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExerciseFormComponent } from './components/workout-plan/exercises/exercise-form/exercise-form.component';
+import { AddExerciseComponent } from './components/workout-plan/exercises/add-exercise/add-exercise.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
+import { ReactiveFormsModule} from '@angular/forms' 
 
 @NgModule({
   declarations: [
@@ -31,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ExerciseDetailComponent,
     ExerciseListComponent,
     SetListComponent,
-    EditExerciseComponent
+    EditExerciseComponent,
+    ExerciseFormComponent,
+    AddExerciseComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatListModule,
     FlexLayoutModule,
     MatSidenavModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]

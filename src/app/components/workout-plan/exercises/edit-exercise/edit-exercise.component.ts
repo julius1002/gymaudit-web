@@ -12,24 +12,18 @@ import { Exercise, ExerciseType, MuscleGroup } from "src/app/model/exercise";
   styleUrls: ["./edit-exercise.component.scss"],
 })
 export class EditExerciseComponent implements OnInit {
-  unitId$: Observable<string>;
-  exercise: Exercise;
-  exerciseTypeEnum = ExerciseType;
-  muscleGroupEnum = MuscleGroup;
-
   constructor(
-    private route: ActivatedRoute,
     private exerciseService: ExerciseService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.unitId$ = this.route.parent.paramMap.pipe(
-      map((paramMap) => paramMap.get("unitId"))
-    );
+  ngOnInit(): void {}
 
-    this.route.paramMap
-      .pipe(map(() => window.history.state))
-      .subscribe((exercise) => (this.exercise = exercise));
+  putExercise(exercise: Exercise) {
+    this.exerciseService.update(exercise).subscribe((exercise) => {
+      this.router.navigateByUrl(
+        `units/(exercises:${exercise.unitId}/(exercise-detail:detail/${exercise.id}))`
+      );
+    });
   }
 }

@@ -35,8 +35,7 @@ export class ExerciseListComponent implements OnInit {
     this.unitId$
       .pipe(
         switchMap((unitId) =>
-          this.exerciseService.getExercisesOfUnitOfTrainee(
-            environment.TRAINEEID,
+          this.exerciseService.getAll(
             unitId
           )
         )

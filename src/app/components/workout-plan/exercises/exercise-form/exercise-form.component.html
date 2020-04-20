@@ -1,46 +1,60 @@
-<ng-container *ngIf="exercise">
-    <div>
-      <div class="container">
-        <h2>{{ exercise.name }} - Formular</h2>
-        <div class="border-top my-3"></div>
-        <div class="row">
-          <ng-container *ngIf="exercise.pictureUrl">
-            <div class="col">
-              <div class="exercise-image">
-                <img [src]="exercise.pictureUrl" />
-              </div>
-            </div>
-          </ng-container>
-  
-          <div class="col">
-            <h4>Muskelgruppen</h4>
-            <ul class="muscleGroup-list">
-              <li
-                class="muscleGroup-list-item"
-                *ngFor="let muscleGroup of exercise.muscleGroups"
-              >
-                {{ muscleGroupEnum[muscleGroup] }}
-              </li>
-            </ul>
-            <h4>Übungstyp</h4>
-            {{ exerciseTypeEnum[exercise.exerciseType] }}
-          </div>
-  
-          <div class="col">
-            <h4>Beschreibung</h4>
-            {{ exercise.description }}
-            <h4>Zuletzt trainiert</h4>
-            {{ exercise.date | date: "EEEE d. MMMM y HH:mm" }}
-          </div>
-        </div>
-        <!-- app-set-list [exercise]="exercise"> </app-set-list -->
-        <ng-container *ngIf = "editing === true">
-        <button (click)="removeExercise()">
-          Löschen
-          <mat-icon>delete</mat-icon>
-        </button>
+<form [formGroup]="exerciseForm" (ngSubmit)="submitForm()">
+  <div class="container">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="outline">
+      <mat-label>Beschreibung</mat-label>
+      <textarea  matInput formControlName="description" ></textarea>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bild Url</mat-label>
+      <input matInput formControlName="pictureUrl" />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="outline">
+      <mat-label>Übungstyp</mat-label>
+      <mat-select formControlName="exerciseType">
+        <mat-option *ngFor="let key of keys(exerciseTypeEnum)" [value]="key">{{
+          exerciseTypeEnum[key]
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field
+      appearance="outline"
+      *ngFor="let control of muscleGroups.controls; index as i"
+    >
+      <mat-label>Muskelgruppe</mat-label>
+      <mat-select [formControl]="muscleGroups.controls[i]">
+        <mat-option (click)="removeMuscleGroup(i)"
+          >Entfernen <mat-icon>delete</mat-icon></mat-option
+        >
+        <mat-option *ngFor="let key of keys(muscleGroupEnum)" [value]="key">{{
+          muscleGroupEnum[key]
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+
+    <button type="button" (click)="addMuscleGroup()">+ Muskelgruppe</button>
+    <br />
+    <button type="submit" [disabled]="exerciseForm.invalid">
+      Speichern
+      <mat-icon>save</mat-icon>
+    </button>
+    <ng-container *ngIf="editing === true">
+      <button type="button" (click)="removeExercise()">
+        Löschen
+        <mat-icon>delete</mat-icon>
+      </button>
     </ng-container>
-      </div>
-    </div>
-  </ng-container>
-  
+  </div>
+</form>

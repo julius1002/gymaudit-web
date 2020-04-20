@@ -13,7 +13,8 @@ export interface Exercise{
 
 export enum ExerciseType{
     STRENGTH = "Kraft",
-    CARDIO = "Ausdauer"
+    CARDIO = "Ausdauer",
+    STRENGTH_ENDURANCE = "Kraftausdauer"
 }
 
 export enum MuscleGroup{

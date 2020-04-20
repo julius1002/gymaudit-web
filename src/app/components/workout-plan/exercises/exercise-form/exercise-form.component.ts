@@ -1,10 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Exercise, ExerciseType, MuscleGroup } from "src/app/model/exercise";
 import { Observable } from "rxjs";
+
 import { ActivatedRoute, Router } from "@angular/router";
 import { map, switchMap } from "rxjs/operators";
 import { ExerciseService } from "src/app/services/exercise.service";
-import { environment } from 'src/environments/environment';
+import { environment } from "src/environments/environment";
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormArray,
+  FormControl,
+} from "@angular/forms";
 
 @Component({
   selector: "app-exercise-form",
@@ -13,25 +21,75 @@ import { environment } from 'src/environments/environment';
 })
 export class ExerciseFormComponent implements OnInit {
   @Input() editing = false;
-  @Input() exercise: Exercise;
+  @Output() submitExercise = new EventEmitter<Exercise>();
+  exercise: Exercise;
+  exerciseForm: FormGroup;
+
   unitId$: Observable<string>;
   exerciseTypeEnum = ExerciseType;
   muscleGroupEnum = MuscleGroup;
-  @Output() submitBook = new EventEmitter<Exercise>();
+
+  keys = Object.keys;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.unitId$ = this.route.parent.paramMap.pipe(
-      map((paramMap) => paramMap.get("unitId"))
+    this.initForm();
+
+    if (this.editing) {
+      this.unitId$ = this.route.parent.paramMap.pipe(
+        map((paramMap) => paramMap.get("unitId"))
+      );
+      this.route.paramMap
+        .pipe(map(() => window.history.state))
+        .subscribe((exercise) => {
+          this.setFormValues(exercise), (this.exercise = exercise);
+        });
+    }
+  }
+
+  private setFormValues(exercise: Exercise) {
+    this.exerciseForm.patchValue(exercise);
+
+    this.exerciseForm.setControl(
+      "muscleGroups",
+      this.buildMuscleGroupsArray(exercise.muscleGroups)
     );
-    this.route.paramMap
-      .pipe(map(() => window.history.state))
-      .subscribe((exercise) => (this.exercise = exercise));
+  }
+
+  private initForm() {
+    if (this.exerciseForm) {
+      return;
+    }
+
+    this.exerciseForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      description: [""],
+      pictureUrl: [""],
+      exerciseType: [""],
+      muscleGroups: this.buildMuscleGroupsArray([""]),
+    });
+  }
+
+  private buildMuscleGroupsArray(values: string[]): FormArray {
+    return this.formBuilder.array(values);
+  }
+
+  get muscleGroups(): FormArray {
+    return this.exerciseForm.get("muscleGroups") as FormArray;
+  }
+
+  addMuscleGroup() {
+    this.muscleGroups.push(new FormControl(""));
+  }
+
+  removeMuscleGroup(index: number) {
+    this.muscleGroups.removeAt(index);
   }
 
   removeExercise() {
@@ -39,19 +97,60 @@ export class ExerciseFormComponent implements OnInit {
       this.unitId$
         .pipe(
           switchMap((unitId) =>
-            this.exerciseService.deleteExercise(
-              environment.TRAINEEID,
-              unitId,
-              this.exercise.id
-            )
+            this.exerciseService.delete(unitId, this.exercise.id)
           )
         )
         .subscribe(
-          (res) =>
+          () =>
             this.router.navigate(["../"], {
               relativeTo: this.route.parent,
             }) //funktioniert noch nicht!!!
         );
     }
+  }
+
+  submitForm() {
+    const formValue = this.exerciseForm.value;
+
+    var exerciseType;
+    var muscleGroups;
+    var unitId;
+    var exerciseId;
+    var sets;
+    var date;
+
+    if (formValue.exerciseType === "") {
+      exerciseType = null;
+    } else {
+      exerciseType = formValue.exerciseType;
+    }
+
+    if (formValue.muscleGroups[0] === "") {
+      muscleGroups = [];
+    } else {
+      muscleGroups = formValue.muscleGroups;
+    }
+
+    if (this.editing) {
+      this.unitId$.subscribe((unitIdd) => (unitId = unitIdd));
+      exerciseId = this.exercise.id;
+      sets = this.exercise.sets;
+      date = this.exercise.date;
+    }
+
+    const newExercise: Exercise = {
+      id: exerciseId,
+      unitId: unitId,
+      date: date,
+      sets: sets,
+      name: formValue.name,
+      exerciseType: exerciseType,
+      description: formValue.description,
+      muscleGroups: muscleGroups,
+      pictureUrl: formValue.pictureUrl,
+    };
+
+    this.submitExercise.emit(newExercise);
+    this.exerciseForm.reset;
   }
 }

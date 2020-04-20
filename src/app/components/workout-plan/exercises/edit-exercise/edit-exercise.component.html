@@ -1,1 +1,4 @@
-<app-exercise-form [exercise] = "exercise" [editing] = "true"></app-exercise-form> 
+<app-exercise-form
+  (submitExercise)="putExercise($event)"
+  [editing]="true"
+></app-exercise-form>

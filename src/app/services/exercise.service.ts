@@ -10,28 +10,37 @@ import { Exercise } from "../model/exercise";
 export class ExerciseService {
   constructor(private httpClient: HttpClient) {}
 
-  public getExercisesOfUnitOfTrainee(
-    traineeId: string,
-    unitId: string
-  ): Observable<Exercise[]> {
+  public getAll(unitId: string): Observable<Exercise[]> {
     return this.httpClient.get<Exercise[]>(
-      `${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}`
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`
     );
   }
 
-  public getExerciseOfUnitOfTrainee(
-    traineeId: string,
-    unitId: string,
-    exerciseId: string
-  ): Observable<Exercise> {
+  public getSingle(unitId: string, exerciseId: string): Observable<Exercise> {
     return this.httpClient.get<Exercise>(
-      `${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}/exercise?exerciseId=${exerciseId}`
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/exercise?exerciseId=${exerciseId}`
     );
   }
 
-  public deleteExercise(traineeId: string, unitId: string, exerciseId: string) {
+  public postSingle(unitId: string, exercise: Exercise): Observable<Exercise> {
+    return this.httpClient.post<Exercise>(
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`,
+      exercise
+    );
+  }
+
+  public update(
+    exercise: Exercise
+  ): Observable<Exercise> {
+    return this.httpClient.put<Exercise>(
+      `${environment.BACKEND_URL}trainees/exercise`,
+      exercise
+    );
+  }
+
+  public delete(unitId: string, exerciseId: string) {
     return this.httpClient.delete<Exercise>(
-      `${environment.BACKEND_URL}trainees/${traineeId}/units/${unitId}/exercises/${exerciseId}`
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/exercises/${exerciseId}`
     );
   }
 }

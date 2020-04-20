@@ -1,9 +1,10 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ExerciseListComponent } from "./components/workout-plan/exercise-list/exercise-list.component";
+import { ExerciseListComponent } from "./components/workout-plan/exercises/exercise-list/exercise-list.component";
 import { UnitsBarComponent } from "./components/workout-plan/units/units-bar.component";
-import { EditExerciseComponent } from "./components/workout-plan/edit-exercise/edit-exercise.component";
-import { ExerciseDetailComponent } from "./components/workout-plan/exercise-detail/exercise-detail.component";
+import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
+import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
+import { AddExerciseComponent } from './components/workout-plan/exercises/add-exercise/add-exercise.component';
 
 const routes: Routes = [
   {
@@ -27,12 +28,17 @@ const routes: Routes = [
           {
             path: "detail/:exerciseId",
             component: ExerciseDetailComponent,
-            outlet: "exercise-detail"
+            outlet: "exercise-detail",
           },
           {
             path: "edit/:exerciseId",
             component: EditExerciseComponent,
-            outlet: "exercise-detail"
+            outlet: "exercise-detail",
+          },
+          {
+            path: "add",
+            component: AddExerciseComponent,
+            outlet: "exercise-detail",
           }
         ],
       },
