@@ -11,11 +11,18 @@
           >
             {{ unit.name }}
           </span>
+          <ng-container *ngIf="unit === selectedUnit">
+            <br />
+            <span>{{ unit.description }}</span>
+          </ng-container>
         </li>
       </ul>
-      <button>Hinzufügen <mat-icon>add</mat-icon></button>
+
+      <button (click)="addUnit()">Hinzufügen <mat-icon>add</mat-icon></button>
+      <button (click)="editUnit()">Bearbeiten <mat-icon>edit</mat-icon></button>
     </div>
   </nav>
 </ng-container>
 
 <router-outlet name="exercises"></router-outlet>
+<router-outlet name="add"></router-outlet>

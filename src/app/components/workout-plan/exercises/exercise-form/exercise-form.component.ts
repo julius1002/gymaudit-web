@@ -13,6 +13,7 @@ import {
   FormArray,
   FormControl,
 } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-exercise-form",
@@ -35,7 +36,8 @@ export class ExerciseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private exerciseService: ExerciseService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +95,7 @@ export class ExerciseFormComponent implements OnInit {
   }
 
   removeExercise() {
-    if (confirm("Buch wirklich löschen?")) {
+    if (confirm("Übung wirklich löschen?")) {
       this.unitId$
         .pipe(
           switchMap((unitId) =>
@@ -101,10 +103,8 @@ export class ExerciseFormComponent implements OnInit {
           )
         )
         .subscribe(
-          () =>
-            this.router.navigate(["../"], {
-              relativeTo: this.route.parent,
-            }) //funktioniert noch nicht!!!
+          (exercise) =>
+            this.router.navigateByUrl(`units/(exercises:${exercise.unitId})`) //funktioniert noch nicht!!!
         );
     }
   }
@@ -131,6 +131,8 @@ export class ExerciseFormComponent implements OnInit {
       muscleGroups = formValue.muscleGroups;
     }
 
+    muscleGroups = muscleGroups.filter((muscleGroup) => muscleGroup !== "");
+
     if (this.editing) {
       this.unitId$.subscribe((unitIdd) => (unitId = unitIdd));
       exerciseId = this.exercise.id;
@@ -152,5 +154,23 @@ export class ExerciseFormComponent implements OnInit {
 
     this.submitExercise.emit(newExercise);
     this.exerciseForm.reset;
+
+    if (this.editing) {
+      this.snackBar.open(
+        `${newExercise.name} erfolgreich bearbeitet!`,
+        "schließen",
+        {
+          duration: 2500,
+        }
+      );
+    } else {
+      this.snackBar.open(
+        `${newExercise.name} erfolgreich hinzugefügt!`,
+        "schließen",
+        {
+          duration: 2500,
+        }
+      );
+    }
   }
 }

@@ -2,7 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UnitsBarComponent } from './components/workout-plan/units/units-bar.component';
+import { UnitsBarComponent } from './components/workout-plan/units/units-list/units-bar.component';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -26,8 +26,12 @@ import { AddExerciseComponent } from './components/workout-plan/exercises/add-ex
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import { ReactiveFormsModule} from '@angular/forms' 
+import { ReactiveFormsModule} from '@angular/forms';
+import { UnitFormComponent } from './components/workout-plan/units/unit-form/unit-form.component';
+import { AddUnitComponent } from './components/workout-plan/units/add-unit/add-unit.component';
+import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edit-unit.component' 
 
 @NgModule({
   declarations: [
@@ -39,7 +43,10 @@ import { ReactiveFormsModule} from '@angular/forms'
     SetListComponent,
     EditExerciseComponent,
     ExerciseFormComponent,
-    AddExerciseComponent
+    AddExerciseComponent,
+    UnitFormComponent,
+    AddUnitComponent,
+    EditUnitComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,8 @@ import { ReactiveFormsModule} from '@angular/forms'
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]

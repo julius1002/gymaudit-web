@@ -1,0 +1,5 @@
+- exercises list does not update when removing/ adding/ updating an exercise
+
+- unit list does not update when removing/ adding/ updating an unit
+
+possible solution: maybe use service, who checks if something was changed

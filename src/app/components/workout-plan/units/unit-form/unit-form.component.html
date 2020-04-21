@@ -1,0 +1,25 @@
+<form [formGroup]="unitForm" (ngSubmit)="submitForm()">
+  <div class="container">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="outline">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <br />
+    <button type="submit" [disabled]="unitForm.invalid">
+      Speichern
+      <mat-icon>save</mat-icon>
+    </button>
+    <ng-container *ngIf="editing === true">
+      <button type="button" (click)="removeUnit()">
+        Löschen
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+</form>

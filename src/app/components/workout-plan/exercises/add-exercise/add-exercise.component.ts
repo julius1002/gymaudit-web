@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { Exercise } from "src/app/model/exercise";
 import { Observable } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
+import { map, switchMap, take } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -27,6 +27,7 @@ export class AddExerciseComponent implements OnInit {
   postExercise(exercise: Exercise) {
     this.unitId$
       .pipe(
+        take(1),
         switchMap((unitId) => this.exerciseService.postSingle(unitId, exercise))
       )
       .subscribe((exercise) => {this.router.navigateByUrl(`units/(exercises:${exercise.unitId}/(exercise-detail:detail/${exercise.id}))`)});

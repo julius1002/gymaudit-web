@@ -24,7 +24,7 @@ export class UnitsBarComponent implements OnInit {
 
   public getUnitsFromTrainee() {
     this.unitService
-      .getUnitsOfTrainee(environment.TRAINEEID)
+      .getSingle(environment.TRAINEEID)
       .subscribe((units) => {
         this.units = units;
         this.setDefaultRoute(units);
@@ -33,7 +33,7 @@ export class UnitsBarComponent implements OnInit {
 
   public selectUnit(unit: Unit) {
     this.selectedUnit = unit;
-    if (location.pathname.includes("detail")) {
+    if (location.pathname.includes("detail")||location.pathname.includes("add")) {
       this.router
         .navigate(["."])
         .then(() => this.router.navigateByUrl(`units/(exercises:${unit.id})`));
@@ -44,5 +44,21 @@ export class UnitsBarComponent implements OnInit {
 
   public setDefaultRoute(units: Unit[]) {
     this.selectUnit(units[0]);
+    }
+
+  public addUnit(){
+    this.router
+    .navigate(["."])
+    .then(() =>
+    this.router.navigate(["/units", { outlets: { add: ["add"] } }]))
+  }
+
+  public editUnit(){
+    this.router
+    .navigate(["."])
+    .then(() =>
+    this.router.navigate(["/units", { outlets: { add: ["edit"] } }], { state: this.selectedUnit }))
+
+
   }
 }

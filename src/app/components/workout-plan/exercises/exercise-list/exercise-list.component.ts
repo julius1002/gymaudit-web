@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
+import { map, switchMap, take } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, ParamMap } from "@angular/router";
 
 @Component({
   selector: "app-exercise-list",
@@ -14,7 +14,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ExerciseListComponent implements OnInit {
   exercises: Exercise[];
   unitId$: Observable<string>;
-
   selectedExercise: Exercise;
 
   constructor(
@@ -24,29 +23,25 @@ export class ExerciseListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.unitId$ = this.route.paramMap.pipe(
       map((paramMap) => paramMap.get("unitId"))
     );
-
+    
     this.getExercisesFromUnit();
   }
 
   public getExercisesFromUnit(): void {
     this.unitId$
-      .pipe(
-        switchMap((unitId) =>
-          this.exerciseService.getAll(
-            unitId
-          )
-        )
-      )
+      .pipe(switchMap((unitId) => this.exerciseService.getAll(unitId)))
       .subscribe((exercises) => {
         (this.exercises = exercises), this.setDefaultRoute(exercises);
-      });
+      }); 
   }
 
   public selectExercise(exercise: Exercise) {
-    this.unitId$.subscribe(
+    
+    this.unitId$.pipe(take(1)).subscribe(
       (unitId) => {
         this.navigateToExercise(exercise, unitId);
       } //this.ifExerciseExistingShow(exercise, unitId)
@@ -61,11 +56,13 @@ export class ExerciseListComponent implements OnInit {
   }
 
   public navigateToAddExercise() {
-    this.unitId$.subscribe((unitId) =>
-      this.router.navigateByUrl(
-        `units/(exercises:${unitId}/(exercise-detail:add))`
-      )
-    );
+    this.unitId$
+      .pipe(take(1))
+      .subscribe((unitId) =>
+        this.router.navigateByUrl(
+          `units/(exercises:${unitId}/(exercise-detail:add))`
+        )
+      );
   }
 
   public setDefaultRoute(exercises: Exercise[]) {
