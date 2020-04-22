@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UnitService } from 'src/app/services/unit.service';
 import { Router } from '@angular/router';
 import { Unit } from 'src/app/model/unit';
+import { UnitListService } from 'src/app/services/unit-list.service';
 
 @Component({
   selector: 'app-edit-unit',
@@ -12,6 +13,7 @@ export class EditUnitComponent implements OnInit {
 
   constructor(
     private unitService: UnitService,
+    private unitListService: UnitListService,
     private router: Router
   )  { }
 
@@ -22,7 +24,7 @@ export class EditUnitComponent implements OnInit {
     this.unitService.update(unit).subscribe((unit) => {
       this.router.navigateByUrl(
         `units/(exercises:${unit.id})`
-      );
-    });
-  }
+      )
+    , this.unitListService.updateListEvent()
+  })}
 }

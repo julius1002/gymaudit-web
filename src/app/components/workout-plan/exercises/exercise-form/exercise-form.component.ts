@@ -14,6 +14,7 @@ import {
   FormControl,
 } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ExercisesListService } from 'src/app/services/exercises-list.service';
 
 @Component({
   selector: "app-exercise-form",
@@ -37,7 +38,8 @@ export class ExerciseFormComponent implements OnInit {
     private router: Router,
     private exerciseService: ExerciseService,
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private exerciseListService: ExercisesListService
   ) {}
 
   ngOnInit(): void {
@@ -95,6 +97,7 @@ export class ExerciseFormComponent implements OnInit {
   }
 
   removeExercise() {
+    this.exerciseForm.reset;
     if (confirm("Übung wirklich löschen?")) {
       this.unitId$
         .pipe(
@@ -103,9 +106,9 @@ export class ExerciseFormComponent implements OnInit {
           )
         )
         .subscribe(
-          (exercise) =>
-            this.router.navigateByUrl(`units/(exercises:${exercise.unitId})`) //funktioniert noch nicht!!!
-        );
+          (exercise) => {this.exerciseListService.updateListEvent(),
+            this.router.navigate(["../"]) //funktioniert noch nicht!!!
+          });
     }
   }
 

@@ -5,6 +5,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { UnitService } from "src/app/services/unit.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { map } from "rxjs/operators";
+import { UnitListService } from 'src/app/services/unit-list.service';
 
 @Component({
   selector: "app-unit-form",
@@ -21,7 +22,8 @@ export class UnitFormComponent implements OnInit {
     private router: Router,
     private unitService: UnitService,
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private unitListService: UnitListService
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class UnitFormComponent implements OnInit {
 
   removeUnit() {
     if (confirm("Einheit wirklich löschen?")) {
-      this.unitService.delete(this.unit.id).subscribe((unit)=>{ this.router.navigate([".."])});
+      this.unitService.delete(this.unit.id).subscribe((unit)=>{ this.router.navigate([".."]), this.unitListService.updateListEvent()});
     }
   }
 

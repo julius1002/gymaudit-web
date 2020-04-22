@@ -1,4 +1,4 @@
-<ng-container *ngIf="exercises">
+<ng-container *ngIf="exercises$ | async as exercises">
   <div class="row">
     <div class="col">
       <a>Übungen</a>
@@ -7,7 +7,7 @@
           *ngFor="let exercise of exercises; let i = index"
           (click)="selectExercise(exercise)"
           [style.background-color]="
-            exercise === selectedExercise ? '#92a8d1' : ''
+            isSelectedExercise(exercise) ? '#92a8d1' : ''
           "
         >
           <span>{{ exercise.name }}</span>

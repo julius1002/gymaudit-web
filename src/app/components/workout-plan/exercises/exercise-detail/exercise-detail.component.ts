@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ExerciseType, MuscleGroup, Exercise } from "src/app/model/exercise";
-import { map } from "rxjs/operators";
+import { map, withLatestFrom, share, take, shareReplay } from "rxjs/operators";
 import { Observable, zip, combineLatest } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExerciseService } from "src/app/services/exercise.service";
@@ -30,22 +30,25 @@ export class ExerciseDetailComponent implements OnInit {
     this.unitId$ = this.route.parent.paramMap.pipe(
       map((paramMap) => paramMap.get("unitId"))
     );
+
     this.exerciseId$ = this.route.paramMap.pipe(
       map((paramMap) => paramMap.get("exerciseId"))
     );
-    combineLatest(this.exerciseId$, this.unitId$).subscribe(
-      ([exerciseId, unitId]) =>
-        (this.exercise$ = this.exerciseService.getSingle(
-          unitId,
-          exerciseId
-        ))
-    );
+
+    this.exerciseId$
+      .pipe(withLatestFrom(this.unitId$))
+      .subscribe(
+        ([exerciseId, unitId]) =>
+          (this.exercise$ = this.exerciseService
+            .getSingle(unitId, exerciseId)
+            .pipe(shareReplay(), take(1)))
+      );
   }
 
   navigateToEdit() {
-    zip(this.exercise$, this.unitId$).subscribe(([exercise, unitId]) => {
+    this.exercise$.subscribe((exercise) => {
       this.router.navigateByUrl(
-        `units/(exercises:${unitId}/(exercise-detail:edit/${exercise.id}))`,
+        `units/(exercises:${exercise.unitId}/(exercise-detail:edit/${exercise.id}))`,
         { state: exercise }
       );
     });

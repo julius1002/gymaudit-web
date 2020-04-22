@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { map, switchMap, take } from "rxjs/operators";
+import { map, switchMap, take, share, shareReplay } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { environment } from "src/environments/environment";
 import { ActivatedRoute, Router, ParamMap } from "@angular/router";
+import { ExercisesListService } from "src/app/services/exercises-list.service";
 
 @Component({
   selector: "app-exercise-list",
@@ -12,44 +13,51 @@ import { ActivatedRoute, Router, ParamMap } from "@angular/router";
   styleUrls: ["./exercise-list.component.scss"],
 })
 export class ExerciseListComponent implements OnInit {
-  exercises: Exercise[];
+  exercises$: Observable<Exercise[]>;
   unitId$: Observable<string>;
   selectedExercise: Exercise;
 
   constructor(
     private exerciseService: ExerciseService,
+    private exerciseListService: ExercisesListService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-
     this.unitId$ = this.route.paramMap.pipe(
       map((paramMap) => paramMap.get("unitId"))
     );
-    
+
     this.getExercisesFromUnit();
-  }
-
-  public getExercisesFromUnit(): void {
-    this.unitId$
-      .pipe(switchMap((unitId) => this.exerciseService.getAll(unitId)))
-      .subscribe((exercises) => {
-        (this.exercises = exercises), this.setDefaultRoute(exercises);
-      }); 
-  }
-
-  public selectExercise(exercise: Exercise) {
-    
-    this.unitId$.pipe(take(1)).subscribe(
-      (unitId) => {
-        this.navigateToExercise(exercise, unitId);
-      } //this.ifExerciseExistingShow(exercise, unitId)
+    this.exerciseListService.exerciseList.subscribe(() =>
+      this.updateExercises()
     );
   }
 
+  public getExercisesFromUnit(): void {
+    this.exercises$ = this.unitId$.pipe(
+      switchMap((unitId) => this.exerciseService.getAll(unitId)),
+      take(1),
+      share()
+    );
+
+    this.exercises$.subscribe((exercises) => this.setDefaultRoute(exercises));
+  }
+
+  public updateExercises() {
+    this.exercises$ = this.unitId$.pipe(
+      switchMap((unitId) => this.exerciseService.getAll(unitId))
+    );
+  }
+
+  public selectExercise(exercise: Exercise) {
+    this.unitId$.pipe(take(1)).subscribe((unitId) => {
+      this.navigateToExercise(exercise, unitId);
+    });
+  }
+
   public navigateToExercise(exercise, unitId: string) {
-    this.selectedExercise = exercise;
     this.router.navigateByUrl(
       `units/(exercises:${unitId}/(exercise-detail:detail/${exercise.id}))`
     );
@@ -69,5 +77,13 @@ export class ExerciseListComponent implements OnInit {
     if (exercises.length) {
       this.selectExercise(exercises[0]);
     }
+  }
+
+  isSelectedExercise(exercise): boolean {
+    let exerciseId;
+    if(this.route.snapshot){
+      exerciseId = this.route.snapshot.firstChild.paramMap.get("exerciseId");
+    }
+    return exercise.id === exerciseId;
   }
 }

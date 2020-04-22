@@ -10,7 +10,7 @@ export class ExercisesListService {
 
   constructor() {}
 
-  updateListEvent(exercise:Exercise) {
-    this.exerciseList.emit(exercise);
+  updateListEvent() {
+    this.exerciseList.emit();
   }
 }

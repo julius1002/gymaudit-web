@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { UnitService } from "src/app/services/unit.service";
 import { Unit } from "src/app/model/unit";
 import { environment } from "src/environments/environment";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Observable } from "rxjs";
+import { take, share } from "rxjs/operators";
+import { UnitListService } from "src/app/services/unit-list.service";
 
 @Component({
   selector: "app-units-bar",
@@ -10,30 +13,40 @@ import { Router } from "@angular/router";
   styleUrls: ["./units-bar.component.scss"],
 })
 export class UnitsBarComponent implements OnInit {
-  units: Unit[];
+  units$: Observable<Unit[]>;
   selectedUnit: Unit;
 
   constructor(
     private unitService: UnitService,
-    private router: Router
+    private router: Router,
+    private unitListService: UnitListService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getUnitsFromTrainee();
+
+    this.unitListService.unitList.subscribe(() => this.updateUnitList());
+  }
+
+  public updateUnitList() {
+    this.units$ = this.unitService.getAll(environment.TRAINEEID);
   }
 
   public getUnitsFromTrainee() {
-    this.unitService
-      .getSingle(environment.TRAINEEID)
-      .subscribe((units) => {
-        this.units = units;
-        this.setDefaultRoute(units);
-      });
+    this.units$ = this.unitService.getAll(environment.TRAINEEID).pipe(share());
+
+    this.units$.subscribe((units) => {
+      this.setDefaultRoute(units);
+    });
   }
 
   public selectUnit(unit: Unit) {
     this.selectedUnit = unit;
-    if (location.pathname.includes("detail")||location.pathname.includes("add")) {
+    if (
+      location.pathname.includes("detail") ||
+      location.pathname.includes("add")
+    ) {
       this.router
         .navigate(["."])
         .then(() => this.router.navigateByUrl(`units/(exercises:${unit.id})`));
@@ -44,21 +57,29 @@ export class UnitsBarComponent implements OnInit {
 
   public setDefaultRoute(units: Unit[]) {
     this.selectUnit(units[0]);
-    }
-
-  public addUnit(){
-    this.router
-    .navigate(["."])
-    .then(() =>
-    this.router.navigate(["/units", { outlets: { add: ["add"] } }]))
   }
 
-  public editUnit(){
+  public addUnit() {
     this.router
-    .navigate(["."])
-    .then(() =>
-    this.router.navigate(["/units", { outlets: { add: ["edit"] } }], { state: this.selectedUnit }))
+      .navigate(["."])
+      .then(() =>
+        this.router.navigate(["/units", { outlets: { add: ["add"] } }])
+      );
+  }
 
+  public editUnit() {
+    this.router.navigate(["."]).then(() => {
+      this.router.navigate(["/units", { outlets: { add: ["edit"] } }], {
+        state: this.selectedUnit,
+      });
+    });
+  }
 
+  isSelectedUnit(unit): boolean {
+    let unitId;
+    if (this.route.firstChild) {
+      unitId = this.route.snapshot.firstChild.paramMap.get("unitId");
+    }
+    return unit.id === unitId;
   }
 }

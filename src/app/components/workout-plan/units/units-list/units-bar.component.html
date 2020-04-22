@@ -1,5 +1,5 @@
 <h1>Trainingsplan</h1>
-<ng-container *ngIf="units">
+<ng-container *ngIf="units$ | async as units">
   <nav>
     <a>Einheiten</a>
     <div>
@@ -7,7 +7,7 @@
         <li *ngFor="let unit of units">
           <span
             (click)="selectUnit(unit)"
-            [style.background-color]="unit === selectedUnit ? '#92a8d1' : ''"
+            [style.background-color]="isSelectedUnit(unit) ? '#92a8d1' : ''"
           >
             {{ unit.name }}
           </span>

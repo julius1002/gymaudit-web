@@ -1,5 +1,6 @@
-- exercises list does not update when removing/ adding/ updating an exercise
+- refactor network calls from updating the exercise/ unit list when removing/updating or posting a new exercise/unit
 
-- unit list does not update when removing/ adding/ updating an unit
+- right exercises/units are not selected, maybe pass them in the service as event
 
-possible solution: maybe use service, who checks if something was changed
+
+- refactoring: introduce RawExercise, RawUnit for post/put requests, to get better code in both exercise and unit form
