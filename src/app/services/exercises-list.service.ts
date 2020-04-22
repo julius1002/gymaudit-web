@@ -1,21 +1,16 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter, Output } from "@angular/core";
 import { Exercise } from "../model/exercise";
-import { Subject, Subscription } from "rxjs";
+import { Subject, Subscription, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ExercisesListService {
-  exercises$: Subject<Exercise[]> = new Subject();
+  @Output() exerciseList: EventEmitter<Exercise> = new EventEmitter();
 
   constructor() {}
 
-  public subscribe(next?: () => void): Subscription {
-    return this.exercises$.subscribe(() => {
-      next();
-    });
-  }
-
-  public pushExercise(exercise:Exercise){
+  updateListEvent(exercise:Exercise) {
+    this.exerciseList.emit(exercise);
   }
 }
