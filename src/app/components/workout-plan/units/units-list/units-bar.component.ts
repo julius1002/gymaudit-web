@@ -43,16 +43,9 @@ export class UnitsBarComponent implements OnInit {
 
   public selectUnit(unit: Unit) {
     this.selectedUnit = unit;
-    if (
-      location.pathname.includes("detail") ||
-      location.pathname.includes("add")
-    ) {
-      this.router
-        .navigate(["."])
-        .then(() => this.router.navigateByUrl(`units/(exercises:${unit.id})`));
-    } else {
-      this.router.navigate(["/units", { outlets: { exercises: [unit.id] } }]);
-    }
+    this.router
+      .navigate(["."])
+      .then(() => this.router.navigateByUrl(`units/(exercises:${unit.id})`));
   }
 
   public setDefaultRoute(units: Unit[]) {

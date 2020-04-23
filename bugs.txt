@@ -1,6 +1,3 @@
 - refactor network calls from updating the exercise/ unit list when removing/updating or posting a new exercise/unit
 
-- right exercises/units are not selected, maybe pass them in the service as event
-
-
 - refactoring: introduce RawExercise, RawUnit for post/put requests, to get better code in both exercise and unit form
