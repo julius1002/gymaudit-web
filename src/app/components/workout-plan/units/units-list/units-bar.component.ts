@@ -27,10 +27,18 @@ export class UnitsBarComponent implements OnInit {
     this.getUnitsFromTrainee();
 
     this.unitListService.unitList.subscribe(() => this.updateUnitList());
+    this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
+
   }
 
   public updateUnitList() {
     this.units$ = this.unitService.getAll(environment.TRAINEEID);
+  }
+
+  public removeUnit(){
+    console.log("lul")
+    this.units$ = this.unitService.getAll(environment.TRAINEEID).pipe(share());
+    this.units$.subscribe(units => this.setDefaultRoute(units));
   }
 
   public getUnitsFromTrainee() {
@@ -49,7 +57,9 @@ export class UnitsBarComponent implements OnInit {
   }
 
   public setDefaultRoute(units: Unit[]) {
+    if(units.length){
     this.selectUnit(units[0]);
+  }
   }
 
   public addUnit() {

@@ -13,3 +13,6 @@ Refactoring:
 
 Bugs:
 
+- nach update ist der name im bearbeiten feld noch der alte (2x bearbeiten)
+
+- siehe link bei bearbeiten/ hinzufügen unit (add:edit), id angeben!

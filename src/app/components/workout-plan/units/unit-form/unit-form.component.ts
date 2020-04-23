@@ -56,7 +56,7 @@ export class UnitFormComponent implements OnInit {
   removeUnit() {
     if (confirm("Einheit wirklich löschen?")) {
       this.unitService.delete(this.unit.id).subscribe((unit) => {
-        this.router.navigate([".."]), this.unitListService.updateListEvent(),
+        this.router.navigate([".."]), this.unitListService.unitRemovedEvent(),
         this.snackBar.open(
           `${unit.name} erfolgreich gelöscht!`,
           "schließen",
@@ -73,10 +73,11 @@ export class UnitFormComponent implements OnInit {
 
     var id;
     var date;
-
+    var traineeId;
     if (this.editing) {
       id = this.unit.id;
       date = this.unit.date;
+      traineeId = this.unit.traineeId;
     }
 
     const newUnit: Unit = {
@@ -84,6 +85,7 @@ export class UnitFormComponent implements OnInit {
       date: date,
       name: formValue.name,
       description: formValue.description,
+      traineeId: traineeId
     };
 
     this.submitUnit.emit(newUnit);
