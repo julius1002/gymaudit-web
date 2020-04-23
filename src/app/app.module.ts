@@ -32,6 +32,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { UnitFormComponent } from './components/workout-plan/units/unit-form/unit-form.component';
 import { AddUnitComponent } from './components/workout-plan/units/add-unit/add-unit.component';
 import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edit-unit.component' 
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edi
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]

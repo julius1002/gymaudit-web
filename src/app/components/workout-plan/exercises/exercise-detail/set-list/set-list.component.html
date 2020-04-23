@@ -1,9 +1,13 @@
-<h1>Sätze</h1>
-<ng-container *ngIf = "exercise.sets">
-<ul class ="list-group">
-    <li class = "list-group-item" *ngFor="let set of exercise.sets">
-        {{set.date | date: "EEEE d. MMMM y HH:mm"}}
-
-    </li>
-</ul>
+<ng-container *ngIf="exercise.sets">
+  <span>Sätze</span>
+  <mat-expansion-panel *ngFor="let set of exercise.sets">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ set.date | date: "EEEE d. MMMM y HH:mm" }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-label>Gewicht: {{ set.weight }}</mat-label>
+    <br />
+    <mat-label>Wiederholungen: {{ set.reps }}</mat-label>
+  </mat-expansion-panel>
 </ng-container>

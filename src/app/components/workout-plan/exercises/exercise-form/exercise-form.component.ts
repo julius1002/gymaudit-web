@@ -107,7 +107,16 @@ export class ExerciseFormComponent implements OnInit {
         )
         .subscribe(
           (exercise) => {this.exerciseListService.updateListEvent(),
-            this.router.navigate(["../"]) //funktioniert noch nicht!!!
+            this.router
+            .navigate(["."])
+            .then(() => this.router.navigateByUrl(`units/(exercises:${exercise.unitId})`)),
+            this.snackBar.open(
+              `${exercise.name} erfolgreich gelöscht!`,
+              "schließen",
+              {
+                duration: 2500,
+              }
+            );
           });
     }
   }
