@@ -26,6 +26,6 @@ export class EditExerciseComponent implements OnInit {
       this.router.navigateByUrl(
         `units/(exercises:${exercise.unitId}/(exercise-detail:detail/${exercise.id}))`
       )
-    , this.exerciseListService.updateListEvent()});
+    , this.exerciseListService.updateListEvent(exercise)});
   }
 }

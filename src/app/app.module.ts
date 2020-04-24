@@ -33,6 +33,7 @@ import { UnitFormComponent } from './components/workout-plan/units/unit-form/uni
 import { AddUnitComponent } from './components/workout-plan/units/add-unit/add-unit.component';
 import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edit-unit.component' 
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]

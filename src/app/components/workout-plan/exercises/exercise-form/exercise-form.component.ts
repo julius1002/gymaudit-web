@@ -106,7 +106,7 @@ export class ExerciseFormComponent implements OnInit {
           )
         )
         .subscribe(
-          (exercise) => {this.exerciseListService.updateListEvent(),
+          (exercise) => {this.exerciseListService.updateListEvent(exercise),
             this.router
             .navigate(["."])
             .then(() => this.router.navigateByUrl(`units/(exercises:${exercise.unitId})`)),

@@ -44,13 +44,4 @@ export class ExerciseDetailComponent implements OnInit {
             .pipe(shareReplay(), take(1)))
       );
   }
-
-  navigateToEdit() {
-    this.exercise$.subscribe((exercise) => {
-      this.router.navigateByUrl(
-        `units/(exercises:${exercise.unitId}/(exercise-detail:edit/${exercise.id}))`,
-        { state: exercise }
-      );
-    });
-  }
 }

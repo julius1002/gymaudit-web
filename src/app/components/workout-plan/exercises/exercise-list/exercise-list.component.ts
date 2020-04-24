@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { map, switchMap, take, share, shareReplay } from "rxjs/operators";
+import { map, switchMap, take, share } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
-import { environment } from "src/environments/environment";
-import { ActivatedRoute, Router, ParamMap } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 
 @Component({
@@ -30,9 +29,10 @@ export class ExerciseListComponent implements OnInit {
     );
 
     this.getExercisesFromUnit();
-    this.exerciseListService.exerciseList.subscribe(() =>
-      this.updateExercises()
-    );
+    this.exerciseListService.exerciseList.subscribe((exercise) => {
+      this.updateExercises(), (this.selectedExercise = exercise),
+      console.log(exercise)
+    });
   }
 
   public getExercisesFromUnit(): void {
@@ -52,6 +52,7 @@ export class ExerciseListComponent implements OnInit {
   }
 
   public selectExercise(exercise: Exercise) {
+    this.selectedExercise = exercise;
     this.unitId$.pipe(take(1)).subscribe((unitId) => {
       this.navigateToExercise(exercise, unitId);
     });
@@ -73,6 +74,14 @@ export class ExerciseListComponent implements OnInit {
       );
   }
 
+  navigateToEdit() {
+    this.unitId$.subscribe(unitId =>
+    this.router.navigateByUrl(
+      `units/(exercises:${unitId}/(exercise-detail:edit/${this.selectedExercise.id}))`,
+      { state: this.selectedExercise }
+    ));
+  }
+
   public setDefaultRoute(exercises: Exercise[]) {
     if (exercises.length) {
       this.selectExercise(exercises[0]);
@@ -81,7 +90,7 @@ export class ExerciseListComponent implements OnInit {
 
   isSelectedExercise(exercise): boolean {
     let exerciseId;
-    if(this.route.snapshot){
+    if (this.route.snapshot) {
       exerciseId = this.route.snapshot.firstChild.paramMap.get("exerciseId");
     }
     return exercise.id === exerciseId;

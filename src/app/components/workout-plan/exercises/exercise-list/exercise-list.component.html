@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col">
       <span>Übungen</span>
-      <ul>
-        <li
+      <mat-nav-list>
+        <mat-list-item
           *ngFor="let exercise of exercises; let i = index"
           (click)="selectExercise(exercise)"
           [style.background-color]="
@@ -11,11 +11,15 @@
           "
         >
           <span>{{ exercise.name }}</span>
-        </li>
-      </ul>
+        </mat-list-item>
+      </mat-nav-list>
       <button (click)="navigateToAddExercise()">
         Hinzufügen
         <mat-icon>add</mat-icon>
+      </button>
+      <button (click)="navigateToEdit()">
+        Bearbeiten
+        <mat-icon>edit</mat-icon>
       </button>
     </div>
     <router-outlet name="exercise-detail"></router-outlet>
