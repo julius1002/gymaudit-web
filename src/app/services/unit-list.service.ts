@@ -10,8 +10,8 @@ export class UnitListService {
   @Output() unitRemoved: EventEmitter<Unit> = new EventEmitter();
   constructor() {}
 
-  updateListEvent() {
-    this.unitList.emit();
+  updateListEvent(unit:Unit) {
+    this.unitList.emit(unit);
   }
 
   unitRemovedEvent() {

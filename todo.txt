@@ -11,8 +11,5 @@ Refactoring:
 
 - refactoring: introduce RawExercise, RawUnit for post/put requests, to get better code in both exercise and unit form
 
-Bugs:
 
-- nach update ist der name im bearbeiten feld noch der alte (2x bearbeiten)
 
-- siehe link bei bearbeiten/ hinzufügen unit (add:edit), id angeben!

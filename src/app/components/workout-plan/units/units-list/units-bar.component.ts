@@ -26,7 +26,7 @@ export class UnitsBarComponent implements OnInit {
   ngOnInit(): void {
     this.getUnitsFromTrainee();
 
-    this.unitListService.unitList.subscribe(() => this.updateUnitList());
+    this.unitListService.unitList.subscribe(unit => {this.updateUnitList(), this.selectedUnit = unit});
     this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
 
   }
@@ -36,7 +36,6 @@ export class UnitsBarComponent implements OnInit {
   }
 
   public removeUnit(){
-    console.log("lul")
     this.units$ = this.unitService.getAll(environment.TRAINEEID).pipe(share());
     this.units$.subscribe(units => this.setDefaultRoute(units));
   }
@@ -72,7 +71,7 @@ export class UnitsBarComponent implements OnInit {
 
   public editUnit() {
     this.router.navigate(["."]).then(() => {
-      this.router.navigate(["/units", { outlets: { add: ["edit"] } }], {
+      this.router.navigate(["/units", { outlets: { add: ["edit",`${this.selectedUnit.id}`] } }], {
         state: this.selectedUnit,
       });
     });
@@ -85,4 +84,5 @@ export class UnitsBarComponent implements OnInit {
     }
     return unit.id === unitId;
   }
+  
 }

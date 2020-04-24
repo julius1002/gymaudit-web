@@ -50,7 +50,7 @@ const routes: Routes = [
         outlet: "add",
       },
       {
-        path: "edit",
+        path: "edit/:exerciseId",
         component: EditUnitComponent,
         outlet: "add",
       },

@@ -24,7 +24,7 @@ export class AddUnitComponent implements OnInit {
     this.unitService.postSingle(unit).subscribe((unit) => {
       this.router.navigateByUrl(
         `units/(exercises:${unit.id})`
-      ), this.unitListService.updateListEvent()
+      ), this.unitListService.updateListEvent(unit)
     });
   }
 }
