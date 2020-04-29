@@ -4,7 +4,7 @@ import { Unit } from "src/app/model/unit";
 import { environment } from "src/environments/environment";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
-import { take, share } from "rxjs/operators";
+import { take, share, map } from "rxjs/operators";
 import { UnitListService } from "src/app/services/unit-list.service";
 
 @Component({
