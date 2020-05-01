@@ -1,34 +1,18 @@
 <h1>Trainingsplan</h1>
-<div class="row">
-  <div class="col">
-    <ng-container *ngIf="units$ | async as units">
-      <nav>
-        <span>Einheiten</span>
-        <div>
-          <mat-nav-list>
-            <mat-list-item
-              *ngFor="let unit of units"
-              (click)="selectUnit(unit)"
-              [style.background-color]="isSelectedUnit(unit) ? '#92a8d1' : ''"
-            >
-              <span>
-                {{ unit.name }}
-              </span>
-            </mat-list-item>
-          </mat-nav-list>
-
-          <button (click)="addUnit()">
-            Hinzufügen <mat-icon>add</mat-icon>
-          </button>
-          <button (click)="editUnit()">
-            Bearbeiten <mat-icon>edit</mat-icon>
-          </button>
-        </div>
-      </nav>
-    </ng-container>
-  </div>
-  <div class="col">
-    <router-outlet name="exercises"></router-outlet>
-  </div>
-</div>
+<ng-container *ngIf="units$ | async as units">
+  <span>Einheiten</span>
+  <mat-toolbar color="secondary">
+    <mat-toolbar-row>
+      <span class="menu-spacer"></span>
+      <a
+        *ngFor="let unit of units"
+        (click)="selectUnit(unit)"
+        [style.background-color]="isSelectedUnit(unit) ? '#92a8d1' : ''"
+        mat-button
+      >{{ unit.name }}
+      </a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</ng-container>
+<router-outlet name="exercises"></router-outlet>
 <router-outlet name="add"></router-outlet>

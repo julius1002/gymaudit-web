@@ -34,7 +34,7 @@ import { AddUnitComponent } from './components/workout-plan/units/add-unit/add-u
 import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edit-unit.component' 
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
-import { MusclegroupViewComponent } from './components/workout-plan/units/musclegroup-view/musclegroup-view.component';
+import { MusclegroupViewComponent } from './components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component';
 
 @NgModule({
   declarations: [
