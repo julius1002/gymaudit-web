@@ -13,6 +13,12 @@
       </a>
     </mat-toolbar-row>
   </mat-toolbar>
+  <button (click)="addUnit()">
+    Hinzufügen <mat-icon>add</mat-icon> <!-- text eventuell raus, nur symbol-->
+  </button>
+  <button (click)="editUnit()">
+    Bearbeiten <mat-icon>edit</mat-icon>
+  </button>
 </ng-container>
 <router-outlet name="exercises"></router-outlet>
 <router-outlet name="add"></router-outlet>

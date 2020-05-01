@@ -35,6 +35,7 @@ import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edi
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import { MusclegroupViewComponent } from './components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { MusclegroupViewComponent } from './components/workout-plan/exercises/ex
     MatSelectModule,
     MatSnackBarModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]
