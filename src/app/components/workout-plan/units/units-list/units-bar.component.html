@@ -1,5 +1,6 @@
 <h1>Trainingsplan</h1>
 <ng-container *ngIf="units$ | async as units">
+  <div class ="container-fluid">
   <span>Einheiten</span>
   <mat-toolbar color="secondary">
     <mat-toolbar-row>
@@ -19,6 +20,7 @@
   <button (click)="editUnit()">
     Bearbeiten <mat-icon>edit</mat-icon>
   </button>
-</ng-container>
 <router-outlet name="exercises"></router-outlet>
 <router-outlet name="add"></router-outlet>
+</div>
+</ng-container>
