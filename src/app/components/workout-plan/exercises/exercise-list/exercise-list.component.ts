@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { map, switchMap, take, share } from "rxjs/operators";
+import { map, switchMap, take, share, tap } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
-import { Page } from 'src/app/model/page';
+import { Page } from "src/app/model/page";
 
 @Component({
   selector: "app-exercise-list",
@@ -17,8 +17,8 @@ export class ExerciseListComponent implements OnInit {
   unitId$: Observable<string>;
   selectedExercise: Exercise;
 
-  index:number;
-  pageSize:number = 4;
+  index: number = 0;
+  pageSize: number = 4;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -35,30 +35,32 @@ export class ExerciseListComponent implements OnInit {
     this.getExercisesPageFromUnit(this.pageSize, 0);
 
     this.exerciseListService.exerciseList.subscribe((exercise) => {
-      this.updateExercises(), (this.selectedExercise = exercise)
+      this.updateExercises(), (this.selectedExercise = exercise);
     });
 
     this.exerciseListService.updateExerciseList
-    .pipe(
-      switchMap(
-        (exercise) => this.exercisesPage$
-      
-    )).subscribe(exercises => {
-      this.index = 0;
-      this.updateExercises();
-      this.selectedExercise = exercises[0];
-      //TODO zur richtigen page navigieren
-    });
+      .pipe(switchMap(() => this.exercisesPage$))
+      .subscribe((exercises) => {
+        this.updateExercisesAfterAdding(exercises.content);
+      });
   }
 
-  public getExercisesPageFromUnit(size:number, page:number): void {
+  private updateExercisesAfterAdding(exercises: Exercise[]) {
+    this.index = 0;
+    this.updateExercises();
+    this.selectedExercise = exercises[0];
+  }
+
+  private getExercisesPageFromUnit(size: number, page: number): void {
     this.exercisesPage$ = this.unitId$.pipe(
       switchMap((unitId) => this.exerciseService.getByPage(unitId, size, page)),
       take(1),
       share()
     );
 
-    this.exercisesPage$.subscribe((exercisesPage) => this.setDefaultRoute(exercisesPage.content));
+    this.exercisesPage$.subscribe((exercisesPage) =>
+      this.setDefaultRoute(exercisesPage.content)
+    );
   }
 
   public turn(event) {
@@ -66,11 +68,11 @@ export class ExerciseListComponent implements OnInit {
     this.index = event.pageIndex;
   }
 
-
-
   public updateExercises() {
     this.exercisesPage$ = this.unitId$.pipe(
-      switchMap((unitId) => this.exerciseService.getByPage(unitId, this.pageSize, this.index))
+      switchMap((unitId) =>
+        this.exerciseService.getByPage(unitId, this.pageSize, this.index)
+      )
     );
   }
 
@@ -97,12 +99,13 @@ export class ExerciseListComponent implements OnInit {
       );
   }
 
-  navigateToEdit() {
-    this.unitId$.subscribe(unitId =>
-    this.router.navigateByUrl(
-      `units/(exercises:${unitId}/(exercise-detail:edit/${this.selectedExercise.id}))`,
-      { state: this.selectedExercise }
-    ));
+  public navigateToEdit() {
+    this.unitId$.subscribe((unitId) =>
+      this.router.navigateByUrl(
+        `units/(exercises:${unitId}/(exercise-detail:edit/${this.selectedExercise.id}))`,
+        { state: this.selectedExercise }
+      )
+    );
   }
 
   public setDefaultRoute(exercises: Exercise[]) {
@@ -111,11 +114,11 @@ export class ExerciseListComponent implements OnInit {
     }
   }
 
- isSelectedExercise(exercise): boolean {
+  public isSelectedExercise(exercise): boolean {
     let exerciseId;
     if (this.route.snapshot) {
       exerciseId = this.route.snapshot.firstChild.paramMap.get("exerciseId");
     }
     return exercise.id === exerciseId;
-  } 
+  }
 }
