@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Exercise } from "src/app/model/exercise";
+import { Exercise, MuscleGroup } from "src/app/model/exercise";
 
 @Component({
   selector: "app-musclegroup-view",
@@ -9,6 +9,8 @@ import { Exercise } from "src/app/model/exercise";
 export class MusclegroupViewComponent implements OnInit {
   @Input() exercise: Exercise;
 
+  anatomyPath:string = "https://wger.de/static/images/muscles/muscular_system_front.svg";
+  muscleGroupEnum = MuscleGroup;
   constructor() {}
 
   ngOnInit(): void {

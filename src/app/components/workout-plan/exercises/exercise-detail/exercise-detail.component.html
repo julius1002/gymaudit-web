@@ -14,18 +14,7 @@
                 </div>
               </ng-container>
 
-              <div class="col">
-                <ng-container *ngIf="exercise.muscleGroups.length">
-                  Muskelgruppen
-                  <ul class="muscleGroup-list">
-                    <li
-                      class="muscleGroup-list-item"
-                      *ngFor="let muscleGroup of exercise.muscleGroups"
-                    >
-                      {{ muscleGroupEnum[muscleGroup] }}
-                    </li>
-                  </ul>
-                </ng-container>
+              <div class="col">      
                 <ng-container *ngIf="exercise.exerciseType">
                   Übungstyp
                   {{ exerciseTypeEnum[exercise.exerciseType] }}
@@ -42,15 +31,14 @@
                 </ng-container>
               </div>
             </div>
-            <app-set-list [exercise]="exercise"> </app-set-list>
           </mat-card>
+            <app-set-list [exercise]="exercise"> </app-set-list>
+          
         </div>
       </div>
 
-      <div class="col">
-        <div class="container">
+      <div class="col">        
           <app-musclegroup-view [exercise]="exercise"></app-musclegroup-view>
-        </div>
       </div>
     </div>
   </div>

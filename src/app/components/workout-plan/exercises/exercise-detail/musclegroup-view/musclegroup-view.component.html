@@ -1,7 +1,18 @@
-<div>
+<div class ="container">
+  <div class ="row">
+  <div class ="col">
   Beanspruchte Muskelgruppen<br />
   <label matTooltip="Anatomie des Menschen"
   aria-label="Button that displays a tooltip when focused or hovered over">
-  <img  src="https://wger.de/static/images/muscles/muscular_system_front.svg" 
+  <img  [src]="anatomyPath" 
   ></label>
+</div>
+<div class ="col">
+  <mat-list>
+    <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
+{{muscleGroupEnum[muscleGroup]}}
+    </mat-list-item>
+  </mat-list>
+</div>
+</div>
 </div>
