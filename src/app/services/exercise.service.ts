@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Exercise } from "../model/exercise";
+import { Page } from "../model/page";
 
 @Injectable({
   providedIn: "root",
@@ -13,6 +14,16 @@ export class ExerciseService {
   public getAll(unitId: string): Observable<Exercise[]> {
     return this.httpClient.get<Exercise[]>(
       `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`
+    );
+  }
+
+  public getByPage(
+    unitId: string,
+    size: number,
+    page: number
+  ): Observable<Page<Exercise>> {
+    return this.httpClient.get<Page<Exercise>>(
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}?page=${page}&size=${size}`
     );
   }
 
@@ -29,9 +40,7 @@ export class ExerciseService {
     );
   }
 
-  public update(
-    exercise: Exercise
-  ): Observable<Exercise> {
+  public update(exercise: Exercise): Observable<Exercise> {
     return this.httpClient.put<Exercise>(
       `${environment.BACKEND_URL}trainees/exercise`,
       exercise

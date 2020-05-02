@@ -36,7 +36,7 @@ export class AddExerciseComponent implements OnInit {
         this.router.navigateByUrl(
           `units/(exercises:${exercise.unitId}/(exercise-detail:detail/${exercise.id}))`
         )
-          this.exerciseListService.updateListEvent(exercise);
+          this.exerciseListService.addToListEvent(exercise);
       });
   }
 }
