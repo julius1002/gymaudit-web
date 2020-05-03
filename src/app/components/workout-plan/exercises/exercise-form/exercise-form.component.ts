@@ -148,7 +148,6 @@ export class ExerciseFormComponent implements OnInit {
     if (this.editing) {
       this.unitId$.subscribe((unitIdd) => (unitId = unitIdd));
       exerciseId = this.exercise.id;
-      sets = this.exercise.sets;
       date = this.exercise.date;
     }
 
@@ -156,7 +155,6 @@ export class ExerciseFormComponent implements OnInit {
       id: exerciseId,
       unitId: unitId,
       date: date,
-      sets: sets,
       name: formValue.name,
       exerciseType: exerciseType,
       description: formValue.description,

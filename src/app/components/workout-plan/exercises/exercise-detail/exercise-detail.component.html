@@ -2,43 +2,37 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <div class="container">
-          <mat-card>
-            Detailansicht - {{ exercise.name }}
-            <div class="row">
-              <ng-container *ngIf="exercise.pictureUrl">
-                <div class="col">
-                  <div class="exercise-image">
-                    <img [src]="exercise.pictureUrl" />
-                  </div>
-                </div>
-              </ng-container>
-
-              <div class="col">      
-                <ng-container *ngIf="exercise.exerciseType">
-                  Übungstyp
-                  {{ exerciseTypeEnum[exercise.exerciseType] }}
-                </ng-container>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Übung - {{ exercise.name }}</mat-card-title>
+            <mat-card-subtitle *ngIf="exercise.exerciseType"
+              >Übungstyp:
+              {{ exerciseTypeEnum[exercise.exerciseType] }}</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <ng-container *ngIf="exercise.pictureUrl">
+              <div class="exercise-image">
+                <img mat-card-image [src]="exercise.pictureUrl" />
               </div>
-              <div class="col">
-                <ng-container *ngIf="exercise.description">
-                  Beschreibung
-                  {{ exercise.description }}
-                </ng-container>
-                <ng-container *ngIf="exercise.date">
-                  Zuletzt trainiert
-                  {{ exercise.date | date: "EEEE d. MMMM y HH:mm" }}
-                </ng-container>
-              </div>
-            </div>
-          </mat-card>
-            <app-set-list [exercise]="exercise"> </app-set-list>
-          
-        </div>
+            </ng-container>
+            <ng-container *ngIf="exercise.description">
+              <p>Notizen: {{ exercise.description }}</p>
+            </ng-container>
+            <button (click)="navigateToEdit()">
+              Bearbeiten
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
       </div>
-
-      <div class="col">        
+      <div class="col">
+        <mat-card>
           <app-musclegroup-view [exercise]="exercise"></app-musclegroup-view>
+        </mat-card>
+      </div>
+      <div class="col">
+        <app-set-list [exercise]="exercise"> </app-set-list>
       </div>
     </div>
   </div>

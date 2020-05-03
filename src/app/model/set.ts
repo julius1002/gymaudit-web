@@ -4,4 +4,5 @@ export interface Set {
   weight: number;
   calculatedVolume: number;
   date: number;
+  exerciseId:number;
 }

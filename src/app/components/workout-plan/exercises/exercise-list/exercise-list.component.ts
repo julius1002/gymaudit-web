@@ -6,6 +6,7 @@ import { ExerciseService } from "src/app/services/exercise.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { Page } from "src/app/model/page";
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: "app-exercise-list",
@@ -18,7 +19,7 @@ export class ExerciseListComponent implements OnInit {
   selectedExercise: Exercise;
 
   index: number = 0;
-  pageSize: number = 4;
+  pageSize: number = 5;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -63,7 +64,7 @@ export class ExerciseListComponent implements OnInit {
     );
   }
 
-  public turn(event) {
+  public turn(event:PageEvent) {
     this.getExercisesPageFromUnit(event.pageSize, event.pageIndex);
     this.index = event.pageIndex;
   }
@@ -89,6 +90,8 @@ export class ExerciseListComponent implements OnInit {
     );
   }
 
+
+
   public navigateToAddExercise() {
     this.unitId$
       .pipe(take(1))
@@ -97,15 +100,6 @@ export class ExerciseListComponent implements OnInit {
           `units/(exercises:${unitId}/(exercise-detail:add))`
         )
       );
-  }
-
-  public navigateToEdit() {
-    this.unitId$.subscribe((unitId) =>
-      this.router.navigateByUrl(
-        `units/(exercises:${unitId}/(exercise-detail:edit/${this.selectedExercise.id}))`,
-        { state: this.selectedExercise }
-      )
-    );
   }
 
   public setDefaultRoute(exercises: Exercise[]) {

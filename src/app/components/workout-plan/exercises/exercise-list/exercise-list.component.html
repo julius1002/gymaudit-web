@@ -1,26 +1,30 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
   <div class="row">
     <div class="col">
-      <span>Übungen</span>
-      <mat-nav-list>
-        <mat-list-item
-          *ngFor="let exercise of exercises.content; let i = index"
-          (click)="selectExercise(exercise)"
-          [style.background-color]="
-          isSelectedExercise(exercise) ? '#92a8d1' : ''"
+      <ng-container *ngIf="exercises.content.length">
+        <span>Übungen</span>
+        <mat-nav-list>
+          <mat-list-item
+            *ngFor="let exercise of exercises.content; let i = index"
+            (click)="selectExercise(exercise)"
+            [style.background-color]="
+              isSelectedExercise(exercise) ? '#92a8d1' : ''
+            "
+          >
+            <span>{{ exercise.name }}</span>
+          </mat-list-item>
+        </mat-nav-list>
+        <mat-paginator
+          [pageSize]="pageSize"
+          [length]="exercises.totalElements"
+          (page)="turn($event)"
+          [pageIndex]="index"
         >
-          <span>{{ exercise.name }}</span>
-        </mat-list-item>
-      </mat-nav-list>
-      <mat-paginator [pageSize]="pageSize" [length]="exercises.totalElements" (page)="turn($event)"[pageIndex]="index" >
-      </mat-paginator>
+        </mat-paginator>
+      </ng-container>
       <button (click)="navigateToAddExercise()">
         Hinzufügen
         <mat-icon>add</mat-icon>
-      </button>
-      <button (click)="navigateToEdit()">
-        Bearbeiten
-        <mat-icon>edit</mat-icon>
       </button>
     </div>
     <router-outlet name="exercise-detail"></router-outlet>

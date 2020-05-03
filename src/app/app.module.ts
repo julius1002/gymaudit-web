@@ -27,6 +27,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { ReactiveFormsModule} from '@angular/forms';
 import { UnitFormComponent } from './components/workout-plan/units/unit-form/unit-form.component';
@@ -74,7 +75,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     MatCardModule,
     MatTooltipModule,
-    MatPaginatorModule
+    MatPaginatorModule, 
+    MatTabsModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]
