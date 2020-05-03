@@ -44,14 +44,14 @@
     </mat-form-field>
     <br />
 
-    <button type="button" (click)="addMuscleGroup()">+ Muskelgruppe</button>
+    <button  mat-raised-button type="button" (click)="addMuscleGroup()">+ Muskelgruppe</button>
     <br />
-    <button type="submit" [disabled]="exerciseForm.invalid">
+    <button  mat-raised-button  type="submit" [disabled]="exerciseForm.invalid">
       Speichern
       <mat-icon>save</mat-icon>
     </button>
     <ng-container *ngIf="editing === true">
-      <button type="button" (click)="removeExercise()">
+      <button mat-raised-button type="button" (click)="removeExercise()">
         Löschen
         <mat-icon>delete</mat-icon>
       </button>

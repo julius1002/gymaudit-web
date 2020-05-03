@@ -62,4 +62,5 @@ export class ExerciseDetailComponent implements OnInit {
       )
     );
   }
+ 
 }

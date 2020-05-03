@@ -92,16 +92,6 @@ export class ExerciseListComponent implements OnInit {
 
 
 
-  public navigateToAddExercise() {
-    this.unitId$
-      .pipe(take(1))
-      .subscribe((unitId) =>
-        this.router.navigateByUrl(
-          `units/(exercises:${unitId}/(exercise-detail:add))`
-        )
-      );
-  }
-
   public setDefaultRoute(exercises: Exercise[]) {
     if (exercises.length) {
       this.selectExercise(exercises[0]);

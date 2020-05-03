@@ -11,11 +11,11 @@
         >{{ unit.name }}</a
       >
     </nav>
-    <button (click)="addUnit()">
+    <button mat-raised-button (click)="addUnit()">
       Hinzufügen <mat-icon>add</mat-icon>
       <!-- text eventuell raus, nur symbol-->
     </button>
-    <button (click)="editUnit()">Bearbeiten <mat-icon>edit</mat-icon></button>
+    <button mat-raised-button (click)="editUnit()">Bearbeiten <mat-icon>edit</mat-icon></button>
     <router-outlet name="exercises"></router-outlet>
     <router-outlet name="add"></router-outlet>
   </div>

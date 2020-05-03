@@ -19,9 +19,13 @@
             <ng-container *ngIf="exercise.description">
               <p>Notizen: {{ exercise.description }}</p>
             </ng-container>
-            <button (click)="navigateToEdit()">
+            <button mat-raised-button (click)="navigateToAddExercise()">
+              Hinzufügen
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-raised-button (click)="navigateToEdit()">
               Bearbeiten
-              <mat-icon>edit</mat-icon>
+              <mat-icon >edit</mat-icon>
             </button>
           </mat-card-content>
         </mat-card>
