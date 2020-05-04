@@ -8,12 +8,22 @@ import { Exercise, MuscleGroup } from "src/app/model/exercise";
 })
 export class MusclegroupViewComponent implements OnInit {
   @Input() exercise: Exercise;
+  front:boolean = true;
 
-  anatomyPath:string = "https://wger.de/static/images/muscles/muscular_system_front.svg";
+  wgerBaseUrl:string = "https://wger.de";
+  
+  biceps:string = this.wgerBaseUrl + "/static/images/muscles/main/muscle-1.svg";
+  anatomyFront:string = this.wgerBaseUrl + "/static/images/muscles/muscular_system_front.svg";
+  anatomyBack:string = this.wgerBaseUrl + "/static/images/muscles/muscular_system_back.svg";
+  
   muscleGroupEnum = MuscleGroup;
   constructor() {}
 
   ngOnInit(): void {
     console.log(this.exercise.muscleGroups)
+  }
+
+  turn():void{
+    this.front =!this.front;
   }
 }

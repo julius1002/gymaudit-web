@@ -1,15 +1,20 @@
 <div class="row">
   <div class="col">
     Beanspruchte Muskelgruppen
+    <button (click)="turn()"><mat-icon>loop</mat-icon></button>
     <mat-list>
       <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
         {{ muscleGroupEnum[muscleGroup] }}
-        <mat-divider intset = "true"></mat-divider>
+        <mat-divider intset="true"></mat-divider>
       </mat-list-item>
     </mat-list>
   </div>
   <div class="col">
-      <img [src]="anatomyPath"
-    />
+    <ng-container *ngIf = "front; else elseBlock">
+      <img [src]="anatomyFront" />
+    </ng-container>
+    <ng-template #elseBlock>
+      <img [src]="anatomyBack" />
+    </ng-template>
   </div>
 </div>
