@@ -10,11 +10,49 @@
     </mat-list>
   </div>
   <div class="col">
-    <ng-container *ngIf = "front; else elseBlock">
-      <img [src]="anatomyFront" />
+    <div style="position: relative; left: 0; top: 0;">
+    <ng-container *ngIf="front; else elseBlock">
+      <img class="anatomy" [src]="anatomyFront" />
+    <!-- vorne -->
+    <ng-container *ngIf="isMuscleGroup('CHEST')">
+      <img class="muscleGroup-image" [src]="chest" />
     </ng-container>
+    <ng-container *ngIf="isMuscleGroup('BICEPS')">
+      <img class="muscleGroup-image" [src]="biceps" />
+    </ng-container>
+    <ng-container *ngIf="isMuscleGroup('SHOULDERS')">
+      <img class="muscleGroup-image" [src]="frontDelts" />
+    </ng-container>
+    <ng-container *ngIf="isMuscleGroup('UPPERLEGS')">
+      <img class="muscleGroup-image" [src]="frontLegs" />
+      <!-- hinten -->
+    </ng-container>
+    <ng-container *ngIf="isMuscleGroup('ABS')">
+      <img class="muscleGroup-image" [src]="abs" />
+      <img class="muscleGroup-image" [src]="sideAbs" />
+    </ng-container>
+  </ng-container>
     <ng-template #elseBlock>
-      <img [src]="anatomyBack" />
+      <img class="anatomy" [src]="anatomyBack" />
+      <ng-container *ngIf="isMuscleGroup('BACK')">
+        <img class="muscleGroup-image" [src]="lats" />
+      </ng-container>
+      <ng-container *ngIf="isMuscleGroup('TRICEPS')">
+        <img class="muscleGroup-image" [src]="triceps" />
+      </ng-container>
+      <ng-container *ngIf="isMuscleGroup('UPPERLEGS')">
+        <img class="muscleGroup-image" [src]="booty" />
+      </ng-container>
+      <ng-container *ngIf="isMuscleGroup('UPPERLEGS')">
+        <img class="muscleGroup-image" [src]="backLegs" />
+      </ng-container>
+      <ng-container *ngIf="isMuscleGroup('CALVES')">
+        <img class="muscleGroup-image" [src]="calves" />
+      </ng-container>
+      <ng-container *ngIf="isMuscleGroup('TRAPS')">
+        <img class="muscleGroup-image" [src]="traps" />
+      </ng-container>
     </ng-template>
   </div>
+</div>
 </div>
