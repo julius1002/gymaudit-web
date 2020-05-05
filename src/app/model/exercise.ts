@@ -19,7 +19,6 @@ export enum ExerciseType {
 
 export enum MuscleGroup {
   CHEST = "Brust",
-  UPPERLEGS = "Beine",
   BACK = "Rücken",
   CALVES = "Waden",
   FOREARMS = "Unterarme",
@@ -28,4 +27,7 @@ export enum MuscleGroup {
   TRAPS = "Nacken",
   SHOULDERS = "Schultern",
   ABS = "Bauch",
+  BOOTY = "Booty",
+  QUADS = "Vordere Beinmuskulatur",
+  HAMSTRINGS = "Hintere Beinmuskulatur"
 }

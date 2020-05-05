@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, switchMap, take, share, tap } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
@@ -14,6 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ["./exercise-list.component.scss"],
 })
 export class ExerciseListComponent implements OnInit {
+  
   exercisesPage$: Observable<Page<Exercise>>;
   unitId$: Observable<string>;
   selectedExercise: Exercise;
@@ -45,6 +46,7 @@ export class ExerciseListComponent implements OnInit {
         this.updateExercisesAfterAdding(exercises.content);
       });
   }
+
 
   private updateExercisesAfterAdding(exercises: Exercise[]) {
     this.index = 0;

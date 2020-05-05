@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     Beanspruchte Muskelgruppen
-    <button (click)="turn()"><mat-icon>loop</mat-icon></button>
+    <button mat-raised-button	 (click)="turn()"><mat-icon>loop</mat-icon></button>
     <mat-list>
       <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
         {{ muscleGroupEnum[muscleGroup] }}
@@ -23,7 +23,7 @@
     <ng-container *ngIf="isMuscleGroup('SHOULDERS')">
       <img class="muscleGroup-image" [src]="frontDelts" />
     </ng-container>
-    <ng-container *ngIf="isMuscleGroup('UPPERLEGS')">
+    <ng-container *ngIf="isMuscleGroup('QUADS')">
       <img class="muscleGroup-image" [src]="frontLegs" />
       <!-- hinten -->
     </ng-container>
@@ -40,10 +40,10 @@
       <ng-container *ngIf="isMuscleGroup('TRICEPS')">
         <img class="muscleGroup-image" [src]="triceps" />
       </ng-container>
-      <ng-container *ngIf="isMuscleGroup('UPPERLEGS')">
+      <ng-container *ngIf="isMuscleGroup('BOOTY')">
         <img class="muscleGroup-image" [src]="booty" />
       </ng-container>
-      <ng-container *ngIf="isMuscleGroup('UPPERLEGS')">
+      <ng-container *ngIf="isMuscleGroup('HAMSTRINGS')">
         <img class="muscleGroup-image" [src]="backLegs" />
       </ng-container>
       <ng-container *ngIf="isMuscleGroup('CALVES')">
@@ -56,3 +56,4 @@
   </div>
 </div>
 </div>
+Bildquelle:

@@ -1,9 +1,10 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
   <div class="row">
-    <div class="col">
+    <div class="col exercise-list">
       <ng-container *ngIf="exercises.content.length">
         <span>Übungen</span>
         <mat-nav-list>
+          
           <mat-list-item
             *ngFor="let exercise of exercises.content; let i = index"
             (click)="selectExercise(exercise)"
@@ -11,7 +12,9 @@
               isSelectedExercise(exercise) ? '#92a8d1' : ''
             "
           >
-            <span>{{ exercise.name }}</span>
+          <img  class ="image"
+          src ="https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-06-02-activities-sport-small-barbell-72dpi-forPersonalUseOnly.png">
+          <span>{{ exercise.name }}</span>
           </mat-list-item>
         </mat-nav-list>
         <mat-paginator
