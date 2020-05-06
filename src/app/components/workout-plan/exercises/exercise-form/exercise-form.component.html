@@ -1,70 +1,76 @@
 <form [formGroup]="exerciseForm" (ngSubmit)="submitForm()">
-  <div class="container">
-    <mat-form-field class="example-full-width" >
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
-    <br />
+  <mat-card>
+    <div class="heading">{{ getHeading() }}</div>
+    <div class="container">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <br />
 
-    <mat-form-field class="example-full-width" >
-      <mat-label>Beschreibung</mat-label>
-      <textarea matInput formControlName="description"></textarea>
-    </mat-form-field>
-    <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Beschreibung</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <br />
 
-    <mat-form-field class="example-full-width" >
-      <mat-label>Bild Url</mat-label>
-      <input matInput formControlName="pictureUrl" />
-    </mat-form-field>
-    <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Bild Url</mat-label>
+        <input matInput formControlName="pictureUrl" />
+      </mat-form-field>
+      <br />
 
-    <mat-form-field
-    >
-      <mat-label>Übungstyp</mat-label>
-      <mat-select formControlName="exerciseType">
-        <mat-option *ngFor="let key of keys(exerciseTypeEnum)" [value]="key">{{
-          exerciseTypeEnum[key]
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br />
+      <mat-form-field>
+        <mat-label>Übungstyp</mat-label>
+        <mat-select formControlName="exerciseType">
+          <mat-option
+            *ngFor="let key of keys(exerciseTypeEnum)"
+            [value]="key"
+            >{{ exerciseTypeEnum[key] }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <br />
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Muskelgruppen bearbeiten
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-    <mat-form-field
-      *ngFor="let control of muscleGroups.controls; index as i"
-      class="example-full-width"
-    >
-      <mat-label>Muskelgruppe {{i+1}}</mat-label>
-      <mat-select [formControl]="muscleGroups.controls[i]">
-        <mat-option (click)="removeMuscleGroup(i)"
-          >Entfernen <mat-icon>delete</mat-icon></mat-option
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Muskelgruppen bearbeiten
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field
+          *ngFor="let control of muscleGroups.controls; index as i"
+          class="example-full-width"
         >
-        <mat-option *ngFor="let key of keys(muscleGroupEnum)" [value]="key">{{
-          muscleGroupEnum[key]
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button type="button" (click)="addMuscleGroup()">
-      + Muskelgruppe
-    </button>
-  </mat-expansion-panel>
-    <br />
+          <mat-label>Muskelgruppe {{ i + 1 }}</mat-label>
+          <mat-select [formControl]="muscleGroups.controls[i]">
+            <mat-option (click)="removeMuscleGroup(i)"
+              >Entfernen <mat-icon>delete</mat-icon></mat-option
+            >
+            <mat-option
+              *ngFor="let key of keys(muscleGroupEnum)"
+              [value]="key"
+              >{{ muscleGroupEnum[key] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button type="button" (click)="addMuscleGroup()">
+          + Muskelgruppe
+        </button>
+      </mat-expansion-panel>
+      <br />
 
-    <br />
-    <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid">
-      Speichern
-      <mat-icon>save</mat-icon>
-    </button>
-    <ng-container *ngIf="editing === true">
-      <button mat-raised-button type="button" (click)="removeExercise()">
-        Löschen
-        <mat-icon>delete</mat-icon>
+      <br />
+      <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid">
+        Speichern
+        <mat-icon>save</mat-icon>
       </button>
-    </ng-container>
-  </div>
+      <ng-container *ngIf="editing === true">
+        <button mat-raised-button type="button" (click)="removeExercise()">
+          Löschen
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </mat-card>
 </form>

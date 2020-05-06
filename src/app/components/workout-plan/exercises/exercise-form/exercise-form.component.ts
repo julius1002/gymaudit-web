@@ -14,7 +14,7 @@ import {
   FormControl,
 } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ExercisesListService } from 'src/app/services/exercises-list.service';
+import { ExercisesListService } from "src/app/services/exercises-list.service";
 
 @Component({
   selector: "app-exercise-form",
@@ -41,6 +41,10 @@ export class ExerciseFormComponent implements OnInit {
     public snackBar: MatSnackBar,
     private exerciseListService: ExercisesListService
   ) {}
+
+  getHeading(): string {
+    return this.editing ? "Übung bearbeiten" : "Übung hinzufügen";
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -105,11 +109,15 @@ export class ExerciseFormComponent implements OnInit {
             this.exerciseService.delete(unitId, this.exercise.id)
           )
         )
-        .subscribe(
-          (exercise) => {this.exerciseListService.updateListEvent(exercise),
+        .subscribe((exercise) => {
+          this.exerciseListService.updateListEvent(exercise),
             this.router
-            .navigate(["."])
-            .then(() => this.router.navigateByUrl(`units/(exercises:${exercise.unitId})`)),
+              .navigate(["."])
+              .then(() =>
+                this.router.navigateByUrl(
+                  `units/(exercises:${exercise.unitId})`
+                )
+              ),
             this.snackBar.open(
               `${exercise.name} erfolgreich gelöscht!`,
               "schließen",
@@ -117,7 +125,7 @@ export class ExerciseFormComponent implements OnInit {
                 duration: 2500,
               }
             );
-          });
+        });
     }
   }
 
