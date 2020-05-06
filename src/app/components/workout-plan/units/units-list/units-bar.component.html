@@ -1,13 +1,15 @@
 <h1>Trainingsplan</h1>
 <ng-container *ngIf="units$ | async as units">
   <div class="container-fluid">
-    <span>Einheiten</span>
+    <div class="heading">
+      <span class="mat-title">Einheiten</span>
+    </div>
     <nav mat-tab-nav-bar>
       <a
         mat-tab-link
         *ngFor="let unit of units"
         (click)="selectUnit(unit)"
-        [style.background-color]="isSelectedUnit(unit) ? '#92a8d1' : ''"
+        [active] ="isSelectedUnit(unit)"
         >{{ unit.name }}</a
       >
     </nav>
@@ -15,7 +17,9 @@
       Hinzufügen <mat-icon>add</mat-icon>
       <!-- text eventuell raus, nur symbol-->
     </button>
-    <button mat-raised-button (click)="editUnit()">Bearbeiten <mat-icon>edit</mat-icon></button>
+    <button mat-raised-button (click)="editUnit()">
+      Bearbeiten <mat-icon>edit</mat-icon>
+    </button>
     <router-outlet name="exercises"></router-outlet>
     <router-outlet name="add"></router-outlet>
   </div>

@@ -1,15 +1,17 @@
 <ng-container *ngIf="setsPage$ | async as sets">
   <ng-container *ngIf="sets.content.length">
-    <span>Sätze</span>
+    <div class = "heading">
+    <span class = "mat-title">Sätze</span>
+  </div>
     <mat-expansion-panel *ngFor="let set of sets.content">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ set.date | date: "EEEE d. MMMM y HH:mm" }}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-label>Gewicht: {{ set.weight }}</mat-label>
+      <mat-label style="font-weight:bold">Gewicht: {{ set.weight }}</mat-label>
       <br />
-      <mat-label>Wiederholungen: {{ set.reps }}</mat-label>
+      <mat-label style="font-weight:bold">Wiederholungen: {{ set.reps }}</mat-label>
     </mat-expansion-panel>
     <mat-paginator
       [pageSize]="pageSize"

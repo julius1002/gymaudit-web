@@ -36,7 +36,7 @@ export class MusclegroupViewComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.exercise.muscleGroups)
+
   }
 
   isMuscleGroup(muscleGroup:string):boolean{

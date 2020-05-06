@@ -2,10 +2,12 @@
   <div class="row">
     <div class="col exercise-list">
       <ng-container *ngIf="exercises.content.length">
-        <span>Übungen</span>
-        <mat-nav-list>
+        <div class = "heading">
+        <span class = "mat-title">Übungen</span>
+      </div>
+        <mat-chip-list class="mat-chip-list-stacked">
           
-          <mat-list-item
+          <mat-chip
             *ngFor="let exercise of exercises.content; let i = index"
             (click)="selectExercise(exercise)"
             [style.background-color]="
@@ -15,14 +17,14 @@
           <img  class ="image"
           src ="https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-06-02-activities-sport-small-barbell-72dpi-forPersonalUseOnly.png">
           <span>{{ exercise.name }}</span>
-          </mat-list-item>
-        </mat-nav-list>
+        </mat-chip>
+        </mat-chip-list>
         <mat-paginator
           [pageSize]="pageSize"
           [length]="exercises.totalElements"
           (page)="turn($event)"
           [pageIndex]="index"
-        >
+        > 
         </mat-paginator>
       </ng-container>
     </div>

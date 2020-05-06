@@ -4,7 +4,9 @@
       <div class="col">
         <mat-card>
           <mat-card-header>
-            <mat-card-title>Übung - {{ exercise.name }}</mat-card-title>
+            <mat-card-title> <img  class ="image"
+              src ="https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-06-02-activities-sport-small-barbell-72dpi-forPersonalUseOnly.png">
+                  <span style="font-weight:bold">Übung - {{exercise.name}}</span></mat-card-title>
             <mat-card-subtitle *ngIf="exercise.exerciseType"
               >Übungstyp:
               {{ exerciseTypeEnum[exercise.exerciseType] }}</mat-card-subtitle

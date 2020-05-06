@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col">
-    Beanspruchte Muskelgruppen
-    <button mat-raised-button	 (click)="turn()"><mat-icon>loop</mat-icon></button>
+    <p style="font-weight: bold;">Beanspruchte Muskelgruppen</p>
     <mat-list>
       <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
         {{ muscleGroupEnum[muscleGroup] }}
@@ -11,49 +10,51 @@
   </div>
   <div class="col">
     <div style="position: relative; left: 0; top: 0;">
-    <ng-container *ngIf="front; else elseBlock">
-      <img class="anatomy" [src]="anatomyFront" />
-    <!-- vorne -->
-    <ng-container *ngIf="isMuscleGroup('CHEST')">
-      <img class="muscleGroup-image" [src]="chest" />
-    </ng-container>
-    <ng-container *ngIf="isMuscleGroup('BICEPS')">
-      <img class="muscleGroup-image" [src]="biceps" />
-    </ng-container>
-    <ng-container *ngIf="isMuscleGroup('SHOULDERS')">
-      <img class="muscleGroup-image" [src]="frontDelts" />
-    </ng-container>
-    <ng-container *ngIf="isMuscleGroup('QUADS')">
-      <img class="muscleGroup-image" [src]="frontLegs" />
-      <!-- hinten -->
-    </ng-container>
-    <ng-container *ngIf="isMuscleGroup('ABS')">
-      <img class="muscleGroup-image" [src]="abs" />
-      <img class="muscleGroup-image" [src]="sideAbs" />
-    </ng-container>
-  </ng-container>
-    <ng-template #elseBlock>
-      <img class="anatomy" [src]="anatomyBack" />
-      <ng-container *ngIf="isMuscleGroup('BACK')">
-        <img class="muscleGroup-image" [src]="lats" />
+      <ng-container *ngIf="front; else elseBlock">
+        <img class="anatomy" [src]="anatomyFront" />
+        <!-- vorne -->
+        <ng-container *ngIf="isMuscleGroup('CHEST')">
+          <img class="muscleGroup-image" [src]="chest" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('BICEPS')">
+          <img class="muscleGroup-image" [src]="biceps" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('SHOULDERS')">
+          <img class="muscleGroup-image" [src]="frontDelts" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('QUADS')">
+          <img class="muscleGroup-image" [src]="frontLegs" />
+          <!-- hinten -->
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('ABS')">
+          <img class="muscleGroup-image" [src]="abs" />
+          <img class="muscleGroup-image" [src]="sideAbs" />
+        </ng-container>
       </ng-container>
-      <ng-container *ngIf="isMuscleGroup('TRICEPS')">
-        <img class="muscleGroup-image" [src]="triceps" />
-      </ng-container>
-      <ng-container *ngIf="isMuscleGroup('BOOTY')">
-        <img class="muscleGroup-image" [src]="booty" />
-      </ng-container>
-      <ng-container *ngIf="isMuscleGroup('HAMSTRINGS')">
-        <img class="muscleGroup-image" [src]="backLegs" />
-      </ng-container>
-      <ng-container *ngIf="isMuscleGroup('CALVES')">
-        <img class="muscleGroup-image" [src]="calves" />
-      </ng-container>
-      <ng-container *ngIf="isMuscleGroup('TRAPS')">
-        <img class="muscleGroup-image" [src]="traps" />
-      </ng-container>
-    </ng-template>
+      <ng-template #elseBlock>
+        <img class="anatomy" [src]="anatomyBack" />
+        <ng-container *ngIf="isMuscleGroup('BACK')">
+          <img class="muscleGroup-image" [src]="lats" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('TRICEPS')">
+          <img class="muscleGroup-image" [src]="triceps" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('BOOTY')">
+          <img class="muscleGroup-image" [src]="booty" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('HAMSTRINGS')">
+          <img class="muscleGroup-image" [src]="backLegs" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('CALVES')">
+          <img class="muscleGroup-image" [src]="calves" />
+        </ng-container>
+        <ng-container *ngIf="isMuscleGroup('TRAPS')">
+          <img class="muscleGroup-image" [src]="traps" />
+        </ng-container>
+      </ng-template>
+    </div>
+    <button mat-raised-button class="swap-button" (click)="turn()">
+      <mat-icon>loop</mat-icon>
+    </button>
   </div>
 </div>
-</div>
-Bildquelle:

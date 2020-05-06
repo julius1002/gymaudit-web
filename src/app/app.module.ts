@@ -38,6 +38,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MusclegroupViewComponent } from './components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatCardModule,
     MatTooltipModule,
     MatPaginatorModule, 
-    MatTabsModule
+    MatTabsModule,
+    MatChipsModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]
