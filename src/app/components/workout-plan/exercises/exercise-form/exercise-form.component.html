@@ -9,17 +9,10 @@
       <br />
 
       <mat-form-field class="example-full-width">
-        <mat-label>Beschreibung</mat-label>
+        <mat-label>Beschreibung/ Notizen</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
       <br />
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Bild Url</mat-label>
-        <input matInput formControlName="pictureUrl" />
-      </mat-form-field>
-      <br />
-
       <mat-form-field>
         <mat-label>Übungstyp</mat-label>
         <mat-select formControlName="exerciseType">
@@ -30,6 +23,11 @@
           >
         </mat-select>
       </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Bild Url</mat-label>
+        <input matInput formControlName="pictureUrl" />
+      </mat-form-field>
+      <br />
       <br />
 
       <mat-expansion-panel>

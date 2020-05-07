@@ -25,7 +25,7 @@ export class UnitsBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUnitsFromTrainee();
-    this.unitListService.unitList.subscribe(unit => {this.updateUnitList(), this.selectedUnit = unit});
+    this.unitListService.unitList.subscribe(unit => {this.updateUnitList(), this.selectUnit(unit)});
     this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
   }
 
@@ -49,7 +49,7 @@ export class UnitsBarComponent implements OnInit {
   public selectUnit(unit: Unit) {
     this.selectedUnit = unit;
     this.router
-      .navigate(["."])
+      .navigate(["../"])
       .then(() => this.router.navigateByUrl(`units/(exercises:${unit.id})`));
   }
 
