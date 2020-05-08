@@ -1,7 +1,7 @@
 <ng-container *ngIf="exercise$ | async as exercise">
-  <div class="container">
-    <div class="row">
-      <div class="col">
+  <div class="container" style='min-height:500px'>
+    <mat-tab-group>
+      <mat-tab label="Übersicht">
         <mat-card>
           <mat-card-header>
             <mat-card-title> <img  class ="image"
@@ -21,25 +21,28 @@
             <ng-container *ngIf="exercise.description">
               <p>Notizen: {{ exercise.description }}</p>
             </ng-container>
-            <button mat-raised-button (click)="navigateToAddExercise()">
-              Hinzufügen
-              <mat-icon>add</mat-icon>
-            </button>
-            <button mat-raised-button (click)="navigateToEdit()">
-              Bearbeiten
-              <mat-icon >edit</mat-icon>
-            </button>
+
           </mat-card-content>
         </mat-card>
-      </div>
-      <div class="col">
+    </mat-tab>
+    <mat-tab label="Muskelgruppen">
         <mat-card>
+          
           <app-musclegroup-view [exercise]="exercise"></app-musclegroup-view>
         </mat-card>
-      </div>
-      <div class="col">
+        
+    </mat-tab>
+  <mat-tab label="Satz-Protokoll">
         <app-set-list [exercise]="exercise"> </app-set-list>
-      </div>
-    </div>
+      </mat-tab>
+    </mat-tab-group>
+    <button mat-raised-button (click)="navigateToAddExercise()">
+      Hinzufügen
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-raised-button (click)="navigateToEdit()">
+      Bearbeiten
+      <mat-icon >edit</mat-icon>
+    </button>
   </div>
 </ng-container>
