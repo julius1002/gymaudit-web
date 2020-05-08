@@ -25,7 +25,8 @@ export class UnitsBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUnitsFromTrainee();
-    this.unitListService.unitList.subscribe(unit => {this.updateUnitList(), this.selectUnit(unit)});
+    this.unitListService.unitList.subscribe(unit => {this.updateUnitList()
+    });
     this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
   }
 
@@ -60,19 +61,11 @@ export class UnitsBarComponent implements OnInit {
   }
 
   public addUnit() {
-    this.router
-      .navigate(["."])
-      .then(() =>
-        this.router.navigate(["/units", { outlets: { add: ["add"] } }])
-      );
+    
   }
 
   public editUnit() {
-    this.router.navigate(["."]).then(() => {
-      this.router.navigate(["/units", { outlets: { add: ["edit",`${this.selectedUnit.id}`] } }], {
-        state: this.selectedUnit,
-      });
-    });
+    
   }
 
   isSelectedUnit(unit): boolean {

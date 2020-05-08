@@ -5,8 +5,7 @@ import { UnitsBarComponent } from "./components/workout-plan/units/units-list/un
 import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
 import { AddExerciseComponent } from "./components/workout-plan/exercises/add-exercise/add-exercise.component";
-import { AddUnitComponent } from "./components/workout-plan/units/add-unit/add-unit.component";
-import { EditUnitComponent } from "./components/workout-plan/units/edit-unit/edit-unit.component";
+import { TrainingLogComponent } from './components/training-log/training-log/training-log.component';
 
 const routes: Routes = [
   {
@@ -44,18 +43,12 @@ const routes: Routes = [
           },
         ],
       },
-      {
-        path: "add",
-        component: AddUnitComponent,
-        outlet: "add",
-      },
-      {
-        path: "edit/:exerciseId",
-        component: EditUnitComponent,
-        outlet: "add",
-      },
     ],
   },
+  {
+    path: "training-log",
+    component: TrainingLogComponent
+  }
 ];
 
 @NgModule({

@@ -31,14 +31,13 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 import { ReactiveFormsModule} from '@angular/forms';
 import { UnitFormComponent } from './components/workout-plan/units/unit-form/unit-form.component';
-import { AddUnitComponent } from './components/workout-plan/units/add-unit/add-unit.component';
-import { EditUnitComponent } from './components/workout-plan/units/edit-unit/edit-unit.component' 
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import { MusclegroupViewComponent } from './components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
+import { TrainingLogComponent } from './components/training-log/training-log/training-log.component';
 
 @NgModule({
   declarations: [
@@ -52,9 +51,8 @@ import {MatChipsModule} from '@angular/material/chips';
     ExerciseFormComponent,
     AddExerciseComponent,
     UnitFormComponent,
-    AddUnitComponent,
-    EditUnitComponent,
-    MusclegroupViewComponent
+    MusclegroupViewComponent,
+    TrainingLogComponent
   ],
   imports: [
     BrowserModule,
