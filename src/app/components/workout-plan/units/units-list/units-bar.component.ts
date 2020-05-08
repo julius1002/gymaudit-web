@@ -4,8 +4,11 @@ import { Unit } from "src/app/model/unit";
 import { environment } from "src/environments/environment";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
-import { take, share, map } from "rxjs/operators";
+import { share } from "rxjs/operators";
 import { UnitListService } from "src/app/services/unit-list.service";
+import { AddUnitDialogComponent } from "../add-unit-dialog/add-unit-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { EditUnitDialogComponent } from "../edit-unit-dialog/edit-unit-dialog.component";
 
 @Component({
   selector: "app-units-bar",
@@ -20,12 +23,14 @@ export class UnitsBarComponent implements OnInit {
     private unitService: UnitService,
     private router: Router,
     private unitListService: UnitListService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.getUnitsFromTrainee();
-    this.unitListService.unitList.subscribe(unit => {this.updateUnitList()
+    this.unitListService.unitList.subscribe((unit) => {
+      this.updateUnitList();
     });
     this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
   }
@@ -34,9 +39,9 @@ export class UnitsBarComponent implements OnInit {
     this.units$ = this.unitService.getAll(environment.TRAINEEID);
   }
 
-  public removeUnit(){
+  public removeUnit() {
     this.units$ = this.unitService.getAll(environment.TRAINEEID).pipe(share());
-    this.units$.subscribe(units => this.setDefaultRoute(units));
+    this.units$.subscribe((units) => this.setDefaultRoute(units));
   }
 
   public getUnitsFromTrainee() {
@@ -55,17 +60,19 @@ export class UnitsBarComponent implements OnInit {
   }
 
   public setDefaultRoute(units: Unit[]) {
-    if(units.length){
-    this.selectUnit(units[0]);
-  }
+    if (units.length) {
+      this.selectUnit(units[0]);
+    }
   }
 
   public addUnit() {
-    
+    const dialogRef = this.dialog.open(AddUnitDialogComponent, {});
   }
 
   public editUnit() {
-    
+    const dialogRef = this.dialog.open(EditUnitDialogComponent, {
+      data: { unit: this.selectedUnit },
+    });
   }
 
   isSelectedUnit(unit): boolean {
@@ -75,5 +82,4 @@ export class UnitsBarComponent implements OnInit {
     }
     return unit.id === unitId;
   }
-  
 }

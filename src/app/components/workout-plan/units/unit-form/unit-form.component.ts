@@ -1,11 +1,20 @@
-import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  Input,
+  EventEmitter,
+  Inject,
+} from "@angular/core";
 import { Unit } from "src/app/model/unit";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { UnitService } from "src/app/services/unit.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { map } from "rxjs/operators";
 import { UnitListService } from "src/app/services/unit-list.service";
+import { AddUnitDialogComponent } from "../add-unit-dialog/add-unit-dialog.component";
+import { MatDialogRef } from "@angular/material/dialog";
+import { EditUnitDialogComponent } from "../edit-unit-dialog/edit-unit-dialog.component";
 
 @Component({
   selector: "app-unit-form",
@@ -15,7 +24,7 @@ import { UnitListService } from "src/app/services/unit-list.service";
 export class UnitFormComponent implements OnInit {
   @Input() editing = false;
   @Output() submitUnit = new EventEmitter<Unit>();
-  unit: Unit;
+  @Input() data;
   unitForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
@@ -23,23 +32,25 @@ export class UnitFormComponent implements OnInit {
     private unitService: UnitService,
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
-    private unitListService: UnitListService
+    private unitListService: UnitListService,
+    private dialogRefAdd: MatDialogRef<AddUnitDialogComponent>,
+    private dialogRefEdit: MatDialogRef<EditUnitDialogComponent>
   ) {}
 
   ngOnInit(): void {
     this.initForm();
-
     if (this.editing) {
-      this.route.paramMap
-        .pipe(map(() => window.history.state))
-        .subscribe((unit) => {
-          this.setFormValues(unit), (this.unit = unit);
-        });
+      this.setFormValues(this.data.unit);
     }
   }
 
   private setFormValues(unit: Unit) {
     this.unitForm.patchValue(unit);
+
+    this.unitForm.setValue({
+      name: unit.name,
+      description: unit.description,
+    });
   }
 
   private initForm() {
@@ -53,17 +64,25 @@ export class UnitFormComponent implements OnInit {
     });
   }
 
+  closeDialog() {
+    if (this.editing) {
+      this.dialogRefEdit.close();
+    } else {
+      this.dialogRefAdd.close();
+    }
+  }
   removeUnit() {
     if (confirm("Einheit wirklich löschen?")) {
-      this.unitService.delete(this.unit.id).subscribe((unit) => {
-        this.router.navigate([".."]), this.unitListService.unitRemovedEvent(),
-        this.snackBar.open(
-          `${unit.name} erfolgreich gelöscht!`,
-          "schließen",
-          {
-            duration: 2500,
-          }
-        );
+      this.unitService.delete(this.data.unit.id).subscribe((unit) => {
+        this.router.navigate([".."]),
+          this.unitListService.unitRemovedEvent(),
+          this.snackBar.open(
+            `${unit.name} erfolgreich gelöscht!`,
+            "schließen",
+            {
+              duration: 2500,
+            }
+          );
       });
     }
   }
@@ -75,9 +94,9 @@ export class UnitFormComponent implements OnInit {
     var date;
     var traineeId;
     if (this.editing) {
-      id = this.unit.id;
-      date = this.unit.date;
-      traineeId = this.unit.traineeId;
+      id = this.data.unit.id;
+      date = this.data.unit.date;
+      traineeId = this.data.unit.traineeId;
     }
 
     const newUnit: Unit = {
@@ -85,7 +104,7 @@ export class UnitFormComponent implements OnInit {
       date: date,
       name: formValue.name,
       description: formValue.description,
-      traineeId: traineeId
+      traineeId: traineeId,
     };
 
     this.submitUnit.emit(newUnit);
