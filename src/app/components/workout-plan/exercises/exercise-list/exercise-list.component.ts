@@ -6,7 +6,7 @@ import { ExerciseService } from "src/app/services/exercise.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { Page } from "src/app/model/page";
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent } from "@angular/material/paginator";
 
 @Component({
   selector: "app-exercise-list",
@@ -14,7 +14,6 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ["./exercise-list.component.scss"],
 })
 export class ExerciseListComponent implements OnInit {
-  
   exercisesPage$: Observable<Page<Exercise>>;
   unitId$: Observable<string>;
   selectedExercise: Exercise;
@@ -47,7 +46,6 @@ export class ExerciseListComponent implements OnInit {
       });
   }
 
-
   private updateExercisesAfterAdding(exercises: Exercise[]) {
     this.index = 0;
     this.updateExercises();
@@ -66,7 +64,7 @@ export class ExerciseListComponent implements OnInit {
     );
   }
 
-  public turn(event:PageEvent) {
+  public turn(event: PageEvent) {
     this.getExercisesPageFromUnit(event.pageSize, event.pageIndex);
     this.index = event.pageIndex;
   }
@@ -92,14 +90,20 @@ export class ExerciseListComponent implements OnInit {
     );
   }
 
-
-
   public setDefaultRoute(exercises: Exercise[]) {
     if (exercises.length) {
       this.selectExercise(exercises[0]);
     }
   }
-
+  public navigateToAddExercise() {
+    this.unitId$
+      .pipe(take(1))
+      .subscribe((unitId) =>
+        this.router.navigateByUrl(
+          `units/(exercises:${unitId}/(exercise-detail:add))`
+        )
+      );
+  }
   public isSelectedExercise(exercise): boolean {
     let exerciseId;
     if (this.route.snapshot) {

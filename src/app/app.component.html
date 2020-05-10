@@ -9,35 +9,35 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <span>GymAudit</span>
+      <span class ="title">GymAudit</span>
       <span class="menu-spacer"></span>
       <div fxShow="true" fxHide.lt-md>
-        <a routerLink="home" routerLinkActive="active" mat-button> Home</a>
-        <a routerLink="units" routerLinkActive="active" mat-button>
+        <a routerLink="home" routerLinkActive="active" mat-button class ="link"> Home</a>
+        <a routerLink="units" routerLinkActive="active" mat-button class ="link">
           Trainingsplan
         </a>
-        <a routerLink="training-log" routerLinkActive="active" mat-button>
+        <a routerLink="training-log" routerLinkActive="active" mat-button class ="link">
           Training erfassen
         </a>
-        <a routerLinkActive="active" mat-button> Fortschritt </a>
+        <a routerLinkActive="active" mat-button class ="link"> Fortschritt </a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
 
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav>
-      <mat-nav-list>
+      <mat-nav-list >
         <a (click)="sidenav.toggle()" mat-list-item>
           <mat-icon>close</mat-icon>Schließen</a
         >
-        <a routerLink="home" routerLinkActive="active" mat-list-item> Home </a>
-        <a routerLink="units" routerLinkActive="active" mat-list-item>
+        <a routerLink="home" routerLinkActive="active" mat-list-item (click)="sidenav.toggle()"> Home </a>
+        <a routerLink="units" routerLinkActive="active" mat-list-item (click)="sidenav.toggle()">
           Trainingsplan
         </a>
-        <a routerLink="training-log" routerLinkActive="active" mat-list-item>
+        <a routerLink="training-log" routerLinkActive="active" mat-list-item (click)="sidenav.toggle()">
           Training erfassen
         </a>
-        <a routerLinkActive="active" mat-list-item> Fortschritt </a>
+        <a routerLinkActive="active" mat-list-item (click)="sidenav.toggle()"> Fortschritt </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>

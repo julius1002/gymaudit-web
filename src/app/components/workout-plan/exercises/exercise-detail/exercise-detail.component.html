@@ -1,48 +1,57 @@
 <ng-container *ngIf="exercise$ | async as exercise">
-  <div class="container" style='min-height:500px'>
-    <mat-tab-group>
-      <mat-tab label="Übersicht">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title> <img  class ="image"
-              src ="https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-06-02-activities-sport-small-barbell-72dpi-forPersonalUseOnly.png">
-                  <span style="font-weight:bold">Übung - {{exercise.name}}</span></mat-card-title>
-            <mat-card-subtitle *ngIf="exercise.exerciseType"
-              >Übungstyp:
-              {{ exerciseTypeEnum[exercise.exerciseType] }}</mat-card-subtitle
-            >
-          </mat-card-header>
-          <mat-card-content>
-            <ng-container *ngIf="exercise.pictureUrl">
-              <div class="exercise-image">
-                <img mat-card-image [src]="exercise.pictureUrl" />
-              </div>
-            </ng-container>
-            <ng-container *ngIf="exercise.description">
-              <p>Notizen: {{ exercise.description }}</p>
-            </ng-container>
-
-          </mat-card-content>
-        </mat-card>
-    </mat-tab>
-    <mat-tab label="Muskelgruppen">
-        <mat-card>
-          
-          <app-musclegroup-view [exercise]="exercise"></app-musclegroup-view>
-        </mat-card>
-        
-    </mat-tab>
-  <mat-tab label="Satz-Protokoll">
+  <div class="container" style="min-height: 550px;">
+    <div class="row">
+      <div class="container col">
+        <mat-tab-group>
+          <mat-tab label="Übersicht">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>
+                  <img
+                    class="image"
+                    src="https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-06-02-activities-sport-small-barbell-72dpi-forPersonalUseOnly.png"
+                  />
+                  <span style="font-weight: bold;"
+                    >Übung - {{ exercise.name }}</span
+                  ></mat-card-title
+                >
+                <mat-card-subtitle *ngIf="exercise.exerciseType"
+                  >Übungstyp:
+                  {{
+                    exerciseTypeEnum[exercise.exerciseType]
+                  }}</mat-card-subtitle
+                >
+              </mat-card-header>
+              <mat-card-content>
+                <ng-container *ngIf="exercise.pictureUrl">
+                  <div class="exercise-image">
+                    <img mat-card-image [src]="exercise.pictureUrl" />
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="exercise.description">
+                  <p>Notizen: {{ exercise.description }}</p>
+                </ng-container>
+              </mat-card-content>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Muskelgruppen">
+            <mat-card>
+              <app-musclegroup-view
+                [exercise]="exercise"
+              ></app-musclegroup-view>
+            </mat-card>
+          </mat-tab>
+        </mat-tab-group>
+        <div style ="float: right;
+        text-align: right;">
+        <button style = "margin: 10px" mat-raised-button (click)="navigateToEdit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      </div>
+      <div class="col">
         <app-set-list [exercise]="exercise"> </app-set-list>
-      </mat-tab>
-    </mat-tab-group>
-    <button mat-raised-button (click)="navigateToAddExercise()">
-      Hinzufügen
-      <mat-icon>add</mat-icon>
-    </button>
-    <button mat-raised-button (click)="navigateToEdit()">
-      Bearbeiten
-      <mat-icon >edit</mat-icon>
-    </button>
+      </div>
+    </div>
   </div>
 </ng-container>

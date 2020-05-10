@@ -76,6 +76,7 @@ export class UnitFormComponent implements OnInit {
       this.unitService.delete(this.data.unit.id).subscribe((unit) => {
         this.router.navigate([".."]),
           this.unitListService.unitRemovedEvent(),
+          this.dialogRefEdit.close(),
           this.snackBar.open(
             `${unit.name} erfolgreich gelöscht!`,
             "schließen",
@@ -111,6 +112,10 @@ export class UnitFormComponent implements OnInit {
     this.unitForm.reset;
 
     if (this.editing) {
+      this.unitService.update(newUnit).subscribe((newUnit) => {
+        this.unitListService.updateListEvent(newUnit),
+          this.dialogRefEdit.close();
+      });
       this.snackBar.open(
         `${newUnit.name} erfolgreich bearbeitet!`,
         "schließen",
@@ -119,6 +124,10 @@ export class UnitFormComponent implements OnInit {
         }
       );
     } else {
+      this.unitService
+        .postSingle(newUnit)
+        .subscribe((newUnit) => this.unitListService.updateListEvent(newUnit));
+      this.dialogRefAdd.close();
       this.snackBar.open(
         `${newUnit.name} erfolgreich hinzugefügt!`,
         "schließen",

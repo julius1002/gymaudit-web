@@ -1,12 +1,12 @@
 <form [formGroup]="unitForm" (ngSubmit)="submitForm()">
   <div class="container">
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
     <br />
 
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Beschreibung</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>

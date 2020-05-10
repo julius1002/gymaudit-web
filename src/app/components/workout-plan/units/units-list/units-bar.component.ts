@@ -31,6 +31,7 @@ export class UnitsBarComponent implements OnInit {
     this.getUnitsFromTrainee();
     this.unitListService.unitList.subscribe((unit) => {
       this.updateUnitList();
+      this.selectUnit(unit)
     });
     this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
   }

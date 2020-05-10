@@ -6,6 +6,7 @@ import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
 import { AddExerciseComponent } from "./components/workout-plan/exercises/add-exercise/add-exercise.component";
 import { TrainingLogComponent } from './components/training-log/training-log/training-log.component';
+import { HomeComponent } from './components/home/home/home.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: "home",
-    redirectTo: "",
+    component: HomeComponent
   },
   {
     path: "units",

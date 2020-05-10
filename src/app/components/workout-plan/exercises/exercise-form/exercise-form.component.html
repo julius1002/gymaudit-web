@@ -59,16 +59,20 @@
       <br />
 
       <br />
-      <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid">
-        Speichern
-        <mat-icon>save</mat-icon>
-      </button>
-      <ng-container *ngIf="editing === true">
-        <button mat-raised-button type="button" (click)="removeExercise()">
-          Löschen
-          <mat-icon>delete</mat-icon>
-        </button>
-      </ng-container>
     </div>
   </mat-card>
+  <button mat-raised-button type="button" (click)="navigateBack()">
+    <mat-icon>arrow_back_ios</mat-icon>
+    Zurück
+  </button>
+  <ng-container *ngIf="editing === true">
+    <button mat-raised-button type="button" (click)="removeExercise()">
+      Entfernen
+      <mat-icon>delete</mat-icon>
+    </button>
+  </ng-container>
+  <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid">
+    Speichern
+    <mat-icon>save</mat-icon>
+  </button>
 </form>

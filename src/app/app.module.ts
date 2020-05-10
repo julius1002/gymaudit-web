@@ -38,7 +38,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
 import { TrainingLogComponent } from './components/training-log/training-log/training-log.component';
-
+import { AddUnitDialogComponent } from './components/workout-plan/units/add-unit-dialog/add-unit-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { EditUnitDialogComponent } from './components/workout-plan/units/edit-unit-dialog/edit-unit-dialog.component';
+import { HomeComponent } from './components/home/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,10 @@ import { TrainingLogComponent } from './components/training-log/training-log/tra
     AddExerciseComponent,
     UnitFormComponent,
     MusclegroupViewComponent,
-    TrainingLogComponent
+    TrainingLogComponent,
+    AddUnitDialogComponent,
+    EditUnitDialogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +82,8 @@ import { TrainingLogComponent } from './components/training-log/training-log/tra
     MatTooltipModule,
     MatPaginatorModule, 
     MatTabsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
     ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent]

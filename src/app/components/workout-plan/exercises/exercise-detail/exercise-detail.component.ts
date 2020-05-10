@@ -44,15 +44,6 @@ export class ExerciseDetailComponent implements OnInit {
             .pipe(shareReplay(), take(1)))
       );
   }
-  public navigateToAddExercise() {
-    this.unitId$
-      .pipe(take(1))
-      .subscribe((unitId) =>
-        this.router.navigateByUrl(
-          `units/(exercises:${unitId}/(exercise-detail:add))`
-        )
-      );
-  }
 
   public navigateToEdit() {
     this.exercise$.subscribe((exercise) =>

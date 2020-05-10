@@ -1,7 +1,7 @@
 <ng-container *ngIf="setsPage$ | async as sets">
-  <ng-container *ngIf="sets.content.length">
+  <ng-container *ngIf="sets.content.length; else noSets">
     <div class = "heading">
-    <span class = "mat-title">Sätze</span>
+    <span class = "mat-title">Satzprotokoll</span>
   </div>
     <mat-expansion-panel *ngFor="let set of sets.content">
       <mat-expansion-panel-header>
@@ -9,9 +9,9 @@
           {{ set.date | date: "EEEE d. MMMM y HH:mm" }}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-label style="font-weight:bold">Gewicht: {{ set.weight }}</mat-label>
-      <br />
-      <mat-label style="font-weight:bold">Wiederholungen: {{ set.reps }}</mat-label>
+      <mat-label>Wiederholungszyklen: <span style="font-weight:bold">{{ set.reps }}</span></mat-label>
+      <mat-divider></mat-divider>
+      <mat-label>Intensität: <span style="font-weight:bold">{{ set.weight }} Unit</span></mat-label>
     </mat-expansion-panel>
     <mat-paginator
       [pageSize]="pageSize"
@@ -21,4 +21,10 @@
     >
     </mat-paginator>
   </ng-container>
+  <ng-template #noSets>
+    <div class = "heading">
+    Für diese Übung wurden <br>noch keine Sätze protokolliert 
+  </div>
+  </ng-template>
 </ng-container>
+

@@ -48,11 +48,10 @@ export class ExerciseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-
+    this.unitId$ = this.route.parent.paramMap.pipe(
+      map((paramMap) => paramMap.get("unitId"))
+    );
     if (this.editing) {
-      this.unitId$ = this.route.parent.paramMap.pipe(
-        map((paramMap) => paramMap.get("unitId"))
-      );
       this.route.paramMap
         .pipe(map(() => window.history.state))
         .subscribe((exercise) => {
@@ -129,6 +128,20 @@ export class ExerciseFormComponent implements OnInit {
     }
   }
 
+  navigateBack() {
+    if (this.editing) {
+      this.router.navigateByUrl(
+        `units/(exercises:${this.exercise.unitId}/(exercise-detail:detail/${this.exercise.id}))`
+      );
+    } else {
+      this.unitId$.subscribe((unitId) =>
+        this.router
+          .navigate(["."])
+          .then(() => this.router.navigateByUrl(`units/(exercises:${unitId})`))
+      );
+    }
+  }
+
   submitForm() {
     const formValue = this.exerciseForm.value;
 
@@ -136,7 +149,6 @@ export class ExerciseFormComponent implements OnInit {
     var muscleGroups;
     var unitId;
     var exerciseId;
-    var sets;
     var date;
 
     if (formValue.exerciseType === "") {
