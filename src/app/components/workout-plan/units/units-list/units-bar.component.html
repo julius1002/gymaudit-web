@@ -1,24 +1,27 @@
-<h1>Trainingsplan</h1>
+<div class = "heading-div"><h1>Trainingsplan</h1></div>
 <ng-container *ngIf="units$ | async as units">
   <div class="container-fluid">
     <div class="heading">
       <span class="mat-title">Einheiten</span>
-      <br>
+      <br />
       <button mat-raised-button (click)="addUnit()">
         <mat-icon>add</mat-icon>
-         <!--  eventuell raus, nur symbol--></button>
-       <button mat-raised-button (click)="editUnit()"> <mat-icon>edit</mat-icon>
-       </button>
+        <!--  eventuell raus, nur symbol-->
+      </button>
+      <button mat-raised-button (click)="editUnit()">
+        <mat-icon>edit</mat-icon>
+      </button>
     </div>
     <nav mat-tab-nav-bar>
       <a
         mat-tab-link
         *ngFor="let unit of units"
         (click)="selectUnit(unit)"
-        [active] ="isSelectedUnit(unit)"
+        [active]="isSelectedUnit(unit)"
         >{{ unit.name }}</a
       >
     </nav>
+    <ng-container *ngIf="selectedUnit.description">Beschreibung der Einheit "{{selectedUnit.name}}": {{ selectedUnit.description }}</ng-container>
     <router-outlet name="exercises"></router-outlet>
     <router-outlet name="add"></router-outlet>
   </div>
