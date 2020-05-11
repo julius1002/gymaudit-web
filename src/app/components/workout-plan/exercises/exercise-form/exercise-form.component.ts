@@ -47,6 +47,7 @@ export class ExerciseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.initForm();
     this.unitId$ = this.route.parent.paramMap.pipe(
       map((paramMap) => paramMap.get("unitId"))
@@ -58,6 +59,7 @@ export class ExerciseFormComponent implements OnInit {
           this.setFormValues(exercise), (this.exercise = exercise);
         });
     }
+    
   }
 
   private setFormValues(exercise: Exercise) {

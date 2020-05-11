@@ -6,6 +6,7 @@ import { Set } from "src/app/model/set";
 import { Observable } from "rxjs";
 import { PageEvent } from "@angular/material/paginator";
 import { switchMap, take, share } from "rxjs/operators";
+import { MeasureUnit } from "src/app/model/set";
 @Component({
   selector: "app-set-list",
   templateUrl: "./set-list.component.html",
@@ -14,7 +15,7 @@ import { switchMap, take, share } from "rxjs/operators";
 export class SetListComponent implements OnInit {
   @Input() exercise: Exercise;
   setsPage$: Observable<Page<Set>>;
-
+  measureUnitEnum = MeasureUnit;
   index: number = 0;
   pageSize: number = 5;
   constructor(private setService: SetService) {}

@@ -10,8 +10,10 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-label>Wiederholungszyklen: <span style="font-weight:bold">{{ set.reps }}</span></mat-label>
-      <mat-divider></mat-divider>
-      <mat-label>Intensität: <span style="font-weight:bold">{{ set.weight }} Unit</span></mat-label>
+      <ng-container *ngIf = "set.number">
+        <mat-divider></mat-divider>
+      <mat-label>Intensität: <span style="font-weight:bold">{{ set.number }} {{measureUnitEnum[set.measureUnit]}}</span></mat-label>
+    </ng-container>
     </mat-expansion-panel>
     <mat-paginator
       [pageSize]="pageSize"
