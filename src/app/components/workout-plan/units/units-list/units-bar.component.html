@@ -1,28 +1,44 @@
-<div class = "heading-div"><h1>Trainingsplan</h1></div>
+<div class="heading-div"><h1>Trainingsplan</h1></div>
 <ng-container *ngIf="units$ | async as units">
-  <div class="container-fluid">
-    <div class="heading">
-      <span class="mat-title">Einheiten</span>
-      <br />
+  <div class="container">
+    <ng-container *ngIf="units.length; else noExercises">
+      <div class="heading">
+        <span class="mat-title">Einheiten</span>
+        <br />
+        <button mat-raised-button (click)="addUnit()">
+          <mat-icon>add</mat-icon>
+          <!--  eventuell raus, nur symbol-->
+        </button>
+        <button mat-raised-button (click)="editUnit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <nav mat-tab-nav-bar>
+        <a
+          mat-tab-link
+          *ngFor="let unit of units"
+          (click)="selectUnit(unit)"
+          [active]="isSelectedUnit(unit)"
+          >{{ unit.name }}</a
+        >
+      </nav>
+      <ng-container *ngIf="selectedUnit.description"
+        >Beschreibung der Einheit
+        <span style="font-weight: bold; font-size: 1.2em;">{{
+          selectedUnit.name
+        }}</span
+        >:<br />
+        {{ selectedUnit.description }}</ng-container
+      >
+      <router-outlet name="exercises"></router-outlet>
+      <router-outlet name="add"></router-outlet>
+    </ng-container>
+    <ng-template #noExercises
+      >Es wurden noch keine Übungen hinzugefügt
       <button mat-raised-button (click)="addUnit()">
         <mat-icon>add</mat-icon>
         <!--  eventuell raus, nur symbol-->
-      </button>
-      <button mat-raised-button (click)="editUnit()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </div>
-    <nav mat-tab-nav-bar>
-      <a
-        mat-tab-link
-        *ngFor="let unit of units"
-        (click)="selectUnit(unit)"
-        [active]="isSelectedUnit(unit)"
-        >{{ unit.name }}</a
-      >
-    </nav>
-    <ng-container *ngIf="selectedUnit.description">Beschreibung der Einheit "{{selectedUnit.name}}": {{ selectedUnit.description }}</ng-container>
-    <router-outlet name="exercises"></router-outlet>
-    <router-outlet name="add"></router-outlet>
+      </button></ng-template
+    >
   </div>
 </ng-container>

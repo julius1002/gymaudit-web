@@ -67,11 +67,14 @@ export class UnitsBarComponent implements OnInit {
   }
 
   public addUnit() {
-    const dialogRef = this.dialog.open(AddUnitDialogComponent, {});
+    const dialogRef = this.dialog.open(AddUnitDialogComponent, {
+      width: '400px', height: '400px'
+    });
   }
 
   public editUnit() {
     const dialogRef = this.dialog.open(EditUnitDialogComponent, {
+      width: '400px', height: '400px',
       data: { unit: this.selectedUnit },
     });
   }

@@ -28,9 +28,10 @@
                     <img mat-card-image [src]="exercise.pictureUrl" />
                   </div>
                 </ng-container>
-                <ng-container *ngIf="exercise.description">
+                <ng-container *ngIf="exercise.description; else noDescription">
                   <p>Notizen: {{ exercise.description }}</p>
                 </ng-container>
+                <ng-template #noDescription> Für diese Übung wurde noch keine Beschreibung hinzugefügt</ng-template>
               </mat-card-content>
             </mat-card>
           </mat-tab>

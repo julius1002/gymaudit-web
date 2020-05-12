@@ -31,7 +31,7 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <ng-container *ngIf = "exercises.totalElements.length">
+      <ng-container *ngIf = "exercises.content.length">
       <mat-paginator
         [pageSize]="pageSize"
         [length]="exercises.totalElements"

@@ -30,14 +30,14 @@
         <a (click)="sidenav.toggle()" mat-list-item>
           <mat-icon>close</mat-icon>Schließen</a
         >
-        <a routerLink="home" routerLinkActive="active" mat-list-item (click)="sidenav.toggle()"> Home </a>
-        <a routerLink="units" routerLinkActive="active" mat-list-item (click)="sidenav.toggle()">
+        <a routerLink="home" routerLinkActive="active" mat-list-item (click)="sidenav.close()"> Home </a>
+        <a routerLink="units" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
           Trainingsplan
         </a>
-        <a routerLink="training-log" routerLinkActive="active" mat-list-item (click)="sidenav.toggle()">
+        <a routerLink="training-log" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
           Training erfassen
         </a>
-        <a routerLinkActive="active" mat-list-item (click)="sidenav.toggle()"> Fortschritt </a>
+        <a routerLinkActive="active" mat-list-item (click)="sidenav.close()"> Fortschritt </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>
