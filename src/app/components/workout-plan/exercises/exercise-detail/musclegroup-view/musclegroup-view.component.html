@@ -1,12 +1,17 @@
 <div class="row">
   <div class="col">
     <p style="font-weight: bold;">Beanspruchte Muskelgruppen</p>
-    <mat-list>
-      <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
-        {{ muscleGroupEnum[muscleGroup] }}
-        <mat-divider intset="true"></mat-divider>
-      </mat-list-item>
-    </mat-list>
+    <ng-container *ngIf="exercise.muscleGroups.length; else noMuscleGroups">
+      <mat-list>
+        <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
+          {{ muscleGroupEnum[muscleGroup] }}
+          <mat-divider intset="true"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+    <ng-template #noMuscleGroups
+      >Für diese Übung wurden keine beanspruchten Muskeln ausgewählt
+    </ng-template>
   </div>
   <div class="col">
     <div style="position: relative; left: 0; top: 0;">

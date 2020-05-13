@@ -1,10 +1,11 @@
+@import "../../../../../styles.scss";
 .active {
-  background-color: #92a8d1;
+  background-color: $primary;
 }
 
 .exercise-list {
   padding-bottom: 10px;
-  max-width:400px;
+  max-width: 400px;
 }
 
 .image {
@@ -12,4 +13,3 @@
   width: 50px;
   padding-right: 5px;
 }
-

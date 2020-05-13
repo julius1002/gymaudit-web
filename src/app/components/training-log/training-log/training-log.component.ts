@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { UnitService } from 'src/app/services/unit.service';
+import { Unit } from 'src/app/model/unit';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-training-log',
@@ -7,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainingLogComponent implements OnInit {
 
-  constructor() { }
+  units$:Observable<Unit[]>;
+  constructor(private unitService:UnitService) { }
 
   ngOnInit(): void {
+    this.units$ = this.unitService.getAll(environment.TRAINEEID);
   }
 
 }

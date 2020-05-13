@@ -1,18 +1,18 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
   <div class="row">
     <div class="col exercise-list">
-      <ng-container *ngIf="exercises.content.length">
+      <ng-container *ngIf="exercises.content.length; else noExercises">
         <div class="heading">
           <span class="mat-title">Übungen</span>
         </div>
         <mat-chip-list class="mat-chip-list-stacked">
           <mat-chip
+            class="mat-chip"
             *ngFor="let exercise of exercises.content; let i = index"
             (click)="selectExercise(exercise)"
             [style.background-color]="
               isSelectedExercise(exercise) ? '#92a8d1' : ''
             "
-            style="cursor: pointer;"
           >
             <img
               class="image"
@@ -22,6 +22,9 @@
           </mat-chip>
         </mat-chip-list>
       </ng-container>
+      <ng-template #noExercises
+        >Es wurde noch keine Übung hinzugefügt</ng-template
+      >
       <div style="text-align: center;">
         <button
           style="width: 300px; margin: 10px;"
@@ -31,15 +34,15 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <ng-container *ngIf = "exercises.content.length">
-      <mat-paginator
-        [pageSize]="pageSize"
-        [length]="exercises.totalElements"
-        (page)="turn($event)"
-        [pageIndex]="index"
-      >
-      </mat-paginator>
-    </ng-container>
+      <ng-container *ngIf="exercises.content.length">
+        <mat-paginator
+          [pageSize]="pageSize"
+          [length]="exercises.totalElements"
+          (page)="turn($event)"
+          [pageIndex]="index"
+        >
+        </mat-paginator>
+      </ng-container>
     </div>
     <router-outlet name="exercise-detail"></router-outlet>
   </div>

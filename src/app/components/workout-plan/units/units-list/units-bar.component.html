@@ -1,6 +1,7 @@
 <div class="heading-div"><h1>Trainingsplan</h1></div>
 <ng-container *ngIf="units$ | async as units">
   <div class="container">
+    <mat-divider></mat-divider>
     <ng-container *ngIf="units.length; else noExercises">
       <div class="heading">
         <span class="mat-title">Einheiten</span>
@@ -12,6 +13,7 @@
         <button mat-raised-button (click)="editUnit()">
           <mat-icon>edit</mat-icon>
         </button>
+        <mat-divider></mat-divider>
       </div>
       <nav mat-tab-nav-bar>
         <a

@@ -1,47 +1,48 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { UnitsBarComponent } from './components/workout-plan/units/units-list/units-bar.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { UnitsBarComponent } from "./components/workout-plan/units/units-list/units-bar.component";
+import { BrowserModule } from "@angular/platform-browser";
 
-import { HttpClientModule } from '@angular/common/http';
-import { ExerciseDetailComponent } from './components/workout-plan/exercises/exercise-detail/exercise-detail.component';
-import { ExerciseListComponent } from './components/workout-plan/exercises/exercise-list/exercise-list.component';
+import { HttpClientModule } from "@angular/common/http";
+import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
+import { ExerciseListComponent } from "./components/workout-plan/exercises/exercise-list/exercise-list.component";
 
 import localeDe from "@angular/common/locales/de";
-import { registerLocaleData } from '@angular/common';
-import { SetListComponent } from './components/workout-plan/exercises/exercise-detail/set-list/set-list.component';
-import { EditExerciseComponent } from './components/workout-plan/exercises/edit-exercise/edit-exercise.component';
+import { registerLocaleData } from "@angular/common";
+import { SetListComponent } from "./components/workout-plan/exercises/exercise-detail/set-list/set-list.component";
+import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ExerciseFormComponent } from './components/workout-plan/exercises/exercise-form/exercise-form.component';
-import { AddExerciseComponent } from './components/workout-plan/exercises/add-exercise/add-exercise.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatListModule } from "@angular/material/list";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ExerciseFormComponent } from "./components/workout-plan/exercises/exercise-form/exercise-form.component";
+import { AddExerciseComponent } from "./components/workout-plan/exercises/add-exercise/add-exercise.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTabsModule } from "@angular/material/tabs";
 
-import { ReactiveFormsModule} from '@angular/forms';
-import { UnitFormComponent } from './components/workout-plan/units/unit-form/unit-form.component';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCardModule} from '@angular/material/card';
-import { MusclegroupViewComponent } from './components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatChipsModule} from '@angular/material/chips';
-import { TrainingLogComponent } from './components/training-log/training-log/training-log.component';
-import { AddUnitDialogComponent } from './components/workout-plan/units/add-unit-dialog/add-unit-dialog.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import { EditUnitDialogComponent } from './components/workout-plan/units/edit-unit-dialog/edit-unit-dialog.component';
-import { HomeComponent } from './components/home/home/home.component';
+import { ReactiveFormsModule } from "@angular/forms";
+import { UnitFormComponent } from "./components/workout-plan/units/unit-form/unit-form.component";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatCardModule } from "@angular/material/card";
+import { MusclegroupViewComponent } from "./components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatChipsModule } from "@angular/material/chips";
+import { TrainingLogComponent } from "./components/training-log/training-log/training-log.component";
+import { AddUnitDialogComponent } from "./components/workout-plan/units/add-unit-dialog/add-unit-dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { EditUnitDialogComponent } from "./components/workout-plan/units/edit-unit-dialog/edit-unit-dialog.component";
+import { HomeComponent } from "./components/home/home/home.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,7 @@ import { HomeComponent } from './components/home/home/home.component';
     TrainingLogComponent,
     AddUnitDialogComponent,
     EditUnitDialogComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,16 +81,16 @@ import { HomeComponent } from './components/home/home/home.component';
     MatExpansionModule,
     MatCardModule,
     MatTooltipModule,
-    MatPaginatorModule, 
+    MatPaginatorModule,
     MatTabsModule,
     MatChipsModule,
     MatDialogModule
-    ],
+  ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { 
-  constructor(){
+export class AppModule {
+  constructor() {
     registerLocaleData(localeDe);
   }
 }
