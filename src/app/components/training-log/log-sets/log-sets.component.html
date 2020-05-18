@@ -1,0 +1,7 @@
+<ng-container *ngIf = "sets$ | async as sets">
+<ul>
+    <li *ngFor = "let set of sets.content">
+       {{set.number}} {{set.measureUnit}} 
+    </li>
+</ul>
+</ng-container>
