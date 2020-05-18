@@ -5,8 +5,10 @@ import { UnitsBarComponent } from "./components/workout-plan/units/units-list/un
 import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
 import { AddExerciseComponent } from "./components/workout-plan/exercises/add-exercise/add-exercise.component";
-import { TrainingLogComponent } from './components/training-log/training-log/training-log.component';
-import { HomeComponent } from './components/home/home/home.component';
+import { TrainingLogComponent } from "./components/training-log/training-log/training-log.component";
+import { HomeComponent } from "./components/home/home/home.component";
+import { LogExercisesComponent } from "./components/training-log/log-exercises/log-exercises.component";
+import { LogUnitListComponent } from './components/training-log/log-unit-list/log-unit-list.component';
 
 const routes: Routes = [
   {
@@ -16,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: "home",
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: "units",
@@ -48,8 +50,18 @@ const routes: Routes = [
   },
   {
     path: "training-log",
-    component: TrainingLogComponent
-  }
+    component: TrainingLogComponent,
+    children: [
+      {
+        path: ":units",
+        component: LogUnitListComponent
+      },
+      {
+        path: "units/:unitId",
+        component: LogExercisesComponent
+      },
+    ],
+  },
 ];
 
 @NgModule({

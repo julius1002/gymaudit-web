@@ -43,6 +43,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { EditUnitDialogComponent } from "./components/workout-plan/units/edit-unit-dialog/edit-unit-dialog.component";
 import { HomeComponent } from "./components/home/home/home.component";
 import { LogSetsComponent } from './components/training-log/log-sets/log-sets.component';
+import { LogExercisesComponent } from './components/training-log/log-exercises/log-exercises.component';
+import { LogUnitListComponent } from './components/training-log/log-unit-list/log-unit-list.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { LogSetsComponent } from './components/training-log/log-sets/log-sets.co
     EditUnitDialogComponent,
     HomeComponent,
     LogSetsComponent,
+    LogExercisesComponent,
+    LogUnitListComponent,
   ],
   imports: [
     BrowserModule,

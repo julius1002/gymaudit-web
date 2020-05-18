@@ -1,7 +1,12 @@
 <ng-container *ngIf = "sets$ | async as sets">
+    <ng-container *ngIf = "sets.content.length; else noSets">
+Sätze:
 <ul>
-    <li *ngFor = "let set of sets.content">
-       {{set.number}} {{set.measureUnit}} 
+    <li *ngFor = "let set of sets.content; let i = index">
+       {{i+1}}. {{set.number}} {{set.measureUnit}} 
     </li>
 </ul>
+</ng-container>
+<ng-template #noSets>Es wurden noch keine Sätze geloggt!</ng-template>
+<br>
 </ng-container>
