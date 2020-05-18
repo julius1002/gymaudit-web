@@ -11,8 +11,8 @@ import { Page } from "../model/page";
 export class ExerciseService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAll(unitId: string): Observable<Exercise[]> {
-    return this.httpClient.get<Exercise[]>(
+  public getAll(unitId: string): Observable<Page<Exercise>> {
+    return this.httpClient.get<Page<Exercise>>(
       `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`
     );
   }

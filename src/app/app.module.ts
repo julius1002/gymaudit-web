@@ -42,6 +42,7 @@ import { AddUnitDialogComponent } from "./components/workout-plan/units/add-unit
 import { MatDialogModule } from "@angular/material/dialog";
 import { EditUnitDialogComponent } from "./components/workout-plan/units/edit-unit-dialog/edit-unit-dialog.component";
 import { HomeComponent } from "./components/home/home/home.component";
+import { LogSetsComponent } from './components/training-log/log-sets/log-sets.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { HomeComponent } from "./components/home/home/home.component";
     AddUnitDialogComponent,
     EditUnitDialogComponent,
     HomeComponent,
+    LogSetsComponent,
   ],
   imports: [
     BrowserModule,
