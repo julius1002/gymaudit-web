@@ -45,6 +45,8 @@ import { HomeComponent } from "./components/home/home/home.component";
 import { LogSetsComponent } from './components/training-log/log-sets/log-sets.component';
 import { LogExercisesComponent } from './components/training-log/log-exercises/log-exercises.component';
 import { LogUnitListComponent } from './components/training-log/log-unit-list/log-unit-list.component';
+import { LogSetsFormComponent } from './components/training-log/log-sets-form/log-sets-form.component';
+import { AddSetComponent } from './components/training-log/add-set/add-set.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { LogUnitListComponent } from './components/training-log/log-unit-list/lo
     LogSetsComponent,
     LogExercisesComponent,
     LogUnitListComponent,
+    LogSetsFormComponent,
+    AddSetComponent,
   ],
   imports: [
     BrowserModule,

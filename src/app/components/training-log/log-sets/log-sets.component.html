@@ -9,4 +9,8 @@ Sätze:
 </ng-container>
 <ng-template #noSets>Es wurden noch keine Sätze geloggt!</ng-template>
 <br>
+<button (click)="showAddSets()">Satz hinzufügen</button>
+<ng-container *ngIf = "showAdd">
+<app-add-set></app-add-set>
+</ng-container>
 </ng-container>

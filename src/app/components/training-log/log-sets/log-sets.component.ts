@@ -13,7 +13,7 @@ import { switchMap } from "rxjs/operators";
 export class LogSetsComponent implements OnInit {
   @Input() exerciseSubject: Subject<Exercise> = new Subject<Exercise>();
   sets$: Observable<Page<Set>>;
-
+  showAdd = false;
   constructor(private setService: SetService) {}
 
   ngOnInit(): void {
@@ -22,5 +22,9 @@ export class LogSetsComponent implements OnInit {
         this.setService.getAll(exercise.unitId, exercise.id)
       )
     );
+  }
+
+  showAddSets(){
+    this.showAdd = true;
   }
 }
