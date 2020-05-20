@@ -1,16 +1,19 @@
-<ng-container *ngIf = "sets$ | async as sets">
-    <ng-container *ngIf = "sets.content.length; else noSets">
-Sätze:
-<ul>
-    <li *ngFor = "let set of sets.content; let i = index">
-       {{i+1}}. {{set.number}} {{set.measureUnit}} 
-    </li>
-</ul>
-</ng-container>
-<ng-template #noSets>Es wurden noch keine Sätze geloggt!</ng-template>
-<br>
-<button (click)="showAddSets()">Satz hinzufügen</button>
-<ng-container *ngIf = "showAdd">
-<app-add-set></app-add-set>
-</ng-container>
+<ng-container *ngIf="sets$ | async as sets">
+  <ng-container *ngIf="sets.content.length; else noSets">
+    Sätze:
+    <ul>
+      <li *ngFor="let set of sets.content; let i = index">
+        {{ i + 1 }}. {{ set.reps }} Wiederholungen x {{ set.number
+        }}<ng-container *ngIf="set.measureUnit"
+          >{{ measureUnitEnum[set.measureUnit] }}
+        </ng-container>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #noSets>Es wurden noch keine Sätze geloggt!</ng-template>
+  <br />
+  <button (click)="showAddSets()">Satz hinzufügen</button>
+  <ng-container *ngIf="showAdd">
+    <app-add-set [exercise]="exercise"></app-add-set>
+  </ng-container>
 </ng-container>

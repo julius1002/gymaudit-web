@@ -1,4 +1,4 @@
-export interface Set {
+export class Set {
   id: string;
   reps: number;
   number: number;

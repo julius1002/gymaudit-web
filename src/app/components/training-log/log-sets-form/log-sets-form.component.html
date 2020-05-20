@@ -11,13 +11,16 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Einheit</mat-label>
-      <textarea matInput formControlName="measureUnit"></textarea>
+      <mat-select formControlName="measureUnit">
+        <mat-option
+          *ngFor="let key of keys(measureUnitEnum)"
+          [value]="key"
+          >{{ measureUnitEnum[key] }}</mat-option
+        >
+      </mat-select>
     </mat-form-field>
     <br />
     <div class="mat-dialog-buttons">
-      <button type="button" (click)="closeDialog()" mat-button>
-        Schließen
-      </button>
       <ng-container *ngIf="editing === true">
         <button mat-raised-button type="button">
           <!--(click)="removeUnit()"-->
