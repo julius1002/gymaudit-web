@@ -47,6 +47,8 @@ import { LogExercisesComponent } from './components/training-log/log-exercises/l
 import { LogUnitListComponent } from './components/training-log/log-unit-list/log-unit-list.component';
 import { LogSetsFormComponent } from './components/training-log/log-sets-form/log-sets-form.component';
 import { AddSetComponent } from './components/training-log/add-set/add-set.component';
+import {MatTableModule} from '@angular/material/table';
+import { SetTableComponent } from './components/training-log/log-sets/set-table/set-table.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { AddSetComponent } from './components/training-log/add-set/add-set.compo
     LogUnitListComponent,
     LogSetsFormComponent,
     AddSetComponent,
+    SetTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +97,8 @@ import { AddSetComponent } from './components/training-log/add-set/add-set.compo
     MatPaginatorModule,
     MatTabsModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent],

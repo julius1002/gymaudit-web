@@ -16,7 +16,7 @@ export class LogSetsComponent implements OnInit {
   showAdd = false;
   exercise:Exercise;
   measureUnitEnum = MeasureUnit;
-  
+  displayedColumns: string[] = ['reps', 'number', 'measureUnit', 'date'];
   constructor(private setService: SetService) {}
 
   ngOnInit(): void {
@@ -31,4 +31,5 @@ export class LogSetsComponent implements OnInit {
   showAddSets(){
     this.showAdd = true;
   }
+
 }
