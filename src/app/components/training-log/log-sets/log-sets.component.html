@@ -1,50 +1,6 @@
-<ng-container *ngIf="sets$ | async as sets">
-  <ng-container *ngIf="sets.content.length; else noSets">
-    Sätze:
-    <!-- <ul>
-      <li *ngFor="let set of sets.content; let i = index">
-        {{ i + 1 }}. Satz {{ set.reps }} Wiederholungen x {{ set.number
-        }}<ng-container *ngIf="set.measureUnit"
-          > {{ measureUnitEnum[set.measureUnit] }}
-        </ng-container>
-      </li>
-    </ul> -->
-    <div class="container">
-      <mat-table [dataSource]="sets.content" class="mat-elevation-z8">
-        <ng-container matColumnDef="reps">
-          <mat-header-cell *matHeaderCellDef> Wiederholungen </mat-header-cell>
-          <mat-cell *matCellDef="let set"> {{ set.reps }} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="number">
-          <mat-header-cell *matHeaderCellDef>
-            Gewicht/ Belastung
-          </mat-header-cell>
-          <mat-cell *matCellDef="let set"> {{ set.number }} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="measureUnit">
-          <mat-header-cell *matHeaderCellDef> Messeinheit </mat-header-cell>
-          <mat-cell *matCellDef="let set">
-            {{ measureUnitEnum[set.measureUnit] }}
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef> Datum </mat-header-cell>
-          <mat-cell *matCellDef="let set">
-            {{ set.date | date: "EEEE d. MMMM y HH:mm" }}
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </mat-table>
-    </div>
-  </ng-container>
-
-  <ng-template #noSets>Es wurden noch keine Sätze geloggt!</ng-template>
-  <br />
+<app-set-table [exerciseSubject] = "exerciseSubject"></app-set-table>
   <button (click)="showAddSets()">Satz hinzufügen</button>
   <ng-container *ngIf="showAdd">
     <app-add-set [exercise]="exercise"></app-add-set>
   </ng-container>
-</ng-container>
+ 

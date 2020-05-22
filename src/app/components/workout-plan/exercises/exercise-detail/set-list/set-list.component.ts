@@ -1,23 +1,23 @@
-import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
-import { Exercise } from "src/app/model/exercise";
-import { SetService } from "src/app/services/set.service";
-import { Page } from "src/app/model/page";
-import { Set } from "src/app/model/set";
-import { Observable } from "rxjs";
-import { PageEvent } from "@angular/material/paginator";
-import { switchMap, take, share } from "rxjs/operators";
-import { MeasureUnit } from "src/app/model/set";
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Exercise } from 'src/app/model/exercise';
+import { SetService } from 'src/app/services/set.service';
+import { Page } from 'src/app/model/page';
+import { Set } from 'src/app/model/set';
+import { Observable } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { switchMap, take, share } from 'rxjs/operators';
+import { MeasureUnit } from 'src/app/model/set';
 @Component({
-  selector: "app-set-list",
-  templateUrl: "./set-list.component.html",
-  styleUrls: ["./set-list.component.scss"],
+  selector: 'app-set-list',
+  templateUrl: './set-list.component.html',
+  styleUrls: ['./set-list.component.scss'],
 })
 export class SetListComponent implements OnInit {
   @Input() exercise: Exercise;
   setsPage$: Observable<Page<Set>>;
   measureUnitEnum = MeasureUnit;
-  index: number = 0;
-  pageSize: number = 5;
+  index = 0;
+  pageSize = 5;
   constructor(private setService: SetService) {}
 
   ngOnInit(): void {

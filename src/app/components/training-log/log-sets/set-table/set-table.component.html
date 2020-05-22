@@ -1,0 +1,55 @@
+<ng-container *ngIf="setsPage$ | async as setsPage; else noSets">
+  <ng-container *ngIf="setsPage.content.length; else noSets">
+    Sätze:
+    <!-- <ul>
+      <li *ngFor="let set of sets.content; let i = index">
+        {{ i + 1 }}. Satz {{ set.reps }} Wiederholungen x {{ set.number
+        }}<ng-container *ngIf="set.measureUnit"
+          > {{ measureUnitEnum[set.measureUnit] }}
+        </ng-container>
+      </li>
+    </ul> -->
+    <div class="container">
+      <mat-table [dataSource]="setsPage.content" class="mat-elevation-z8">
+        <ng-container matColumnDef="reps">
+          <mat-header-cell *matHeaderCellDef> Wiederholungen </mat-header-cell>
+          <mat-cell *matCellDef="let set"> {{ set.reps }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="number">
+          <mat-header-cell *matHeaderCellDef>
+            Gewicht/ Belastung
+          </mat-header-cell>
+          <mat-cell *matCellDef="let set"> {{ set.number }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="measureUnit">
+          <mat-header-cell *matHeaderCellDef> Messeinheit </mat-header-cell>
+          <mat-cell *matCellDef="let set">
+            {{ measureUnitEnum[set.measureUnit] }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Datum </mat-header-cell>
+          <mat-cell *matCellDef="let set">
+            {{ set.date | date: "EEEE d. MMMM y HH:mm" }}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </div>
+    <mat-paginator
+      [pageSize]="pageSize"
+      [length]="setsPage.totalElements"
+      (page)="turn($event)"
+      [pageIndex]="index"
+    >
+    </mat-paginator> 
+  </ng-container>
+  </ng-container>
+  <ng-template #noSets>
+    <div class = "heading">
+    Für diese Übung wurden <br>noch keine Sätze protokolliert 
+  </div>
+  </ng-template>
