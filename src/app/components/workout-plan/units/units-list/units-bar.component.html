@@ -7,14 +7,9 @@
         <span class="mat-title">Einheiten</span>
         <br />
       </div>
+      <div class ="row">
+        <div class = "col">
       <nav mat-tab-nav-bar>
-        <button mat-raised-button (click)="addUnit()">
-          <mat-icon>add</mat-icon>
-          <!--  eventuell raus, nur symbol-->
-        </button>
-        <button mat-raised-button (click)="editUnit()">
-          <mat-icon>edit</mat-icon>
-        </button>
         <a
           mat-tab-link
           *ngFor="let unit of units"
@@ -23,6 +18,18 @@
           >{{ unit.name }}</a
         >
       </nav>
+    </div>
+      <div class = "col">
+      <button mat-raised-button (click)="editUnit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-raised-button (click)="addUnit()">
+        <mat-icon>add</mat-icon>
+        <!--  eventuell raus, nur symbol-->
+      </button>
+    </div>
+      
+    </div>
       <ng-container *ngIf="selectedUnit.description"
         >Beschreibung der Einheit
         <span style="font-weight: bold; font-size: 1.2em;">{{

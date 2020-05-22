@@ -1,7 +1,10 @@
 <ng-container *ngIf="units$ | async as units">
-    <ul>
-      <li *ngFor="let unit of units" routerLink = "./{{unit.id}}">
-        {{ unit.name }}
-      </li>
-    </ul>
-  </ng-container>
+  <div class="heading">
+    <span class="mat-title">Einheiten</span>
+  </div>
+  <ul>
+    <li *ngFor="let unit of units" routerLink="./{{ unit.id }}">
+      {{ unit.name }}
+    </li>
+  </ul>
+</ng-container>

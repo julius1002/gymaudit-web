@@ -1,5 +1,13 @@
-<app-set-table [exerciseSubject] = "exerciseSubject"></app-set-table>
-  <button (click)="showAddSets()">Satz hinzufügen</button>
+<app-set-table [editing] = "true" [exerciseSubject] = "exerciseSubject"></app-set-table>
+<div style="float: right; text-align: right;">
+  <button
+    style="margin: 10px;"
+    mat-raised-button
+    (click)="showAddSets()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
   <ng-container *ngIf="showAdd">
     <app-add-set [exercise]="exercise"></app-add-set>
   </ng-container>
