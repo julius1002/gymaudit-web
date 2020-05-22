@@ -14,6 +14,7 @@ import { Set, MeasureUnit } from "src/app/model/set";
 })
 export class LogSetsFormComponent implements OnInit {
   @Input() editing = false;
+  @Input() set: Set;
   @Output() submitSet = new EventEmitter<Set>();
   setForm: FormGroup;
   measureUnitEnum = MeasureUnit;
@@ -29,8 +30,8 @@ export class LogSetsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    if (this.editing) {
-     this.setFormValues(null);
+    if (this.editing && this.set) {
+      this.setFormValues(this.set);
     }
   }
 
@@ -56,6 +57,10 @@ export class LogSetsFormComponent implements OnInit {
     });
   }
 
+  removeSet() {
+    console.log("remove Set" + this.set);
+  }
+
   submitForm() {
     const formValue = this.setForm.value;
     var measureUnit;
@@ -64,16 +69,26 @@ export class LogSetsFormComponent implements OnInit {
     } else {
       measureUnit = formValue.measureUnit;
     }
+    var exerciseId = null;
+    var setId = null;
+    var date = Date.now();
+    var calculatedVolume = 0;
+    if (this.editing) {
+      exerciseId = this.set.exerciseId;
+      setId = this.set.id;
+      date = this.set.date;
+      calculatedVolume = this.set.calculatedVolume;
+    }
     var set: Set = {
-      id: null,
+      id: setId,
       reps: formValue.reps,
       number: formValue.number,
       measureUnit: measureUnit,
-      calculatedVolume: 0,
-      date: Date.now(),
-      exerciseId: null,
+      calculatedVolume: calculatedVolume,
+      date: date,
+      exerciseId: exerciseId,
     };
     this.submitSet.emit(set);
     this.setForm.reset;
-  } 
+  }
 }

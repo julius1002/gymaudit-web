@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ExerciseService } from "src/app/services/exercise.service";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Page } from "src/app/model/page";
 import { Exercise } from "src/app/model/exercise";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
+
 
 @Component({
   selector: "app-log-exercises",

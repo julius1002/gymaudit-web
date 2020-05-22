@@ -28,8 +28,14 @@ export class SetService {
     );
   }
 
-  public postSet(unitId: string, exerciseId: string, set:Set): Observable<Page<Set>> {
-    return this.httpClient.post<Page<Set>>(
+  public postSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
+    return this.httpClient.post<Set>(
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`
+    , set);
+  }
+
+  public putSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
+    return this.httpClient.put<Set>(
       `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`
     , set);
   }

@@ -5,7 +5,7 @@ export class Set {
   measureUnit: MeasureUnit;
   calculatedVolume: number;
   date: number;
-  exerciseId: number;
+  exerciseId: string;
 }
 
 export enum MeasureUnit {

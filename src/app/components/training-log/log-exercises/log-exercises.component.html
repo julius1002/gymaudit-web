@@ -1,12 +1,18 @@
 <ng-container *ngIf = "exercises$|async as exercises" >
-    <div class="heading">
-        <span class="mat-title">Übungen</span>
-      </div>
-    <ul>
-        <li *ngFor = "let exercise of exercises.content" (click) = "selectExercise(exercise)">
+    <div class = "row">
+        <div class = "col">
+        <span class="heading mat-title">Übungen</span>
+      
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor = "let exercise of exercises.content" (click) = "selectExercise(exercise)">
             {{exercise.name}}
-        </li>
-    </ul>
+        </mat-list-item>
+    </mat-list>
+
+</div>
+<div class = "col">
     <app-log-sets [exerciseSubject] = "exerciseSubject"></app-log-sets>
+</div>
+</div>
 </ng-container>
-<button routerLink ="..">Back</button>
+<button mat-raised-button routerLink ="..">Andere Einheit wählen</button>

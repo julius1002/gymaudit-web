@@ -39,7 +39,7 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Bearbeiten </mat-header-cell>
         <mat-cell *matCellDef="let set">
-          <button mat-button>
+          <button mat-button (click) = "editSet(set)">
             <mat-icon>edit</mat-icon>
           </button>
         </mat-cell>
@@ -61,3 +61,10 @@
     Für diese Übung wurden <br />noch keine Sätze protokolliert
   </div>
 </ng-template>
+<ng-container *ngIf = "editing">
+<div style="float: right; text-align: right;">
+  <button style="margin: 10px;" mat-raised-button (click)="addSet()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+</ng-container>

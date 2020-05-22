@@ -5,6 +5,7 @@ import { Page } from "src/app/model/page";
 import { Set, MeasureUnit } from "src/app/model/set";
 import { Observable, Subject } from "rxjs";
 import { switchMap } from "rxjs/operators";
+
 @Component({
   selector: "app-log-sets",
   templateUrl: "./log-sets.component.html",
@@ -13,8 +14,7 @@ import { switchMap } from "rxjs/operators";
 export class LogSetsComponent implements OnInit {
   @Input() exerciseSubject: Subject<Exercise> = new Subject<Exercise>();
   sets$: Observable<Page<Set>>;
-  showAdd = false;
-  exercise:Exercise;
+  exercise: Exercise;
   measureUnitEnum = MeasureUnit;
   constructor(private setService: SetService) {}
 
@@ -23,12 +23,13 @@ export class LogSetsComponent implements OnInit {
       switchMap((exercise) =>
         this.setService.getAll(exercise.unitId, exercise.id)
       )
+    )
+    this.exerciseSubject.subscribe((exercise) => 
+      this.exercise = exercise
     );
-    this.exerciseSubject.subscribe(x=>{this.exercise=x});
   }
 
-  showAddSets(){
-    this.showAdd = true;
-  }
+ 
 
+  
 }

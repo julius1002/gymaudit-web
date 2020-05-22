@@ -2,9 +2,9 @@
   <div class="heading">
     <span class="mat-title">Einheiten</span>
   </div>
-  <ul>
-    <li *ngFor="let unit of units" routerLink="./{{ unit.id }}">
+  <mat-list role="list">
+    <mat-list-item *ngFor="let unit of units" routerLink="./{{ unit.id }}">
       {{ unit.name }}
-    </li>
-  </ul>
+    </mat-list-item>
+  </mat-list>
 </ng-container>

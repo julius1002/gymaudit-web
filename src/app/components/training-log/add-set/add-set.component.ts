@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { SetService } from 'src/app/services/set.service';
 import { Set } from 'src/app/model/set';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap, map, publishReplay } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { Exercise } from 'src/app/model/exercise';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-set',
@@ -12,12 +13,15 @@ import { Exercise } from 'src/app/model/exercise';
   styleUrls: ['./add-set.component.scss'],
 })
 export class AddSetComponent implements OnInit {
-  @Input() exercise: Exercise;
+  exercise: Exercise;
 
   constructor(
     private setService: SetService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) data
+  ) {this.exercise = data.exercise;
+  
+  }  
 
   ngOnInit(): void {}
 

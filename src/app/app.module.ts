@@ -48,7 +48,7 @@ import { LogSetsFormComponent } from './components/training-log/log-sets-form/lo
 import { AddSetComponent } from './components/training-log/add-set/add-set.component';
 import {MatTableModule} from '@angular/material/table';
 import { SetTableComponent } from './components/training-log/log-sets/set-table/set-table.component';
-
+import {EditSetComponent} from './components/training-log/edit-set/edit-set.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,6 +71,7 @@ import { SetTableComponent } from './components/training-log/log-sets/set-table/
     LogSetsFormComponent,
     AddSetComponent,
     SetTableComponent,
+    EditSetComponent
   ],
   imports: [
     BrowserModule,

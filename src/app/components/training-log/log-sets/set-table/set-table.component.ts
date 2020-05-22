@@ -6,6 +6,9 @@ import { Exercise } from "src/app/model/exercise";
 import { SetService } from "src/app/services/set.service";
 import { PageEvent } from "@angular/material/paginator";
 import { switchMap } from "rxjs/operators";
+import { MatDialog } from '@angular/material/dialog';
+import { AddSetComponent } from '../../add-set/add-set.component';
+import { EditSetComponent } from '../../edit-set/edit-set.component';
 @Component({
   selector: "app-set-table",
   templateUrl: "./set-table.component.html",
@@ -21,7 +24,7 @@ export class SetTableComponent implements OnInit {
   displayedColumns: String[];
   exercise: Exercise;
 
-  constructor(private setService: SetService) {}
+  constructor(private setService: SetService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.exerciseSubject.subscribe((exercise) => {
@@ -61,5 +64,20 @@ export class SetTableComponent implements OnInit {
       size,
       page
     );
+  }
+  public addSet() {
+    const dialogRef = this.dialog.open(AddSetComponent, {
+      width: "400px",
+      height: "400px",
+      data: { exercise: this.exercise },
+    });
+  }
+
+  public editSet(set:Set){
+    const dialogRef = this.dialog.open(EditSetComponent, {
+      width: "400px",
+      height: "400px",
+      data: { set:set, exercise:this.exercise },
+    });
   }
 }
