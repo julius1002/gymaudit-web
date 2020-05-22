@@ -2,10 +2,12 @@
 <ng-container *ngIf="units$ | async as units">
   <div class="container">
     <mat-divider></mat-divider>
-    <ng-container *ngIf="units.length; else noExercises">
+    <ng-container *ngIf="units.length; else noUnits">
       <div class="heading">
         <span class="mat-title">Einheiten</span>
         <br />
+      </div>
+      <nav mat-tab-nav-bar>
         <button mat-raised-button (click)="addUnit()">
           <mat-icon>add</mat-icon>
           <!--  eventuell raus, nur symbol-->
@@ -13,9 +15,6 @@
         <button mat-raised-button (click)="editUnit()">
           <mat-icon>edit</mat-icon>
         </button>
-        <mat-divider></mat-divider>
-      </div>
-      <nav mat-tab-nav-bar>
         <a
           mat-tab-link
           *ngFor="let unit of units"
@@ -35,8 +34,8 @@
       <router-outlet name="exercises"></router-outlet>
       <router-outlet name="add"></router-outlet>
     </ng-container>
-    <ng-template #noExercises
-      >Es wurden noch keine Übungen hinzugefügt
+    <ng-template #noUnits
+      >Es wurden noch keine Einheiten hinzugefügt
       <button mat-raised-button (click)="addUnit()">
         <mat-icon>add</mat-icon>
         <!--  eventuell raus, nur symbol-->

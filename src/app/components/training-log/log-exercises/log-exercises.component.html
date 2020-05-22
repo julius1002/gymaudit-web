@@ -1,9 +1,11 @@
 <ng-container *ngIf = "exercises$|async as exercises" >
+    <div class = "row">
     <ul>
         <li *ngFor = "let exercise of exercises.content" (click) = "selectExercise(exercise)">
             {{exercise.name}}
         </li>
     </ul>
     <app-log-sets [exerciseSubject] = "exerciseSubject"></app-log-sets>
+</div>
 </ng-container>
 <button routerLink ="..">Back</button>

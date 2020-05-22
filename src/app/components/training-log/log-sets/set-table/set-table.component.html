@@ -1,6 +1,8 @@
 <ng-container *ngIf="setsPage$ | async as setsPage; else noSets">
   <ng-container *ngIf="setsPage.content.length; else noSets">
-    Sätze:
+    <div class="heading">
+      <span class="mat-title">Satzprotokoll</span>
+    </div>
     <!-- <ul>
       <li *ngFor="let set of sets.content; let i = index">
         {{ i + 1 }}. Satz {{ set.reps }} Wiederholungen x {{ set.number
@@ -9,7 +11,6 @@
         </ng-container>
       </li>
     </ul> -->
-    <div class="container">
       <mat-table [dataSource]="setsPage.content" class="mat-elevation-z8">
         <ng-container matColumnDef="reps">
           <mat-header-cell *matHeaderCellDef> Wiederholungen </mat-header-cell>
@@ -38,7 +39,6 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
-    </div>
     <mat-paginator
       [pageSize]="pageSize"
       [length]="setsPage.totalElements"
