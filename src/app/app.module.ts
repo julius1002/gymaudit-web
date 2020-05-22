@@ -11,7 +11,6 @@ import { ExerciseListComponent } from "./components/workout-plan/exercises/exerc
 
 import localeDe from "@angular/common/locales/de";
 import { registerLocaleData } from "@angular/common";
-import { SetListComponent } from "./components/workout-plan/exercises/exercise-detail/set-list/set-list.component";
 import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
 
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -57,7 +56,6 @@ import { SetTableComponent } from './components/training-log/log-sets/set-table/
     UnitsBarComponent,
     ExerciseDetailComponent,
     ExerciseListComponent,
-    SetListComponent,
     EditExerciseComponent,
     ExerciseFormComponent,
     AddExerciseComponent,
