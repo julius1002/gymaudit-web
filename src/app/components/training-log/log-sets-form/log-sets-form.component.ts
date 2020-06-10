@@ -52,7 +52,7 @@ export class LogSetsFormComponent implements OnInit {
 
     this.setForm = this.formBuilder.group({
       reps: ["", Validators.required],
-      number: [""],
+      number: ["", Validators.required],
       measureUnit: [""],
     });
   }

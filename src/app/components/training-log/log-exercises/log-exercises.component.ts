@@ -4,7 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { Page } from "src/app/model/page";
 import { Exercise } from "src/app/model/exercise";
 import { ActivatedRoute } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { switchMap, share } from "rxjs/operators";
 
 
 @Component({
@@ -24,8 +24,17 @@ export class LogExercisesComponent implements OnInit {
     this.exercises$ = this.activatedRoute.paramMap.pipe(
       switchMap((paramMap) =>
         this.exerciseService.getAll(paramMap.get("unitId"))
-      )
+      ),
+      share()
     );
+
+    let selectFirst = exercises => {if(exercises.content.length){
+     this.selectExercise(exercises.content[0])
+    }else{
+      return null;
+    }}
+
+    this.exercises$.subscribe(selectFirst);
   }
 
   selectExercise(exercise: Exercise) {

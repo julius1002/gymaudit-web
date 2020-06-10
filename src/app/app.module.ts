@@ -49,6 +49,8 @@ import { AddSetComponent } from './components/training-log/add-set/add-set.compo
 import {MatTableModule} from '@angular/material/table';
 import { SetTableComponent } from './components/training-log/log-sets/set-table/set-table.component';
 import {EditSetComponent} from './components/training-log/edit-set/edit-set.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +99,8 @@ import {EditSetComponent} from './components/training-log/edit-set/edit-set.comp
     MatTabsModule,
     MatChipsModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonToggleModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "de" }],
   bootstrap: [AppComponent],
