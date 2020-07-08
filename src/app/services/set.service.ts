@@ -39,4 +39,10 @@ export class SetService {
       `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`
     , set);
   }
+
+  public deleteSet(setId:string){
+    return this.httpClient.delete<Set>(
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/sets/${setId}`
+    )
+  }
 }

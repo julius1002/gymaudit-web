@@ -6,6 +6,8 @@ import { UnitService } from "src/app/services/unit.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { UnitListService } from "src/app/services/unit-list.service";
 import { Set, MeasureUnit } from "src/app/model/set";
+import { LogSetServiceService } from 'src/app/services/log-set-service.service';
+import { SetService } from 'src/app/services/set.service';
 
 @Component({
   selector: "app-log-sets-form",
@@ -20,12 +22,10 @@ export class LogSetsFormComponent implements OnInit {
   measureUnitEnum = MeasureUnit;
   keys = Object.keys;
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private unitService: UnitService,
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
-    private unitListService: UnitListService
+    private setListService:LogSetServiceService,
+    private setService:SetService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,9 @@ export class LogSetsFormComponent implements OnInit {
   }
 
   removeSet() {
-    console.log("remove Set" + this.set);
+    this.setService.deleteSet(this.set.id).subscribe(deletedSet =>
+      this.setListService.updateSetList(this.set)
+    )
   }
 
   submitForm() {
@@ -89,6 +91,7 @@ export class LogSetsFormComponent implements OnInit {
       exerciseId: exerciseId,
     };
     this.submitSet.emit(set);
+    this.setListService.updateSetList(set)
     this.setForm.reset;
   }
 }

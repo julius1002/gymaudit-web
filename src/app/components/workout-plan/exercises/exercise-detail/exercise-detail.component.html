@@ -3,14 +3,17 @@
     <div class="row">
       <div class="container col">
         <mat-tab-group>
-          <mat-tab label="Übersicht">
+          <mat-tab label="Muskelgruppen">
+            <mat-card>
+              <app-musclegroup-view
+                [exercise]="exercise"
+              ></app-musclegroup-view>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Details">
             <mat-card>
               <mat-card-header>
                 <mat-card-title>
-                  <img
-                    class="image"
-                    src="https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-06-02-activities-sport-small-barbell-72dpi-forPersonalUseOnly.png"
-                  />
                   <span style="font-weight: bold;"
                     >Übung - {{ exercise.name }}</span
                   ></mat-card-title
@@ -18,8 +21,8 @@
                 <mat-card-subtitle *ngIf="exercise.exerciseType"
                   >Übungstyp:
                   {{
-                    exerciseTypeEnum[exercise.exerciseType]
-                  }}</mat-card-subtitle
+                  exerciseTypeEnum[exercise.exerciseType]
+                }}</mat-card-subtitle
                 >
               </mat-card-header>
               <mat-card-content>
@@ -39,13 +42,6 @@
                   hinzugefügt</ng-template
                 >
               </mat-card-content>
-            </mat-card>
-          </mat-tab>
-          <mat-tab label="Muskelgruppen">
-            <mat-card>
-              <app-musclegroup-view
-                [exercise]="exercise"
-              ></app-musclegroup-view>
             </mat-card>
           </mat-tab>
         </mat-tab-group>

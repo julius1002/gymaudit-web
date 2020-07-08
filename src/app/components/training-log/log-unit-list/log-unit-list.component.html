@@ -2,10 +2,13 @@
   <div class="heading">
     <span class="mat-title">Einheiten</span>
   </div>
+  <div style = "text-align: center;">
+    <div style = "display: inline-block;">
   <mat-list>
     <mat-list-item *ngFor="let unit of units" routerLink="./{{ unit.id }}">
       <button mat-button>{{ unit.name }}</button>
     </mat-list-item>
   </mat-list>
-
+</div>
+</div>
 </ng-container>

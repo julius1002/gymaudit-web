@@ -1,26 +1,36 @@
-<ng-container *ngIf="exercises$ | async as exercises">
-  <div class="row">
+<ng-container *ngIf="exercisesPage$ | async as exercises">
+  <div class="row" style = "display:inline-flex">
     <div class="col">
+      <div class = "heading">
       <span class="heading mat-title">Übungen</span>
+      </div>
       <div>
         <mat-button-toggle-group vertical="true" #group="matButtonToggleGroup">
           <mat-button-toggle
             *ngFor="let exercise of exercises.content"
             (click)="selectExercise(exercise)"
-          >
+             >
             {{ exercise.name }}
           </mat-button-toggle>
         </mat-button-toggle-group>
-      </div>
-      <div>
+      
+        <ng-container *ngIf="exercises.content.length">
+          <mat-paginator
+            [pageSize]="pageSize"
+            [length]="exercises.totalElements"
+            (page)="turn($event)"
+            [pageIndex]="index"
+            style = "width: 200px;"
+          >
+          </mat-paginator>
+        </ng-container>
         <button mat-raised-button routerLink=".."
-        style = "margin:10px; width:200px">
+        style = "margin:10px; width:175px">
             <mat-icon>arrow_back_ios</mat-icon>
-            Andere Einheit wählen</button>
+            Andere Einheit</button>
       </div>
     </div>
-    
-    <div class="col">
+    <div #appLogSets class="col">
       <app-log-sets [exerciseSubject]="exerciseSubject"></app-log-sets>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, switchMap, take, share, tap } from "rxjs/operators";
 import { Exercise } from "src/app/model/exercise";
@@ -14,6 +14,10 @@ import { PageEvent } from "@angular/material/paginator";
   styleUrls: ["./exercise-list.component.scss"],
 })
 export class ExerciseListComponent implements OnInit {
+
+  @ViewChild('exerciseElement')
+  exerciseElement: ElementRef;
+  
   exercisesPage$: Observable<Page<Exercise>>;
   unitId$: Observable<string>;
   selectedExercise: Exercise;
@@ -51,7 +55,7 @@ export class ExerciseListComponent implements OnInit {
     this.updateExercises();
     this.selectedExercise = exercises[0];
   }
-
+  
   private getExercisesPageFromUnit(size: number, page: number): void {
     this.exercisesPage$ = this.unitId$.pipe(
       switchMap((unitId) => this.exerciseService.getByPage(unitId, size, page)),
@@ -77,10 +81,16 @@ export class ExerciseListComponent implements OnInit {
     );
   }
 
+  private scrollDownToExerciseElement(){
+    if(this.exerciseElement){
+      this.exerciseElement.nativeElement.scrollIntoView({behavior: 'smooth'});
+    }
+  }
   public selectExercise(exercise: Exercise) {
     this.selectedExercise = exercise;
     this.unitId$.pipe(take(1)).subscribe((unitId) => {
       this.navigateToExercise(exercise, unitId);
+      this.scrollDownToExerciseElement();
     });
   }
 
@@ -95,6 +105,7 @@ export class ExerciseListComponent implements OnInit {
       this.selectExercise(exercises[0]);
     }
   }
+  
   public navigateToAddExercise() {
     this.unitId$
       .pipe(take(1))
@@ -103,7 +114,10 @@ export class ExerciseListComponent implements OnInit {
           `units/(exercises:${unitId}/(exercise-detail:add))`
         )
       );
+      this.scrollDownToExerciseElement();
+
   }
+
   public isSelectedExercise(exercise): boolean {
     let exerciseId;
     if (this.route.snapshot) {

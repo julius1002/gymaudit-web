@@ -1,22 +1,27 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Set, MeasureUnit } from "src/app/model/set";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { Page } from "src/app/model/page";
 import { Exercise } from "src/app/model/exercise";
 import { SetService } from "src/app/services/set.service";
 import { PageEvent } from "@angular/material/paginator";
 import { switchMap } from "rxjs/operators";
-import { MatDialog } from '@angular/material/dialog';
-import { AddSetComponent } from '../../add-set/add-set.component';
-import { EditSetComponent } from '../../edit-set/edit-set.component';
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { AddSetComponent } from "../../add-set/add-set.component";
+import { EditSetComponent } from "../../edit-set/edit-set.component";
+import { LogSetServiceService } from "src/app/services/log-set-service.service";
 @Component({
   selector: "app-set-table",
   templateUrl: "./set-table.component.html",
   styleUrls: ["./set-table.component.scss"],
 })
 export class SetTableComponent implements OnInit {
-  @Input() exerciseSubject: Subject<Exercise>;
+  @Input() exerciseSubject: BehaviorSubject<Exercise>;
   @Input() editing = false;
+
+  addSetDialog: MatDialogRef<AddSetComponent, any>;
+  editSetDialog: MatDialogRef<EditSetComponent, any>;
+
   setsPage$: Observable<Page<Set>>;
   measureUnitEnum = MeasureUnit;
   index = 0;
@@ -24,7 +29,11 @@ export class SetTableComponent implements OnInit {
   displayedColumns: String[];
   exercise: Exercise;
 
-  constructor(private setService: SetService, public dialog: MatDialog) {}
+  constructor(
+    private setService: SetService,
+    public dialog: MatDialog,
+    private setListService: LogSetServiceService
+  ) {}
 
   ngOnInit(): void {
     this.exerciseSubject.subscribe((exercise) => {
@@ -39,9 +48,32 @@ export class SetTableComponent implements OnInit {
         "date",
         "actions",
       ];
+
+      this.setListService.setList.subscribe((set) => {
+        this.updateSets();
+        if (this.addSetDialog) {
+          this.addSetDialog.close();
+        }
+        if (this.editSetDialog) {
+          this.editSetDialog.close();
+        }
+      });
     } else {
       this.displayedColumns = ["reps", "number", "measureUnit", "date"];
     }
+  }
+
+  public updateSets() {
+    this.setsPage$ = this.exerciseSubject.pipe(
+      switchMap((exercise) =>
+        this.setService.getByPage(
+          exercise.unitId,
+          exercise.id,
+          this.pageSize,
+          this.index
+        )
+      )
+    );
   }
 
   public turn(event: PageEvent) {
@@ -65,19 +97,20 @@ export class SetTableComponent implements OnInit {
       page
     );
   }
+
   public addSet() {
-    const dialogRef = this.dialog.open(AddSetComponent, {
+    this.addSetDialog = this.dialog.open(AddSetComponent, {
       width: "400px",
       height: "400px",
       data: { exercise: this.exercise },
     });
   }
 
-  public editSet(set:Set){
-    const dialogRef = this.dialog.open(EditSetComponent, {
+  public editSet(set: Set) {
+    this.editSetDialog = this.dialog.open(EditSetComponent, {
       width: "400px",
       height: "400px",
-      data: { set:set, exercise:this.exercise },
+      data: { set: set, exercise: this.exercise },
     });
   }
 }

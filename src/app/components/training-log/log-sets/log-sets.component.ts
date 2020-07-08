@@ -3,7 +3,7 @@ import { Exercise } from "src/app/model/exercise";
 import { SetService } from "src/app/services/set.service";
 import { Page } from "src/app/model/page";
 import { Set, MeasureUnit } from "src/app/model/set";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
 @Component({
@@ -12,7 +12,8 @@ import { switchMap } from "rxjs/operators";
   styleUrls: ["./log-sets.component.scss"],
 })
 export class LogSetsComponent implements OnInit {
-  @Input() exerciseSubject: Subject<Exercise> = new Subject<Exercise>();
+  @Input() exerciseSubject: BehaviorSubject<Exercise> 
+  = new BehaviorSubject<Exercise>(undefined);
   sets$: Observable<Page<Set>>;
   exercise: Exercise;
   measureUnitEnum = MeasureUnit;
@@ -24,6 +25,7 @@ export class LogSetsComponent implements OnInit {
         this.setService.getAll(exercise.unitId, exercise.id)
       )
     )
+
     this.exerciseSubject.subscribe((exercise) => 
       this.exercise = exercise
     );
