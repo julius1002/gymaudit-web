@@ -1,11 +1,14 @@
-<div class="heading-div"><h1>Trainingsplan</h1></div>
+<div class="heading-div" 
+style = "padding:20px"><h1>Trainingsplan</h1></div>
 <ng-container *ngIf="units$ | async as units">
   <div class="container">
     <mat-divider></mat-divider>
     <ng-container *ngIf="units.length; else noUnits">
+      <div  style = "padding-top:20px">
         <span class="heading mat-title">
-          Einheiten
+         <strong>Einheiten</strong> 
         </span>
+      </div>
         <br />
       <div class ="row">
         <div class = "col">

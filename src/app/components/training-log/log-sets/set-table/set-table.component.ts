@@ -1,15 +1,21 @@
-import { Component, OnInit, Input } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input} from "@angular/core";
 import { Set, MeasureUnit } from "src/app/model/set";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { Observable, Subject, BehaviorSubject, of } from "rxjs";
 import { Page } from "src/app/model/page";
 import { Exercise } from "src/app/model/exercise";
 import { SetService } from "src/app/services/set.service";
 import { PageEvent } from "@angular/material/paginator";
-import { switchMap } from "rxjs/operators";
+import { switchMap, take, delay } from "rxjs/operators";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { AddSetComponent } from "../../add-set/add-set.component";
 import { EditSetComponent } from "../../edit-set/edit-set.component";
 import { LogSetServiceService } from "src/app/services/log-set-service.service";
+import { interval } from "rxjs";
+import { DatePipe } from "@angular/common";
+
 @Component({
   selector: "app-set-table",
   templateUrl: "./set-table.component.html",
@@ -28,6 +34,8 @@ export class SetTableComponent implements OnInit {
   pageSize = 5;
   displayedColumns: String[];
   exercise: Exercise;
+
+  now: number;
 
   constructor(
     private setService: SetService,
@@ -61,6 +69,9 @@ export class SetTableComponent implements OnInit {
     } else {
       this.displayedColumns = ["reps", "number", "measureUnit", "date"];
     }
+
+    interval(1000).subscribe(() => (this.now = 
+      Date.now() - 3600 * 1000));
   }
 
   public updateSets() {

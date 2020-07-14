@@ -28,6 +28,6 @@ export class AddSetComponent implements OnInit {
   postSet(set: Set) {
     this.setService
       .postSet(this.exercise.unitId, this.exercise.id, set)
-      .subscribe(x => console.log(x));
+      .subscribe(() => {});
   }
 }

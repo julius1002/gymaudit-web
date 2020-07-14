@@ -30,6 +30,6 @@ export class EditSetComponent implements OnInit {
     //TODO Fehlermeldung aus Backend ausgeben/ error catchen
     this.setService
       .putSet(this.exercise.unitId, this.exercise.id, set)
-      .subscribe((x) => console.log(x));
+      .subscribe(() => {});
   }
 }

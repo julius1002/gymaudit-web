@@ -1,6 +1,6 @@
-<div style="height: 100vh;">
+<div class = "container">
   <mat-toolbar class = "toolbar">
-    <mat-toolbar-row>
+    <mat-toolbar-row style = "padding:0px;">
       <button
         mat-icon-button
         (click)="sidenav.toggle()"
@@ -9,39 +9,61 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <span class ="title">GymAudit</span>
+      <span class ="title"><img
+        style = "height: 60px; outline: none;
+        cursor:pointer" 
+        src = "../assets/images/MainLogo.PNG"
+        routerLink="home"></span>
       <span class="menu-spacer"></span>
-      <div fxShow="true" fxHide.lt-md>
-        <a routerLink="home" routerLinkActive="active" mat-button class ="link"> Home</a>
-        <a routerLink="units" routerLinkActive="active" mat-button class ="link">
+      <div fxShow="true"
+       fxHide.lt-md>
+        <a routerLink="home"
+         routerLinkActive="active"
+         mat-button class ="link"> Home</a>
+        <a routerLink="units"
+         routerLinkActive="active"
+         mat-button class ="link">
           Trainingsplan
         </a>
-        <a routerLink="training-log/units" routerLinkActive="active" mat-button class ="link">
+        <a routerLink="training-log/units"
+         routerLinkActive="active"
+         mat-button class ="link">
           Training erfassen
         </a>
-        <a routerLinkActive="active" mat-button class ="link"> Fortschritt </a>
+        <a routerLinkActive="active"
+         mat-button class ="link"> 
+         Fortschritt </a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-
-  <mat-sidenav-container fxFlexFill>
+  </div>
+  <div style="height: 100vh" >
+  <mat-sidenav-container fxFlexFill style = "width: max-content;">
     <mat-sidenav #sidenav>
       <mat-nav-list >
         <a (click)="sidenav.toggle()" mat-list-item>
           <mat-icon>close</mat-icon>Schließen</a
         >
-        <a routerLink="home" routerLinkActive="active" mat-list-item (click)="sidenav.close()"> Home </a>
-        <a routerLink="units" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
+        <a routerLink="home" 
+        routerLinkActive="active" 
+        mat-list-item (click)="sidenav.close()"> Home </a>
+        <a routerLink="units"
+         routerLinkActive="active"
+          mat-list-item (click)="sidenav.close()">
           Trainingsplan
         </a>
-        <a routerLink="training-log/units" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
+        <a routerLink="training-log/units"
+         routerLinkActive="active" 
+         mat-list-item (click)="sidenav.close()">
           Training erfassen
         </a>
-        <a routerLinkActive="active" mat-list-item (click)="sidenav.close()"> Fortschritt </a>
+        <a routerLinkActive="active"
+         mat-list-item (click)="sidenav.close()">
+          Fortschritt </a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content fxFlexFill>
-        <router-outlet></router-outlet>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

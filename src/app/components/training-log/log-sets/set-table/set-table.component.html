@@ -24,18 +24,30 @@
         <mat-cell *matCellDef="let set"> {{ set.number }} </mat-cell>
       </ng-container>
 
+
       <ng-container matColumnDef="measureUnit">
         <mat-header-cell *matHeaderCellDef> Messeinheit </mat-header-cell>
         <mat-cell *matCellDef="let set">
           {{ measureUnitEnum[set.measureUnit] }}
         </mat-cell>
       </ng-container>
+      <ng-container *ngIf = "!editing; else pastTime">
+
       <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef> Datum </mat-header-cell>
         <mat-cell *matCellDef="let set">
           {{ set.date | date: "EEEE d. MMMM y HH:mm" }}
         </mat-cell>
       </ng-container>
+    </ng-container>
+    <ng-template #pastTime>
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Vergangene Zeit </mat-header-cell>
+        <mat-cell *matCellDef="let set">
+          {{now - set.date | date:"HH:mm:ss"}}
+        </mat-cell>
+      </ng-container>
+    </ng-template>
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Bearbeiten </mat-header-cell>
         <mat-cell *matCellDef="let set">
