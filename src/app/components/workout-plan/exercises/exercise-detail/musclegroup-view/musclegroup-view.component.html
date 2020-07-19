@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col">
+  <div class="col-md">
     <p style="font-weight: bold;">Beanspruchte Muskelgruppen</p>
     <ng-container *ngIf="exercise.muscleGroups.length; else noMuscleGroups">
       <mat-list>
@@ -9,12 +9,11 @@
         </mat-list-item>
       </mat-list>
     </ng-container>
-    <ng-template #noMuscleGroups
-      >Für diese Übung wurden keine beanspruchten Muskeln ausgewählt
+    <ng-template #noMuscleGroups>Für diese Übung wurden keine beanspruchten Muskeln ausgewählt
     </ng-template>
   </div>
-  <div class="col">
-    <div style="position: relative; left: 0; top: 0;">
+  <div class="col-md">  
+    <div style="position: relative; left: 0; top: 0;" >
       <ng-container *ngIf="front; else elseBlock">
         <img class="anatomy" [src]="anatomyFront" />
         <!-- vorne -->

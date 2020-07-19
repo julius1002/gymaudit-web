@@ -1,7 +1,7 @@
 <ng-container *ngIf="exercise$ | async as exercise">
-  <div class="container" style="min-height: 550px;">
+  <div class="container">
     <div class="row">
-      <div class="container col">
+      <div class="col-md">
         <mat-tab-group>
           <mat-tab label="Muskelgruppen">
             <mat-card>
@@ -55,7 +55,7 @@
           </button>
         </div>
       </div>
-      <div class="col">
+      <div class="col-md">
         <app-set-table [exerciseSubject]="exercise$"> </app-set-table>
       </div>
     </div>

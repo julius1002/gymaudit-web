@@ -1,17 +1,22 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
+  <div class = "container">
   <div class="row">
-    <div class="col exercise-list">
+    <div class="col" style = "padding-bottom: 10px;
+    max-width: 350px;
+    text-align: center;">
       <ng-container *ngIf="exercises.content.length; else noExercises">
-        <div class="heading">
-          <span class="mat-title">Übungen</span>
-        </div>
+        <span class="heading mat-title">
+          <strong>Übungen</strong> 
+         </span>
         <mat-card
           *ngFor="let exercise of exercises.content; let i = index"
           (click)="selectExercise(exercise)"
           [style.background-color]="
             isSelectedExercise(exercise) ? '#92a8d1' : ''
           "
-          style="cursor: pointer; padding: 5px; margin: 10px; text-align: left;"
+          style="cursor: pointer;
+           padding: 5px;
+            margin: 10px;"
         >
           <span>{{ exercise.name }}</span>
         </mat-card>
@@ -40,4 +45,5 @@
       <router-outlet name="exercise-detail"></router-outlet>
     </div>
   </div>
+</div>
 </ng-container>
