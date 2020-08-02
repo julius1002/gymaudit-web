@@ -14,12 +14,18 @@
         cursor:pointer" 
         src = "../assets/images/MainLogo.PNG"
         routerLink="home"></span>
+        <i>Demo</i>
       <span class="menu-spacer"></span>
       <div fxShow="true"
        fxHide.lt-md>
         <a routerLink="home"
          routerLinkActive="active"
          mat-button class ="link"> Home</a>
+         <a routerLink="login"
+         routerLinkActive="active"
+         mat-button class ="link">
+          Login
+        </a>
         <a routerLink="units"
          routerLinkActive="active"
          mat-button class ="link">
@@ -30,9 +36,11 @@
          mat-button class ="link">
           Training erfassen
         </a>
-        <a routerLinkActive="active"
+        <a
+        routerLink="about" 
+        routerLinkActive="active"
          mat-button class ="link"> 
-         Fortschritt </a>
+         About </a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -47,6 +55,11 @@
         <a routerLink="home" 
         routerLinkActive="active" 
         mat-list-item (click)="sidenav.close()"> Home </a>
+        <a routerLink="login"
+         routerLinkActive="active"
+         mat-list-item (click)="sidenav.close()">
+          Login
+        </a>
         <a routerLink="units"
          routerLinkActive="active"
           mat-list-item (click)="sidenav.close()">
@@ -57,9 +70,11 @@
          mat-list-item (click)="sidenav.close()">
           Training erfassen
         </a>
-        <a routerLinkActive="active"
+        <a 
+        routerLink="about"
+        routerLinkActive="active"
          mat-list-item (click)="sidenav.close()">
-          Fortschritt </a>
+          About </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

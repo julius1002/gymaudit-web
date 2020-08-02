@@ -40,7 +40,7 @@ import { TrainingLogComponent } from "./components/training-log/training-log/tra
 import { AddUnitDialogComponent } from "./components/workout-plan/units/add-unit-dialog/add-unit-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { EditUnitDialogComponent } from "./components/workout-plan/units/edit-unit-dialog/edit-unit-dialog.component";
-import { HomeComponent } from "./components/home/home/home.component";
+import { HomeComponent } from "./components/home/home.component";
 import { LogSetsComponent } from './components/training-log/log-sets/log-sets.component';
 import { LogExercisesComponent } from './components/training-log/log-exercises/log-exercises.component';
 import { LogUnitListComponent } from './components/training-log/log-unit-list/log-unit-list.component';
@@ -50,6 +50,9 @@ import {MatTableModule} from '@angular/material/table';
 import { SetTableComponent } from './components/training-log/log-sets/set-table/set-table.component';
 import {EditSetComponent} from './components/training-log/edit-set/edit-set.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     LogSetsFormComponent,
     AddSetComponent,
     SetTableComponent,
-    EditSetComponent
+    EditSetComponent,
+    LoginComponent,
+    SignupComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,23 @@
+<div>
+<div class="container">
+  <h2>Login</h2>
+  <mat-form-field>
+    <mat-label>E-Mail eingeben</mat-label>
+    <input matInput placeholder="max@mustermann.de" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+</div>
+<div class = "container">
+<mat-form-field >
+  <mat-label>Passwort eingeben</mat-label>
+  <input matInput [type]="hide ? 'password' : 'text'">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+</mat-form-field>
+</div>
+<div class =  "container">
+  <button mat-button >Weiter</button>
+<a routerLink = "/signup">Account erstellen</a>
+</div>
+</div>

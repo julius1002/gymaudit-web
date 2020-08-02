@@ -6,9 +6,12 @@ import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
 import { AddExerciseComponent } from "./components/workout-plan/exercises/add-exercise/add-exercise.component";
 import { TrainingLogComponent } from "./components/training-log/training-log/training-log.component";
-import { HomeComponent } from "./components/home/home/home.component";
+import { HomeComponent } from "./components/home/home.component";
 import { LogExercisesComponent } from "./components/training-log/log-exercises/log-exercises.component";
 import { LogUnitListComponent } from './components/training-log/log-unit-list/log-unit-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   {
@@ -19,6 +22,14 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
+  },
+  {
+    path: "login",
+    component: LoginComponent,
+  },
+  {
+    path: "signup",
+    component: SignupComponent,
   },
   {
     path: "units",
@@ -62,6 +73,10 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: "about",
+    component: AboutComponent,
+  }
 ];
 
 @NgModule({
