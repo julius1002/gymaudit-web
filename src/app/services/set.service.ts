@@ -28,6 +28,17 @@ export class SetService {
     );
   }
 
+  public getTodaysSetsByPage(
+    unitId: string,
+    exerciseId: string,
+    size: number,
+    page: number
+  ): Observable<Page<Set>> {
+    return this.httpClient.get<Page<Set>>(
+      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets/today?exerciseId=${exerciseId}&page=${page}&size=${size}`
+    );
+  }
+
   public postSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
     return this.httpClient.post<Set>(
       `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`

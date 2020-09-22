@@ -1,7 +1,7 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
   <div class = "container">
   <div class="row">
-    <div class="col" style = "padding-bottom: 10px;
+    <div class="col-sm" style = "padding-bottom: 10px;
     max-width: 350px;
     text-align: center;">
       <ng-container *ngIf="exercises.content.length; else noExercises">
@@ -23,7 +23,7 @@
       </ng-container>
       <ng-template #noExercises>
         Es wurde noch keine Übung hinzugefügt
-      </ng-template>
+      </ng-template>  
       <button
         style="width: 300px; margin: 10px;"
         mat-raised-button
@@ -41,7 +41,7 @@
         </mat-paginator>
       </ng-container>
     </div>
-    <div #exerciseElement>
+    <div class = "col-sm" #exerciseElement>
       <router-outlet name="exercise-detail"></router-outlet>
     </div>
   </div>

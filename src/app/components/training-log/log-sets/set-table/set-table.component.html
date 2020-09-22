@@ -1,8 +1,15 @@
 <ng-container *ngIf="setsPage$ | async as setsPage; else noSets">
   <ng-container *ngIf="setsPage.content.length; else noSets">
+    <ng-container *ngIf = "!editing;else currentSets">
     <div class="heading">
-      <span class="mat-title">Satzprotokoll</span>
+      <span class="mat-title">Aufgezeichnete Sätze</span>
     </div>
+  </ng-container>
+  <ng-template #currentSets>
+    <div class="heading">
+      <span class="mat-title">Heutige Sätze {{todaysDate | date}}</span>
+    </div>
+  </ng-template>
     <!-- <ul>
       <li *ngFor="let set of sets.content; let i = index">
         {{ i + 1 }}. Satz {{ set.reps }} Wiederholungen x {{ set.number
@@ -42,9 +49,9 @@
     </ng-container>
     <ng-template #pastTime>
       <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef> Vergangene Zeit </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Zeitpunkt </mat-header-cell>
         <mat-cell *matCellDef="let set">
-          {{now - set.date | date:"HH:mm:ss"}}
+          {{ set.date | date: "HH:mm" }} Uhr
         </mat-cell>
       </ng-container>
     </ng-template>
@@ -73,10 +80,9 @@
     Für diese Übung wurden <br />noch keine Sätze protokolliert
   </div>
 </ng-template>
+
 <ng-container *ngIf = "editing">
-<div style="float: right; text-align: right;">
   <button style="margin: 20px; padding:5px;" mat-raised-button (click)="addSet()">
     <span style = "padding:5px">Satz erfassen <mat-icon>add</mat-icon></span>
   </button>
-</div>
 </ng-container>
