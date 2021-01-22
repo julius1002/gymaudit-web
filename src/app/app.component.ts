@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,13 +8,17 @@ import { AuthenticationService } from './services/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'gymaudit-web';
   constructor(public authenticationService:AuthenticationService,
     private router: Router,
-    private snackBar: MatSnackBar,
-    private authService: AuthenticationService){
+    private snackBar: MatSnackBar){
 
+  }
+  ngOnInit(): void {
+    if(localStorage.getItem("jwt")){
+      this.authenticationService.setAuthenticated(true)
+    }
   }
 
   logout(): void {

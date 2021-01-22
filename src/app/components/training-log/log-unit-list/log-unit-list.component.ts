@@ -22,6 +22,6 @@ export class LogUnitListComponent implements OnInit {
     ) {}
   
     ngOnInit(): void {
-      this.units$ = this.unitService.getAll(environment.TRAINEEID);
+      this.units$ = this.unitService.getAll();
     }
 }

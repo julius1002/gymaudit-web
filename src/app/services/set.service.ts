@@ -13,7 +13,7 @@ export class SetService {
 
   public getAll(unitId: string, exerciseId: string): Observable<Page<Set>> {
     return this.httpClient.get<Page<Set>>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`
+      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
     );
   }
 
@@ -24,7 +24,7 @@ export class SetService {
     page: number
   ): Observable<Page<Set>> {
     return this.httpClient.get<Page<Set>>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}&page=${page}&size=${size}`
+      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}&page=${page}&size=${size}`
     );
   }
 
@@ -35,25 +35,25 @@ export class SetService {
     page: number
   ): Observable<Page<Set>> {
     return this.httpClient.get<Page<Set>>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets/today?exerciseId=${exerciseId}&page=${page}&size=${size}`
+      `${environment.BACKEND_URL}units/${unitId}/sets/today?exerciseId=${exerciseId}&page=${page}&size=${size}`
     );
   }
 
   public postSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
     return this.httpClient.post<Set>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`
+      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
     , set);
   }
 
   public putSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
     return this.httpClient.put<Set>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/sets?exerciseId=${exerciseId}`
+      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
     , set);
   }
 
   public deleteSet(setId:string){
     return this.httpClient.delete<Set>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/sets/${setId}`
+      `${environment.BACKEND_URL}sets/${setId}`
     )
   }
 }

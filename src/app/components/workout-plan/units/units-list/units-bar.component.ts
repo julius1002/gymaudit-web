@@ -37,16 +37,16 @@ export class UnitsBarComponent implements OnInit {
   }
 
   public updateUnitList() {
-    this.units$ = this.unitService.getAll(environment.TRAINEEID);
+    this.units$ = this.unitService.getAll();
   }
 
   public removeUnit() {
-    this.units$ = this.unitService.getAll(environment.TRAINEEID).pipe(share());
+    this.units$ = this.unitService.getAll().pipe(share());
     this.units$.subscribe((units) => this.setDefaultRoute(units));
   }
 
   public getUnitsFromTrainee() {
-    this.units$ = this.unitService.getAll(environment.TRAINEEID).pipe(share());
+    this.units$ = this.unitService.getAll().pipe(share());
 
     this.units$.subscribe((units) => {
       this.setDefaultRoute(units);

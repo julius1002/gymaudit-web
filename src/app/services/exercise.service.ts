@@ -13,7 +13,7 @@ export class ExerciseService {
 
   public getAll(unitId: string): Observable<Page<Exercise>> {
     return this.httpClient.get<Page<Exercise>>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`
+      `${environment.BACKEND_URL}units/${unitId}`
     );
   }
 
@@ -23,33 +23,33 @@ export class ExerciseService {
     page: number
   ): Observable<Page<Exercise>> {
     return this.httpClient.get<Page<Exercise>>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}?page=${page}&size=${size}`
+      `${environment.BACKEND_URL}units/${unitId}?page=${page}&size=${size}`
     );
   }
 
   public getSingle(unitId: string, exerciseId: string): Observable<Exercise> {
     return this.httpClient.get<Exercise>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/exercise?exerciseId=${exerciseId}`
+      `${environment.BACKEND_URL}units/${unitId}/exercise?exerciseId=${exerciseId}`
     );
   }
 
   public postSingle(unitId: string, exercise: Exercise): Observable<Exercise> {
     return this.httpClient.post<Exercise>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`,
+      `${environment.BACKEND_URL}units/${unitId}`,
       exercise
     );
   }
 
   public update(exercise: Exercise): Observable<Exercise> {
     return this.httpClient.put<Exercise>(
-      `${environment.BACKEND_URL}trainees/exercise`,
+      `${environment.BACKEND_URL}exercise`,
       exercise
     );
   }
 
   public delete(unitId: string, exerciseId: string) {
     return this.httpClient.delete<Exercise>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}/exercises/${exerciseId}`
+      `${environment.BACKEND_URL}units/${unitId}/exercises/${exerciseId}`
     );
   }
 }

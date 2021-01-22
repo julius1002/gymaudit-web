@@ -23,7 +23,7 @@ export class TrainingLogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.units$ = this.unitService.getAll(environment.TRAINEEID);
+    this.units$ = this.unitService.getAll();
   }
 
   setExercise(unit: Unit) {

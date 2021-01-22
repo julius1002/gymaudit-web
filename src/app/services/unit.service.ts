@@ -10,29 +10,29 @@ import { Observable } from "rxjs";
 export class UnitService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAll(traineeId: string): Observable<Unit[]> {
+  public getAll(): Observable<Unit[]> {
     return this.httpClient.get<Unit[]>(
-      environment.BACKEND_URL + `trainees/${traineeId}/units`
+      environment.BACKEND_URL + `units`
     );
   }
 
   public postSingle(unit: Unit): Observable<Unit> {
     return this.httpClient.post<Unit>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units`,
+      `${environment.BACKEND_URL}units`,
       unit
     );
   }
 
   public update(unit: Unit): Observable<Unit> {
     return this.httpClient.put<Unit>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units`,
+      `${environment.BACKEND_URL}units`,
       unit
     );
   }
 
   public delete(unitId: string) {
     return this.httpClient.delete<Unit>(
-      `${environment.BACKEND_URL}trainees/${environment.TRAINEEID}/units/${unitId}`
+      `${environment.BACKEND_URL}units/${unitId}`
     );
   }
 }
