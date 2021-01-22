@@ -1,49 +1,46 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
-  <div class = "container">
-  <div class="row">
-    <div class="col-sm" style = "padding-bottom: 10px;
-    max-width: 350px;
-    text-align: center;">
-      <ng-container *ngIf="exercises.content.length; else noExercises">
-        <span class="heading mat-title">
-          <strong>Übungen</strong> 
-         </span>
-        <mat-card
-          *ngFor="let exercise of exercises.content; let i = index"
-          (click)="selectExercise(exercise)"
-          [style.background-color]="
-            isSelectedExercise(exercise) ? '#92a8d1' : ''
-          "
-          style="cursor: pointer;
-           padding: 5px;
-            margin: 10px;"
-        >
-          <span>{{ exercise.name }}</span>
-        </mat-card>
-      </ng-container>
-      <ng-template #noExercises>
-        Es wurde noch keine Übung hinzugefügt
-      </ng-template>  
-      <button
-        style="width: 300px; margin: 10px;"
-        mat-raised-button
-        (click)="navigateToAddExercise()"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-      <ng-container *ngIf="exercises.content.length">
-        <mat-paginator
-          [pageSize]="pageSize"
-          [length]="exercises.totalElements"
-          (page)="turn($event)"
-          [pageIndex]="index"
-        >
-        </mat-paginator>
-      </ng-container>
-    </div>
-    <div class = "col-sm" #exerciseElement>
-      <router-outlet name="exercise-detail"></router-outlet>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm" style="padding-bottom: 10px;">
+        <ng-container *ngIf="exercises.content.length; else noExercises">
+          <span class="heading mat-title">
+            <strong>Übungen</strong>
+          </span>
+          <mat-list>
+            <mat-list-item *ngFor="let exercise of exercises.content;
+             let i = index" [style.background-color]="
+              isSelectedExercise(exercise) ? '#92a8d1' : ''
+            " style="cursor: pointer;"
+              >
+
+              <p 
+              (click)="selectExercise(exercise)">
+                {{ exercise.name }}</p>
+              <div style="position: absolute;
+              right: 10px;
+              top: 5px;">
+                <button style="margin: 10px;" mat-raised-button (click)="navigateToEdit(exercise)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </ng-container>
+        <ng-template #noExercises>
+          Es wurde noch keine Übung hinzugefügt
+        </ng-template>
+        <button style="width: 300px; margin: 10px;" mat-raised-button (click)="navigateToAddExercise()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <ng-container *ngIf="exercises.content.length">
+          <mat-paginator [pageSize]="pageSize" [length]="exercises.totalElements" (page)="turn($event)"
+            [pageIndex]="index">
+          </mat-paginator>
+        </ng-container>
+      </div>
+      <div class="col-sm" #exerciseElement>
+        <router-outlet name="exercise-detail"></router-outlet>
+      </div>
     </div>
   </div>
-</div>
 </ng-container>

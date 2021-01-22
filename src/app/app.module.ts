@@ -5,7 +5,7 @@ import { AppComponent } from "./app.component";
 import { UnitsBarComponent } from "./components/workout-plan/units/units-list/units-bar.component";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
 import { ExerciseListComponent } from "./components/workout-plan/exercises/exercise-list/exercise-list.component";
 
@@ -53,6 +53,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AboutComponent } from './components/about/about.component';
+import { HttpRequestInterceptor } from "./interceptors/httprequestinterceptor";
 
 @NgModule({
   declarations: [
@@ -108,7 +109,10 @@ import { AboutComponent } from './components/about/about.component';
     MatTableModule,
     MatButtonToggleModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: "de" }],
+  providers: [{ provide: LOCALE_ID, useValue: "de" },
+  { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {

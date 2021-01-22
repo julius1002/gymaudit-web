@@ -125,4 +125,11 @@ export class ExerciseListComponent implements OnInit {
     }
     return exercise.id === exerciseId;
   }
+
+  public navigateToEdit(exercise) {
+      this.router.navigateByUrl(
+        `units/(exercises:${exercise.unitId}/(exercise-detail:edit/${exercise.id}))`,
+        { state: exercise }
+      )
+  }
 }

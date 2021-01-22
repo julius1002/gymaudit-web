@@ -72,13 +72,6 @@ export class UnitsBarComponent implements OnInit {
     });
   }
 
-  public editUnit() {
-    const dialogRef = this.dialog.open(EditUnitDialogComponent, {
-      width: '400px', height: '400px',
-      data: { unit: this.selectedUnit },
-    });
-  }
-
   isSelectedUnit(unit): boolean {
     let unitId;
     if (this.route.firstChild) {

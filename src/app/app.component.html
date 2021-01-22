@@ -1,4 +1,3 @@
-<div class = "container">
   <mat-toolbar class = "toolbar">
     <mat-toolbar-row style = "padding:0px;">
       <button
@@ -20,12 +19,9 @@
        fxHide.lt-md>
         <a routerLink="home"
          routerLinkActive="active"
-         mat-button class ="link"> Home</a>
-         <a routerLink="login"
-         routerLinkActive="active"
-         mat-button class ="link">
-          Login
-        </a>
+         mat-button class ="link"> Home</a>        
+        <ng-container *ngIf="this.authenticationService.isAuthenticated() | async ">
+
         <a routerLink="units"
          routerLinkActive="active"
          mat-button class ="link">
@@ -36,17 +32,29 @@
          mat-button class ="link">
           Training erfassen
         </a>
+        </ng-container>
         <a
         routerLink="about" 
         routerLinkActive="active"
          mat-button class ="link"> 
          About </a>
+         <ng-container *ngIf="this.authenticationService.isAuthenticated() | async;else login">
+
+          <button fxShow="true" fxHide.lt-md="true" (click)="logout()" class ="logout-button" matTooltip="Logout" mat-button>
+            <mat-icon>logout</mat-icon>
+        </button>
+         </ng-container>
+         <ng-template #login>
+         <a routerLink="login"
+         routerLinkActive="active"
+         mat-button class ="link">
+          Login
+        </a>
+      </ng-template>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  </div>
-  <div style="height: 100vh" >
-  <mat-sidenav-container fxFlexFill style = "width: max-content;">
+  <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav>
       <mat-nav-list >
         <a (click)="sidenav.toggle()" mat-list-item>
@@ -81,4 +89,3 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-</div>

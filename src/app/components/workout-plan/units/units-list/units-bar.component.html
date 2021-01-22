@@ -16,14 +16,12 @@
       </nav>
     </div>
      
-    <button mat-raised-button (click)="editUnit()">
-      <mat-icon>edit</mat-icon>
-    </button>
+
     <button mat-raised-button (click)="addUnit()">
       <mat-icon>add</mat-icon>
     </button>
     </div>
-      <ng-container *ngIf="selectedUnit.description"
+     <!----> <ng-container *ngIf="selectedUnit.description"
         >Beschreibung der Einheit
         <span style="font-weight: bold; font-size: 1.2em;">{{
           selectedUnit.name

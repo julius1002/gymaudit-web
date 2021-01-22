@@ -1,7 +1,19 @@
-mat-form-field{
-    min-width: 244px;
-}
+
 
 .container{
     text-align: center;
 }   
+
+mat-form-field, .submit {
+    width: 250px;
+}
+
+#loginbutton{
+width: 250px;
+}
+.mat-form-field-empty.mat-form-field-label {
+    color: green;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}

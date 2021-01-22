@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -7,20 +12,58 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  hide:boolean = true;
+  public loginForm: FormGroup;
+  hide: boolean = true;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-  } 
 
-  public getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
+    this.initForm();
+  }
+
+
+  private initForm() {
+    if (this.loginForm) {
+      return;
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    var groupObj = {
+      username: [""],
+      password: [""]
+    };
+
+    this.loginForm = this.formBuilder.group(groupObj);
+
+
   }
+
+  public openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  async submitForm() {
+    const formValue = this.loginForm.value;
+    if (localStorage.getItem("jwt")) {
+      localStorage.removeItem("jwt")
+    }
+    this.authenticationService.login(formValue.username, formValue.password).subscribe(res => {
+      if (res) {
+        this.authenticationService.setAuthenticated(true)
+        localStorage.setItem("jwt", res.token)
+        this.router.navigate(["/"])
+        this.openSnackBar("Successfully logged in!", "Ok")
+      }
+    }, (err) => {
+      err.status == 401 ? this.openSnackBar("Bad username or password", "Ok") : this.openSnackBar("Server unavailable", "Ok")
+    });
+  }
+  
 
 }
