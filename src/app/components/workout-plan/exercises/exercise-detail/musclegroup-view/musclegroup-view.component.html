@@ -1,6 +1,6 @@
 <div class="row container">
   <div class="col">
-    <p style="font-weight: bold;">Beanspruchte Muskelgruppen</p>
+    <p style="font-weight: bold;">Targeted Muscles</p>
     <ng-container *ngIf="exercise.muscleGroups.length; else noMuscleGroups">
       <mat-list>
         <mat-list-item *ngFor="let muscleGroup of exercise.muscleGroups">
@@ -10,7 +10,7 @@
       </mat-list>
     </ng-container>
     <ng-template #noMuscleGroups>
-      Für diese Übung wurden keine beanspruchten Muskeln ausgewählt
+      No targeted muscles selected yet
     </ng-template>
   </div>
   <div class="col">

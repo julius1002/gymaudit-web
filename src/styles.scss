@@ -2,16 +2,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/scss/bootstrap";
 
-.mat-icon {
-    vertical-align: middle;
- }
+html, 
+body {
+    height: 100%;
+}
 
- .heading {
-     margin: 12px;
-     text-align: center;
-     font-size: 20px;
- }
- html, body { height: 100%; }
 
- $primary: #92a8d1
-
+ $primary: #8868fc

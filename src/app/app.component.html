@@ -1,61 +1,50 @@
-<mat-toolbar class="toolbar">
-  <mat-toolbar-row style="padding:0px;">
-    <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span class="title"><img style="height: 60px; outline: none;
-        cursor:pointer" src="../assets/images/MainLogo.PNG" routerLink="home"></span>
-    <i>Demo</i>
-
-    <span class="menu-spacer"></span>
-    <div fxShow="true" fxHide.lt-md>
-      <a routerLink="home" routerLinkActive="active" mat-button class="link"> Home</a>
-      <ng-container *ngIf="this.authenticationService.isAuthenticated() | async ">
-
-        <a routerLink="units" routerLinkActive="active" mat-button class="link">
-          Trainingsplan
-        </a>
-        <a routerLink="training-log/units" routerLinkActive="active" mat-button class="link">
-          Training erfassen
-        </a>
-      </ng-container>
-      <a routerLink="about" routerLinkActive="active" mat-button class="link">
-        About </a>
-    </div>
+<mat-toolbar id="toolbar">
+  
+  <div>
+    <a mat-icon-button (click) ="toggleMobileBar()" fxShow="true" fxHide.gt-sm class="nav-left" >
+      <mat-icon class ="burger-menu">menu</mat-icon>
+    </a>
+  </div>
+  <div  fxShow="true" fxHide.lt-md>
+    <a routerLink="home" routerLinkActive="active" mat-button class="link"> Home</a>
+    <ng-container *ngIf="this.authenticationService.isAuthenticated() | async ">
+      <a routerLink="units" routerLinkActive="active" mat-button class="link">
+        Routine
+      </a>
+      <a routerLink="training-log/units" routerLinkActive="active" mat-button class="link">
+        Track Workout
+      </a>
+    </ng-container>
+    <a routerLink="about" routerLinkActive="active" mat-button class="link">
+      About </a>
+  </div>
+  <div class="nav-middle">
+    GymAudit
+  </div>
+  <div class="nav-right">
     <ng-container *ngIf="this.authenticationService.isAuthenticated() | async;else login">
-
-      <button fxShow="true" (click)="logout()" class="logout-button" matTooltip="Logout" mat-button>
+      <a mat-icon-button  (click)="logout()" mat-button>
         <mat-icon>logout</mat-icon>
-      </button>
+      </a>
     </ng-container>
     <ng-template #login>
-      <a routerLink="login" routerLinkActive="active" mat-button class="link">
+      <a mat-icon-button routerLink="login" mat-button>
         Login
+        <mat-icon>login</mat-icon>
       </a>
     </ng-template>
-  </mat-toolbar-row>
+  </div>
 
 </mat-toolbar>
-<mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav>
-    <mat-nav-list>
-      <a (click)="sidenav.toggle()" mat-list-item>
-        <mat-icon>close</mat-icon>Schließen
-      </a>
-      <a routerLink="home" routerLinkActive="active" mat-list-item (click)="sidenav.close()"> Home </a>
-      <a routerLink="units" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
-        Trainingsplan
-      </a>
-      <a routerLink="training-log/units" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
-        Training erfassen
-      </a>
-      <a routerLink="about" routerLinkActive="active" mat-list-item (click)="sidenav.close()">
-        About </a>
 
-    </mat-nav-list>
+<div class = "drawer">
+  <ul id = "drawer-list">
+    <li></li>
+    <li routerLink="home"><a >Home</a></li>
+    <li routerLink="units"><a >Routine</a></li>
+    <li routerLink="training-log/units"><a  >Track Workout</a></li>
+    <li routerLink="about"><a >About</a></li>
+  </ul>
+</div>
 
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <router-outlet></router-outlet>

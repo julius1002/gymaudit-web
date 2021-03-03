@@ -14,23 +14,25 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
     var jwt = localStorage.getItem("jwt")
 
-    var newRequest = request
+    var clonedRequest = request
+
     if (jwt) {
-      newRequest = request.clone({
+      clonedRequest = request.clone({
         setHeaders: {
           Authorization: `Bearer ${jwt}`
         }
       });
     }
 
-    return next.handle(newRequest).pipe(tap(res => {
+
+    return next.handle(clonedRequest).pipe(tap(res => {
       if (res instanceof HttpResponse) {
         if (res.status < 300 && res.status >= 200) {
-          this.authenticationService.setAuthenticated(true)
+          this.authenticationService.setAuthentication(true)
         }
       }
 
-    }, (err) => {this.authenticationService.setAuthenticated(false); this.router.navigate(["/login"])}))
+    }, (err) => { this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]) }))
   }
 
 }

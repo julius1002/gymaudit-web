@@ -57,9 +57,6 @@ export class LogExercisesComponent implements OnInit {
 
   selectExercise(exercise: Exercise) {
     this.exerciseSubject.next(exercise);
-    if(this.logSetsElement){
-    this.logSetsElement.nativeElement.scrollIntoView({behavior: 'smooth'});
-  }
   }
 
   public turn(event: PageEvent) {

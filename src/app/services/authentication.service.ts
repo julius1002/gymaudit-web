@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { take } from 'rxjs/internal/operators/take';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,27 +12,41 @@ export class AuthenticationService {
 
   private authenticated = new BehaviorSubject<boolean>(false);
 
-  constructor(private httpClient: HttpClient) {
+  authenticationUrl: string = `${environment.BACKEND_URL}auth/login`;
+  logoutUrl: string = `${environment.BACKEND_URL}auth/logout`;
+
+  constructor(private httpClient: HttpClient,
+    private router: Router) {
   }
 
   login(username: string, password: string): Observable<any> {
-    var authorization: string = "Basic " + `${btoa(`${username}:${password}`)}`
+    var authorizationHeader: string = "Basic " + `${btoa(`${username}:${password}`)}`
 
-    return this.httpClient.post(`${environment.BACKEND_URL}auth/login`, null, {
-      headers: { 'Authorization': authorization }
+    return this.httpClient.post(this.authenticationUrl, null, {
+      headers: { 'Authorization': authorizationHeader }
     })
   }
 
   logout(): Observable<any> {
-    return this.httpClient.delete(`${environment.BACKEND_URL}auth/logout`)
+    return this.httpClient.delete(this.logoutUrl)
   }
 
   isAuthenticated(): Observable<boolean> {
     return this.authenticated.asObservable();
   }
 
-  setAuthenticated(isAuthenticated) {
+  setAuthentication(isAuthenticated) {
     this.authenticated.next(isAuthenticated)
+  }
+
+  navigateToIfAlreadyAuthenticated(navigationPath: string) {
+    this.isAuthenticated().pipe(take(1))
+      .subscribe((authenticated: boolean) => {
+        if (authenticated) {
+          this.router.navigate([navigationPath]);
+        }
+      }
+      )
   }
 
 }

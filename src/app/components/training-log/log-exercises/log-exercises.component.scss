@@ -7,3 +7,10 @@
      min-width: 200px;
  }
 
+li + li {
+    margin-top: 1em;
+}
+
+.active{
+    background-color: black;
+}

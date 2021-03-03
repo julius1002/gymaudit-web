@@ -1,16 +1,16 @@
 <form [formGroup]="setForm" (ngSubmit)="submitForm()">
   <div class="container">
     <mat-form-field>
-      <mat-label>Wiederholungen</mat-label>
+      <mat-label>Repetitions</mat-label>
       <input matInput formControlName="reps" />
     </mat-form-field>
     <br />
     <mat-form-field>
-      <mat-label>Intensität</mat-label>
+      <mat-label>Intensity</mat-label>
       <textarea matInput formControlName="number"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Einheit</mat-label>
+      <mat-label>Measure</mat-label>
       <mat-select formControlName="measureUnit">
         <mat-option
           *ngFor="let key of keys(measureUnitEnum)"
@@ -24,12 +24,12 @@
       <ng-container *ngIf="editing === true">
         <button mat-raised-button type="button"
           (click)="removeSet()">
-          Enfernen
+          Delete
           <mat-icon>delete</mat-icon>
         </button>
       </ng-container>
       <button mat-raised-button type="submit" [disabled]="setForm.invalid">
-        Speichern
+        Save
         <mat-icon>save</mat-icon>
       </button>
     </div>

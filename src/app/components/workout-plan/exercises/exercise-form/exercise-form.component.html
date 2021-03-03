@@ -1,59 +1,47 @@
 <form [formGroup]="exerciseForm" (ngSubmit)="submitForm()">
-  <mat-card>
+  <mat-card style="border-radius: 10px;">
     <div class="heading">{{ getHeading() }}</div>
     <div class="container">
-      <mat-form-field >
+      <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" />
       </mat-form-field>
       <br />
 
-      <mat-form-field >
-        <mat-label>Beschreibung/ Notizen</mat-label>
+      <mat-form-field>
+        <mat-label>Notes</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
       <br />
       <mat-form-field>
-        <mat-label>Übungstyp</mat-label>
+        <mat-label>Exercise Type</mat-label>
         <mat-select formControlName="exerciseType">
-          <mat-option
-            *ngFor="let key of keys(exerciseTypeEnum)"
-            [value]="key"
-            >{{ exerciseTypeEnum[key] }}</mat-option
-          >
+          <mat-option *ngFor="let key of keys(exerciseTypeEnum)" [value]="key">{{ exerciseTypeEnum[key] }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Bild Url</mat-label>
+        <mat-label>Image Url</mat-label>
         <input matInput formControlName="pictureUrl" />
       </mat-form-field>
       <br />
       <br />
 
-      <mat-expansion-panel>
+      <mat-expansion-panel style="border-radius: 5px;">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Muskelgruppen bearbeiten
+            Edit Muscle Groups
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-form-field
-          *ngFor="let control of muscleGroups.controls; index as i"
-          class="example-full-width"
-        >
-          <mat-label>Muskelgruppe {{ i + 1 }}</mat-label>
+        <mat-form-field *ngFor="let control of muscleGroups.controls; index as i" class="example-full-width">
+          <mat-label>Muscle Group {{ i + 1 }}</mat-label>
           <mat-select [formControl]="muscleGroups.controls[i]">
-            <mat-option (click)="removeMuscleGroup(i)"
-              >Entfernen <mat-icon>delete</mat-icon></mat-option
-            >
-            <mat-option
-              *ngFor="let key of keys(muscleGroupEnum)"
-              [value]="key"
-              >{{ muscleGroupEnum[key] }}</mat-option
-            >
+            <mat-option (click)="removeMuscleGroup(i)">Remove <mat-icon>delete</mat-icon>
+            </mat-option>
+            <mat-option *ngFor="let key of keys(muscleGroupEnum)" [value]="key">{{ muscleGroupEnum[key] }}</mat-option>
           </mat-select>
         </mat-form-field>
         <button mat-raised-button type="button" (click)="addMuscleGroup()">
-          + Muskelgruppe
+          + Muscle Group
         </button>
       </mat-expansion-panel>
       <br />
@@ -61,18 +49,19 @@
       <br />
     </div>
   </mat-card>
-  <button mat-raised-button type="button" (click)="navigateBack()">
-    <mat-icon>arrow_back_ios</mat-icon>
-    Zurück
-  </button>
-  <ng-container *ngIf="editing === true">
-    <button mat-raised-button type="button" (click)="removeExercise()">
-      Entfernen
-      <mat-icon>delete</mat-icon>
+  <div style ="display: flex; justify-content: space-between;   padding: 10px 0;  ">
+    <button mat-raised-button type="button" (click)="navigateBack()" style="border-radius: 10px; width:30%">
+      <mat-icon>arrow_back_ios</mat-icon>
     </button>
-  </ng-container>
-  <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid">
-    Speichern
-    <mat-icon>save</mat-icon>
-  </button>
+    <ng-container *ngIf="editing === true">
+      <button mat-raised-button type="button" (click)="removeExercise()" style="border-radius: 10px; width:30%">
+        Remove
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-container>
+    <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid" style="border-radius: 10px; width:30%">
+      Save
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
 </form>

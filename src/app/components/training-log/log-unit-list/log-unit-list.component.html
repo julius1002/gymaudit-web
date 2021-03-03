@@ -1,14 +1,19 @@
 <ng-container *ngIf="units$ | async as units">
-  <div class="heading">
-    <span class="mat-title">Einheiten</span>
-  </div>
-  <div style = "text-align: center;">
-    <div style = "display: inline-block;">
-  <mat-list>
-    <mat-list-item *ngFor="let unit of units" routerLink="./{{ unit.id }}">
-      <button mat-button>{{ unit.name }}</button>
-    </mat-list-item>
-  </mat-list>
-</div>
-</div>
+  <ul>
+    <li *ngFor="let unit of units" routerLink="./{{ unit.id }}">
+      <button mat-button style="padding: 0 0;">
+        <img src="https://www.myself.de/Undefined/image-thumb__7223__gallery-horizontal/liegest%C3%BCtz-einarmig.jpeg">
+        <div style="background-color:rgb(233, 233, 233); margin:0 0; padding: 1px 0;">
+          {{ unit.name }}
+        </div>
+      </button>
+    </li>
+    <li>
+      <button mat-button class = "add-button" routerLink ="">
+        <mat-icon>
+          add
+        </mat-icon>
+      </button>
+    </li>
+  </ul>
 </ng-container>

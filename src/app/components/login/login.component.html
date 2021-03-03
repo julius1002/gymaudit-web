@@ -1,17 +1,13 @@
 <div class="container">
-  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-
-
-    <div class ="container" style ="text-align: center;">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <div class="container" style="text-align: center;">
             <h2>Login</h2>
-  
             <div>
                 <mat-form-field color="accent" appearance="outline">
-                    <mat-label >username</mat-label>
-                    <input style =" background-color: white" matInput required formControlName="username">
+                    <mat-label>username</mat-label>
+                    <input style=" background-color: white" matInput required formControlName="username">
                 </mat-form-field>
             </div>
-  
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>password</mat-label>
@@ -21,14 +17,11 @@
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-  
             </div>
             <div>
                 <button id="loginbutton" mat-raised-button type="submit">Login</button>
-  
             </div>
         </div>
-  
-  </form>
-<a routerLink = "/signup">Account erstellen</a>
+    </form>
+    <a routerLink="/signup">Got no account yet? Register</a>
 </div>

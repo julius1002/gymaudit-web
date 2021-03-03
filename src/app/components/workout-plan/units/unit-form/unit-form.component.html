@@ -7,22 +7,22 @@
     <br />
 
     <mat-form-field>
-      <mat-label>Beschreibung</mat-label>
+      <mat-label>Notes</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
     <br />
     <div class="mat-dialog-buttons">
       <button type="button" (click)="closeDialog()" mat-button>
-        Schließen
+        Close
       </button>
       <ng-container *ngIf="editing === true">
         <button mat-raised-button type="button" (click)="removeUnit()">
-          Enfernen
+          Remove
           <mat-icon>delete</mat-icon>
         </button>
       </ng-container>
       <button mat-raised-button type="submit" [disabled]="unitForm.invalid">
-        Speichern
+        Save
         <mat-icon>save</mat-icon>
       </button>
     </div>

@@ -1,33 +1,20 @@
 <ng-container *ngIf="exercisesPage$ | async as exercises">
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md" style = "padding-bottom: 10px;
-      max-width: 350px;
-      text-align: center;">
-        <div class="heading">
-          <span class="heading mat-title">Übung wählen</span>
-        </div>
-        <div>
-          <mat-button-toggle-group vertical="true" #group="matButtonToggleGroup">
-            <mat-button-toggle *ngFor="let exercise of exercises.content" (click)="selectExercise(exercise)">
-              {{ exercise.name }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-          <ng-container *ngIf="exercises.content.length">
-              <mat-paginator [pageSize]="pageSize" [length]="exercises.totalElements" (page)="turn($event)"
-                [pageIndex]="index">
-              </mat-paginator>
-          </ng-container>
-          <button mat-raised-button routerLink=".." style="margin:10px; width:175px">
-            <mat-icon>arrow_back_ios</mat-icon>
-            Andere Einheit
-          </button>
-        </div>
-      </div>
-      <div #appLogSets class="col-md">
+        <button routerLink=".." mat-button>
+          <mat-icon>arrow_back_ios</mat-icon>
+          Back to Units
+        </button>
+        <p class="heading mat-title">Select Exercise (das soll in der navbar stehen)</p>
+        <ul style ="padding: 0 0">
+          <li *ngFor="let exercise of exercises.content" (click)="selectExercise(exercise)"
+            style="background-color:rgb(223, 223, 223); cursor:pointer; list-style-type: none;">
+            {{ exercise.name }}
+          </li>
+        </ul>
+        <ng-container *ngIf="exercises.content.length">
+          <mat-paginator [pageSize]="pageSize" [length]="exercises.totalElements" (page)="turn($event)"
+            [pageIndex]="index">
+          </mat-paginator>
+        </ng-container>
         <app-log-sets [exerciseSubject]="exerciseSubject"></app-log-sets>
-      </div>
-    </div>
-  </div>
 </ng-container>

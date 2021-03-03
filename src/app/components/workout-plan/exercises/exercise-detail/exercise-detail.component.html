@@ -18,11 +18,11 @@
               <mat-card-header>
                 <mat-card-title>
                   <span style="font-weight: bold;"
-                    >Übung - {{ exercise.name }}</span
+                    >Exercise - {{ exercise.name }}</span
                   ></mat-card-title
                 >
                 <mat-card-subtitle *ngIf="exercise.exerciseType"
-                  >Übungstyp:
+                  >Exercise Type:
                   {{
                   exerciseTypeEnum[exercise.exerciseType]
                 }}</mat-card-subtitle
@@ -36,14 +36,12 @@
                 </ng-container>
                 <ng-container *ngIf="exercise.description; else noDescription">
                   <p>
-                    <span style="font-weight: bold;">Notizen:</span><br />
+                    <span style="font-weight: bold;">Notes:</span><br />
                     {{ exercise.description }}
                   </p>
                 </ng-container>
                 <ng-template #noDescription>
-                  Für diese Übung wurde noch keine Beschreibung
-                  hinzugefügt</ng-template
-                >
+                  No description for this exercise added yet</ng-template>
               </mat-card-content>
             </mat-card>
           </mat-tab>

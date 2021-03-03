@@ -1,22 +1,107 @@
 @import"../styles.scss";
+
+:root{
+  box-sizing: border-box;
+}
+*,
+::before,
+::after{
+  
+  box-sizing: inherit;
+}
+
 .active {
   background-color:$primary;
 }
 
-.toolbar {
-  padding-top: 10px;
-  background-color: #FFFFFF;
-    position: sticky;
-    position: -webkit-sticky; /* For macOS/iOS Safari */
-    top: 0; /* Sets the sticky toolbar to be on top */
-    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+.burger-menu{
+  text-align: start;
 }
 
-.title{
-  font-size: 2em;
-  margin-right: 10px;
+#toolbar {
+  z-index: 2;
+  background-color: $primary;
+  color: white;
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  height: 2em
 }
 
-.link {  
-  font-size: 1em;
+
+*:focus {
+  outline: 0 !important;
+}
+
+
+
+
+.drawer{
+  display:block;
+  position: sticky;
+  position: fixed;
+  top:0em;
+  z-index: 1;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s linear,
+              visibility 0s linear 0.2s 
+}
+.drawer > .drawer-list > li {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s linear,
+              visibility 0s linear 0.2s 
+}
+
+
+.is-open{
+  opacity: 1; 
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.nav-left{
+  flex: 0 0 10%;
+  position:relative;
+  
+  }
+.nav-middle{
+  flex:1 0 80%;
+  text-align: center;
+}
+
+.nav-right{
+  flex: 0 0 10%;
+}
+
+mat-toolbar > div > a{
+  margin: auto 0;
+  text-decoration: none;
+  color: white;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+div ul{
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+
+}
+
+div ul li{
+  text-align:center;
+  background: rgb(136, 104, 252);
+  color: white;
+  padding: 1em; 
+}
+li:last-child{
+  border-bottom-left-radius: 0.75em;
+  border-bottom-right-radius: 0.75em;
+}
+div ul li a{
+  text-decoration: none;
+  color: white
 }

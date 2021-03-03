@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { UnitService } from "src/app/services/unit.service";
 import { Unit } from "src/app/model/unit";
 import { environment } from "src/environments/environment";
@@ -14,6 +14,8 @@ import { EditUnitDialogComponent } from "../edit-unit-dialog/edit-unit-dialog.co
   selector: "app-units-bar",
   templateUrl: "./units-bar.component.html",
   styleUrls: ["./units-bar.component.scss"],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class UnitsBarComponent implements OnInit {
   units$: Observable<Unit[]>;

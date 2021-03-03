@@ -10,8 +10,8 @@ export class SignupComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   firstName =
     new FormControl('', [Validators.required]);
-    lastName =
-    new FormControl('', [Validators.required]);  
+  lastName =
+    new FormControl('', [Validators.required]);
 
   hide: boolean = true;
 
