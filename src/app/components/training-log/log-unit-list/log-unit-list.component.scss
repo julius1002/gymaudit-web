@@ -11,17 +11,27 @@ li{
 
 
 @media only screen and (max-width: 768px) {
+    
     li {
         width: calc(50% - 0.3em);
     }
+    
   }
 
+
+.unit-name-container{
+    background-color:rgb(243, 243, 243);
+     margin:0 0;
+      padding: 1px 0;
+          text-transform: uppercase;
+}
 ul{
     display:flex;
     flex-wrap: wrap;
     list-style-type: none; 
-    padding:0
+    padding:0;
 }
+
 
 img{
     width: 100%
@@ -32,3 +42,4 @@ img{
     height: 100%;
     background-color:lightgrey
 }
+

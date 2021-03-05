@@ -47,11 +47,10 @@
   transition: opacity 0.2s linear,
               visibility 0s linear 0.2s 
 }
-.drawer > .drawer-list > li {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s linear,
-              visibility 0s linear 0.2s 
+
+a{
+  font-family: Roboto, sans-serif;
+  text-transform: uppercase;
 }
 
 
@@ -98,8 +97,8 @@ div ul li{
   padding: 1em; 
 }
 li:last-child{
-  border-bottom-left-radius: 0.75em;
-  border-bottom-right-radius: 0.75em;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
 }
 div ul li a{
   text-decoration: none;
