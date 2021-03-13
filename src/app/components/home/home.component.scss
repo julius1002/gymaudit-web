@@ -2,9 +2,9 @@
 
 
 .tile{
-    border-top: 15px solid $primary;
-    background-color: #80808021;
+    border-top: 15px solid $secondary;
     font-size: 0.9em;
+    margin: auto 1em;
 }
 
 .tile + .tile{
@@ -35,3 +35,22 @@ p{
     margin:0;
 }
 
+
+@media(min-width: 32em){
+    .tile-row{
+        display:flex;
+        max-width: 1080px;
+        margin: 0 auto;
+        margin-top: 2em;
+
+
+    }
+    .tile{
+        flex-basis: 33%;
+        margin-top: 0 !important;
+    }
+    .tile+.tile{
+        margin-left: 2em;
+    }
+    
+}

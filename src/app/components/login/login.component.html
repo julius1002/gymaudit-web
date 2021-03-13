@@ -1,7 +1,9 @@
 <div class="container">
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
         <div class="container" style="text-align: center;">
-            <h2>Login</h2>
+            <div class = "title-container">
+            <mat-icon>account_circle</mat-icon>
+        </div>
             <div>
                 <mat-form-field color="accent" appearance="outline">
                     <mat-label>username</mat-label>
@@ -23,5 +25,5 @@
             </div>
         </div>
     </form>
-    <a routerLink="/signup">Got no account yet? Register</a>
+    <span> Got no account yet?<a routerLink="/signup"> Register</a></span>
 </div>

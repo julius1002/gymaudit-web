@@ -1,11 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/scss/bootstrap";
+:root{
+    box-sizing: border-box;
+  }
 
+  :root{
+    box-sizing: border-box;
+  }
+  *,
+  ::before,
+  ::after{
+    
+    box-sizing: inherit;
+  }
+  *:focus {
+    outline: none;
+}
 html, 
 body {
     height: 100%;
 }
 
 
- $primary: #8868fc
+ $primary: #8868fc;
+ $secondary: rgb(104, 182, 255);

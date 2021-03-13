@@ -29,14 +29,13 @@
     </ng-container>
     <ng-template #login>
       <a mat-icon-button routerLink="login" mat-button>
-        Login
         <mat-icon>login</mat-icon>
       </a>
     </ng-template>
   </div>
 
 </mat-toolbar>
-
+<ng-container *ngIf="this.authenticationService.isAuthenticated() | async">
 <div class = "drawer">
   <ul id = "drawer-list">
     <li></li>
@@ -46,5 +45,13 @@
     <li routerLink="about"><a >About</a></li>
   </ul>
 </div>
+</ng-container>
 
+<div class = "drawer">
+  <ul id = "drawer-list">
+    <li></li>
+    <li routerLink="home"><a >Home</a></li>
+    <li routerLink="about"><a >About</a></li>
+  </ul>
+</div>
       <router-outlet></router-outlet>

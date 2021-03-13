@@ -1,5 +1,5 @@
 <div>
-    <div class="container" >
+    <div class="title-container" >
         <h2 style="text-align: center;">Registration</h2>
     </div>
     <div class="container">
@@ -9,23 +9,17 @@
             <mat-error *ngIf="firstName
             .invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
-    </div>
-    <div class="container">
         <mat-form-field>
             <mat-label>Lastname</mat-label>
             <input matInput [formControl]="lastName" required>
             <mat-error *ngIf="lastName
             .invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
-    </div>
-    <div class="container">
         <mat-form-field>
             <mat-label>Enter E-Mail</mat-label>
-            <input matInput placeholder="max@mustermann.de" [formControl]="email" required>
+            <input matInput placeholder="name@prodiver.com" [formControl]="email" required>
             <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
-    </div>
-    <div class="container">
         <mat-form-field>
             <mat-label>Enter new password</mat-label>
             <input matInput [type]="hide ? 'password' : 'text'">
@@ -34,8 +28,6 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-    </div>
-    <div class="container">
         <mat-form-field>
             <mat-label>Repeat Password</mat-label>
             <input matInput [type]="hide ? 'password' : 'text'">
@@ -44,12 +36,8 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-    </div>
-    <div class="container">
-        <button mat-raised-button style="outline:none; width: 250px;">Register</button>
-<br>
-        <a routerLink="/login">Already registered? Login</a>
+        <button mat-raised-button style="outline:none; min-width: 250px; padding: 0.5em; margin-bottom: 2em;">Register</button>
+        <span style ="display:block"> Already registered?<a routerLink="/login"> Login</a></span>
 
     </div>
-
 </div>

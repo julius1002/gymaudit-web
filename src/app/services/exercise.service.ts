@@ -20,12 +20,15 @@ export class ExerciseService {
   public getByPage(
     unitId: string,
     size: number,
-    page: number
+    page: number,
+    name: string = ""
   ): Observable<Page<Exercise>> {
     return this.httpClient.get<Page<Exercise>>(
-      `${environment.BACKEND_URL}units/${unitId}?page=${page}&size=${size}`
+      `${environment.BACKEND_URL}units/${unitId}?page=${page}&size=${size}&name_filter=${name}`
     );
   }
+
+  
 
   public getSingle(unitId: string, exerciseId: string): Observable<Exercise> {
     return this.httpClient.get<Exercise>(

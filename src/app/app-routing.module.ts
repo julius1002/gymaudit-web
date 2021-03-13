@@ -16,7 +16,7 @@ import { AboutComponent } from './components/about/about.component';
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "units",
+    redirectTo: "home",
     pathMatch: "full",
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     component: SignupComponent,
   },
   {
-    path: "units",
+    path: "unitssss",
     component: UnitsBarComponent,
     children: [
       {
