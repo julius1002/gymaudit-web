@@ -15,6 +15,8 @@ import {
 } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
+import { MatDialogRef } from "@angular/material/dialog";
+import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
 
 @Component({
   selector: "app-exercise-form",
@@ -27,11 +29,12 @@ export class ExerciseFormComponent implements OnInit {
   exercise: Exercise;
   exerciseForm: FormGroup;
 
-  unitId$: Observable<string>;
   exerciseTypeEnum = ExerciseType;
   muscleGroupEnum = MuscleGroup;
 
+  exerciseInformationVisible:boolean = true;
   keys = Object.keys;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -46,12 +49,15 @@ export class ExerciseFormComponent implements OnInit {
     return this.editing ? "Übung bearbeiten" : "Übung hinzufügen";
   }
 
+
+  toggleMuscleGroups(){
+    this.exerciseInformationVisible = !this.exerciseInformationVisible
+  }
+
   ngOnInit(): void {
 
     this.initForm();
-    this.unitId$ = this.route.parent.paramMap.pipe(
-      map((paramMap) => paramMap.get("unitId"))
-    );
+    
     if (this.editing) {
       this.route.paramMap
         .pipe(map(() => window.history.state))
@@ -101,7 +107,7 @@ export class ExerciseFormComponent implements OnInit {
     this.muscleGroups.removeAt(index);
   }
 
-  removeExercise() {
+ /* removeExercise() {
     this.exerciseForm.reset;
     if (confirm("Übung wirklich löschen?")) {
       this.unitId$
@@ -128,21 +134,7 @@ export class ExerciseFormComponent implements OnInit {
             );
         });
     }
-  }
-
-  navigateBack() {
-    if (this.editing) {
-      this.router.navigateByUrl(
-        `units/(exercises:${this.exercise.unitId}/(exercise-detail:detail/${this.exercise.id}))`
-      );
-    } else {
-      this.unitId$.subscribe((unitId) =>
-        this.router
-          .navigate(["."])
-          .then(() => this.router.navigateByUrl(`units/(exercises:${unitId})`))
-      );
-    }
-  }
+  }*/
 
   submitForm() {
     const formValue = this.exerciseForm.value;
@@ -168,7 +160,7 @@ export class ExerciseFormComponent implements OnInit {
     muscleGroups = muscleGroups.filter((muscleGroup) => muscleGroup !== "");
 
     if (this.editing) {
-      this.unitId$.subscribe((unitIdd) => (unitId = unitIdd));
+      //this.unitId$.subscribe((unitIdd) => (unitId = unitIdd));
       exerciseId = this.exercise.id;
       date = this.exercise.date;
     }
@@ -187,7 +179,9 @@ export class ExerciseFormComponent implements OnInit {
     this.submitExercise.emit(newExercise);
     this.exerciseForm.reset;
 
-    if (this.editing) {
+    if (this.editing) { 
+      
+    } else {
       this.snackBar.open(
         `${newExercise.name} erfolgreich bearbeitet!`,
         "schließen",
@@ -195,14 +189,8 @@ export class ExerciseFormComponent implements OnInit {
           duration: 2500,
         }
       );
-    } else {
-      this.snackBar.open(
-        `${newExercise.name} erfolgreich hinzugefügt!`,
-        "schließen",
-        {
-          duration: 2500,
-        }
-      );
+
+      
     }
   }
 }

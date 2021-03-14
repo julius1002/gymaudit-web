@@ -7,6 +7,7 @@ import { UnitService } from 'src/app/services/unit.service';
 import { ExerciseService } from 'src/app/services/exercise.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-log-unit-list',
@@ -14,10 +15,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./log-unit-list.component.scss']
 })
 export class LogUnitListComponent implements OnInit {
-  units: Unit[];
-  exercises$: Observable<Page<Exercise>>;
+  unitsPage: Page<Unit>;
   selectedUnit: Unit;
   selectedExercise: Exercise;
+  index: number = 0;
+  pageSize: number = 5;
   constructor(
     private unitService: UnitService,
     private router: Router,
@@ -29,19 +31,42 @@ export class LogUnitListComponent implements OnInit {
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight;
     if (pos == max) {
-      document.getElementById("bottom-nav").classList.add("show-nav")
+      if(!this.unitsPage.last){
+        this.unitService.getByPage(this.pageSize, this.index+=1, "").subscribe((res:Page<Unit>) =>{
+        this.unitsPage.content = this.unitsPage.content.concat(res.content)
+        this.unitsPage.last = res.last
+      })
+      }
     }
   }
   ngOnInit(): void {
 
-    this.unitService.getAll()
-      .subscribe(unitsRes => {
-        this.units = unitsRes;
-        setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
-      , 500)
-      });
+    this.getUnitsPage(this.pageSize, this.index)
 
   }
+
+  public turn(currentPage: Page<Unit>, value: number) {
+    this.index += value
+    this.getUnitsPage(currentPage.size, this.index)
+  }
+
+  private getUnitsPage(size: number, page: number): void {
+     this.unitService.getByPage(size, page, "").pipe(
+       take(1)
+     )
+    .subscribe(res => {
+      this.unitsPage = res;
+      if (res.content.length < 7) {
+        setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
+          , 500)
+      }
+    });
+  }
+
+  public openDialog(){
+
+  }
+
 
 
 
@@ -49,9 +74,5 @@ export class LogUnitListComponent implements OnInit {
     this.router.navigate([unit.id], { relativeTo: this.route, state: { data: unit } })
 
   }
-
-  public turn(currentPage: Page<Unit>, value: number) {
-  }
-
 
 }

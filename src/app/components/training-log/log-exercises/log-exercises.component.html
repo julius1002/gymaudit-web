@@ -21,6 +21,7 @@
         </mat-icon>
       </div>
       <ng-container *ngIf="exercisesPage">
+        <ng-container *ngIf="exercisesPage.content.length; else noresults">
 
         <ul class ="exercise-list">
           <li class ="exercise-element" *ngFor="let exercise of exercisesPage.content" (click)="selectExercise(exercise)">
@@ -34,6 +35,13 @@
           </li>
      
         </ul>
+          
+        </ng-container>
+        <ng-template #noresults>
+          <h4 style ="text-align: center; margin-top: 4em">
+          Keine Ergebnisse 
+          </h4>
+        </ng-template>
         <ul class ="bottom-nav" id = "bottom-nav">
           <li   class ="left-arrow">
             <ng-container *ngIf = "!exercisesPage.first">
@@ -43,7 +51,7 @@
 
           </li>
                 <li class ="add-button">
-                    <mat-icon inline routerLink ="">
+                    <mat-icon inline (click)="openDialog()">
                       add
                     </mat-icon>
                 </li>

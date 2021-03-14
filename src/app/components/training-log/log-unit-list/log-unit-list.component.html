@@ -1,32 +1,18 @@
-<ng-container *ngIf="units">
-  <ul>
-    <li *ngFor="let unit of units; let i = index" (click) ="routeToExercise($event, unit)">
+<ng-container *ngIf ="unitsPage">
+  <ng-container *ngIf="unitsPage.content.length;else nounitresults">
+  <ul class ="unit-list">
+    <li *ngFor="let unit of unitsPage.content; let i = index" (click) ="routeToExercise($event, unit)">
       <div class ="unit-card">
-        <img class ="unit-image" src="https://www.myself.de/Undefined/image-thumb__7223__gallery-horizontal/liegest%C3%BCtz-einarmig.jpeg">
         <div class ="unit-name-container">
           {{ unit.name }}
         </div>
       </div>
     </li>
-  
   </ul>
-  <ul class ="bottom-nav" id ="bottom-nav">
-    <li   class ="left-arrow">
-      <!-- ng-container *ngIf = "!units.first"
-
-      <mat-icon (click) = "turn(units, -1)" inline>arrow_back_ios</mat-icon>
-    /ng-container-->
-
-    </li>
-          <li class ="add-button">
-              <mat-icon inline routerLink ="">
-                add
-              </mat-icon>
-          </li>
-    <li  class ="right-arrow">
-      <!-- ng-container *ngIf = "!units.last"
-      <mat-icon  (click) = "turn(units, 1)" inline >arrow_forward_ios</mat-icon>
-    /ng-container -->
-      </li>
-</ul>
 </ng-container>
+</ng-container>
+<ng-template #nounitresults>
+  <h4 style ="text-align: center; margin-top: 4em">
+  Keine Ergebnisse 
+  </h4>
+</ng-template>

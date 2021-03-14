@@ -7,19 +7,34 @@ ul{
     list-style-type: none; 
     padding:0;
     margin-bottom: 0;
+    background-image: radial-gradient(circle,  white, $primary )
 }
 
 
 
 .unit-image{
-    width: 100%;
+   background-size: contain;
 }
 
 
 .unit-card {
-    border-radius: 1em;
+    min-height: 10em;
+    border-radius: 0.5em;
+    background-size: cover;
+    background-image: url("../../../../assets/unitimage.jpeg");
+    box-shadow: 0.1em 0.1em 0.5em #124;
 }
 
+.unit-list > li + li{
+    margin-top: 1em;
+}
+
+.unit-list > li:first-child{
+    margin-top: 1em;
+}
+.unit-list > li:last-child{
+    margin-bottom: 1em;
+}
 
 .unit-name-container{
     word-wrap: break-word;
@@ -27,38 +42,34 @@ ul{
     text-align: center;
     color:white;
     background-color:$secondary;
-     margin:0 0;
-      padding: 1px 0;
-          text-transform: uppercase;
-          
+    margin:0 0;
+    padding: 1px 0;
+    text-transform: uppercase;    
+    border-top-left-radius: 0.5em;     
+    border-top-right-radius: 0.5em;
 }
 
 
 li{
-    margin-left: 0.2em;
-    width: calc(20% - 0.3em);
+    margin: 0 auto;
+    width: 90%;
+    max-height: 10em;
     margin-top: 0.2em;
-    animation: fly-in 400ms ease-in;
+    animation: fly-in 300ms ease-in;
 }
 
 
-li:first-child{
-}
 
-@for $i from 1 through 10 {
+
+
+@for $i from 1 through 20 {
     li:nth-child(#{$i}n) {
         animation-fill-mode: backwards;
-        animation-delay: #{$i * 0.1}s;
+        animation-delay: #{$i * 0.08}s;
     }
 }
 
-@media only screen and (max-width: 768px) {
-    
-    li {
-        width: calc(50% - 0.3em);
-    }
-    
-  }
+
 
 @keyframes fly-in{
     0%{

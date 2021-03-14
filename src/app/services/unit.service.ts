@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Unit } from "../model/unit";
 import { Observable } from "rxjs";
+import { Page } from "../model/page";
 
 @Injectable({
   providedIn: "root",
@@ -10,9 +11,13 @@ import { Observable } from "rxjs";
 export class UnitService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAll(): Observable<Unit[]> {
-    return this.httpClient.get<Unit[]>(
-      environment.BACKEND_URL + `units`
+  public getByPage(
+    size: number,
+    page: number,
+    name: string = ""
+  ): Observable<Page<Unit>> {
+    return this.httpClient.get<Page<Unit>>(
+      `${environment.BACKEND_URL}units?page=${page}&size=${size}&name_filter=${name}`
     );
   }
 

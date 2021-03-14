@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { Exercise } from "src/app/model/exercise";
 import { Observable } from "rxjs";
 import { map, switchMap, take } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
   selector: "app-add-exercise",
@@ -12,31 +13,28 @@ import { ExercisesListService } from "src/app/services/exercises-list.service";
   styleUrls: ["./add-exercise.component.scss"],
 })
 export class AddExerciseComponent implements OnInit {
-  unitId$: Observable<string>;
   constructor(
     private exerciseListService: ExercisesListService,
     private exerciseService: ExerciseService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: { unitid: string },
+    public dialogRef: MatDialogRef<AddExerciseComponent>
+
+
+  ) { }
 
   ngOnInit(): void {
-    this.unitId$ = this.route.parent.paramMap.pipe(
-      map((paramMap) => paramMap.get("unitId"))
-    );
+
   }
 
   postExercise(exercise: Exercise) {
-    this.unitId$
-      .pipe(
-        take(1),
-        switchMap((unitId) => this.exerciseService.postSingle(unitId, exercise))
-      )
+    this.exerciseService.postSingle(this.data.unitid, exercise).pipe(take(1))
       .subscribe((exercise) => {
-        this.router.navigateByUrl(
-          `units/(exercises:${exercise.unitId}/(exercise-detail:detail/${exercise.id}))`
-        )
-          this.exerciseListService.addToListEvent(exercise);
+        this.dialogRef.close(exercise);
+      }, (err) => {
+        this.dialogRef.close(undefined);
+
       });
   }
 }

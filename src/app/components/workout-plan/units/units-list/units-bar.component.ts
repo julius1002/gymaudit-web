@@ -30,30 +30,8 @@ export class UnitsBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUnitsFromTrainee();
-    this.unitListService.unitList.subscribe((unit) => {
-      this.updateUnitList();
-      this.selectUnit(unit)
-    });
-    this.unitListService.unitRemoved.subscribe(() => this.removeUnit());
   }
 
-  public updateUnitList() {
-    this.units$ = this.unitService.getAll();
-  }
-
-  public removeUnit() {
-    this.units$ = this.unitService.getAll().pipe(share());
-    this.units$.subscribe((units) => this.setDefaultRoute(units));
-  }
-
-  public getUnitsFromTrainee() {
-    this.units$ = this.unitService.getAll().pipe(share());
-
-    this.units$.subscribe((units) => {
-      this.setDefaultRoute(units);
-    });
-  }
 
   public selectUnit(unit: Unit) {
     this.selectedUnit = unit;

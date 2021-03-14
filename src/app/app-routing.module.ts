@@ -4,7 +4,6 @@ import { ExerciseListComponent } from "./components/workout-plan/exercises/exerc
 import { UnitsBarComponent } from "./components/workout-plan/units/units-list/units-bar.component";
 import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
-import { AddExerciseComponent } from "./components/workout-plan/exercises/add-exercise/add-exercise.component";
 import { TrainingLogComponent } from "./components/training-log/training-log/training-log.component";
 import { HomeComponent } from "./components/home/home.component";
 import { LogExercisesComponent } from "./components/training-log/log-exercises/log-exercises.component";
@@ -48,11 +47,6 @@ const routes: Routes = [
           {
             path: "edit/:exerciseId",
             component: EditExerciseComponent,
-            outlet: "exercise-detail",
-          },
-          {
-            path: "add",
-            component: AddExerciseComponent,
             outlet: "exercise-detail",
           },
         ],
