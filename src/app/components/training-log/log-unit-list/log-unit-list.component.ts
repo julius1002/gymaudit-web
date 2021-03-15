@@ -8,6 +8,9 @@ import { ExerciseService } from 'src/app/services/exercise.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { AddUnitDialogComponent } from '../add-unit-dialog/add-unit-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-log-unit-list',
@@ -23,7 +26,10 @@ export class LogUnitListComponent implements OnInit {
   constructor(
     private unitService: UnitService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
+
   ) { }
 
   @HostListener("window:scroll", ["$event"])
@@ -31,7 +37,7 @@ export class LogUnitListComponent implements OnInit {
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight;
     if (pos == max) {
-      if(!this.unitsPage.last){
+      if(!this.unitsPage?.last){
         this.unitService.getByPage(this.pageSize, this.index+=1, "").subscribe((res:Page<Unit>) =>{
         this.unitsPage.content = this.unitsPage.content.concat(res.content)
         this.unitsPage.last = res.last
@@ -63,9 +69,28 @@ export class LogUnitListComponent implements OnInit {
     });
   }
 
-  public openDialog(){
+  openDialog(): void {
+      const dialogRef = this.dialog.open(AddUnitDialogComponent, {
+        width: '80%',
+        height: '75%'
+      })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.unitsPage.content.unshift(result)
 
-  }
+          this.snackBar.open(
+            `${result.name} erfolgreich hinzugefügt!`,
+            "schließen",
+            {
+              duration: 2500,
+            }
+          );
+
+        } 
+      });
+
+
+  };
 
 
 

@@ -1,11 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,12 @@ export class LoginComponent implements OnInit {
     this.authenticationService.navigateToIfAlreadyAuthenticated("/training-log/units");
     this.initForm();
   }
+  loginWithFacebook($event){
+    $event.preventDefault();
+    window.location.href =environment.BACKEND_URL + "oauth2/facebook"
+  }
+
+
 
 
   private initForm() {

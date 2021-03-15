@@ -1,0 +1,13 @@
+<form [formGroup]="unitForm" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <button mat-raised-button type="submit" class ="submit-button" [disabled]="unitForm.invalid">
+      <mat-icon >save</mat-icon>
+    </button>
+</form>

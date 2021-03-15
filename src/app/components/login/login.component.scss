@@ -5,11 +5,11 @@
 }   
 
 mat-form-field, .submit {
-    width: 15em;
+    width: 75%;
 }
 
 #loginbutton{
-    width: 17em;
+    width: 75%;
     padding: 0.5em;
 }
 .mat-form-field-empty.mat-form-field-label {
@@ -34,4 +34,16 @@ form{
 
 mat-icon{
     color: $primary
+}
+
+.fb-login-button{
+    width:75%;
+    display:block;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    background-color: #3b5998;
+    color:white;
+    border:none;
+    padding: 0.5em 1em;
+    border-radius:1em;
 }

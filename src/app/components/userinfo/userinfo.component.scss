@@ -1,0 +1,20 @@
+.userinfo{
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.basic{
+    display:flex;
+
+}
+
+.profile-image{
+    border-radius: 50%;
+    flex:1;
+    max-width:4em;
+    height: 4em
+}
+
+.information{
+    margin-left: 1em;
+}

@@ -66,6 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "sslKey": "api.gymaudit.local-key.pem",
+                       "sslCert": "api.gymaudit.local.pem",
             "browserTarget": "gymaudit-web:build"
           },
           "configurations": {

@@ -19,6 +19,9 @@
       About </a>
   </div>
   <div class="nav-middle">
+    <ng-container *ngIf="this.imageUri && (this.authenticationService.isAuthenticated() | async)">
+    <img class ="header-image" src = {{this.imageUri}}>
+  </ng-container>
     GymAudit
   </div>
   <div class="nav-right">
@@ -43,6 +46,8 @@
     <li routerLink="units"><a >Routine</a></li>
     <li routerLink="training-log/units"><a  >Track Workout</a></li>
     <li routerLink="about"><a >About</a></li>
+    <li routerLink="userinfo"><a >My Profile</a></li>
+
   </ul>
 </div>
 </ng-container>

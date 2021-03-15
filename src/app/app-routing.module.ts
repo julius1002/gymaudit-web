@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { ExerciseListComponent } from "./components/workout-plan/exercises/exercise-list/exercise-list.component";
-import { UnitsBarComponent } from "./components/workout-plan/units/units-list/units-bar.component";
 import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
 import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
 import { TrainingLogComponent } from "./components/training-log/training-log/training-log.component";
@@ -11,6 +10,8 @@ import { LogUnitListComponent } from './components/training-log/log-unit-list/lo
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AboutComponent } from './components/about/about.component';
+import { RedirectComponent } from "./components/redirect/redirect.component";
+import { UserinfoComponent } from "./components/userinfo/userinfo.component";
 
 const routes: Routes = [
   {
@@ -31,27 +32,12 @@ const routes: Routes = [
     component: SignupComponent,
   },
   {
-    path: "unitssss",
-    component: UnitsBarComponent,
-    children: [
-      {
-        path: ":unitId",
-        component: ExerciseListComponent,
-        outlet: "exercises",
-        children: [
-          {
-            path: "detail/:exerciseId",
-            component: ExerciseDetailComponent,
-            outlet: "exercise-detail",
-          },
-          {
-            path: "edit/:exerciseId",
-            component: EditExerciseComponent,
-            outlet: "exercise-detail",
-          },
-        ],
-      },
-    ],
+    path: "redirect",
+    component: RedirectComponent,
+  },
+  {
+    path: "userinfo",
+    component: UserinfoComponent,
   },
   {
     path: "training-log",

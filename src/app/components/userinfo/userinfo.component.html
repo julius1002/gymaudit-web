@@ -1,0 +1,13 @@
+<div class ="userinfo">
+<h2>Profilübersicht</h2>
+<ng-container *ngIf = "this.userinfo">
+    <div class ="basic">
+    <img class ="profile-image"src ={{this.userinfo.picture.data.url}}>
+    <div class ="information">
+    <p>Name: {{this.userinfo.name}}</p>
+    <p>Geburtsdatum: {{this.userinfo.birthday}}</p>
+</div>
+
+</div>
+</ng-container>
+</div>

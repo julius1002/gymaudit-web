@@ -1,3 +1,4 @@
+<div class ="main-units">
 <ng-container *ngIf ="unitsPage">
   <ng-container *ngIf="unitsPage.content.length;else nounitresults">
   <ul class ="unit-list">
@@ -16,3 +17,9 @@
   Keine Ergebnisse 
   </h4>
 </ng-template>
+<div class ="unit-bottom-nav" id = "bottom-nav">
+            <mat-icon class ="unit-add-button" (click)="openDialog()">
+              add
+            </mat-icon>
+      </div>
+    </div>
