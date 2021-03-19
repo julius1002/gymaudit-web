@@ -13,6 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { environment } from "src/environments/environment";
 @Component({
   selector: "app-log-exercises",
   templateUrl: "./log-exercises.component.html",
@@ -33,6 +34,8 @@ export class LogExercisesComponent implements OnInit {
 
   index: number = 0;
   pageSize: number = 8;
+
+  apiUrl = environment.BACKEND_URL;
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
@@ -111,20 +114,15 @@ export class LogExercisesComponent implements OnInit {
         if (result) {
           this.exercisesPage.content.unshift(result)
 
-          this.snackBar.open(
-            `${result.name} erfolgreich hinzugefügt!`,
-            "schließen",
-            {
-              duration: 2500,
-            }
-          );
-
         } 
       });
     })
 
 
   };
+  buildImageUri(exercise: Exercise) {
+    return environment.BACKEND_URL + `files/${exercise.fileId}?jwt=Bearer +${localStorage.getItem('jwt')}`
+  }
 
   selectExercise(exercise: Exercise) {
 

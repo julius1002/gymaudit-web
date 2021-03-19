@@ -2,16 +2,27 @@
 
 .container{
     text-align: center;
+    width:90%;
+    padding: 0;
 }   
 
-mat-form-field, .submit {
-    width: 75%;
+mat-form-field{
+    width: 100%;
+}
+.submit-button {
+    background-color: $primary;
+    color:white !important;
+    text-transform: uppercase   ;
+    border-radius:1em;
+    width: 100%;
+    padding: 0.5em 1em;
+    display:block;
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-decoration: none;
+    
 }
 
-#loginbutton{
-    width: 75%;
-    padding: 0.5em;
-}
 .mat-form-field-empty.mat-form-field-label {
     color: green;
 }
@@ -22,6 +33,11 @@ input:-webkit-autofill {
 .title-container{
     margin-top: 4em;
     margin-bottom: 1em;
+}
+
+.divider{
+border-top: 1px solid #d9dadc;
+margin: 1.5em auto;
 }
 
 .title-container > mat-icon{
@@ -37,13 +53,40 @@ mat-icon{
 }
 
 .fb-login-button{
-    width:75%;
+    width:100%;
     display:block;
     margin: 0 auto;
     margin-bottom: 1em;
     background-color: #3b5998;
-    color:white;
+    color:white !important;
     border:none;
+    text-decoration: none;
     padding: 0.5em 1em;
     border-radius:1em;
+    border: 2px solid #3b5998
+}
+
+img{
+    height: 1.5em;
+    margin-right: 0.75em;
+}
+
+.google-login-button{
+    box-sizing: border-box;
+    width:100%;
+    display:block;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    background-color:   white;
+    color:#222326;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border-radius:1em;
+    border: 2px solid black;
+
+}
+
+
+.google-image{
+    height: 20px;
 }

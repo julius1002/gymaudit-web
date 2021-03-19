@@ -1,64 +1,69 @@
-  <div class ="unit-option-container">
-          <mat-icon class ="back-button" routerLink="..">arrow_back_ios</mat-icon>
+<div class="unit-option-container">
+  <mat-icon class="back-button" routerLink="..">arrow_back_ios</mat-icon>
 
-          <div class ="title">
-        <h5 id = "unit-title">
-          {{this.selectedUnit.name}}
-          <!-- mat-icon >
-            settings
-          </mat-icon-->
-        </h5>
-        <input id ="search-bar" class ="invisible"
-         (keyup)="keyUp$.next($event.target.value)">
+  <div class="title">
+    <h5 id="unit-title">
+      {{this.selectedUnit.name}}
+    </h5>
+    <input id="search-bar" class="invisible" (keyup)="keyUp$.next($event.target.value)">
 
-      </div>
-        
-        <mat-icon class ="search-button" (click) ="toggleSearchBar()">
-          search
-        </mat-icon>
-        <mat-icon class ="close-button" (click) ="toggleSearchBar()">
-          close
-        </mat-icon>
-      </div>
-      <ng-container *ngIf="exercisesPage">
-        <ng-container *ngIf="exercisesPage.content.length; else noresults">
+  </div>
 
-        <ul class ="exercise-list">
-          <li class ="exercise-element" *ngFor="let exercise of exercisesPage.content" (click)="selectExercise(exercise)">
-              <div class ="exercise-card">
+  <mat-icon class="search-button" (click)="toggleSearchBar()">
+    search
+  </mat-icon>
+  <mat-icon class="close-button" (click)="toggleSearchBar()">
+    close
+  </mat-icon>
+</div>
+<ng-container *ngIf="exercisesPage">
+  <ng-container *ngIf="exercisesPage.content.length; else noresults">
 
-              <img class ="exercise-image" src="https://www.myself.de/Undefined/image-thumb__7223__gallery-horizontal/liegest%C3%BCtz-einarmig.jpeg">
-              <div class ="exercise-name-container">
-                {{ exercise.name }}
-              </div>
-              </div>
-          </li>
-     
-        </ul>
-          
-        </ng-container>
-        <ng-template #noresults>
-          <h4 style ="text-align: center; margin-top: 4em">
-          Keine Ergebnisse 
-          </h4>
-        </ng-template>
-        <ul class ="bottom-nav" id = "bottom-nav">
-          <li   class ="left-arrow">
-            <ng-container *ngIf = "!exercisesPage.first">
-
-            <mat-icon (click) = "turn(exercisesPage, -1)" inline>arrow_back_ios</mat-icon>
+    <ul class="exercise-list">
+      <li *ngFor="let exercise of exercisesPage.content" (click)="selectExercise(exercise)">
+        <div class="exercise-card">
+          <div class="exercise-name-container">
+            {{ exercise.name }}
+          </div>
+          <ng-container *ngIf="exercise.fileId; else noimg">
+            <img class ="exercise-image"src="{{apiUrl + 'files/' + exercise.fileId}}">
           </ng-container>
+          <ng-template #noimg>
+            <span class ="no-image">
+            Kein Bild hinzugefügt
+          </span>
+          </ng-template>
+        </div>
+      </li>
 
-          </li>
-                <li class ="add-button">
-                    <mat-icon (click)="openDialog()">
-                      add
-                    </mat-icon>
-                </li>
-          <li  class ="right-arrow">
-            <ng-container *ngIf = "!exercisesPage.last">
-            <mat-icon  (click) = "turn(exercisesPage, 1)" inline >arrow_forward_ios</mat-icon>
-          </ng-container>
-            </li>
-      </ul>
+    </ul>
+
+  </ng-container>
+  <ng-template #noresults>
+    <h4 style="text-align: center; margin-top: 4em">
+      Keine Ergebnisse
+    </h4>
+  </ng-template>
+  <ul class="bottom-nav" id="bottom-nav">
+    <li class="left-arrow">
+      <ng-container *ngIf="!exercisesPage.first">
+
+        <mat-icon (click)="turn(exercisesPage, -1)" inline>arrow_back_ios</mat-icon>
+      </ng-container>
+
+    </li>
+      <mat-icon>
+        settings
+      </mat-icon>
+    <li class="add-button">
+      <mat-icon (click)="openDialog()">
+        add
+      </mat-icon>
+    </li>
+    <li class="right-arrow">
+      <ng-container *ngIf="!exercisesPage.last">
+        <mat-icon (click)="turn(exercisesPage, 1)" inline>arrow_forward_ios</mat-icon>
+      </ng-container>
+    </li>
+  </ul>
 </ng-container>

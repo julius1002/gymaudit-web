@@ -6,6 +6,7 @@ import { map, switchMap, take } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-add-exercise",
@@ -18,6 +19,8 @@ export class AddExerciseComponent implements OnInit {
     private exerciseService: ExerciseService,
     private route: ActivatedRoute,
     private router: Router,
+    public snackBar: MatSnackBar
+    ,
     @Inject(MAT_DIALOG_DATA) public data: { unitid: string },
     public dialogRef: MatDialogRef<AddExerciseComponent>
 
@@ -31,7 +34,18 @@ export class AddExerciseComponent implements OnInit {
   postExercise(exercise: Exercise) {
     this.exerciseService.postSingle(this.data.unitid, exercise).pipe(take(1))
       .subscribe((exercise) => {
+        if (exercise.fileId) {
+          exercise.fileId += "?jwt=" + localStorage.getItem("jwt")
+        }
         this.dialogRef.close(exercise);
+
+        this.snackBar.open(
+          `${exercise.name} erfolgreich hinzugefügt!`,
+          "schließen",
+          {
+            duration: 2500,
+          }
+        );
       }, (err) => {
         this.dialogRef.close(undefined);
 

@@ -16,14 +16,17 @@ export class AddUnitDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  postUnit(unit:Unit) {
+  postUnit(unit: Unit) {
     this.unitService.postSingle(unit).pipe(take(1))
-    .subscribe((unit) => {
-      this.dialogRefAdd.close(unit);
-    }, (err) => {
-      this.dialogRefAdd.close(undefined);
+      .subscribe((unit) => {
+        if (unit.fileId) {
+          unit.fileId = unit.fileId + "?jwt=" + localStorage.getItem("jwt")
+        }
+        this.dialogRefAdd.close(unit);
+      }, (err) => {
+        this.dialogRefAdd.close(undefined);
 
-    });
-   
-}
+      });
+
+  }
 }

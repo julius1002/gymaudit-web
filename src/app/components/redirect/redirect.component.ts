@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { ImageService } from 'src/app/services/image-service';
+import { UserInfoService } from 'src/app/services/userinfo-service';
 import { UserinfoService } from 'src/app/services/userinfo.service';
 
 @Component({
@@ -13,24 +13,30 @@ import { UserinfoService } from 'src/app/services/userinfo.service';
 })
 export class RedirectComponent implements OnInit {
 
-  constructor(private router: Router, private authenticationService: AuthenticationService,private userinfoService:UserinfoService,
-     private imageService:ImageService ,private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService, private userinfoService: UserinfoService,
+    private imageService: UserInfoService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    const params = new URLSearchParams(window.location.search)
-    if (params.get("token")) {
-      localStorage.setItem("jwt", params.get("token"))
-      this.authenticationService.setAuthentication(true);
-      this.router.navigate([".."])
-      if (params.get("name")) {
-        this.openSnackBar(`Willkommen ${params.get("name").split(" ")[0]}!`, "Ok")
-      }
-      this.userinfoService.getUserInfo().subscribe(res =>{
-          this.imageService.setImageUri(res?.picture?.data?.url)        
-      })
 
+    const params = new URLSearchParams(window.location.search)
+
+    var token = params.get("token");
+
+    if (token) {
+
+      localStorage.setItem("jwt", token)
+
+      this.authenticationService.setAuthentication(true);
+
+      this.userinfoService.getUserInfo().subscribe(res => {
+        this.imageService.setUserInfo(res)
+        this.openSnackBar(`Willkommen ${res.name.split(" ")[0]}!`, "Ok")
+
+        this.router.navigate([".."])
+      })
     }
   }
+
 
   public openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

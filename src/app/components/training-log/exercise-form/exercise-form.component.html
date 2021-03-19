@@ -15,10 +15,6 @@
         <mat-label>Notizen</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
-      <mat-form-field  appearance="outline">
-        <mat-label>Bild</mat-label>
-        <input matInput formControlName="pictureUrl" />
-      </mat-form-field>
       <div style = "text-align: right;">
       <button type="button" class ="expansion-button" (click) ="toggleMuscleGroups()" mat-raised-button> Weiter 
       </button></div>
@@ -43,16 +39,37 @@
           <mat-icon  (click)="addMuscleGroup()" mat-raised-button>add</mat-icon>  
         </div>
       </mat-expansion-panel>
-      <div style ="text-align: center;">
-        <ng-container *ngIf="editing === true">
-          <button mat-raised-button type="button">
-            Remove
-            <mat-icon>delete</mat-icon>
-          </button>
-        </ng-container>
-        <button mat-raised-button type="submit" class ="submit-button" [disabled]="exerciseForm.invalid">
-          <mat-icon >save</mat-icon>
-        </button>
+      <ng-container *ngIf = "this.canUploadFiles; else uploadImpossible">
+      <div class ="file-upload">
+        <ng-container *ngIf ="!this.fileToUpload; else rmFile">
+        <div class="upload-btn">
+          <label for="file" style="cursor:pointer;">
+            <mat-icon mat-button style ="display:block;">file_upload</mat-icon> Bild hinzufügen
+          </label> <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
+        </div>
+      </ng-container>
+        <ng-template #rmFile>
+          <div class="remove-file-btn">
+          <mat-icon style ="display:block;" (click) = "removeFile()">close</mat-icon>
+            {{this.fileToUpload.name}} 
+          </div>
+        </ng-template>
       </div>
+    </ng-container >
+    <ng-template #uploadImpossible>
+      Kein fileupload möglich
+    </ng-template>
+      <div style="text-align: center;">
+        <ng-container *ngIf ="!this.isLoading; else loading">
+        <button mat-raised-button type="submit" class="submit-button" [disabled]="exerciseForm.invalid">
+          <mat-icon>save</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #loading>
+        <mat-spinner style="margin:0 auto;" [diameter] =50 [mode] ="mode" [value]="progress"></mat-spinner>
+        <p>{{this.progress}}%</p>
+      </ng-template>
+      </div>
+
     </ng-template>
 </form>

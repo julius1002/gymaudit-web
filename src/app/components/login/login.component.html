@@ -4,6 +4,11 @@
             <div class = "title-container">
             <mat-icon>account_circle</mat-icon>
         </div>
+        <a class ="fb-login-button" (click)= "loginWithFacebook($event)"><img src = "../../../assets/facebook.png">Weiter mit Facebook</a>
+        <a class ="google-login-button" (click)= "loginWithGoogle($event)"><img src = "../../../assets/google-icon-small.svg"> Weiter mit Google
+    </a>
+    <div class ="divider"></div>
+
             <div>
                 <mat-form-field color="accent" appearance="outline">
                     <mat-label>username</mat-label>
@@ -20,12 +25,11 @@
                     </button>
                 </mat-form-field>
             </div>
-            <div>
-                <button id="loginbutton" mat-raised-button type="submit">Login</button>
-            </div>
+                <a (click) = "submitForm()"type="submit" class ="submit-button">Login</a>
         </div>
     </form>
-    <button class ="fb-login-button" (click)= "loginWithFacebook($event)">Weiter mit Facebook</button>
+
+    <div class ="divider"></div>
     <span> Got no account yet?<a routerLink="/signup"> Register</a></span>
 
 </div>

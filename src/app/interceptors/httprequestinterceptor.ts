@@ -32,7 +32,9 @@ export class HttpRequestInterceptor implements HttpInterceptor {
         }
       }
 
-    }, (err) => { this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]) }))
+    }, (err) => { this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if(localStorage.getItem("jwt")){
+      localStorage.removeItem("jwt")
+    } }))
   }
 
 }

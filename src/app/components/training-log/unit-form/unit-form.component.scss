@@ -5,3 +5,32 @@
 .mat-dialog-buttons{
     text-align: center;
 }
+.submit-button{
+  margin-top: 1em;
+  width: 40%;
+  margin: auto auto;
+}
+
+h4{
+  margin-bottom: 1em; 
+}
+
+
+.upload-btn{
+  text-align: center;
+  flex-basis: 50%;
+}
+
+.remove-file-btn{
+  text-align: center;
+  flex-basis: 50%;
+}
+
+mat-icon{
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+.file-upload{
+  margin: 1em 0;
+}

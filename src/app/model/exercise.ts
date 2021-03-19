@@ -6,7 +6,7 @@ export interface Exercise {
   muscleGroups: MuscleGroup[];
   description: string;
   date: number;
-  pictureUrl: string;
+  fileId:string;
   unitId: string;
 }
 

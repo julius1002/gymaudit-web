@@ -4,4 +4,5 @@ export interface Unit{
     date:number;
     description:string;
     traineeId:string;
+    fileId:string;
 }

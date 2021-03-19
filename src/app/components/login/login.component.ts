@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit {
     window.location.href =environment.BACKEND_URL + "oauth2/facebook"
   }
 
+  loginWithGoogle($event){
+    $event.preventDefault();
+    window.location.href =environment.BACKEND_URL + "oauth2/google"
+  }
 
 
 

@@ -54,6 +54,7 @@ import { HttpRequestInterceptor } from "./interceptors/httprequestinterceptor";
 import { RedirectComponent } from './components/redirect/redirect.component';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
 import { AddUnitDialogComponent } from "./components/training-log/add-unit-dialog/add-unit-dialog.component";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -79,8 +80,7 @@ import { AddUnitDialogComponent } from "./components/training-log/add-unit-dialo
     SignupComponent,
     AboutComponent,
     RedirectComponent,
-    UserinfoComponent
-  ],
+    UserinfoComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -106,7 +106,8 @@ import { AddUnitDialogComponent } from "./components/training-log/add-unit-dialo
     MatChipsModule,
     MatDialogModule,
     MatTableModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatProgressSpinnerModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "de" },
   { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }

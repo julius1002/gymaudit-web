@@ -1,15 +1,27 @@
+@import "../../../styles.scss";
 
-.container{
+.main{
+    width: 90%;
+    margin: 0 auto;
+    padding:0;
     text-align: center;
 }   
-
-mat-form-field, .submit {
-    width: 15em;
+mat-form-field{
+    display:block;
+    width: 100%;
 }
 
-#loginbutton{
-    width: 17em;
-    padding: 0.5em;
+.register-button{
+    background-color: $primary;
+    color:white !important;
+    text-transform: uppercase   ;
+    border-radius:1em;
+    width: 100%;
+    padding: 0.5em 1em;
+    display:block;
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-decoration: none;
 }
 .mat-form-field-empty.mat-form-field-label {
     color: green;
@@ -18,13 +30,6 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
 
-.title-container{
-    margin-top: 4em;
-}
-
-.title-container > mat-icon{
-    font-size: 3em;
-}
 
 form{
     margin-bottom: 2em;

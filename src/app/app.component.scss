@@ -24,7 +24,8 @@
   color: white;
   position: sticky;
   position: -webkit-sticky; /* For macOS/iOS Safari */
-  height: 2em
+  height: 2em;
+  padding:0;
 }
 
 
@@ -39,7 +40,7 @@
   display:block;
   position: sticky;
   position: fixed;
-  top:0em;
+  top:0em;  
   z-index: 1;
   width: 100%;
   opacity: 0;
@@ -60,24 +61,31 @@ a{
   transition-delay: 0s;
 }
 
+mat-icon{
+  font-size: 2.3em
+}
+
 .nav-left{
-  flex: 0 0 10%;
+  flex: 0 0 25%;
   position:relative;
+
   
   }
 .nav-middle{
-  flex:1 0 80%;
+  flex:1 0 50%;
   position:relative;
   text-align: center;
 }
-.header-image{
-  border-radius: 50%;
-  max-width:2em;
-  height: 2em
-}
 
 .nav-right{
-  flex: 0 0 10%;
+  flex: 0 0 25%;
+  text-align: right;
+}
+.header-image{
+  border-radius: 50%;
+  width:1.7em;
+  height: 1.7em;
+  margin-left: 0.5em;
 }
 
 mat-toolbar > div > a{

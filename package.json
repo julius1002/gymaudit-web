@@ -26,6 +26,7 @@
     "@material-git/button-toggle": "^2.0.0-git.20160919",
     "@material/dialog": "^6.0.0",
     "@material/list": "^6.0.0",
+    "@nativescript/core": "^7.3.0",
     "angular-material-tree": "^0.2.1",
     "bootstrap": "^4.5.0",
     "material-table": "^1.65.0",

@@ -1,31 +1,18 @@
 <mat-toolbar id="toolbar">
   
-  <div>
+  <div class="nav-left">
     <a mat-icon-button (click) ="toggleMobileBar()" fxShow="true" fxHide.gt-sm class="nav-left" >
       <mat-icon class ="burger-menu">menu</mat-icon>
     </a>
-  </div>
-  <div  fxShow="true" fxHide.lt-md>
-    <a routerLink="home" routerLinkActive="active" mat-button class="link"> Home</a>
-    <ng-container *ngIf="this.authenticationService.isAuthenticated() | async ">
-      <a routerLink="units" routerLinkActive="active" mat-button class="link">
-        Routine
-      </a>
-      <a routerLink="training-log/units" routerLinkActive="active" mat-button class="link">
-        Track Workout
-      </a>
+    <ng-container *ngIf="this.userInfo && this.userInfo.picture && this.authenticated">
+      <img class ="header-image" src = {{this.userInfo.picture}} routerLink="userinfo">
     </ng-container>
-    <a routerLink="about" routerLinkActive="active" mat-button class="link">
-      About </a>
   </div>
   <div class="nav-middle">
-    <ng-container *ngIf="this.imageUri && (this.authenticationService.isAuthenticated() | async)">
-    <img class ="header-image" src = {{this.imageUri}}>
-  </ng-container>
     GymAudit
   </div>
   <div class="nav-right">
-    <ng-container *ngIf="this.authenticationService.isAuthenticated() | async;else login">
+    <ng-container *ngIf="this.authenticated;else login">
       <a mat-icon-button  (click)="logout()" mat-button>
         <mat-icon>logout</mat-icon>
       </a>
@@ -38,15 +25,14 @@
   </div>
 
 </mat-toolbar>
-<ng-container *ngIf="this.authenticationService.isAuthenticated() | async">
+<ng-container *ngIf="this.authenticated">
 <div class = "drawer">
   <ul id = "drawer-list">
     <li></li>
     <li routerLink="home"><a >Home</a></li>
-    <li routerLink="units"><a >Routine</a></li>
-    <li routerLink="training-log/units"><a  >Track Workout</a></li>
+    <li routerLink="training-log/units"><a >Training</a></li>
     <li routerLink="about"><a >About</a></li>
-    <li routerLink="userinfo"><a >My Profile</a></li>
+    <li routerLink="userinfo"><a >Konto</a></li>
 
   </ul>
 </div>

@@ -23,6 +23,9 @@ export class LogUnitListComponent implements OnInit {
   selectedExercise: Exercise;
   index: number = 0;
   pageSize: number = 5;
+
+  apiUrl = environment.BACKEND_URL;
+  
   constructor(
     private unitService: UnitService,
     private router: Router,
@@ -34,6 +37,7 @@ export class LogUnitListComponent implements OnInit {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
+  
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight;
     if (pos == max) {
@@ -49,6 +53,10 @@ export class LogUnitListComponent implements OnInit {
 
     this.getUnitsPage(this.pageSize, this.index)
 
+  }
+
+  buildImageUri(unit:Unit){
+    return environment.BACKEND_URL + `files/${unit.fileId}?jwt=Bearer +${localStorage.getItem('jwt')}`
   }
 
   public turn(currentPage: Page<Unit>, value: number) {

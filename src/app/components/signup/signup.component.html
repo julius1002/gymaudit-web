@@ -1,8 +1,5 @@
-<div>
-    <div class="title-container" >
+<div class ="main">
         <h2 style="text-align: center;">Registration</h2>
-    </div>
-    <div class="container">
         <mat-form-field>
             <mat-label>Firstname</mat-label>
             <input matInput [formControl]="firstName" required>
@@ -36,8 +33,7 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <button mat-raised-button style="outline:none; min-width: 250px; padding: 0.5em; margin-bottom: 2em;">Register</button>
+        <button mat-raised-button class ="register-button">Register</button>
         <span style ="display:block"> Already registered?<a routerLink="/login"> Login</a></span>
 
-    </div>
 </div>

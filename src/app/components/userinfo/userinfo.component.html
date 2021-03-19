@@ -1,13 +1,37 @@
-<div class ="userinfo">
-<h2>Profilübersicht</h2>
-<ng-container *ngIf = "this.userinfo">
-    <div class ="basic">
-    <img class ="profile-image"src ={{this.userinfo.picture.data.url}}>
-    <div class ="information">
-    <p>Name: {{this.userinfo.name}}</p>
-    <p>Geburtsdatum: {{this.userinfo.birthday}}</p>
-</div>
+<div class="userinfo">
+    <h2>Profilübersicht</h2>
+    <ng-container *ngIf="this.userinfo">
+        <div class="main">
+            <ng-container *ngIf="this.userinfo.picture">
+                <img class="profile-image" src={{this.userinfo.picture}}>
+            </ng-container>
+        </div>
+        <div class="profile-grid">
+            <ng-container *ngIf="this.userinfo.name">
+                <div class="key"> Name</div>
+                <div class="value">{{this.userinfo.name}}</div>
+            </ng-container>
+            <ng-container *ngIf="this.userinfo.birthday">
+                <div class="key">Geburtsdatum</div>
+                <div class="value"> {{this.userinfo.birthday}}</div>
+            </ng-container>
+            <ng-container *ngIf="this.userinfo.email">
+                <div class="key">Email</div>
+                <div class="value">{{this.userinfo.email}}</div>
+            </ng-container>
+            <ng-container *ngIf="this.userinfo.providers">
+                <div class="key">Deine Anbieter</div>
+                <div class="value">
+                    <ul>
+                        <li *ngFor="let provider of this.providers"> {{provider}}</li>
+                    </ul>
+                </div>
+            </ng-container>
+        </div>
+        <ng-container *ngIf = "!this.providers?.includes('google')">
+            <a class ="google-login-button" (click) ="authorizeGoogleDrive($event)"><img src = "../../../assets/google-icon-small.svg">Google Drive nutzen</a>
+        </ng-container>
+        <a type="submit" class="submit-button">Profil bearbeiten </a>
 
-</div>
-</ng-container>
+    </ng-container>
 </div>

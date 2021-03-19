@@ -17,6 +17,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { MatDialogRef } from "@angular/material/dialog";
 import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
+import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
+import { HttpEvent, HttpEventType } from "@angular/common/http";
+import { UploadService } from "src/app/services/upload.service";
+import { UserInfoService } from "src/app/services/userinfo-service";
 
 @Component({
   selector: "app-exercise-form",
@@ -32,32 +36,47 @@ export class ExerciseFormComponent implements OnInit {
   exerciseTypeEnum = ExerciseType;
   muscleGroupEnum = MuscleGroup;
 
-  exerciseInformationVisible:boolean = true;
+  exerciseInformationVisible: boolean = true;
+
+
+  unitId: string;
+
+  fileToUpload: File = null;
+
+  isLoading: boolean = false;
+  progress: number;
+  mode: ProgressSpinnerMode = 'determinate';
+
   keys = Object.keys;
 
+  canUploadFiles: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private exerciseService: ExerciseService,
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar,
-    private exerciseListService: ExercisesListService
-  ) {}
+    private uploadService: UploadService,
+    private userInfoService: UserInfoService
+
+  ) { }
 
   getHeading(): string {
     return this.editing ? "Übung bearbeiten" : "Übung hinzufügen";
   }
 
 
-  toggleMuscleGroups(){
+  toggleMuscleGroups() {
     this.exerciseInformationVisible = !this.exerciseInformationVisible
   }
 
   ngOnInit(): void {
 
+    this.userInfoService.getUserinfo().subscribe(res => {
+
+      if(res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
+    })
+
     this.initForm();
-    
+
     if (this.editing) {
       this.route.paramMap
         .pipe(map(() => window.history.state))
@@ -65,7 +84,7 @@ export class ExerciseFormComponent implements OnInit {
           this.setFormValues(exercise), (this.exercise = exercise);
         });
     }
-    
+
   }
 
   private setFormValues(exercise: Exercise) {
@@ -107,34 +126,34 @@ export class ExerciseFormComponent implements OnInit {
     this.muscleGroups.removeAt(index);
   }
 
- /* removeExercise() {
-    this.exerciseForm.reset;
-    if (confirm("Übung wirklich löschen?")) {
-      this.unitId$
-        .pipe(
-          switchMap((unitId) =>
-            this.exerciseService.delete(unitId, this.exercise.id)
-          )
-        )
-        .subscribe((exercise) => {
-          this.exerciseListService.updateListEvent(exercise),
-            this.router
-              .navigate(["."])
-              .then(() =>
-                this.router.navigateByUrl(
-                  `units/(exercises:${exercise.unitId})`
-                )
-              ),
-            this.snackBar.open(
-              `${exercise.name} erfolgreich gelöscht!`,
-              "schließen",
-              {
-                duration: 2500,
-              }
-            );
-        });
-    }
-  }*/
+  /* removeExercise() {
+     this.exerciseForm.reset;
+     if (confirm("Übung wirklich löschen?")) {
+       this.unitId$
+         .pipe(
+           switchMap((unitId) =>
+             this.exerciseService.delete(unitId, this.exercise.id)
+           )
+         )
+         .subscribe((exercise) => {
+           this.exerciseListService.updateListEvent(exercise),
+             this.router
+               .navigate(["."])
+               .then(() =>
+                 this.router.navigateByUrl(
+                   `units/(exercises:${exercise.unitId})`
+                 )
+               ),
+             this.snackBar.open(
+               `${exercise.name} erfolgreich gelöscht!`,
+               "schließen",
+               {
+                 duration: 2500,
+               }
+             );
+         });
+     }
+   }*/
 
   submitForm() {
     const formValue = this.exerciseForm.value;
@@ -165,32 +184,74 @@ export class ExerciseFormComponent implements OnInit {
       date = this.exercise.date;
     }
 
-    const newExercise: Exercise = {
-      id: exerciseId,
-      unitId: unitId,
-      date: date,
-      name: formValue.name,
-      exerciseType: exerciseType,
-      description: formValue.description,
-      muscleGroups: muscleGroups,
-      pictureUrl: formValue.pictureUrl,
-    };
 
-    this.submitExercise.emit(newExercise);
-    this.exerciseForm.reset;
 
-    if (this.editing) { 
-      
+    if (this.fileToUpload) {
+      this.isLoading = true;
+      this.uploadService.postFile(this.fileToUpload)
+        .subscribe((event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.Sent:
+              console.log('Request has been made!');
+              break;
+            case HttpEventType.ResponseHeader:
+              break;
+            case HttpEventType.UploadProgress:
+              this.progress = Math.round(event.loaded / event.total * 100);
+              break;
+            case HttpEventType.Response:
+              setTimeout(() => {
+                this.progress = 0;
+              }, 4);
+
+              const newExercise: Exercise = {
+                id: exerciseId,
+                unitId: unitId,
+                date: date,
+                name: formValue.name,
+                exerciseType: exerciseType,
+                description: formValue.description,
+                muscleGroups: muscleGroups,
+                fileId: event.body.id,
+              };
+              this.isLoading = false;
+
+              this.submitExercise.emit(newExercise);
+              this.exerciseForm.reset;
+          }
+        })
     } else {
-      this.snackBar.open(
-        `${newExercise.name} erfolgreich bearbeitet!`,
-        "schließen",
-        {
-          duration: 2500,
-        }
-      );
+      const newExercise: Exercise = {
+        id: exerciseId,
+        unitId: unitId,
+        date: date,
+        name: formValue.name,
+        exerciseType: exerciseType,
+        description: formValue.description,
+        muscleGroups: muscleGroups,
+        fileId: null,
+      };
+      this.isLoading = false;
+      this.submitExercise.emit(newExercise);
+      this.exerciseForm.reset;
 
-      
     }
+    this.removeFile();
+
+
+
+
+
+
+
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload)
+  }
+
+  public removeFile() {
+    this.fileToUpload = undefined;
   }
 }

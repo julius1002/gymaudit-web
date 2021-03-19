@@ -1,25 +1,35 @@
-<div class ="main-units">
-<ng-container *ngIf ="unitsPage">
-  <ng-container *ngIf="unitsPage.content.length;else nounitresults">
-  <ul class ="unit-list">
-    <li *ngFor="let unit of unitsPage.content; let i = index" (click) ="routeToExercise($event, unit)">
-      <div class ="unit-card">
-        <div class ="unit-name-container">
-          {{ unit.name }}
-        </div>
-      </div>
-    </li>
-  </ul>
-</ng-container>
-</ng-container>
-<ng-template #nounitresults>
-  <h4 style ="text-align: center; margin-top: 4em">
-  Keine Ergebnisse 
-  </h4>
-</ng-template>
-<div class ="unit-bottom-nav" id = "bottom-nav">
-            <mat-icon class ="unit-add-button" (click)="openDialog()">
-              add
-            </mat-icon>
-      </div>
-    </div>
+<div class="main-units">
+  <ng-container *ngIf="unitsPage">
+    <ng-container *ngIf="unitsPage.content.length;else nounitresults">
+      <ul class="unit-list">
+        <li *ngFor="let unit of unitsPage.content; let i = index" (click)="routeToExercise($event, unit)">
+          <div class="unit-card">
+            <div class="unit-name-container">
+              {{ unit.name }}
+
+            </div>
+            <ng-container *ngIf="unit.fileId; else noimg">
+              <img src="{{apiUrl + 'files/' + unit.fileId}}">
+            </ng-container>
+            <ng-template #noimg>
+              <span class ="no-image">
+              Kein Bild hinzugefügt
+            </span>
+            </ng-template>
+
+          </div>
+        </li>
+      </ul>
+    </ng-container>
+  </ng-container>
+  <ng-template #nounitresults>
+    <h4 style="text-align: center;">
+      Keine Ergebnisse
+    </h4>
+  </ng-template>
+  <div class="unit-bottom-nav" id="bottom-nav">
+    <mat-icon class="unit-add-button" (click)="openDialog()">
+      add
+    </mat-icon>
+  </div>
+</div>
