@@ -1,75 +1,86 @@
 <form [formGroup]="exerciseForm" (ngSubmit)="submitForm()">
-    <h4>{{ getHeading() }}</h4>
-    <ng-container *ngIf = "this.exerciseInformationVisible; else muscleGroupsVisible">
-      <mat-form-field  appearance="outline">
-        <mat-label>Name*</mat-label>
-        <input matInput formControlName="name" />
-      </mat-form-field>
-      <mat-form-field  appearance="outline">
-        <mat-label>Typ</mat-label>
-        <mat-select formControlName="exerciseType">
-          <mat-option *ngFor="let key of keys(exerciseTypeEnum)" [value]="key">{{ exerciseTypeEnum[key] }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Notizen</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-      </mat-form-field>
-      <div style = "text-align: right;">
-      <button type="button" class ="expansion-button" (click) ="toggleMuscleGroups()" mat-raised-button> Weiter 
-      </button></div>
-    </ng-container>
-      <ng-template #muscleGroupsVisible>
-        <mat-icon (click) ="toggleMuscleGroups()" mat-button>arrow_back_ios</mat-icon>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Muskelgruppen hinzufügen
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-form-field *ngFor="let control of muscleGroups.controls; index as i" class="example-full-width">
-          <mat-select [formControl]="muscleGroups.controls[i]">
-            <mat-option (click)="removeMuscleGroup(i)"><mat-icon style="margin-right:0">delete</mat-icon>
-            </mat-option>
-            <mat-option *ngFor="let key of keys(muscleGroupEnum)" [value]="key">{{ muscleGroupEnum[key] }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-<div style ="text-align: center;">
-          <mat-icon  (click)="addMuscleGroup()" mat-raised-button>add</mat-icon>  
-        </div>
-      </mat-expansion-panel>
-      <ng-container *ngIf = "this.canUploadFiles; else uploadImpossible">
-      <div class ="file-upload">
-        <ng-container *ngIf ="!this.fileToUpload; else rmFile">
-        <div class="upload-btn">
-          <label for="file" style="cursor:pointer;">
-            <mat-icon mat-button style ="display:block;">file_upload</mat-icon> Bild hinzufügen
-          </label> <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
+  <h4>{{ getHeading() }}</h4>
+  <ng-container *ngIf="this.exerciseInformationVisible; else muscleGroupsVisible">
+    <mat-form-field appearance="outline">
+      <mat-label>Name*</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Typ</mat-label>
+      <mat-select formControlName="exerciseType">
+        <mat-option *ngFor="let key of keys(exerciseTypeEnum)" [value]="key">{{ exerciseTypeEnum[key] }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Notizen</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <ng-container *ngIf="this.canUploadFiles; else uploadImpossible">
+      <ng-container *ngIf="this.data && this.data.fileId">
+        <div class="preview-img">
+          <img src="{{this.apiUri + 'files/' + this.data.fileId}}">
         </div>
       </ng-container>
+      <div class="file-upload">
+        <ng-container *ngIf="!this.fileToUpload; else rmFile">
+          <div class="upload-btn">
+            <label for="file" style="cursor:pointer;">
+              <mat-icon style="display:block;">file_upload</mat-icon> Bild hinzufügen
+            </label> <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
+          </div>
+        </ng-container>
         <ng-template #rmFile>
           <div class="remove-file-btn">
-          <mat-icon style ="display:block;" (click) = "removeFile()">close</mat-icon>
-            {{this.fileToUpload.name}} 
+            <mat-icon style="display:block;" (click)="removeFile()">close</mat-icon>
+            {{this.fileToUpload.name}}
           </div>
         </ng-template>
       </div>
-    </ng-container >
+    </ng-container>
     <ng-template #uploadImpossible>
-      Kein fileupload möglich
+      <div class="upload-impossible-alert">
+        <p> Wir nutzen Google Drive, um Bilder zu speichern!</p>
+        <a class="google-login-button" mat-raised-button (click)="authorizeGoogleDrive($event)"><img
+            class="google-image" src="../../../assets/google-icon-small.svg">Autorisiere Google</a>
+      </div>
     </ng-template>
+    <div style="text-align: right;">
+      <button type="button" class="expansion-button" (click)="toggleMuscleGroups()" mat-raised-button> Weiter
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #muscleGroupsVisible>
+    <mat-icon (click)="toggleMuscleGroups()" mat-button>arrow_back_ios</mat-icon>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Muskelgruppen hinzufügen
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field *ngFor="let control of muscleGroups.controls; index as i" class="example-full-width">
+        <mat-select [formControl]="muscleGroups.controls[i]">
+          <mat-option (click)="removeMuscleGroup(i)">
+            <mat-icon style="margin-right:0">delete</mat-icon>
+          </mat-option>
+          <mat-option *ngFor="let key of keys(muscleGroupEnum)" [value]="key">{{ muscleGroupEnum[key] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <div style="text-align: center;">
-        <ng-container *ngIf ="!this.isLoading; else loading">
+        <mat-icon (click)="addMuscleGroup()" mat-raised-button>add</mat-icon>
+      </div>
+    </mat-expansion-panel>
+    <div style="text-align: center;">
+      <ng-container *ngIf="!this.isLoading; else loading">
         <button mat-raised-button type="submit" class="submit-button" [disabled]="exerciseForm.invalid">
           <mat-icon>save</mat-icon>
         </button>
       </ng-container>
       <ng-template #loading>
-        <mat-spinner style="margin:0 auto;" [diameter] =50 [mode] ="mode" [value]="progress"></mat-spinner>
+        <mat-spinner style="margin:0 auto;" [diameter]=50 [mode]="mode" [value]="progress"></mat-spinner>
         <p>{{this.progress}}%</p>
       </ng-template>
-      </div>
+    </div>
 
-    </ng-template>
+  </ng-template>
 </form>

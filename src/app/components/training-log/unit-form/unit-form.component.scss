@@ -30,7 +30,24 @@ mat-icon{
   font-size: 20px;
   margin: 0 auto;
 }
-
+.upload-impossible-alert{
+  text-align: center;
+  margin-bottom: 2em;
+}
 .file-upload{
   margin: 1em 0;
+}
+
+.google-image{
+    height: 1.5em;
+    margin-right: 0.75em;
+}
+
+.preview-img{
+  margin: 0 auto;
+  width: 60%;
+}
+.preview-img > img{
+  height:auto;
+  width:100%;
 }

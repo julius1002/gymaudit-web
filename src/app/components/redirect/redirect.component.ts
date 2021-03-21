@@ -26,11 +26,10 @@ export class RedirectComponent implements OnInit {
 
       localStorage.setItem("jwt", token)
 
-      this.authenticationService.setAuthentication(true);
-
       this.userinfoService.getUserInfo().subscribe(res => {
         this.imageService.setUserInfo(res)
         this.openSnackBar(`Willkommen ${res.name.split(" ")[0]}!`, "Ok")
+        this.authenticationService.setAuthentication(true);
 
         this.router.navigate([".."])
       })

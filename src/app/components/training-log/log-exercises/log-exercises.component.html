@@ -21,19 +21,26 @@
 
     <ul class="exercise-list">
       <li *ngFor="let exercise of exercisesPage.content" (click)="selectExercise(exercise)">
-        <div class="exercise-card">
           <div class="exercise-name-container">
             {{ exercise.name }}
           </div>
+          <div class ="card">
+        <div class="exercise-card">
           <ng-container *ngIf="exercise.fileId; else noimg">
-            <img class ="exercise-image"src="{{apiUrl + 'files/' + exercise.fileId}}">
+            <img class="exercise-image" src="{{apiUrl + 'files/' + exercise.fileId}}">
           </ng-container>
           <ng-template #noimg>
-            <span class ="no-image">
-            Kein Bild hinzugefügt
-          </span>
+            <div class="no-image">
+              Kein Bild hinzugefügt
+            </div>
           </ng-template>
         </div>
+        <div class="exercise-card exercise-card--back">
+          <mat-icon>
+            settings
+          </mat-icon>
+        </div>
+      </div>
       </li>
 
     </ul>
@@ -47,16 +54,24 @@
   <ul class="bottom-nav" id="bottom-nav">
     <li class="left-arrow">
       <ng-container *ngIf="!exercisesPage.first">
-
         <mat-icon (click)="turn(exercisesPage, -1)" inline>arrow_back_ios</mat-icon>
       </ng-container>
-
     </li>
-      <mat-icon>
+    <li class="settings">
+      <ng-container *ngIf = "!this.editView; else closeicon">
+      <mat-icon (click) ="toggleSettingsView()" inline>
         settings
       </mat-icon>
+    </ng-container>
+    <ng-template #closeicon>
+      <mat-icon (click) ="toggleSettingsView()" inline>
+        close
+      </mat-icon>
+    </ng-template>
+      
+    </li>
     <li class="add-button">
-      <mat-icon (click)="openDialog()">
+      <mat-icon (click)="openDialog()" inline>
         add
       </mat-icon>
     </li>

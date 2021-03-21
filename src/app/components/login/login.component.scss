@@ -31,8 +31,12 @@ input:-webkit-autofill {
 }
 
 .title-container{
-    margin-top: 4em;
+    margin-top: 3em;
     margin-bottom: 1em;
+}
+
+.title-container > mat-icon{
+    font-size: 2em;
 }
 
 .divider{

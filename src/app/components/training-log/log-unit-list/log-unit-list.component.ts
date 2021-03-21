@@ -11,6 +11,7 @@ import { take } from 'rxjs/operators';
 import { AddUnitDialogComponent } from '../add-unit-dialog/add-unit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditUnitComponent } from '../edit-unit/edit-unit.component';
 
 @Component({
   selector: 'app-log-unit-list',
@@ -25,7 +26,9 @@ export class LogUnitListComponent implements OnInit {
   pageSize: number = 5;
 
   apiUrl = environment.BACKEND_URL;
-  
+
+  editView: boolean = false;
+
   constructor(
     private unitService: UnitService,
     private router: Router,
@@ -37,15 +40,26 @@ export class LogUnitListComponent implements OnInit {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-  
+
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight;
     if (pos == max) {
-      if(!this.unitsPage?.last){
-        this.unitService.getByPage(this.pageSize, this.index+=1, "").subscribe((res:Page<Unit>) =>{
-        this.unitsPage.content = this.unitsPage.content.concat(res.content)
-        this.unitsPage.last = res.last
-      })
+      if (!this.unitsPage?.last) {
+        this.unitService.getByPage(this.pageSize, this.index += 1, "").subscribe((res: Page<Unit>) => {
+          this.unitsPage.content = this.unitsPage.content.concat(res.content)
+          this.unitsPage.last = res.last
+        })
+        setTimeout(() => {
+          if (this.editView) {
+            const cards = document.getElementsByClassName("card");
+            for (let i = 0; i < cards.length; i++) {
+              if (!cards.item(i).classList.contains("unit-card-flipped")) {
+                cards.item(i).classList.toggle("unit-card-flipped")
+              }
+            }
+          }
+        }, 100)
+
       }
     }
   }
@@ -55,8 +69,13 @@ export class LogUnitListComponent implements OnInit {
 
   }
 
-  buildImageUri(unit:Unit){
-    return environment.BACKEND_URL + `files/${unit.fileId}?jwt=Bearer +${localStorage.getItem('jwt')}`
+  toggleSettingsView() {
+    const cards = document.getElementsByClassName("card");
+    for (let i = 0; i < cards.length; i++) {
+      cards.item(i).classList.toggle("unit-card-flipped")
+    }
+    this.editView = !this.editView
+
   }
 
   public turn(currentPage: Page<Unit>, value: number) {
@@ -65,27 +84,50 @@ export class LogUnitListComponent implements OnInit {
   }
 
   private getUnitsPage(size: number, page: number): void {
-     this.unitService.getByPage(size, page, "").pipe(
-       take(1)
-     )
-    .subscribe(res => {
-      this.unitsPage = res;
-      if (res.content.length < 7) {
-        setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
-          , 500)
-      }
-    });
+    this.unitService.getByPage(size, page, "").pipe(
+      take(1)
+    )
+      .subscribe(res => {
+        this.unitsPage = res;
+        if (res.content.length < 7) {
+          setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
+            , 500)
+        }
+      });
   }
 
-  openDialog(): void {
-      const dialogRef = this.dialog.open(AddUnitDialogComponent, {
-        width: '80%',
-        height: '75%'
+  openDialog(unit: Unit = undefined): void {
+    var dialogRef
+    if (unit) {
+      dialogRef = this.dialog.open(EditUnitComponent, {
+        width: '75%',
+          height: '85%',
+        data: unit
+      })
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.unitsPage.content = this.unitsPage.content.filter(foundUnit => foundUnit !== unit)
+          this.unitsPage.content.unshift(result)
+          this.toggleSettingsView()
+          this.snackBar.open(
+            `${result.name} erfolgreich geändert!`,
+            "schließen",
+            {
+              duration: 2500,
+            }
+          );
+
+        }
+      });
+    } else {
+      dialogRef = this.dialog.open(AddUnitDialogComponent, {
+        width: '75%',
+          height: '85%'
       })
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.unitsPage.content.unshift(result)
-
           this.snackBar.open(
             `${result.name} erfolgreich hinzugefügt!`,
             "schließen",
@@ -94,9 +136,9 @@ export class LogUnitListComponent implements OnInit {
             }
           );
 
-        } 
+        }
       });
-
+    }
 
   };
 
@@ -104,7 +146,11 @@ export class LogUnitListComponent implements OnInit {
 
 
   routeToExercise($event, unit: Unit) {
-    this.router.navigate([unit.id], { relativeTo: this.route, state: { data: unit } })
+    if (!this.editView) {
+      this.router.navigate([unit.id], { relativeTo: this.route, state: { data: unit } })
+    } else {
+      this.openDialog(unit);
+    }
 
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
 import { Exercise, ExerciseType, MuscleGroup } from "src/app/model/exercise";
 import { Observable } from "rxjs";
 
@@ -15,7 +15,7 @@ import {
 } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
@@ -29,17 +29,15 @@ import { UserInfoService } from "src/app/services/userinfo-service";
 })
 export class ExerciseFormComponent implements OnInit {
   @Input() editing = false;
+
   @Output() submitExercise = new EventEmitter<Exercise>();
-  exercise: Exercise;
+
   exerciseForm: FormGroup;
 
   exerciseTypeEnum = ExerciseType;
   muscleGroupEnum = MuscleGroup;
 
   exerciseInformationVisible: boolean = true;
-
-
-  unitId: string;
 
   fileToUpload: File = null;
 
@@ -51,11 +49,13 @@ export class ExerciseFormComponent implements OnInit {
 
   canUploadFiles: boolean = false;
 
+  apiUri = environment.BACKEND_URL;
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private uploadService: UploadService,
-    private userInfoService: UserInfoService
+    private userInfoService: UserInfoService,
+    @Inject(MAT_DIALOG_DATA) public data:Exercise
 
   ) { }
 
@@ -72,19 +72,20 @@ export class ExerciseFormComponent implements OnInit {
 
     this.userInfoService.getUserinfo().subscribe(res => {
 
-      if(res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
+      if (res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
     })
 
     this.initForm();
 
     if (this.editing) {
-      this.route.paramMap
-        .pipe(map(() => window.history.state))
-        .subscribe((exercise) => {
-          this.setFormValues(exercise), (this.exercise = exercise);
-        });
+      this.setFormValues(this.data)
     }
 
+  }
+
+  authorizeGoogleDrive($event) {
+    $event.preventDefault();
+    window.location.href = environment.BACKEND_URL + "oauth2/google/drive?jwt=" + localStorage.getItem("jwt")
   }
 
   private setFormValues(exercise: Exercise) {
@@ -163,6 +164,16 @@ export class ExerciseFormComponent implements OnInit {
     var unitId;
     var exerciseId;
     var date;
+    var fileId;
+
+    if (this.editing) {
+      if (this.data.fileId) {
+        fileId = this.data.fileId.split("?jwt=")[0]
+      }
+      exerciseId = this.data.id;
+      date = this.data.date;
+      unitId = this .data.unitId
+    }
 
     if (formValue.exerciseType === "") {
       exerciseType = null;
@@ -177,14 +188,6 @@ export class ExerciseFormComponent implements OnInit {
     }
 
     muscleGroups = muscleGroups.filter((muscleGroup) => muscleGroup !== "");
-
-    if (this.editing) {
-      //this.unitId$.subscribe((unitIdd) => (unitId = unitIdd));
-      exerciseId = this.exercise.id;
-      date = this.exercise.date;
-    }
-
-
 
     if (this.fileToUpload) {
       this.isLoading = true;
@@ -229,7 +232,7 @@ export class ExerciseFormComponent implements OnInit {
         exerciseType: exerciseType,
         description: formValue.description,
         muscleGroups: muscleGroups,
-        fileId: null,
+        fileId: fileId,
       };
       this.isLoading = false;
       this.submitExercise.emit(newExercise);

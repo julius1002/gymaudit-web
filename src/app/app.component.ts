@@ -64,8 +64,10 @@ export class AppComponent implements OnInit {
             } else {
               return this.userinfoService.getUserInfo()
             }
-          })).subscribe(res => {this.userInfo = res
-            this.userInfoService.setUserInfo(res)})
+          })).subscribe(res => {
+            this.userInfo = res
+            this.userInfoService.setUserInfo(res)
+          })
 
 
     }

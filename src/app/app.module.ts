@@ -10,7 +10,7 @@ import { ExerciseListComponent } from "./components/workout-plan/exercises/exerc
 
 import localeDe from "@angular/common/locales/de";
 import { registerLocaleData } from "@angular/common";
-import { EditExerciseComponent } from "./components/workout-plan/exercises/edit-exercise/edit-exercise.component";
+import { EditExerciseComponent } from "./components/training-log/edit-exercise/edit-exercise.component";
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
@@ -55,6 +55,7 @@ import { RedirectComponent } from './components/redirect/redirect.component';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
 import { AddUnitDialogComponent } from "./components/training-log/add-unit-dialog/add-unit-dialog.component";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { EditUnitComponent } from './components/training-log/edit-unit/edit-unit.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     SignupComponent,
     AboutComponent,
     RedirectComponent,
-    UserinfoComponent  ],
+    UserinfoComponent,
+    EditUnitComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

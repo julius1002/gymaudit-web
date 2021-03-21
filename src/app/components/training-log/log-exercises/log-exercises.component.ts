@@ -3,7 +3,7 @@ import { ExerciseService } from "src/app/services/exercise.service";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { Page } from "src/app/model/page";
 import { Exercise } from "src/app/model/exercise";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { switchMap, share, take, map, tap, debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 import { PageEvent } from "@angular/material/paginator";
 import { ViewChild, ElementRef } from '@angular/core';
@@ -14,6 +14,7 @@ import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { environment } from "src/environments/environment";
+import { EditExerciseComponent } from "../edit-exercise/edit-exercise.component";
 @Component({
   selector: "app-log-exercises",
   templateUrl: "./log-exercises.component.html",
@@ -36,6 +37,7 @@ export class LogExercisesComponent implements OnInit {
   pageSize: number = 8;
 
   apiUrl = environment.BACKEND_URL;
+  editView: boolean = false;
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
@@ -54,6 +56,7 @@ export class LogExercisesComponent implements OnInit {
     public dialog: MatDialog,
     public exerciseListService: ExercisesListService,
     public snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
 
@@ -102,31 +105,61 @@ export class LogExercisesComponent implements OnInit {
 
   }
 
+  toggleSettingsView() {
+    const cards = document.getElementsByClassName("card");
+    for (let i = 0; i < cards.length; i++) {
+      cards.item(i).classList.toggle("exercise-card-flipped")
+    }
+    this.editView = !this.editView
 
-  openDialog(): void {
-    this.unitId$.subscribe(unitId => {
-      const dialogRef = this.dialog.open(AddExerciseComponent, {
-        width: '80%',
-        height: '75%',
-        data: { unitid: unitId }
+  }
+  openDialog(exercise:Exercise = null): void {
+    if (exercise) {
+        const dialogRef = this.dialog.open(EditExerciseComponent, {
+          width: '75%',
+          height: '85%',
+          data: exercise
+        })
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.exercisesPage.content = this.exercisesPage.content.filter(foundExercise => foundExercise !== exercise)
+            this.exercisesPage.content.unshift(result)
+            this.toggleSettingsView()
+            this.snackBar.open(
+              `${result.name} erfolgreich geändert!`,
+              "schließen",
+              {
+                duration: 2500,
+              }
+            );
+  
+          }
+        });
+    } else {
+      this.unitId$.subscribe(unitId => {
+        const dialogRef = this.dialog.open(AddExerciseComponent, {
+          width: '75%',
+          height: '85%',
+          data: { unitid: unitId }
+        })
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.exercisesPage.content.unshift(result)
+
+          }
+        });
       })
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.exercisesPage.content.unshift(result)
-
-        } 
-      });
-    })
-
+    }
 
   };
-  buildImageUri(exercise: Exercise) {
-    return environment.BACKEND_URL + `files/${exercise.fileId}?jwt=Bearer +${localStorage.getItem('jwt')}`
-  }
 
   selectExercise(exercise: Exercise) {
+    if (!this.editView) {
+      //this.router.navigate([unit.id], { relativeTo: this.route, state: { data: unit } })
+    } else {
+      this.openDialog(exercise);
+    }
 
-    //routing
 
   }
 

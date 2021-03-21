@@ -2,7 +2,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
         <div class="container" style="text-align: center;">
             <div class = "title-container">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon inline>account_circle</mat-icon>
         </div>
         <a class ="fb-login-button" (click)= "loginWithFacebook($event)"><img src = "../../../assets/facebook.png">Weiter mit Facebook</a>
         <a class ="google-login-button" (click)= "loginWithGoogle($event)"><img src = "../../../assets/google-icon-small.svg"> Weiter mit Google

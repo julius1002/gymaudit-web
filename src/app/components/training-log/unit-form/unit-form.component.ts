@@ -13,7 +13,7 @@ import { UnitService } from "src/app/services/unit.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UnitListService } from "src/app/services/unit-list.service";
 import { AddUnitDialogComponent } from "../add-unit-dialog/add-unit-dialog.component";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { UploadService } from "src/app/services/upload.service";
 import { environment } from "src/environments/environment";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
@@ -28,7 +28,6 @@ import { UserInfoService } from "src/app/services/userinfo-service";
 export class UnitFormComponent implements OnInit {
   @Input() editing = false;
   @Output() submitUnit = new EventEmitter<Unit>();
-  @Input() data;
   unitForm: FormGroup;
 
   fileToUpload: File = null;
@@ -39,17 +38,13 @@ export class UnitFormComponent implements OnInit {
 
   canUploadFiles: boolean = false;
 
+  apiUri = environment.BACKEND_URL;
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private unitService: UnitService,
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
-    private unitListService: UnitListService,
-    private dialogRefAdd: MatDialogRef<AddUnitDialogComponent>,
     private uploadService: UploadService,
-    private userInfoService: UserInfoService
-  ) { }
+    private userInfoService: UserInfoService,
+    @Inject(MAT_DIALOG_DATA) public data:Unit ) { }
 
   ngOnInit(): void {
 
@@ -60,8 +55,12 @@ export class UnitFormComponent implements OnInit {
 
     this.initForm();
     if (this.editing) {
-      this.setFormValues(this.data.unit);
+      this.setFormValues(this.data);
     }
+  }
+  authorizeGoogleDrive($event){
+    $event.preventDefault();
+    window.location.href =environment.BACKEND_URL + "oauth2/google/drive?jwt=" +localStorage.getItem("jwt")
   }
 
   getHeading(): string {
@@ -105,16 +104,17 @@ export class UnitFormComponent implements OnInit {
     var id;
     var date;
     var traineeId;
+    var fileId;
     if (this.editing) {
-      id = this.data.unit.id;
-      date = this.data.unit.date;
-      traineeId = this.data.unit.traineeId;
+      id = this.data.id;
+      date = this.data.date;
+      traineeId = this.data.traineeId;
+      fileId =this.data.fileId.split("?jwt=")[0]
     }
     if (this.fileToUpload) {
       this.isLoading = true;
       this.uploadService.postFile(this.fileToUpload)
         // do something, if upload success
-
         .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:
@@ -150,7 +150,7 @@ export class UnitFormComponent implements OnInit {
         name: formValue.name,
         description: formValue.description,
         traineeId: traineeId,
-        fileId: null
+        fileId: fileId
       };
       this.isLoading = false;
       this.submitUnit.emit(newUnit);
