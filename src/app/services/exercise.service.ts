@@ -9,7 +9,7 @@ import { Page } from "../model/page";
   providedIn: "root",
 })
 export class ExerciseService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   public getAll(unitId: string): Observable<Page<Exercise>> {
     return this.httpClient.get<Page<Exercise>>(
@@ -28,11 +28,11 @@ export class ExerciseService {
     );
   }
 
-  
 
-  public getSingle(unitId: string, exerciseId: string): Observable<Exercise> {
+
+  public getSingle(exerciseId: string): Observable<Exercise> {
     return this.httpClient.get<Exercise>(
-      `${environment.BACKEND_URL}units/${unitId}/exercise?exerciseId=${exerciseId}`
+      `${environment.BACKEND_URL}exercise/${exerciseId}`
     );
   }
 

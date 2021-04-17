@@ -1,0 +1,43 @@
+.preview-img{
+    margin: 0 auto;
+    width: 60%;
+  }
+  .preview-img > img{
+    height:auto;
+    width:100%;
+  }
+
+  .file-upload{
+    margin: 1em 0;
+  }
+
+
+.upload{
+    text-align: center;
+    flex-basis: 50%;
+
+  }
+  
+  .remove-file-btn{
+    text-align: center;
+  }
+
+  mat-icon{
+    font-size: 20px;
+    margin: 0 auto;
+  }
+  
+  .upload-impossible-alert{
+    text-align: center;
+    width:100%;
+    margin-bottom: 2em;
+  }
+
+  .google-login-button{
+      width:100%;
+  }
+
+  .google-image{
+    height: 1.5em;
+    margin-right: 0.75em;
+}

@@ -2,7 +2,7 @@
   <ng-container *ngIf="unitsPage">
     <ng-container *ngIf="unitsPage.content.length;else nounitresults">
       <ul class="unit-list">
-        <li *ngFor="let unit of unitsPage.content; let i = index" (click)="routeToExercise($event, unit)">
+        <li *ngFor="let unit of unitsPage.content; let i = index;" (click)="routeToExercise($event, unit)">
           <div class="unit-name-container">
             {{ unit.name }}
           </div>
@@ -16,7 +16,6 @@
                 Kein Bild hinzugefügt
               </span>
             </ng-template>
-
           </div>
           <div class="unit-card unit-card--back">
             <mat-icon>
@@ -35,11 +34,13 @@
   </ng-template>
 
   <div class="unit-bottom-nav" id="bottom-nav">
+    <ng-container *ngIf ="unitsPage && unitsPage.content.length">
     <ng-container *ngIf = "!this.editView; else closeicon">
     <mat-icon class="unit-settings-toggle-btn" (click) ="toggleSettingsView()">
       settings
     </mat-icon>
   </ng-container>
+</ng-container>
   <ng-template #closeicon>
     <mat-icon  class="unit-settings-toggle-btn" (click) ="toggleSettingsView()">
       close

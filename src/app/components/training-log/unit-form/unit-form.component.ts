@@ -9,11 +9,7 @@ import {
 import { Unit } from "src/app/model/unit";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { UnitService } from "src/app/services/unit.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { UnitListService } from "src/app/services/unit-list.service";
-import { AddUnitDialogComponent } from "../add-unit-dialog/add-unit-dialog.component";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { UploadService } from "src/app/services/upload.service";
 import { environment } from "src/environments/environment";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
@@ -28,54 +24,47 @@ import { UserInfoService } from "src/app/services/userinfo-service";
 export class UnitFormComponent implements OnInit {
   @Input() editing = false;
   @Output() submitUnit = new EventEmitter<Unit>();
+  @Output() deleteUnit = new EventEmitter<Unit>();
+
   unitForm: FormGroup;
 
   fileToUpload: File = null;
 
   isLoading: boolean = false;
+
   progress: number;
+
   mode: ProgressSpinnerMode = 'determinate';
 
-  canUploadFiles: boolean = false;
 
-  apiUri = environment.BACKEND_URL;
   constructor(
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
     private uploadService: UploadService,
-    private userInfoService: UserInfoService,
-    @Inject(MAT_DIALOG_DATA) public data:Unit ) { }
+    @Inject(MAT_DIALOG_DATA) public data: Unit) { }
 
   ngOnInit(): void {
 
-    this.userInfoService.getUserinfo().subscribe(res => {
 
-      if(res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
-    })
 
     this.initForm();
     if (this.editing) {
       this.setFormValues(this.data);
     }
   }
-  authorizeGoogleDrive($event){
+  authorizeGoogleDrive($event) {
     $event.preventDefault();
-    window.location.href =environment.BACKEND_URL + "oauth2/google/drive?jwt=" +localStorage.getItem("jwt")
+    window.location.href = environment.BACKEND_URL + "oauth2/google/drive?jwt=" + localStorage.getItem("jwt")
   }
 
   getHeading(): string {
     return this.editing ? "Einheit bearbeiten" : "Einheit hinzufügen";
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    console.log(this.fileToUpload)
-  }
 
-  public removeFile() {
-    this.fileToUpload = undefined;
+  fileEmitted($event: File) {
+    this.fileToUpload = $event
   }
-
 
 
   private setFormValues(unit: Unit) {
@@ -109,7 +98,9 @@ export class UnitFormComponent implements OnInit {
       id = this.data.id;
       date = this.data.date;
       traineeId = this.data.traineeId;
-      fileId =this.data.fileId.split("?jwt=")[0]
+      if (this.data.fileId) {
+        fileId = this.data.fileId.split("?jwt=")[0]
+      }
     }
     if (this.fileToUpload) {
       this.isLoading = true;
@@ -121,6 +112,7 @@ export class UnitFormComponent implements OnInit {
               console.log('Request has been made!');
               break;
             case HttpEventType.ResponseHeader:
+              //TODO redirect to google if status 401
               break;
             case HttpEventType.UploadProgress:
               this.progress = Math.round(event.loaded / event.total * 100);
@@ -129,7 +121,6 @@ export class UnitFormComponent implements OnInit {
               setTimeout(() => {
                 this.progress = 0;
               }, 4);
-              var filePath = event.body.id;
               const newUnit: Unit = {
                 id: id,
                 date: date,
@@ -137,7 +128,8 @@ export class UnitFormComponent implements OnInit {
                 description: formValue.description,
                 traineeId: traineeId,
                 fileId: event.body.id
-              }; this.isLoading = false;
+              };
+              this.isLoading = false;
 
               this.submitUnit.emit(newUnit);
               this.unitForm.reset;
@@ -156,7 +148,6 @@ export class UnitFormComponent implements OnInit {
       this.submitUnit.emit(newUnit);
       this.unitForm.reset;
     }
-    this.removeFile();
 
 
 

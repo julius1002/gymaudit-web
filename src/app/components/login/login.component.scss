@@ -4,6 +4,7 @@
     text-align: center;
     width:90%;
     padding: 0;
+    max-width: 450px;
 }   
 
 mat-form-field{
@@ -37,11 +38,6 @@ input:-webkit-autofill {
 
 .title-container > mat-icon{
     font-size: 2em;
-}
-
-.divider{
-border-top: 1px solid #d9dadc;
-margin: 1.5em auto;
 }
 
 .title-container > mat-icon{

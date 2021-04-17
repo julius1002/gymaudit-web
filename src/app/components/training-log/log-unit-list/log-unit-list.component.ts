@@ -85,8 +85,7 @@ export class LogUnitListComponent implements OnInit {
 
   private getUnitsPage(size: number, page: number): void {
     this.unitService.getByPage(size, page, "").pipe(
-      take(1)
-    )
+      take(1))
       .subscribe(res => {
         this.unitsPage = res;
         if (res.content.length < 7) {
@@ -101,29 +100,44 @@ export class LogUnitListComponent implements OnInit {
     if (unit) {
       dialogRef = this.dialog.open(EditUnitComponent, {
         width: '75%',
-          height: '85%',
+        height: '85%',
         data: unit
       })
 
       dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.unitsPage.content = this.unitsPage.content.filter(foundUnit => foundUnit !== unit)
-          this.unitsPage.content.unshift(result)
+        if (this.editView) {
           this.toggleSettingsView()
-          this.snackBar.open(
-            `${result.name} erfolgreich geändert!`,
-            "schließen",
-            {
-              duration: 2500,
-            }
-          );
-
+        }
+        if (result) {
+          if (!result.id) {
+            this.unitsPage.content = this.unitsPage.content.filter(foundUnit => foundUnit !== unit)
+            this.snackBar.open(
+              `${result.name} erfolgreich gelöscht!`,
+              "schließen",
+              {
+                duration: 2500,
+              }
+            );
+          } else {
+            this.unitsPage.content = this.unitsPage.content.filter(foundUnit => foundUnit !== unit)
+            this.unitsPage.content.unshift(result)
+            this.snackBar.open(
+              `${result.name} erfolgreich geändert!`,
+              "schließen",
+              {
+                duration: 2500,
+              }
+            );
+          }
         }
       });
     } else {
+      if (this.editView) {
+        this.toggleSettingsView()
+      }
       dialogRef = this.dialog.open(AddUnitDialogComponent, {
         width: '75%',
-          height: '85%'
+        height: '85%'
       })
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -141,9 +155,6 @@ export class LogUnitListComponent implements OnInit {
     }
 
   };
-
-
-
 
   routeToExercise($event, unit: Unit) {
     if (!this.editView) {

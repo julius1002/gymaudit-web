@@ -24,7 +24,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       });
     }
 
-
     return next.handle(clonedRequest).pipe(tap(res => {
       if (res instanceof HttpResponse) {
         if (res.status < 300 && res.status >= 200) {
@@ -32,9 +31,11 @@ export class HttpRequestInterceptor implements HttpInterceptor {
         }
       }
 
-    }, (err) => { this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if(localStorage.getItem("jwt")){
-      localStorage.removeItem("jwt")
-    } }))
+    }, (err) => {
+      this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if (localStorage.getItem("jwt")) {
+        localStorage.removeItem("jwt")
+      }
+    }))
   }
 
 }

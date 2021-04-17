@@ -28,10 +28,12 @@
                 </div>
             </ng-container>
         </div>
+        <div class ="divider"></div>
         <a type="submit" class="submit-button">Profil bearbeiten </a>
         <ng-container *ngIf="!this.providers?.includes('google')">
             <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img
-                    src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
+                    class ="google-img" src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
+                    <a mat-raised-button>...und wie funktioniert das?</a>
         </ng-container>
     </ng-container>
 </div>

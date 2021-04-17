@@ -1,9 +1,8 @@
 export class Set {
   id: string;
   reps: number;
-  number: number;
+  load: number;
   measureUnit: MeasureUnit;
-  calculatedVolume: number;
   date: number;
   exerciseId: string;
 }

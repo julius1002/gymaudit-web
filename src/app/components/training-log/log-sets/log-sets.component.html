@@ -1,4 +1,46 @@
-<app-set-table [editing] = "true" [exerciseSubject] = "exerciseSubject"></app-set-table>
-
-
-    
+<div class="set-option-container">
+    <mat-icon class="back-button" (click)="this.navigateBack()">arrow_back_ios</mat-icon>
+    <div class="title">
+        <h5>
+            {{this.exercise?.name || "Übung"}}
+        </h5>
+    </div>
+    <div class="search-button">
+        <input class="invisible" matInput [matDatepicker]="picker" (dateChange)="dateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+    </div>
+</div>
+<div class ="headline">
+    <h5>{{title}} ({{sets?.length}})</h5>
+</div>
+<ng-container *ngIf="sets && sets.length; else emptySets">
+    <div class="accordion-container">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle *ngFor="let set of this.sets">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{set.date | date}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{set.load}} {{set.measureUnit}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="icon-container">
+                    <mat-icon mat-button>delete_forever</mat-icon>
+                    <mat-icon mat-button>settings</mat-icon>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</ng-container>
+<ng-template #emptySets>
+    <h5>Noch keine Sätze vorhanden</h5>
+</ng-template>
+<ul class="bottom-nav" id="set-nav">
+    <li class="add-button">
+        <mat-icon inline>
+            add
+        </mat-icon>
+    </li>
+</ul>

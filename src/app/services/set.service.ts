@@ -11,10 +11,8 @@ import { environment } from "src/environments/environment";
 export class SetService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAll(unitId: string, exerciseId: string): Observable<Page<Set>> {
-    return this.httpClient.get<Page<Set>>(
-      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
-    );
+  public getSets(exerciseId: string, milliseconds:number = -1): Observable<Set[]> {
+    return this.httpClient.get<Set[]>(`${environment.BACKEND_URL}sets/${exerciseId}?date=${milliseconds}`)
   }
 
   public getByPage(

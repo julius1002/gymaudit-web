@@ -15,35 +15,8 @@
       <mat-label>Notizen</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
-    <ng-container *ngIf="this.canUploadFiles; else uploadImpossible">
-      <ng-container *ngIf="this.data && this.data.fileId">
-        <div class="preview-img">
-          <img src="{{this.apiUri + 'files/' + this.data.fileId}}">
-        </div>
-      </ng-container>
-      <div class="file-upload">
-        <ng-container *ngIf="!this.fileToUpload; else rmFile">
-          <div class="upload-btn">
-            <label for="file" style="cursor:pointer;">
-              <mat-icon style="display:block;">file_upload</mat-icon> Bild hinzufügen
-            </label> <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
-          </div>
-        </ng-container>
-        <ng-template #rmFile>
-          <div class="remove-file-btn">
-            <mat-icon style="display:block;" (click)="removeFile()">close</mat-icon>
-            {{this.fileToUpload.name}}
-          </div>
-        </ng-template>
-      </div>
-    </ng-container>
-    <ng-template #uploadImpossible>
-      <div class="upload-impossible-alert">
-        <p> Wir nutzen Google Drive, um Bilder zu speichern!</p>
-        <a class="google-login-button" mat-raised-button (click)="authorizeGoogleDrive($event)"><img
-            class="google-image" src="../../../assets/google-icon-small.svg">Autorisiere Google</a>
-      </div>
-    </ng-template>
+    <app-file-upload (fileEmitter) = "fileEmitted($event)" [data]="this.data"></app-file-upload>
+
     <div style="text-align: right;">
       <button type="button" class="expansion-button" (click)="toggleMuscleGroups()" mat-raised-button> Weiter
       </button>
@@ -70,9 +43,15 @@
         <mat-icon (click)="addMuscleGroup()" mat-raised-button>add</mat-icon>
       </div>
     </mat-expansion-panel>
-    <div style="text-align: center;">
+    <div class ="divider"></div>
+    <div class ="button-container">
+      <ng-container *ngIf ="this.editing">
+        <button mat-raised-button class ="btn" (click) ="this.deleteExercise.emit(data)" type ="button">
+        <mat-icon >delete_forever</mat-icon>
+      </button>
+      </ng-container>
       <ng-container *ngIf="!this.isLoading; else loading">
-        <button mat-raised-button type="submit" class="submit-button" [disabled]="exerciseForm.invalid">
+        <button mat-raised-button type="submit" class="btn" [disabled]="exerciseForm.invalid">
           <mat-icon>save</mat-icon>
         </button>
       </ng-container>

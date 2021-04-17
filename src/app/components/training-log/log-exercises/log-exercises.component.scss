@@ -14,34 +14,30 @@
 *:focus {
     outline: none;
 }
+
 .exercise-list{
     display:grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.5em;
+    gap: 1em;
     margin-bottom: 4em;
     margin-top: 1em;
     list-style-type: none; 
     padding:0;
     margin: 0;
+    margin: 0 1em;
 }
 
 .exercise-list > li{
     margin:0;
     height: 10em;
-   width: 100%;
+    width: 100%;
     animation: turn 500ms ease-in;
 }
-
-
 
 .unit-name-container{
     background-color:$secondary;
     text-transform: uppercase;
 }
-
-
-
-
 
 .unit-option-container{
     display:flex;
@@ -104,18 +100,18 @@ mat-icon{
     display:none;
 }
 
-
-
-
-
 .exercise-name-container{
     overflow:hidden;
     font-family: Roboto, sans-serif;
     text-align: center;
     color:white;
     background-color:$secondary;
-     margin:0 0;
-          text-transform: uppercase;
+    margin:0 0;
+    text-transform: uppercase;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    box-shadow: 0.1em 0.1em 0.3em #124;
+
 }
 
 .no-image{
@@ -208,7 +204,9 @@ img{
     margin:0 0;
     text-align: center;
     background-image: linear-gradient($secondary, white);
-    box-shadow: 0.1em 0.1em 0.5em #124;
+    box-shadow: 0.1em 0.1em 0.3em #124;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
 }
 
 .exercise-card-flipped{
@@ -219,6 +217,12 @@ img{
     transform: rotateY(180deg);
 
   }
+
+
+img{
+    max-width: 100%;
+    width:auto;    
+}
 
   .exercise-card > mat-icon{
     color:white;

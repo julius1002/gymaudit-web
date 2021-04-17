@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   hide: boolean = true;
+  apiUri: string = environment.BACKEND_URL;
 
   constructor(private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
@@ -29,16 +30,20 @@ export class LoginComponent implements OnInit {
     this.authenticationService.navigateToIfAlreadyAuthenticated("/training-log/units");
     this.initForm();
   }
-  loginWithFacebook($event){
+  loginWithFacebook($event) {
     $event.preventDefault();
-    window.location.href =environment.BACKEND_URL + "oauth2/facebook"
+    window.location.href = this.apiUri + "oauth2/facebook"
   }
 
-  loginWithGoogle($event){
+  loginWithGoogle($event) {
     $event.preventDefault();
-    window.location.href =environment.BACKEND_URL + "oauth2/google"
+    window.location.href = this.apiUri + "oauth2/google"
   }
 
+
+  authorizeGoogleDrive(jwt: string) {
+    window.location.href = this.apiUri + "oauth2/google/drive?jwt=" + jwt
+  }
 
 
   private initForm() {
@@ -69,10 +74,19 @@ export class LoginComponent implements OnInit {
     }
     this.authenticationService.login(formValue.username, formValue.password).subscribe(res => {
       if (res) {
+        
         this.authenticationService.setAuthentication(true)
+
         localStorage.setItem("jwt", res.token)
+
         this.router.navigate(["/"])
-        this.openSnackBar("Successfully logged in!", "Ok")
+
+        if (res.provider == "google") {
+          this.authorizeGoogleDrive(res.token);
+        } else {
+
+          this.openSnackBar("Successfully logged in!", "Ok")
+        }
       }
     }, (err) => {
       err.status == 401 ? this.openSnackBar("Bad username or password", "Ok") : this.openSnackBar("Server unavailable", "Ok")

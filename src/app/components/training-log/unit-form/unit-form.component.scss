@@ -1,3 +1,5 @@
+@import "../../../../styles.scss";
+
 .mat-form-field {
   width: 100%;
 }
@@ -5,49 +7,30 @@
 .mat-dialog-buttons{
     text-align: center;
 }
-.submit-button{
-  margin-top: 1em;
-  width: 40%;
-  margin: auto auto;
-}
+
 
 h4{
   margin-bottom: 1em; 
 }
 
 
-.upload-btn{
-  text-align: center;
-  flex-basis: 50%;
-}
-
-.remove-file-btn{
-  text-align: center;
-  flex-basis: 50%;
-}
 
 mat-icon{
   font-size: 20px;
   margin: 0 auto;
 }
-.upload-impossible-alert{
+
+
+.button-container{
   text-align: center;
-  margin-bottom: 2em;
-}
-.file-upload{
-  margin: 1em 0;
+  display:flex;
+  justify-content: space-between;
 }
 
-.google-image{
-    height: 1.5em;
-    margin-right: 0.75em;
+.btn{
+  margin-top: 2em;
+  width: 40%;
+  margin: auto auto;
 }
 
-.preview-img{
-  margin: 0 auto;
-  width: 60%;
-}
-.preview-img > img{
-  height:auto;
-  width:100%;
-}
+

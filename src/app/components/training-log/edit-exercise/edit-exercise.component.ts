@@ -38,4 +38,19 @@ export class EditExerciseComponent implements OnInit {
       this.dialogRef.close(undefined);
 
   })};
+
+
+  deleteExercise(exercise: Exercise) {
+    if (confirm(`Übung ${exercise.name} wirklich löschen?`)) {
+      this.exerciseService.delete(exercise.unitId, exercise.id)
+        .subscribe((deleteExercise) => {
+          deleteExercise.id = undefined
+          this.dialogRef.close(deleteExercise);
+        }, (err) => {
+          this.dialogRef.close(undefined);
+
+        });
+    }
+
+  }
 }

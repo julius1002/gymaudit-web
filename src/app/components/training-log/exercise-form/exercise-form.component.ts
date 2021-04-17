@@ -32,6 +32,8 @@ export class ExerciseFormComponent implements OnInit {
 
   @Output() submitExercise = new EventEmitter<Exercise>();
 
+  @Output() deleteExercise = new EventEmitter<Exercise>();
+
   exerciseForm: FormGroup;
 
   exerciseTypeEnum = ExerciseType;
@@ -55,12 +57,17 @@ export class ExerciseFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private uploadService: UploadService,
     private userInfoService: UserInfoService,
-    @Inject(MAT_DIALOG_DATA) public data:Exercise
+    @Inject(MAT_DIALOG_DATA) public data: Exercise
 
   ) { }
 
   getHeading(): string {
     return this.editing ? "Übung bearbeiten" : "Übung hinzufügen";
+  }
+
+
+  fileEmitted($event: File) {
+    this.fileToUpload = $event
   }
 
 
@@ -81,11 +88,6 @@ export class ExerciseFormComponent implements OnInit {
       this.setFormValues(this.data)
     }
 
-  }
-
-  authorizeGoogleDrive($event) {
-    $event.preventDefault();
-    window.location.href = environment.BACKEND_URL + "oauth2/google/drive?jwt=" + localStorage.getItem("jwt")
   }
 
   private setFormValues(exercise: Exercise) {
@@ -127,35 +129,6 @@ export class ExerciseFormComponent implements OnInit {
     this.muscleGroups.removeAt(index);
   }
 
-  /* removeExercise() {
-     this.exerciseForm.reset;
-     if (confirm("Übung wirklich löschen?")) {
-       this.unitId$
-         .pipe(
-           switchMap((unitId) =>
-             this.exerciseService.delete(unitId, this.exercise.id)
-           )
-         )
-         .subscribe((exercise) => {
-           this.exerciseListService.updateListEvent(exercise),
-             this.router
-               .navigate(["."])
-               .then(() =>
-                 this.router.navigateByUrl(
-                   `units/(exercises:${exercise.unitId})`
-                 )
-               ),
-             this.snackBar.open(
-               `${exercise.name} erfolgreich gelöscht!`,
-               "schließen",
-               {
-                 duration: 2500,
-               }
-             );
-         });
-     }
-   }*/
-
   submitForm() {
     const formValue = this.exerciseForm.value;
 
@@ -172,7 +145,7 @@ export class ExerciseFormComponent implements OnInit {
       }
       exerciseId = this.data.id;
       date = this.data.date;
-      unitId = this .data.unitId
+      unitId = this.data.unitId
     }
 
     if (formValue.exerciseType === "") {
@@ -239,22 +212,7 @@ export class ExerciseFormComponent implements OnInit {
       this.exerciseForm.reset;
 
     }
-    this.removeFile();
-
-
-
-
-
-
-
-  }
-
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    console.log(this.fileToUpload)
-  }
-
-  public removeFile() {
-    this.fileToUpload = undefined;
   }
 }
+
+

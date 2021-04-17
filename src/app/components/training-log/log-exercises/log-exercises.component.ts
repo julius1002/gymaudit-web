@@ -82,7 +82,7 @@ export class LogExercisesComponent implements OnInit {
     ).subscribe(res => this.exercisesPage = res)
 
 
-    this.selectedUnit = <Unit>history.state.data || { name: "Übung" }
+    this.selectedUnit = <Unit>history.state.data
 
     this.route.paramMap.pipe(
       switchMap((paramMap) =>
@@ -113,18 +113,33 @@ export class LogExercisesComponent implements OnInit {
     this.editView = !this.editView
 
   }
-  openDialog(exercise:Exercise = null): void {
+  openDialog(exercise: Exercise = null): void {
     if (exercise) {
-        const dialogRef = this.dialog.open(EditExerciseComponent, {
-          width: '75%',
-          height: '85%',
-          data: exercise
-        })
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
+
+      const dialogRef = this.dialog.open(EditExerciseComponent, {
+        width: '75%',
+        height: '85%',
+        data: exercise
+      })
+      dialogRef.afterClosed().subscribe(result => {
+
+        if (this.editView) {
+          this.toggleSettingsView()
+        }
+        if (result) {
+          if (!result.id) {
+            this.exercisesPage.content = this.exercisesPage.content.filter(foundExercise => foundExercise !== exercise)
+            this.snackBar.open(
+              `${result.name} erfolgreich gelöscht!`,
+              "schließen",
+              {
+                duration: 2500,
+              }
+            );
+          } else {
             this.exercisesPage.content = this.exercisesPage.content.filter(foundExercise => foundExercise !== exercise)
             this.exercisesPage.content.unshift(result)
-            this.toggleSettingsView()
+
             this.snackBar.open(
               `${result.name} erfolgreich geändert!`,
               "schließen",
@@ -132,10 +147,13 @@ export class LogExercisesComponent implements OnInit {
                 duration: 2500,
               }
             );
-  
           }
-        });
+        }
+      });
     } else {
+      if (this.editView) {
+        this.toggleSettingsView()
+      }
       this.unitId$.subscribe(unitId => {
         const dialogRef = this.dialog.open(AddExerciseComponent, {
           width: '75%',
@@ -155,7 +173,7 @@ export class LogExercisesComponent implements OnInit {
 
   selectExercise(exercise: Exercise) {
     if (!this.editView) {
-      //this.router.navigate([unit.id], { relativeTo: this.route, state: { data: unit } })
+      this.router.navigate(["training-log", "sets", exercise.id], { state: exercise })
     } else {
       this.openDialog(exercise);
     }
@@ -183,21 +201,6 @@ export class LogExercisesComponent implements OnInit {
 
   }
 
-  /*  keyUpSearch($event: KeyboardEvent) {
-      const filter = (<HTMLInputElement>$event.target).value;
-  
-      this.exercisesPage$ = this.unitId$.pipe(
-        switchMap((unitId) => this.exerciseService.getByPage(unitId, this.pageSize, 0, filter)),
-        take(1),
-        tap((res) => {
-          if (res.content.length < 7) {
-            var bottomNav = document.getElementById("bottom-nav");
-            setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
-              , 500)
-          }
-        })
-      );
-    }*/
 
   public turn(currentPage: Page<Exercise>, value: number) {
     this.index += value

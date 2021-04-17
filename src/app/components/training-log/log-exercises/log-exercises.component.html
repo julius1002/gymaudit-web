@@ -1,14 +1,11 @@
 <div class="unit-option-container">
   <mat-icon class="back-button" routerLink="..">arrow_back_ios</mat-icon>
-
   <div class="title">
     <h5 id="unit-title">
-      {{this.selectedUnit.name}}
+      {{this.selectedUnit?.name || "Einheit" }}
     </h5>
     <input id="search-bar" class="invisible" (keyup)="keyUp$.next($event.target.value)">
-
   </div>
-
   <mat-icon class="search-button" (click)="toggleSearchBar()">
     search
   </mat-icon>
@@ -18,33 +15,30 @@
 </div>
 <ng-container *ngIf="exercisesPage">
   <ng-container *ngIf="exercisesPage.content.length; else noresults">
-
     <ul class="exercise-list">
       <li *ngFor="let exercise of exercisesPage.content" (click)="selectExercise(exercise)">
-          <div class="exercise-name-container">
-            {{ exercise.name }}
+        <div class="exercise-name-container">
+          {{ exercise.name }}
+        </div>
+        <div class="card">
+          <div class="exercise-card">
+            <ng-container *ngIf="exercise.fileId; else noimg">
+              <img src="{{apiUrl + 'files/' + exercise.fileId}}">
+            </ng-container>
+            <ng-template #noimg>
+              <div class="no-image">
+                Kein Bild hinzugefügt
+              </div>
+            </ng-template>
           </div>
-          <div class ="card">
-        <div class="exercise-card">
-          <ng-container *ngIf="exercise.fileId; else noimg">
-            <img class="exercise-image" src="{{apiUrl + 'files/' + exercise.fileId}}">
-          </ng-container>
-          <ng-template #noimg>
-            <div class="no-image">
-              Kein Bild hinzugefügt
-            </div>
-          </ng-template>
+          <div class="exercise-card exercise-card--back">
+            <mat-icon>
+              settings
+            </mat-icon>
+          </div>
         </div>
-        <div class="exercise-card exercise-card--back">
-          <mat-icon>
-            settings
-          </mat-icon>
-        </div>
-      </div>
       </li>
-
     </ul>
-
   </ng-container>
   <ng-template #noresults>
     <h4 style="text-align: center; margin-top: 4em">
@@ -57,19 +51,20 @@
         <mat-icon (click)="turn(exercisesPage, -1)" inline>arrow_back_ios</mat-icon>
       </ng-container>
     </li>
-    <li class="settings">
-      <ng-container *ngIf = "!this.editView; else closeicon">
-      <mat-icon (click) ="toggleSettingsView()" inline>
-        settings
-      </mat-icon>
+    <ng-container *ngIf="exercisesPage && exercisesPage.content.length">
+      <li class="settings">
+        <ng-container *ngIf="!this.editView; else closeicon">
+          <mat-icon (click)="toggleSettingsView()" inline>
+            settings
+          </mat-icon>
+        </ng-container>
+        <ng-template #closeicon>
+          <mat-icon (click)="toggleSettingsView()" inline>
+            close
+          </mat-icon>
+        </ng-template>
+      </li>
     </ng-container>
-    <ng-template #closeicon>
-      <mat-icon (click) ="toggleSettingsView()" inline>
-        close
-      </mat-icon>
-    </ng-template>
-      
-    </li>
     <li class="add-button">
       <mat-icon (click)="openDialog()" inline>
         add

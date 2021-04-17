@@ -5,8 +5,6 @@ import { AppComponent } from "./app.component";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ExerciseDetailComponent } from "./components/workout-plan/exercises/exercise-detail/exercise-detail.component";
-import { ExerciseListComponent } from "./components/workout-plan/exercises/exercise-list/exercise-list.component";
 
 import localeDe from "@angular/common/locales/de";
 import { registerLocaleData } from "@angular/common";
@@ -31,7 +29,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { UnitFormComponent } from "./components/training-log/unit-form/unit-form.component";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatCardModule } from "@angular/material/card";
-import { MusclegroupViewComponent } from "./components/workout-plan/exercises/exercise-detail/musclegroup-view/musclegroup-view.component";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatChipsModule } from "@angular/material/chips";
@@ -44,7 +41,6 @@ import { LogUnitListComponent } from './components/training-log/log-unit-list/lo
 import { LogSetsFormComponent } from './components/training-log/log-sets-form/log-sets-form.component';
 import { AddSetComponent } from './components/training-log/add-set/add-set.component';
 import {MatTableModule} from '@angular/material/table';
-import { SetTableComponent } from './components/training-log/log-sets/set-table/set-table.component';
 import {EditSetComponent} from './components/training-log/edit-set/edit-set.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { LoginComponent } from './components/login/login.component';
@@ -56,17 +52,18 @@ import { UserinfoComponent } from './components/userinfo/userinfo.component';
 import { AddUnitDialogComponent } from "./components/training-log/add-unit-dialog/add-unit-dialog.component";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EditUnitComponent } from './components/training-log/edit-unit/edit-unit.component';
+import { FileUploadComponent } from './components/training-log/file-upload/file-upload.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExerciseDetailComponent,
-    ExerciseListComponent,
     EditExerciseComponent,
     ExerciseFormComponent,
     AddExerciseComponent,
     UnitFormComponent,
-    MusclegroupViewComponent,
     TrainingLogComponent,
     AddUnitDialogComponent,
     HomeComponent,
@@ -75,14 +72,14 @@ import { EditUnitComponent } from './components/training-log/edit-unit/edit-unit
     LogUnitListComponent,
     LogSetsFormComponent,
     AddSetComponent,
-    SetTableComponent,
     EditSetComponent,
     LoginComponent,
     SignupComponent,
     AboutComponent,
     RedirectComponent,
     UserinfoComponent,
-    EditUnitComponent  ],
+    EditUnitComponent,
+    FileUploadComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -109,10 +106,13 @@ import { EditUnitComponent } from './components/training-log/edit-unit/edit-unit
     MatDialogModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: "de" },
-  { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+  { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+  {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
 ],
 
   bootstrap: [AppComponent],
