@@ -57,7 +57,6 @@ export class LogSetsComponent implements OnInit {
   }
 
   dateChange($event: MatDatepickerInputEvent<Date>) {
-    console.log($event.value.valueOf())
     this.setService.getSets(this.route.snapshot.paramMap.get("exerciseId"), $event.value.valueOf())
     .subscribe(res => this.sets = res)
   }
