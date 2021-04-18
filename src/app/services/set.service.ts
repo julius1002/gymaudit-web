@@ -9,10 +9,10 @@ import { environment } from "src/environments/environment";
   providedIn: "root",
 })
 export class SetService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  public getSets(exerciseId: string, milliseconds:number = -1): Observable<Set[]> {
-    return this.httpClient.get<Set[]>(`${environment.BACKEND_URL}sets/${exerciseId}?date=${milliseconds}`)
+  public getSets(exerciseId: string, isoDate:string = new Date().toISOString()): Observable<Set[]> {
+    return this.httpClient.get<Set[]>(`${environment.BACKEND_URL}sets/${exerciseId}?date=${isoDate}`)
   }
 
   public getByPage(
@@ -37,19 +37,19 @@ export class SetService {
     );
   }
 
-  public postSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
+  public postSet(unitId: string, exerciseId: string, set: Set): Observable<Set> {
     return this.httpClient.post<Set>(
       `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
-    , set);
+      , set);
   }
 
-  public putSet(unitId: string, exerciseId: string, set:Set): Observable<Set> {
+  public putSet(unitId: string, exerciseId: string, set: Set): Observable<Set> {
     return this.httpClient.put<Set>(
       `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
-    , set);
+      , set);
   }
 
-  public deleteSet(setId:string){
+  public deleteSet(setId: string) {
     return this.httpClient.delete<Set>(
       `${environment.BACKEND_URL}sets/${setId}`
     )

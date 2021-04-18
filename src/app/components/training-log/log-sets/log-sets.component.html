@@ -11,19 +11,19 @@
         <mat-datepicker touchUi #picker></mat-datepicker>
     </div>
 </div>
-<div class ="headline">
+<div class="headline">
     <h5>{{title}} ({{sets?.length}})</h5>
 </div>
-<ng-container *ngIf="sets && sets.length; else emptySets">
+<ng-container *ngIf="sets && sets.length">
     <div class="accordion-container">
         <mat-accordion>
             <mat-expansion-panel hideToggle *ngFor="let set of this.sets">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        {{set.date | date}}
+                        {{set.date | date:"HH:mm:ss"}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        {{set.load}} {{set.measureUnit}}
+                        {{set.reps}} x {{set.load}} {{set.measureUnit}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="icon-container">
@@ -34,9 +34,6 @@
         </mat-accordion>
     </div>
 </ng-container>
-<ng-template #emptySets>
-    <h5>Noch keine Sätze vorhanden</h5>
-</ng-template>
 <ul class="bottom-nav" id="set-nav">
     <li class="add-button">
         <mat-icon inline>

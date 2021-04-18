@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, LOCALE_ID, Inject } from "@angular/core";
 import { Exercise } from "src/app/model/exercise";
-import { Set, MeasureUnit } from "src/app/model/set";
-import { switchMap, tap } from "rxjs/operators";
+import { Set } from "src/app/model/set";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SetService } from "src/app/services/set.service";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-log-sets",
@@ -18,7 +18,7 @@ export class LogSetsComponent implements OnInit {
 
   exercise: Exercise;
 
-  constructor(private router: Router, private route: ActivatedRoute, private setService: SetService, private exerciseService: ExerciseService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private setService: SetService, private exerciseService: ExerciseService, @Inject(LOCALE_ID) private locale: string) { }
 
   title: string = "Heutige Sätze"
 
@@ -57,7 +57,9 @@ export class LogSetsComponent implements OnInit {
   }
 
   dateChange($event: MatDatepickerInputEvent<Date>) {
-    this.setService.getSets(this.route.snapshot.paramMap.get("exerciseId"), $event.value.valueOf())
-    .subscribe(res => this.sets = res)
+    this.title = new DatePipe(this.locale).transform($event.value, 'dd-MM-yyyy');
+    $event.value.toString()
+    this.setService.getSets(this.route.snapshot.paramMap.get("exerciseId"), $event.value.toISOString())
+      .subscribe(res => this.sets = res)
   }
 }

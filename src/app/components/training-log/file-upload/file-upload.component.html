@@ -12,12 +12,10 @@
         </label> <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
       </ng-container>
       <ng-template #rmFile>
-        <mat-chip-list aria-label="Fish selection">
-        <mat-chip (click)="removeFile()">
+        <button mat-button (click)="removeFile()">
           {{this.fileToUpload.name}}
           <mat-icon style="display:block;">close</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </button>
       </ng-template>
     </div>
   </div>
