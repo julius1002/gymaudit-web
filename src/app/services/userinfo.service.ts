@@ -14,7 +14,7 @@ export class UserinfoService {
   public getUserInfo(
   ): Observable<UserInfo> {
     return this.httpClient.get<any>(
-      `${environment.BACKEND_URL}me/profile`
+      `${environment.api_url}me/profile`
     );
   }
 }

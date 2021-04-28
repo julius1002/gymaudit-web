@@ -12,8 +12,8 @@ export class AuthenticationService {
 
   private authenticated = new BehaviorSubject<boolean>(false);
 
-  authenticationUrl: string = `${environment.BACKEND_URL}auth/login`;
-  logoutUrl: string = `${environment.BACKEND_URL}auth/logout`;
+  authenticationUrl: string = `${environment.api_url}auth/login`;
+  logoutUrl: string = `${environment.api_url}auth/logout`;
 
   constructor(private httpClient: HttpClient,
     private router: Router) {

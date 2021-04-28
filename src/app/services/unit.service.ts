@@ -17,27 +17,27 @@ export class UnitService {
     name: string = ""
   ): Observable<Page<Unit>> {
     return this.httpClient.get<Page<Unit>>(
-      `${environment.BACKEND_URL}units?page=${page}&size=${size}&name_filter=${name}`
+      `${environment.api_url}units?page=${page}&size=${size}&name_filter=${name}`
     );
   }
 
   public postSingle(unit: Unit): Observable<Unit> {
     return this.httpClient.post<Unit>(
-      `${environment.BACKEND_URL}units`,
+      `${environment.api_url}units`,
       unit
     );
   }
 
   public update(unit: Unit): Observable<Unit> {
     return this.httpClient.put<Unit>(
-      `${environment.BACKEND_URL}units`,
+      `${environment.api_url}units`,
       unit
     );
   }
 
   public delete(unitId: string) {
     return this.httpClient.delete<Unit>(
-      `${environment.BACKEND_URL}units/${unitId}`
+      `${environment.api_url}units/${unitId}`
     );
   }
 }

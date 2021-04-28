@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   authenticated: boolean = false;
 
-  @HostListener('window:scroll', ['$event']) // for window scroll events
+  @HostListener('window:scroll', ['$event'])
   onScroll(event) {
     if (document.getElementsByClassName("drawer")[0].classList.contains("is-open")) {
       this.toggleMobileBar();
@@ -46,11 +46,8 @@ export class AppComponent implements OnInit {
     this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
     this.authenticationService.isAuthenticated()
       .subscribe(auth => this.authenticated = auth)
-
-
-
-
   }
+
   ngOnInit(): void {
     if (localStorage.getItem("jwt")) {
       this.authenticationService.setAuthentication(true)
@@ -77,8 +74,6 @@ export class AppComponent implements OnInit {
 
   logout(): void {
     if (confirm("Are you sure you want to log out?")) {
-
-
       this.authenticationService.logout().subscribe(res => {
         this.authenticationService.setAuthentication(false)
         this.userInfoService.setUserInfo(undefined)

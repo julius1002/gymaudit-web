@@ -11,7 +11,7 @@ export class UploadService {
   constructor(private httpClient: HttpClient) { }
 
   postFile(fileToUpload: File): Observable<any> {
-    const endpoint = environment.BACKEND_URL + "files";
+    const endpoint = environment.api_url + "files";
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.httpClient.post(endpoint, formData, {

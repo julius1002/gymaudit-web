@@ -39,6 +39,6 @@ export class UserinfoComponent implements OnInit {
 
   authorizeGoogleDrive($event){
     $event.preventDefault();
-    window.location.href =environment.BACKEND_URL + "oauth2/google/drive?jwt=" +localStorage.getItem("jwt")
+    window.location.href =environment.api_url + "oauth2/google/drive?jwt=" +localStorage.getItem("jwt")
   }
 }

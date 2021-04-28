@@ -15,7 +15,7 @@ export class FileUploadComponent implements OnInit {
 
   @Input() data;
 
-  apiUri = environment.BACKEND_URL
+  apiUri = environment.api_url
 
   fileToUpload: File = null;
 

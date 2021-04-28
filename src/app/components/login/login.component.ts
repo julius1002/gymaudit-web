@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   hide: boolean = true;
-  apiUri: string = environment.BACKEND_URL;
+  apiUri: string = environment.api_url;
 
   constructor(private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,

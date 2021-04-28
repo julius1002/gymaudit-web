@@ -1,0 +1,114 @@
+@import "../../../../../styles.scss";
+
+
+.back-button {
+    align-self: center;
+    max-width: 2.5em;
+    margin-left: 0.5em;
+    flex: 1;
+}
+
+.title {
+    flex:3;
+    align-self: center;
+    margin-bottom: 0;
+    text-align: center;
+    overflow:hidden;
+    position:relative
+}
+
+.search-button {
+    flex:1;
+    max-width: 2.5em;
+    margin-right: 0.5em;
+    text-align:right;
+}
+
+.title > h5 {
+    margin-bottom: 0;
+    padding: 2px;
+}
+
+.headline {
+    text-align: center;
+}
+
+.set-option-container {
+    display:flex;
+    margin: 0.5em auto;
+
+}
+
+.accordion-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+mat-expansion-panel:first-child {
+    margin-top: 2em;
+}
+
+mat-expansion-panel + mat-expansion-panel {
+    margin-top:0.5em;
+}
+
+.icon-container {
+    display:flex
+}
+
+.icon-container > mat-icon {
+    flex: 1;
+    text-align: center;
+}
+
+.bottom-nav {
+    background-color:$primary;
+    display:flex;
+    height: 2.5em;
+    padding: 0;
+    position:fixed;
+    width: 100%;
+    bottom: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    transform: translateY(2em);
+    transition: transform 0.4s cubic-bezier(0.2, 4, 0, 1.47),
+                opacity 0.4s linear
+}
+
+.bottom-nav > li {
+    list-style-type: none;
+    color:white;
+    align-self:center;
+    text-align: center;
+}
+
+.bottom-nav > li > mat-icon {
+    align-self:center;
+    font-size: 1.5em;
+}
+
+.add-button {
+    flex:2;
+ align-self: center;
+}
+
+.show-nav {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.invisible {
+    display:none;
+}
+
+.visible {
+    display:block;
+}
+
+.new-set { 
+    border: 2px solid $secondary;
+    border-radius: 10%;
+}
+

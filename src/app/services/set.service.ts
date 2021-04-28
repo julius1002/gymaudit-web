@@ -11,8 +11,8 @@ import { environment } from "src/environments/environment";
 export class SetService {
   constructor(private httpClient: HttpClient) { }
 
-  public getSets(exerciseId: string, isoDate:string = new Date().toISOString()): Observable<Set[]> {
-    return this.httpClient.get<Set[]>(`${environment.BACKEND_URL}sets/${exerciseId}?date=${isoDate}`)
+  public getSets(exerciseId: string, isoDate: string = new Date().toISOString()): Observable<Set[]> {
+    return this.httpClient.get<Set[]>(`${environment.api_url}sets/${exerciseId}?date=${isoDate}`)
   }
 
   public getByPage(
@@ -22,7 +22,7 @@ export class SetService {
     page: number
   ): Observable<Page<Set>> {
     return this.httpClient.get<Page<Set>>(
-      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}&page=${page}&size=${size}`
+      `${environment.api_url}units/${unitId}/sets?exerciseId=${exerciseId}&page=${page}&size=${size}`
     );
   }
 
@@ -33,25 +33,24 @@ export class SetService {
     page: number
   ): Observable<Page<Set>> {
     return this.httpClient.get<Page<Set>>(
-      `${environment.BACKEND_URL}units/${unitId}/sets/today?exerciseId=${exerciseId}&page=${page}&size=${size}`
+      `${environment.api_url}units/${unitId}/sets/today?exerciseId=${exerciseId}&page=${page}&size=${size}`
     );
   }
 
-  public postSet(unitId: string, exerciseId: string, set: Set): Observable<Set> {
+  public postSet(exerciseId: string, set: Set): Observable<Set> {
     return this.httpClient.post<Set>(
-      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
+      `${environment.api_url}sets/${exerciseId}`
       , set);
   }
 
-  public putSet(unitId: string, exerciseId: string, set: Set): Observable<Set> {
+  public put(exerciseId: string, setId: string, set: Set): Observable<Set> {
     return this.httpClient.put<Set>(
-      `${environment.BACKEND_URL}units/${unitId}/sets?exerciseId=${exerciseId}`
-      , set);
+      `${environment.api_url}sets/${exerciseId}?setId=${setId}`, set);
   }
 
-  public deleteSet(setId: string) {
+  public delete(exerciseId: string, setId: string) {
     return this.httpClient.delete<Set>(
-      `${environment.BACKEND_URL}sets/${setId}`
+      `${environment.api_url}sets/${exerciseId}?setId=${setId}`
     )
   }
 }
