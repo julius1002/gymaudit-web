@@ -106,9 +106,23 @@ mat-expansion-panel + mat-expansion-panel {
 .visible {
     display:block;
 }
+mat-expansion-panel{
+    outline: $primary 0px solid;
+    transition: outline 0.4s linear
 
-.new-set { 
-    border: 2px solid $secondary;
-    border-radius: 10%;
+}
+.new-mat-expansion-panel {
+    z-index: 1;
+    outline: $primary 5px solid;
+    animation: land-on-top 400ms ease-in;
 }
 
+@keyframes land-on-top {
+    0%{
+transform: translateY(-250px)
+    } 75% {
+        transform: translateY(30px)
+    } 100% {
+        transform: translateY(0px)
+    }
+}

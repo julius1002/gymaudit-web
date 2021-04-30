@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, LOCALE_ID, Inject } from "@angular/core";
+import { Component, OnInit, Input, LOCALE_ID, Inject, QueryList, ElementRef, ViewChildren, Renderer2 } from "@angular/core";
 import { Exercise } from "src/app/model/exercise";
 import { MeasureUnit, Set } from "src/app/model/set";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -9,6 +9,8 @@ import { DatePipe } from "@angular/common";
 import { AddSetComponent } from "../add-set/add-set.component";
 import { MatDialog } from "@angular/material/dialog";
 import { EditSetComponent } from "../edit-set/edit-set.component";
+import { MatExpansionPanel } from "@angular/material/expansion";
+import { delay, take, tap } from "rxjs/operators";
 
 @Component({
   selector: "app-log-sets",
@@ -23,13 +25,16 @@ export class LogSetsComponent implements OnInit {
 
   exerciseId: string;
 
+  @ViewChildren("setElements") setElements;
+
   constructor(private router: Router, private route: ActivatedRoute, private setService: SetService, private exerciseService: ExerciseService, @Inject(LOCALE_ID) private locale: string,
-    public dialog: MatDialog,
+    public dialog: MatDialog, private renderer: Renderer2
   ) { }
 
   title: string = "Heutige Sätze"
 
   async ngOnInit() {
+
     this.exercise = window.history.state
 
     this.exerciseId = this.route.snapshot.paramMap.get("exerciseId") || window.history.state?.id
@@ -76,6 +81,7 @@ export class LogSetsComponent implements OnInit {
   }
 
   async openDialog(set: Set = undefined) {
+    var setElements = this.setElements
 
     if (set) {
       const dialogRef = this.dialog.open(EditSetComponent, {
@@ -84,14 +90,15 @@ export class LogSetsComponent implements OnInit {
         data: set
       })
 
+
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.sets = this.sets.filter(set => set.id != result.id)
           this.sets.unshift(result)
         }
+        console.log(setElements.length - this.setElements.length)
       })
     } else {
-
       if (!window.history.state.date) {
         this.exercise = await this.exerciseService.getSingle(this.exerciseId).toPromise()
       }
@@ -103,7 +110,16 @@ export class LogSetsComponent implements OnInit {
       })
 
       dialogRef.afterClosed().subscribe(result => {
-        this.sets.unshift(result)
+        if (result) {
+          var length = this.sets.unshift(result);
+
+          this.setElements.changes
+            .pipe(take(1), tap(res => document.getElementById(result.id).classList.add("new-mat-expansion-panel")),
+            delay(600))
+            .subscribe(res => { document.getElementById(result.id).classList.remove("new-mat-expansion-panel") 
+          })
+        }
+
       })
     }
   }

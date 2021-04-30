@@ -17,13 +17,13 @@
 <ng-container *ngIf="sets && sets.length">
     <div class="accordion-container">
         <mat-accordion>
-            <mat-expansion-panel hideToggle *ngFor="let set of this.sets">
+            <mat-expansion-panel #setElements hideToggle *ngFor="let set of this.sets" id = {{set.id}}>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         {{set.date | date:"HH:mm:ss"}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        <span style="font-weight: bold;">{{set.reps}} Wiederholungen
+                        <span>{{set.reps}} Wiederholungen
                             {{set.load}} {{set.measureUnit}}</span>
                     </mat-panel-description>
                 </mat-expansion-panel-header>

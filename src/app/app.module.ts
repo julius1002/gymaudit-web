@@ -52,7 +52,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EditUnitComponent } from './components/training-log/units/edit-unit/edit-unit.component';
 import { FileUploadComponent } from './components/training-log/file-upload/file-upload.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @NgModule({
