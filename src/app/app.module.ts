@@ -43,7 +43,6 @@ import { EditSetComponent } from './components/training-log/sets/edit-set/edit-s
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { AboutComponent } from './components/about/about.component';
 import { HttpRequestInterceptor } from "./interceptors/httprequestinterceptor";
 import { RedirectComponent } from './components/redirect/redirect.component';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
@@ -53,6 +52,8 @@ import { EditUnitComponent } from './components/training-log/units/edit-unit/edi
 import { FileUploadComponent } from './components/training-log/file-upload/file-upload.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { AgoPipe } from './pipes/ago.pipe';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -72,11 +73,12 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
     EditSetComponent,
     LoginComponent,
     SignupComponent,
-    AboutComponent,
     RedirectComponent,
     UserinfoComponent,
     EditUnitComponent,
-    FileUploadComponent],
+    FileUploadComponent,
+    AgoPipe,
+    HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

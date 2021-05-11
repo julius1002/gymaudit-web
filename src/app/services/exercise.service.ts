@@ -30,7 +30,7 @@ export class ExerciseService {
 
 
 
-  public getSingle(exerciseId: string): Observable<Exercise> {
+  public get(exerciseId: string): Observable<Exercise> {
     return this.httpClient.get<Exercise>(
       `${environment.api_url}exercise/${exerciseId}`
     );

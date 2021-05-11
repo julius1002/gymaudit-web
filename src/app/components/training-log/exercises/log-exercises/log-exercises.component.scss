@@ -5,8 +5,6 @@
     border: 0;
  }
 
-
-
 .active{
     background-color: black;
 }
@@ -18,7 +16,7 @@
 .exercise-list{
     display:grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1em;
+    gap: 1.5em;
     margin-bottom: 4em;
     margin-top: 1em;
     list-style-type: none; 
@@ -35,18 +33,18 @@
 }
 
 .unit-name-container{
-    background-color:$secondary;
     text-transform: uppercase;
 }
 
-.unit-option-container{
-    display:flex;
-    margin: 0.5em auto;
-
+.unit-option-container {
+    display:flex;   
+    margin: 3em auto 1em auto;
 }
 
 mat-icon{
-    padding:0
+    padding:0;
+    margin: 0 auto;
+
 }
 
 .back-button{
@@ -108,10 +106,8 @@ mat-icon{
     background-color:$secondary;
     margin:0 0;
     text-transform: uppercase;
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
-    box-shadow: 0.1em 0.1em 0.3em #124;
-
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
 }
 
 .no-image{
@@ -119,11 +115,7 @@ mat-icon{
     color:white;
 }
 
-img{
-    background-size: contain;
-    max-height: 8em;
-    width:auto;    
-}
+
 @keyframes turn{
     0%{
         opacity: 0;
@@ -184,8 +176,8 @@ img{
             align-self:center;
             font-size: 1.5em;
 }
-
-.card{
+ 
+.card {
     position: relative;
     width: 100%;
     height: 80%;
@@ -197,35 +189,58 @@ img{
     text-align:center;
 }
 
+.no-image {
+    align-self: center;
+    color:white;
+    margin: 0 auto;
+}
+
+
 .exercise-card {
     position:absolute;
     height: 8em;
     width: 100%;
     margin:0 0;
+    background: $secondary;
     text-align: center;
-    background-image: linear-gradient($secondary, white);
-    box-shadow: 0.1em 0.1em 0.3em #124;
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display:flex;
 }
 
 .exercise-card-flipped{
     transform: translateX(-100%) rotateY(-180deg);
+    -webkit-transform: translateX(-100%) rotateY(-180deg);
+
 }
 .exercise-card--back {
-    background: $primary;
+    background: $secondary;
     transform: rotateY(180deg);
-
+    -webkit-transform: rotateY(180deg);
   }
 
-
-img{
+  img{
+    height: 100%;
     max-width: 100%;
-    width:auto;    
+    margin: 0 auto;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
 }
 
-  .exercise-card > mat-icon{
+.exercise-card > mat-icon{
     color:white;
     margin-top:1.4em;
     font-size: 2em;
+}
+
+p { text-align: center; font-size: 0.9em}
+
+@media (min-width: 35em){
+    .unit-option-container{ margin: 5em auto 2em auto; }
+
+    .exercise-list{ grid-template-columns: 1fr 1fr 1fr 1fr 1fr }
+
+    .exercise-list > li { max-width: 350px }
+
+    mat-icon { cursor: pointer }
 }

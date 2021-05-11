@@ -21,23 +21,34 @@ export class LogSetsComponent implements OnInit {
 
   sets: Set[];
 
-  exercise: Exercise;
+  selectedExercise: Exercise;
 
   exerciseId: string;
 
-  @ViewChildren("setElements") setElements;
-
-  constructor(private router: Router, private route: ActivatedRoute, private setService: SetService, private exerciseService: ExerciseService, @Inject(LOCALE_ID) private locale: string,
-    public dialog: MatDialog, private renderer: Renderer2
-  ) { }
+  date = Date.now()
 
   title: string = "Heutige Sätze"
 
+  measureUnit = MeasureUnit
+  @ViewChildren("setElements") setElements;
+
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private setService: SetService,
+    private exerciseService: ExerciseService,
+    @Inject(LOCALE_ID) private locale: string,
+    public dialog: MatDialog
+  ) { }
+
   async ngOnInit() {
 
-    this.exercise = window.history.state
+    this.selectedExercise = <Exercise>history.state.data
 
-    this.exerciseId = this.route.snapshot.paramMap.get("exerciseId") || window.history.state?.id
+    this.exerciseId = this.route.snapshot.paramMap.get("exerciseId")
+
+    if (!this.selectedExercise) {
+      this.selectedExercise = await this.exerciseService.get(this.exerciseId).toPromise()
+    }
 
     this.setService.getSets(this.exerciseId)
       .subscribe(sets => this.sets = sets)
@@ -48,11 +59,7 @@ export class LogSetsComponent implements OnInit {
   }
 
   async navigateBack() {
-    if (!window.history.state.date) {
-      this.exercise = await this.exerciseService.getSingle(this.exerciseId).toPromise()
-    }
-
-    this.router.navigate(["training-log", "units", this.exercise.unitId])
+    this.router.navigate(["training-log", "units", this.selectedExercise.unitId])
   }
 
   toggleSearchBar() {
@@ -75,8 +82,6 @@ export class LogSetsComponent implements OnInit {
   async dateChange($event: MatDatepickerInputEvent<Date>) {
     this.title = new DatePipe(this.locale).transform($event.value, 'dd-MM-yyyy');
 
-    $event.value.toString()
-
     this.sets = await this.setService.getSets(this.exerciseId, $event.value.toISOString()).toPromise()
   }
 
@@ -85,8 +90,8 @@ export class LogSetsComponent implements OnInit {
 
     if (set) {
       const dialogRef = this.dialog.open(EditSetComponent, {
-        width: '75%',
-        height: '85%',
+        width: window.innerWidth < 600 ? '95%' : '25%',
+        height: window.innerWidth < 600 ? '100%' : '75%',
         data: set
       })
 
@@ -100,13 +105,13 @@ export class LogSetsComponent implements OnInit {
       })
     } else {
       if (!window.history.state.date) {
-        this.exercise = await this.exerciseService.getSingle(this.exerciseId).toPromise()
+        this.selectedExercise = await this.exerciseService.get(this.exerciseId).toPromise()
       }
 
       const dialogRef = this.dialog.open(AddSetComponent, {
-        width: '75%',
-        height: '85%',
-        data: this.exercise
+        width: window.innerWidth < 600 ? '95%' : '25%',
+        height: window.innerWidth < 600 ? '100%' : '75%',
+        data: this.selectedExercise
       })
 
       dialogRef.afterClosed().subscribe(result => {
@@ -115,9 +120,10 @@ export class LogSetsComponent implements OnInit {
 
           this.setElements.changes
             .pipe(take(1), tap(res => document.getElementById(result.id).classList.add("new-mat-expansion-panel")),
-            delay(600))
-            .subscribe(res => { document.getElementById(result.id).classList.remove("new-mat-expansion-panel") 
-          })
+              delay(600))
+            .subscribe(res => {
+              document.getElementById(result.id).classList.remove("new-mat-expansion-panel")
+            })
         }
 
       })
@@ -127,11 +133,19 @@ export class LogSetsComponent implements OnInit {
   async delete(set: Set) {
     if (confirm("Soll der Satz gelöscht werden?")) {
       try {
-        var setResponse = await this.setService.delete(set.exerciseId, set.id).toPromise()
-        this.sets = this.sets.filter(set => set.id != setResponse.id)
+        this.setService.delete(set.exerciseId, set.id).pipe(tap((res) => {
+          document.getElementById(res.id).classList.add("delete-mat-expansion-panel")
+        }), delay(500))
+          .subscribe(
+            res => {
+              this.sets = this.sets.filter(set => set.id != res.id)
+
+            }
+          )
       } catch (err) {
         console.log(err)
       }
     }
   }
+
 }

@@ -6,7 +6,6 @@ import { LogExercisesComponent } from "./components/training-log/exercises/log-e
 import { LogUnitListComponent } from './components/training-log/units/log-unit-list/log-unit-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { AboutComponent } from './components/about/about.component';
 import { RedirectComponent } from "./components/redirect/redirect.component";
 import { UserinfoComponent } from "./components/userinfo/userinfo.component";
 import { LogSetsComponent } from "./components/training-log/sets/log-sets/log-sets.component";
@@ -54,10 +53,6 @@ const routes: Routes = [
         component: LogSetsComponent
       }
     ],
-  },
-  {
-    path: "about",
-    component: AboutComponent,
   }
 ];
 

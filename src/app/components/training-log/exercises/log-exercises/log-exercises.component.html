@@ -2,7 +2,7 @@
   <mat-icon class="back-button" routerLink="..">arrow_back_ios</mat-icon>
   <div class="title">
     <h5 id="unit-title">
-      {{this.selectedUnit?.name || "Einheit" }}
+      {{this.selectedUnit?.name }}
     </h5>
     <input id="search-bar" class="invisible" (keyup)="keyUp$.next($event.target.value)">
   </div>
@@ -13,6 +13,7 @@
     close
   </mat-icon>
 </div>
+<p>{{this.selectedUnit?.description}}</p>
 <ng-container *ngIf="exercisesPage">
   <ng-container *ngIf="exercisesPage.content.length; else noresults">
     <ul class="exercise-list">
@@ -26,9 +27,9 @@
               <img src="{{apiUrl + 'files/' + exercise.fileId}}">
             </ng-container>
             <ng-template #noimg>
-              <div class="no-image">
-                Kein Bild hinzugefügt
-              </div>
+              <span class="no-image">
+                <mat-icon>fitness_center</mat-icon>
+              </span>
             </ng-template>
           </div>
           <div class="exercise-card exercise-card--back">

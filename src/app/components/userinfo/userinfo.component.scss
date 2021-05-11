@@ -1,25 +1,21 @@
 @import "../../../styles.scss";
 
-.userinfo{
-    max-width: 85%;
-    margin: 0 auto;
-}
-
-h2{
+h2 {
     margin: 1em auto;
     text-align: center;
 }
-.profile-grid{
+.profile-grid {
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(4,auto);
     gap: 1.5em;
 }
 
-.main{
+.main {
     text-align: center;
     margin-bottom: 2em;
 }
+
 .submit-button {
     background-color: $primary;
     color:white !important;
@@ -28,17 +24,16 @@ h2{
     width: 100%;
     padding: 0.5em 1em;
     display:block;
-    box-sizing: border-box;
     margin: 0 auto;
     text-decoration: none;
-    text-align: center;
-    margin-top:2em; 
     margin-bottom: 1em;
+    border: 4px solid $primary;
 }
-a{
+
+a {
     text-align: center;
 }
-.google-login-button{
+.google-login-button {
     box-sizing: border-box;
     width:100%;
     display:block;
@@ -53,36 +48,38 @@ a{
 
 }
 
-.divider{
+.divider {
     border-top: 1px solid #d9dadc;
     margin: 1.5em auto;
-    }
+}
 
-.profile-image{
+.profile-image {
     border-radius: 50%;
     flex:1;
     max-width:5em;
     height: 5em
 }
 
-ul{
+.container > h2 { margin-top: 3em }
+
+ul {
     margin:0;
     padding: 0;
     list-style: none;
 }
 
-img{
+img {
     height: 1.5em;  
 }
 
-.google-img{
+.google-img {
     margin-right: 0.5em;
 }
 
-.key{
+.key {
     color: #a9a9a9;
 }
 
-.value{
+.value {
     text-align: right;
 }

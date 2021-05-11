@@ -13,6 +13,7 @@ import { ExercisesListService } from "src/app/services/exercises-list.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { environment } from "src/environments/environment";
 import { EditExerciseComponent } from "../edit-exercise/edit-exercise.component";
+import { UnitService } from "src/app/services/unit.service";
 @Component({
   selector: "app-log-exercises",
   templateUrl: "./log-exercises.component.html",
@@ -21,7 +22,7 @@ import { EditExerciseComponent } from "../edit-exercise/edit-exercise.component"
 export class LogExercisesComponent implements OnInit {
 
 
-  selectedUnit;
+  selectedUnit: Unit;
 
   @ViewChild('appLogSets')
   logSetsElement: ElementRef;
@@ -55,11 +56,12 @@ export class LogExercisesComponent implements OnInit {
     public dialog: MatDialog,
     public exerciseListService: ExercisesListService,
     public snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private unitService: UnitService
   ) { }
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     this.keyUp$.pipe(
       filter(filter => filter.length >= 3 || filter.length == 0),
@@ -80,10 +82,14 @@ export class LogExercisesComponent implements OnInit {
       }),
     ).subscribe(res => this.exercisesPage = res)
 
-
     this.selectedUnit = <Unit>history.state.data
 
     this.route.paramMap.pipe(
+      tap(async (paramMap) => {
+        if (!this.selectedUnit) {
+          this.selectedUnit = await this.unitService.get(paramMap.get("unitId")).toPromise()
+        }
+      }),
       switchMap((paramMap) =>
         this.exerciseService.getByPage(paramMap.get("unitId")
           , this.pageSize, this.index)
@@ -116,8 +122,8 @@ export class LogExercisesComponent implements OnInit {
     if (exercise) {
 
       const dialogRef = this.dialog.open(EditExerciseComponent, {
-        width: '75%',
-        height: '85%',
+        width: window.innerWidth < 600 ? '95%' : '25%',
+        height: window.innerWidth < 600 ? '100%' : '75%',
         data: exercise
       })
       dialogRef.afterClosed().subscribe(result => {
@@ -155,8 +161,8 @@ export class LogExercisesComponent implements OnInit {
       }
       this.unitId$.subscribe(unitId => {
         const dialogRef = this.dialog.open(AddExerciseComponent, {
-          width: '75%',
-          height: '85%',
+          width: window.innerWidth < 600 ? '95%' : '25%',
+          height: window.innerWidth < 600 ? '100%' : '75%',
           data: { unitid: unitId }
         })
         dialogRef.afterClosed().subscribe(result => {

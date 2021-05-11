@@ -2,7 +2,7 @@
     <mat-icon class="back-button" (click)="this.navigateBack()">arrow_back_ios</mat-icon>
     <div class="title">
         <h5>
-            {{this.exercise?.name || "Übung"}}
+            {{this.selectedExercise?.name}}
         </h5>
     </div>
     <div class="search-button">
@@ -11,20 +11,25 @@
         <mat-datepicker touchUi #picker></mat-datepicker>
     </div>
 </div>
+<p>{{this.selectedExercise?.description}}</p>
 <div class="headline">
     <h5>{{title}} ({{sets?.length}})</h5>
 </div>
 <ng-container *ngIf="sets && sets.length">
     <div class="accordion-container">
         <mat-accordion>
-            <mat-expansion-panel #setElements hideToggle *ngFor="let set of this.sets" id = {{set.id}}>
-                <mat-expansion-panel-header>
+            <mat-expansion-panel #setElements hideToggle *ngFor="let set of this.sets" id={{set.id}}>
+                <mat-expansion-panel-header [collapsedHeight]="'5em'" [expandedHeight]="'5em'">
                     <mat-panel-title>
-                        {{set.date | date:"HH:mm:ss"}}
+                        {{date - set.date | ago}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        <span>{{set.reps}} Wiederholungen
-                            {{set.load}} {{set.measureUnit}}</span>
+                        <ul>
+                            <li>{{set.reps}} Wiederholungen </li>
+                            <li>{{set.load}}
+                                {{measureUnit[set.measureUnit]}}
+                            </li>
+                        </ul>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="icon-container">

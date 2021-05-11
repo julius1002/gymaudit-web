@@ -4,10 +4,6 @@
 :root{
     box-sizing: border-box;
   }
-
-  :root{
-    box-sizing: border-box;
-  }
   *,
   ::before,
   ::after{
@@ -17,10 +13,6 @@
   *:focus {
     outline: none;
 }
-html, 
-body {
-    height: 100%;
-}
 
 .divider{
   border-top: 1px solid #d9dadc;
@@ -28,7 +20,12 @@ body {
   }
 
  $primary: #647bb9;
- $secondary: rgb(0, 85, 165);
+ $secondary: #85a0fa;
+ $text: #646464;
 
-
- 
+ .container{
+  text-align: center;
+  width:90%;
+  padding: 0;
+  max-width: 450px;
+}   

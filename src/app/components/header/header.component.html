@@ -1,0 +1,43 @@
+<mat-toolbar id="toolbar">
+    <div class="nav-left">
+      <a mat-icon-button (click)="toggleMobileBar()" class="nav-left">
+        <mat-icon class="burger-menu">menu</mat-icon>
+      </a>
+    </div>
+    <div class="nav-middle">
+      GymAudit
+    </div>
+    <div class="nav-right">
+      <ng-container *ngIf="this.userInfo && this.userInfo.picture && this.authenticated">
+        <img class="header-image" src={{this.userInfo.picture}} routerLink="userinfo">
+      </ng-container>
+    </div>
+  </mat-toolbar>
+  <ng-container *ngIf="this.authenticated; else notAuthenticated">
+    <div class="drawer">
+      <ul id="drawer-list">
+        <li routerLink="home"><a mat-button >Home</a></li>
+        <li routerLink="training-log/units"><a mat-button >Training</a></li>
+        <li routerLink="userinfo"><a mat-button >Konto</a></li>
+        <li (click)="logout()">
+          <a mat-button>
+            Ausloggen
+            <mat-icon inline>logout</mat-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+  <ng-template #notAuthenticated>
+  <div class="drawer">
+    <ul id="drawer-list">
+      <li routerLink="home"><a>Home</a></li>
+      <li routerLink="about"><a>About</a></li>
+      <li><a mat-button routerLink="login">
+          Einloggen
+          <mat-icon inline>login</mat-icon>
+        </a>
+      </li>
+    </ul>
+  </div>
+</ng-template>

@@ -9,7 +9,13 @@ import { Page } from "../model/page";
   providedIn: "root",
 })
 export class UnitService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
+
+  public get(
+    id: string
+  ): Observable<Unit> {
+    return this.httpClient.get<Unit>(`${environment.api_url}units/${id}`);
+  }
 
   public getByPage(
     size: number,

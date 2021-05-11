@@ -1,59 +1,74 @@
 @import "../../../styles.scss";
 
 
-.tile{
-    border-top: 15px solid $secondary;
+.tile {
+    border-top: 6px solid $primary;
     font-size: 0.9em;
-    margin: auto 1em;
-}
-
-.tile + .tile{
-    margin-top:1em;
-}
-
-
-.tile-content{
     margin: auto 2em;
 }
 
-.hero{
+.tile {
+    margin-top:2em;
+}
+
+
+.tile-content {
+    margin: 1em 1em auto 1em;
+}
+
+.tile:last-child {
+    padding-bottom: 3em;
+}
+
+.hero {
     background: url("../../../assets/hero.jpg") no-repeat;
     background-size: cover;
 }
 
-.hero-inner{
-    margin-left: 0.5em; 
-    max-width: 1080px;
-    color:black;
+.hero-inner {
+   margin-top: 2.5em;
+   margin-left: 0.5em; 
+   max-width: 1080px;
+   color:black;
    padding-top: 10px;
    padding-bottom:  255px;
    text-transform: uppercase;
    
 }
 
-p{
+p {
     margin:0;
 }
 
 
 @media(min-width: 32em){
-    .tile-row{
+    .tile-row {
         display:flex;
         max-width: 1080px;
         margin: 0 auto;
         margin-top: 2em;
 
     }
-    .tile{
+    .tile {
         flex-basis: 33%;
         margin-top: 0 !important;
     }
-    .tile+.tile{
+    .tile + .tile {
         margin-left: 2em;
     }
-    
+    .hero {
+        background-size: contain;
+        width: 1000px;
+        margin: 0 auto;
+        height: 500px;
+    }
+
+    .hero {
+        background: url("../../../assets/hero.jpg") no-repeat;
+        background-size: cover;
+    }
 }
 
-a{
+a {
     margin: 1em auto;
 }

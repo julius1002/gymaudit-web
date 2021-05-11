@@ -7,7 +7,7 @@ import { UnitService } from 'src/app/services/unit.service';
 import { ExerciseService } from 'src/app/services/exercise.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { AddUnitDialogComponent } from '../add-unit-dialog/add-unit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -29,6 +29,8 @@ export class LogUnitListComponent implements OnInit {
 
   editView: boolean = false;
 
+  isLoading: boolean = false;
+
   constructor(
     private unitService: UnitService,
     private router: Router,
@@ -40,14 +42,13 @@ export class LogUnitListComponent implements OnInit {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-
-    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    if (pos == max) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       if (!this.unitsPage?.last) {
-        this.unitService.getByPage(this.pageSize, this.index += 1, "").subscribe((res: Page<Unit>) => {
+        this.isLoading = true
+        this.unitService.getByPage(this.pageSize, this.index += 1, "").pipe(take(1)).subscribe((res: Page<Unit>) => {
           this.unitsPage.content = this.unitsPage.content.concat(res.content)
           this.unitsPage.last = res.last
+          this.isLoading = false
         })
         setTimeout(() => {
           if (this.editView) {
@@ -64,7 +65,6 @@ export class LogUnitListComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-
     this.getUnitsPage(this.pageSize, this.index)
 
   }
@@ -99,8 +99,8 @@ export class LogUnitListComponent implements OnInit {
     var dialogRef
     if (unit) {
       dialogRef = this.dialog.open(EditUnitComponent, {
-        width: '75%',
-        height: '85%',
+        width: window.innerWidth < 600 ? '95%' : '25%',
+        height: window.innerWidth < 600 ? '100%' : '75%',
         data: unit
       })
 
@@ -136,8 +136,8 @@ export class LogUnitListComponent implements OnInit {
         this.toggleSettingsView()
       }
       dialogRef = this.dialog.open(AddUnitDialogComponent, {
-        width: '75%',
-        height: '85%'
+        width: window.innerWidth < 600 ? '95%' : '25%',
+        height: window.innerWidth < 600 ? '100%' : '75%',
       })
       dialogRef.afterClosed().subscribe(result => {
         if (result) {

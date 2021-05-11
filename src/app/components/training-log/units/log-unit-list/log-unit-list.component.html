@@ -1,19 +1,18 @@
-<div class="main-units">
-  <ng-container *ngIf="unitsPage">
-    <ng-container *ngIf="unitsPage.content.length;else nounitresults">
-      <ul class="unit-list">
-        <li *ngFor="let unit of unitsPage.content; let i = index;" (click)="routeToExercise($event, unit)">
-          <div class="unit-name-container">
-            {{ unit.name }}
-          </div>
-          <div class ="card">
+<ng-container *ngIf="unitsPage">
+  <ng-container *ngIf="unitsPage.content.length;else nounitresults">
+    <ul class="unit-list">
+      <li *ngFor="let unit of unitsPage.content; let i = index;" (click)="routeToExercise($event, unit)">
+        <div class="unit-name-container">
+          {{ unit.name }}
+        </div>
+        <div class="card">
           <div class="unit-card">
             <ng-container *ngIf="unit.fileId; else noimg">
               <img src="{{apiUrl + 'files/' + unit.fileId}}">
             </ng-container>
             <ng-template #noimg>
               <span class="no-image">
-                Kein Bild hinzugefügt
+                <mat-icon >fitness_center</mat-icon>
               </span>
             </ng-template>
           </div>
@@ -23,31 +22,36 @@
             </mat-icon>
           </div>
         </div>
+      </li>
+      <ng-container *ngIf="this.isLoading">
+        <li class ="spinner-li">
+          <mat-spinner [diameter]=60>
+          </mat-spinner>
         </li>
-      </ul>
-    </ng-container>
-  </ng-container>
-  <ng-template #nounitresults>
-    <h4 style="text-align: center;">
-      Keine Ergebnisse
-    </h4>
-  </ng-template>
-
-  <div class="unit-bottom-nav" id="bottom-nav">
-    <ng-container *ngIf ="unitsPage && unitsPage.content.length">
-    <ng-container *ngIf = "!this.editView; else closeicon">
-    <mat-icon class="unit-settings-toggle-btn" (click) ="toggleSettingsView()">
-      settings
-    </mat-icon>
+      </ng-container>
+    </ul>
   </ng-container>
 </ng-container>
+<ng-template #nounitresults>
+  <h4 style="text-align: center;">
+    Keine Ergebnisse
+  </h4>
+</ng-template>
+
+<div class="unit-bottom-nav" id="bottom-nav">
+  <ng-container *ngIf="unitsPage && unitsPage.content.length">
+    <ng-container *ngIf="!this.editView; else closeicon">
+      <mat-icon class="unit-settings-toggle-btn" (click)="toggleSettingsView()">
+        settings
+      </mat-icon>
+    </ng-container>
+  </ng-container>
   <ng-template #closeicon>
-    <mat-icon  class="unit-settings-toggle-btn" (click) ="toggleSettingsView()">
+    <mat-icon class="unit-settings-toggle-btn" (click)="toggleSettingsView()">
       close
     </mat-icon>
   </ng-template>
-    <mat-icon class="unit-add-button" (click)="openDialog()">
-      add
-    </mat-icon>
-  </div>
+  <mat-icon class="unit-add-button" (click)="openDialog()">
+    add
+  </mat-icon>
 </div>
