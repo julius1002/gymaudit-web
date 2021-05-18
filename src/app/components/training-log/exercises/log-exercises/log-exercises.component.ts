@@ -40,9 +40,7 @@ export class LogExercisesComponent implements OnInit {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    if (pos == max) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       var bottomnav = document.getElementById("bottom-nav");
       if (bottomnav) {
         bottomnav.classList.add("show-nav")

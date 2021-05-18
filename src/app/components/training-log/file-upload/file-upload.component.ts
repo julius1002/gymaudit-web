@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UserInfo } from 'src/app/model/userInfo';
 import { UserInfoService } from 'src/app/services/userinfo-service';
 import { environment } from 'src/environments/environment';
 
@@ -11,20 +12,20 @@ export class FileUploadComponent implements OnInit {
 
   @Output() fileEmitter = new EventEmitter<File>();
 
-  canUploadFiles: boolean = false;
-
   @Input() data;
 
   apiUri = environment.api_url
 
-  fileToUpload: File = null;
+  maxFileMegaBytes: number = 10;
+
+  selectedFile: File;
+
+  userInfo: UserInfo;
 
   constructor(private userInfoService: UserInfoService) { }
 
   ngOnInit(): void {
-    this.userInfoService.getUserinfo().subscribe(res => {
-      if (res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
-    })
+    this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
   }
 
   authorizeGoogleDrive($event) {
@@ -33,12 +34,18 @@ export class FileUploadComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    this.fileEmitter.emit(this.fileToUpload);
+    var file = files.item(0);
+
+    if (file.size < (this.maxFileMegaBytes * Math.pow(1024, 2))) {
+      this.selectedFile = file
+      this.fileEmitter.emit(file);
+    } else {
+      alert(`Das Bild darf ${this.maxFileMegaBytes} nicht übersteigen`)
+    }
   }
 
   public removeFile() {
-    this.fileToUpload = undefined;
+    this.selectedFile = undefined
     this.fileEmitter.emit(undefined);
   }
 

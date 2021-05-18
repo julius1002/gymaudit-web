@@ -78,7 +78,6 @@ export class ExerciseFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.userInfoService.getUserinfo().subscribe(res => {
-
       if (res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
     })
 
@@ -99,14 +98,22 @@ export class ExerciseFormComponent implements OnInit {
     );
   }
 
+  get name() { return this.exerciseForm.get('name'); }
+
+  get description() { return this.exerciseForm.get('description'); }
+
   private initForm() {
     if (this.exerciseForm) {
       return;
     }
 
     this.exerciseForm = this.formBuilder.group({
-      name: ["", Validators.required],
-      description: [""],
+      name: new FormControl("", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(18)]),
+      description: new FormControl("", [
+        Validators.maxLength(100)]),
       pictureUrl: [""],
       exerciseType: [""],
       muscleGroups: this.buildMuscleGroupsArray([""]),

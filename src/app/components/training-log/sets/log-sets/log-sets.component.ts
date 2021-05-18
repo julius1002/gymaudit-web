@@ -30,6 +30,7 @@ export class LogSetsComponent implements OnInit {
   title: string = "Heutige Sätze"
 
   measureUnit = MeasureUnit
+
   @ViewChildren("setElements") setElements;
 
   constructor(private router: Router,
@@ -116,8 +117,6 @@ export class LogSetsComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          var length = this.sets.unshift(result);
-
           this.setElements.changes
             .pipe(take(1), tap(res => document.getElementById(result.id).classList.add("new-mat-expansion-panel")),
               delay(600))
@@ -130,7 +129,7 @@ export class LogSetsComponent implements OnInit {
     }
   }
 
-  async delete(set: Set) {
+  delete(set: Set) {
     if (confirm("Soll der Satz gelöscht werden?")) {
       try {
         this.setService.delete(set.exerciseId, set.id).pipe(tap((res) => {

@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.canUploadFiles; else uploadImpossible">
+<ng-container *ngIf="this.userInfo?.providers?.split(' ').includes('google')">
   <ng-container *ngIf="this.data && this.data.fileId">
     <div class="preview-img">
       <img src="{{this.apiUri + 'files/' + this.data.fileId}}">
@@ -6,24 +6,24 @@
     </ng-container>
   <div class="file-upload">
     <div class="upload">
-      <ng-container *ngIf="!this.fileToUpload; else rmFile">
+      <ng-container *ngIf="!this.selectedFile; else rmFile">
         <label for="file" style="cursor:pointer;">
           <mat-icon style="display:block;">file_upload</mat-icon> Neues Bild hinzufügen
         </label> <input type="file" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
       </ng-container>
       <ng-template #rmFile>
         <button mat-button (click)="removeFile()">
-          {{this.fileToUpload.name}}
+          {{this.selectedFile.name}}
           <mat-icon style="display:block;">close</mat-icon>
         </button>
       </ng-template>
     </div>
   </div>
 </ng-container>
-<ng-template #uploadImpossible>
+<ng-container *ngIf="!this.userInfo?.providers?.includes('facebook') && !this.userInfo?.providers?.includes('google')">
   <div class="upload-impossible-alert">
     <p> Wir nutzen Google Drive, um Bilder zu speichern!</p>
     <a class="google-login-button" mat-raised-button (click)="authorizeGoogleDrive($event)"><img class="google-image"
         src="../../../assets/google-icon-small.svg">Autorisiere Google</a>
   </div>
-</ng-template>
+</ng-container>

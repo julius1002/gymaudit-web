@@ -17,6 +17,7 @@
 </div>
 <ng-container *ngIf="sets && sets.length">
     <div class="accordion-container">
+        <div class="divider"></div>
         <mat-accordion>
             <mat-expansion-panel #setElements hideToggle *ngFor="let set of this.sets" id={{set.id}}>
                 <mat-expansion-panel-header [collapsedHeight]="'5em'" [expandedHeight]="'5em'">
@@ -24,12 +25,12 @@
                         {{date - set.date | ago}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        <ul>
-                            <li>{{set.reps}} Wiederholungen </li>
-                            <li>{{set.load}}
-                                {{measureUnit[set.measureUnit]}}
-                            </li>
-                        </ul>
+                        <div class="accordion-container__grid">
+                            <div class="attribute"> Wiederholungen</div>
+                            <div class="value"><strong>{{set.load}}</strong></div>
+                            <div class="attribute">{{measureUnit[set.measureUnit]}}</div>
+                            <div class="value"><strong>{{set.reps}}</strong></div>
+                        </div>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="icon-container">

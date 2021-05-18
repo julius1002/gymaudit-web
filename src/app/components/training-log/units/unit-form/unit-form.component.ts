@@ -7,14 +7,13 @@ import {
   Inject,
 } from "@angular/core";
 import { Unit } from "src/app/model/unit";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { UploadService } from "src/app/services/upload.service";
 import { environment } from "src/environments/environment";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
-import { UserInfoService } from "src/app/services/userinfo-service";
 
 @Component({
   selector: "app-unit-form",
@@ -45,13 +44,16 @@ export class UnitFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-
     this.initForm();
     if (this.editing) {
       this.setFormValues(this.data);
     }
   }
+
+  get name() { return this.unitForm.get('name'); }
+
+  get description() { return this.unitForm.get('description'); }
+
   authorizeGoogleDrive($event) {
     $event.preventDefault();
     window.location.href = environment.api_url + "oauth2/google/drive?jwt=" + localStorage.getItem("jwt")
@@ -82,8 +84,12 @@ export class UnitFormComponent implements OnInit {
     }
 
     this.unitForm = this.formBuilder.group({
-      name: ["", Validators.required],
-      description: [""],
+      name: new FormControl("", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(18)]),
+      description: new FormControl("", [
+        Validators.maxLength(100)]),
     });
   }
 
@@ -105,14 +111,12 @@ export class UnitFormComponent implements OnInit {
     if (this.fileToUpload) {
       this.isLoading = true;
       this.uploadService.postFile(this.fileToUpload)
-        // do something, if upload success
         .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:
               console.log('Request has been made!');
               break;
             case HttpEventType.ResponseHeader:
-              //TODO redirect to google if status 401
               break;
             case HttpEventType.UploadProgress:
               this.progress = Math.round(event.loaded / event.total * 100);

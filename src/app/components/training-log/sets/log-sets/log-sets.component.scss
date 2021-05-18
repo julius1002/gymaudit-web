@@ -63,7 +63,12 @@ mat-panel-description { margin-right: 0}
 
 mat-expansion-panel-header { padding: 0.2em }
 
-mat-panel-title { margin:0em 1em 0em 1em ; max-width: 10em}
+mat-panel-title { 
+    margin:0em 1em 0em 1em;
+    width: 10em;
+    font-size: 0.9em
+}
+
 .icon-container {
     display:flex
 }
@@ -118,14 +123,26 @@ mat-panel-title { margin:0em 1em 0em 1em ; max-width: 10em}
     display:block;
 }
 
-mat-expansion-panel {
-    //outline: white 0px solid;
-    //transition: outline 0.6s linear;
-}
-
 .accordion-container{
     margin-bottom: 2em;
 }
+
+.accordion-container__grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-gap: 0.5em;
+}
+
+.accordion-container__grid > .attribute{
+    text-align: end;
+}
+
+.accordion-container__grid > .value{
+    text-align: center;
+}
+
+strong { font-size: 1.3em }
 
 .new-mat-expansion-panel {
     z-index: 1;
@@ -140,7 +157,6 @@ mat-expansion-panel {
 }
 
 p { text-align: center; font-size: 0.9em}
-
 
 @keyframes land-on-top {
     0% {

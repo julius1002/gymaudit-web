@@ -17,12 +17,10 @@
     display:grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5em;
-    margin-bottom: 4em;
-    margin-top: 1em;
     list-style-type: none; 
     padding:0;
-    margin: 0;
     margin: 0 1em;
+    margin-bottom: 4em;
 }
 
 .exercise-list > li{
@@ -223,8 +221,8 @@ mat-icon{
     height: 100%;
     max-width: 100%;
     margin: 0 auto;
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 }
 
 .exercise-card > mat-icon{
