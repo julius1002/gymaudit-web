@@ -32,8 +32,11 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       }
 
     }, (err) => {
+      if(err.status == 401 || err.status == 403){
       this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if (localStorage.getItem("jwt")) {
         localStorage.removeItem("jwt")
+      }}else{
+        alert("Es ist ein Fehler aufgetreten.")
       }
     }))
   }

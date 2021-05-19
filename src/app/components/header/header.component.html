@@ -1,7 +1,7 @@
 <mat-toolbar id="toolbar">
     <div class="nav-left">
-      <a mat-icon-button (click)="toggleMobileBar()" class="nav-left">
-        <mat-icon class="burger-menu">menu</mat-icon>
+      <a mat-icon-button class="nav-left" (click)="toggleMobileBar()">
+        <mat-icon class="burger-menu">{{this.burgerMenuVisible? 'menu':'close'}}</mat-icon>
       </a>
     </div>
     <div class="nav-middle">

@@ -14,7 +14,7 @@ import { UserinfoService } from 'src/app/services/userinfo.service';
 })
 export class HeaderComponent implements OnInit {
 
-  hideMobileBar: boolean = true;
+  burgerMenuVisible: boolean = true;
 
   userInfo: UserInfo;
 
@@ -83,8 +83,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-
-
   public openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -92,12 +90,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public toggleMobileBar() {
-    var drawerList: HTMLCollection = document.getElementById('drawer-list').children
-    if (!document.getElementsByClassName("drawer")[0].classList.contains("is-open")) {
-      for (let i = 1; i < drawerList.length; i++) {
-        //(<HTMLElement>drawerList[i]).style.setProperty
-      }
-    }
+    this.burgerMenuVisible = !this.burgerMenuVisible
     document.getElementsByClassName("drawer")[0].classList.toggle("is-open")
   }
 
