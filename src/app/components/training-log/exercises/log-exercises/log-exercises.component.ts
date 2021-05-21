@@ -10,10 +10,10 @@ import { Unit } from "src/app/model/unit";
 import { MatDialog } from "@angular/material/dialog";
 import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
 import { ExercisesListService } from "src/app/services/exercises-list.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { environment } from "src/environments/environment";
 import { EditExerciseComponent } from "../edit-exercise/edit-exercise.component";
 import { UnitService } from "src/app/services/unit.service";
+import { AlertService } from "src/app/services/alert/alert.service";
 @Component({
   selector: "app-log-exercises",
   templateUrl: "./log-exercises.component.html",
@@ -53,8 +53,8 @@ export class LogExercisesComponent implements OnInit {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public exerciseListService: ExercisesListService,
-    public snackBar: MatSnackBar,
-    private router: Router,
+    private alertService:AlertService,
+        private router: Router,
     private unitService: UnitService
   ) { }
 
@@ -132,23 +132,17 @@ export class LogExercisesComponent implements OnInit {
         if (result) {
           if (!result.id) {
             this.exercisesPage.content = this.exercisesPage.content.filter(foundExercise => foundExercise !== exercise)
-            this.snackBar.open(
+            this.alertService.openSnackBar(
               `${result.name} erfolgreich gelöscht!`,
-              "schließen",
-              {
-                duration: 2500,
-              }
+              "schließen"
             );
           } else {
             this.exercisesPage.content = this.exercisesPage.content.filter(foundExercise => foundExercise !== exercise)
             this.exercisesPage.content.unshift(result)
 
-            this.snackBar.open(
+            this.alertService.openSnackBar(
               `${result.name} erfolgreich geändert!`,
-              "schließen",
-              {
-                duration: 2500,
-              }
+              "schließen"
             );
           }
         }

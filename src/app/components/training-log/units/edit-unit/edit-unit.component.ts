@@ -1,10 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { switchMap, take } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { take } from 'rxjs/operators';
 import { Unit } from 'src/app/model/unit';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { UnitService } from 'src/app/services/unit.service';
-import { AddExerciseComponent } from '../../exercises/add-exercise/add-exercise.component';
 
 @Component({
   selector: 'app-edit-unit',
@@ -15,7 +14,7 @@ export class EditUnitComponent implements OnInit {
 
 
 
-  constructor(private dialogRefEdit: MatDialogRef<EditUnitComponent>, private unitService: UnitService, private snackBar: MatSnackBar
+  constructor(private dialogRefEdit: MatDialogRef<EditUnitComponent>, private unitService: UnitService, private alertService:AlertService
   ) { }
 
   ngOnInit(): void {
@@ -24,10 +23,7 @@ export class EditUnitComponent implements OnInit {
   putUnit(unit: Unit) {
     this.unitService.update(unit).pipe(take(1))
       .subscribe((putUnit) => {
-        if (unit.fileId) {
-          unit.fileId = putUnit.fileId + "?jwt=" + localStorage.getItem("jwt")
-        }
-        this.dialogRefEdit.close(unit);
+        this.dialogRefEdit.close(putUnit);
       }, (err) => {
         this.dialogRefEdit.close(undefined);
 
@@ -42,7 +38,6 @@ export class EditUnitComponent implements OnInit {
           this.dialogRefEdit.close(deleteUnit);
         }, (err) => {
           this.dialogRefEdit.close(undefined);
-
         });
     }
 

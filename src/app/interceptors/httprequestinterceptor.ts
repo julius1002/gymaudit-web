@@ -1,8 +1,8 @@
-import { HttpRequest, HttpHandler, HttpInterceptor, HttpEvent, HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpRequest, HttpHandler, HttpInterceptor, HttpEvent, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable, throwError } from "rxjs";
-import { catchError, tap } from 'rxjs/operators';
+import { Observable } from "rxjs";
+import { tap } from 'rxjs/operators';
 import { AuthenticationService } from "../services/authentication.service";
 
 @Injectable()
@@ -32,7 +32,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       }
 
     }, (err) => {
-      if(err.status == 401 || err.status == 403){
+      if(err.status == 403 || err.status == 401){
       this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if (localStorage.getItem("jwt")) {
         localStorage.removeItem("jwt")
       }}else{

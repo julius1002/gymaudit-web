@@ -14,13 +14,15 @@ export class FileUploadComponent implements OnInit {
 
   @Input() data;
 
-  apiUri = environment.api_url
-
   maxFileMegaBytes: number = 10;
 
   selectedFile: File;
 
   userInfo: UserInfo;
+
+  environment = environment
+  
+  jwt = localStorage.getItem("jwt")
 
   constructor(private userInfoService: UserInfoService) { }
 
@@ -28,19 +30,14 @@ export class FileUploadComponent implements OnInit {
     this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
   }
 
-  authorizeGoogleDrive($event) {
-    $event.preventDefault();
-    window.location.href = this.apiUri + "oauth2/google/drive?jwt=" + localStorage.getItem("jwt")
-  }
-
   handleFileInput(files: FileList) {
     var file = files.item(0);
 
-    if (file.size < (this.maxFileMegaBytes * Math.pow(1024, 2))) {
+    if (!(file.size < (this.maxFileMegaBytes * Math.pow(1024, 2)))) {
+      alert(`Das Bild darf ${this.maxFileMegaBytes} nicht übersteigen`)
+    } else {
       this.selectedFile = file
       this.fileEmitter.emit(file);
-    } else {
-      alert(`Das Bild darf ${this.maxFileMegaBytes} nicht übersteigen`)
     }
   }
 

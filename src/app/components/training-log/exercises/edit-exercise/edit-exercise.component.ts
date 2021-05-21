@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { ExerciseService } from "src/app/services/exercise.service";
 import { Exercise } from "src/app/model/exercise";
-import { ExercisesListService } from 'src/app/services/exercises-list.service';
 import { MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { AlertService } from "src/app/services/alert/alert.service";
 
 @Component({
   selector: "app-edit-exercise",
@@ -15,29 +13,21 @@ export class EditExerciseComponent implements OnInit {
   constructor(
     private exerciseService: ExerciseService,
     public dialogRef: MatDialogRef<EditExerciseComponent>,
-    public snackBar: MatSnackBar
-  ) {}
+    private alertService: AlertService
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   putExercise(exercise: Exercise) {
-    this.exerciseService.update(exercise).subscribe((exercise) => {
-      if (exercise.fileId) {
-        exercise.fileId += "?jwt=" + localStorage.getItem("jwt")
-      }
-      this.dialogRef.close(exercise);
-
-      this.snackBar.open(
-        `${exercise.name} erfolgreich geändert!`,
-        "schließen",
-        {
-          duration: 2500,
-        }
-      );
+    this.exerciseService.update(exercise).subscribe((putExercise) => {
+      this.dialogRef.close(putExercise);
+      this.alertService.openSnackBar(`${exercise.name} erfolgreich geändert!`,
+        "schließen");
     }, (err) => {
       this.dialogRef.close(undefined);
 
-  })};
+    })
+  };
 
 
   deleteExercise(exercise: Exercise) {

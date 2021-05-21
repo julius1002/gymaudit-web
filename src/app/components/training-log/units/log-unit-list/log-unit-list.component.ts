@@ -1,17 +1,15 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Unit } from 'src/app/model/unit';
 import { Page } from 'src/app/model/page';
 import { Exercise } from 'src/app/model/exercise';
 import { UnitService } from 'src/app/services/unit.service';
-import { ExerciseService } from 'src/app/services/exercise.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { AddUnitDialogComponent } from '../add-unit-dialog/add-unit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditUnitComponent } from '../edit-unit/edit-unit.component';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-log-unit-list',
@@ -25,7 +23,7 @@ export class LogUnitListComponent implements OnInit {
   index: number = 0;
   pageSize: number = 5;
 
-  apiUrl = environment.api_url;
+  environment = environment;
 
   editView: boolean = false;
 
@@ -36,8 +34,7 @@ export class LogUnitListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
-
+    private alertService:AlertService
   ) { }
 
   @HostListener("window:scroll", ["$event"])
@@ -111,22 +108,16 @@ export class LogUnitListComponent implements OnInit {
         if (result) {
           if (!result.id) {
             this.unitsPage.content = this.unitsPage.content.filter(foundUnit => foundUnit !== unit)
-            this.snackBar.open(
+            this.alertService.openSnackBar(
               `${result.name} erfolgreich gelöscht!`,
-              "schließen",
-              {
-                duration: 2500,
-              }
+              "schließen"
             );
           } else {
             this.unitsPage.content = this.unitsPage.content.filter(foundUnit => foundUnit !== unit)
             this.unitsPage.content.unshift(result)
-            this.snackBar.open(
+            this.alertService.openSnackBar(
               `${result.name} erfolgreich geändert!`,
-              "schließen",
-              {
-                duration: 2500,
-              }
+              "schließen"
             );
           }
         }
@@ -142,12 +133,9 @@ export class LogUnitListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.unitsPage.content.unshift(result)
-          this.snackBar.open(
+          this.alertService.openSnackBar(
             `${result.name} erfolgreich hinzugefügt!`,
-            "schließen",
-            {
-              duration: 2500,
-            }
+            "schließen"
           );
 
         }

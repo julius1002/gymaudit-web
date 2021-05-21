@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import { Unit } from "src/app/model/unit";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { UploadService } from "src/app/services/upload.service";
 import { environment } from "src/environments/environment";
@@ -38,8 +37,7 @@ export class UnitFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar,
-    private uploadService: UploadService,
+        private uploadService: UploadService,
     @Inject(MAT_DIALOG_DATA) public data: Unit) { }
 
   ngOnInit(): void {

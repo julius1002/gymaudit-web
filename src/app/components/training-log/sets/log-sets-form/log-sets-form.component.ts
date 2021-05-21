@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Set, MeasureUnit } from "src/app/model/set";
 import { LogSetServiceService } from 'src/app/services/log-set-service.service';
 
@@ -18,8 +17,7 @@ export class LogSetsFormComponent implements OnInit {
   keys = Object.keys;
   constructor(
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar,
-    private setListService: LogSetServiceService) { }
+        private setListService: LogSetServiceService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -69,6 +67,7 @@ export class LogSetsFormComponent implements OnInit {
     };
     this.submitSet.emit(set);
     this.setListService.updateSetList(set)
+    
     this.setForm.reset;
   }
 }

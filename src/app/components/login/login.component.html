@@ -4,9 +4,9 @@
             <div class="title-container">
                 <mat-icon inline>account_circle</mat-icon>
             </div>
-            <a class="fb-login-button" (click)="loginWithFacebook($event)"><img
+            <a class="fb-login-button" href = "{{this.environment.api_url}}oauth2/facebook"><img
                     src="../../../assets/facebook.png">Weiter mit Facebook</a>
-            <a class="google-login-button" (click)="loginWithGoogle($event)"><img
+            <a class="google-login-button" href ="{{this.environment.api_url}}oauth2/google"><img
                     src="../../../assets/google-icon-small.svg"> Weiter mit Google
             </a>
             <div class="divider"></div>

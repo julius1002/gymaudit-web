@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { Set } from "src/app/model/set";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { SetService } from "src/app/services/set.service";
+import { AlertService } from "src/app/services/alert/alert.service";
 @Component({
   selector: "app-edit-set",
   templateUrl: "./edit-set.component.html",
@@ -9,7 +10,7 @@ import { SetService } from "src/app/services/set.service";
 })
 export class EditSetComponent implements OnInit {
   set: Set;
-  constructor(public dialogRef: MatDialogRef<EditSetComponent>, @Inject(MAT_DIALOG_DATA) public data, private setService: SetService) {
+  constructor(public dialogRef: MatDialogRef<EditSetComponent>, @Inject(MAT_DIALOG_DATA) public data, private setService: SetService, private alertService:AlertService) {
     this.set = data;
   }
 
@@ -21,6 +22,9 @@ export class EditSetComponent implements OnInit {
       .put(set.exerciseId, set.id, set)
       .subscribe((setResponse) => {
         this.dialogRef.close(setResponse)
+        this.alertService.openSnackBar(
+          `Satz erfolgreich bearbeitet!`,
+          "schließen");
       });
   }
 }

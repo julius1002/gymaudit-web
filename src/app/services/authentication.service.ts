@@ -13,6 +13,7 @@ export class AuthenticationService {
   private authenticated = new BehaviorSubject<boolean>(false);
 
   authenticationUrl: string = `${environment.api_url}auth/login`;
+  
   logoutUrl: string = `${environment.api_url}auth/logout`;
 
   constructor(private httpClient: HttpClient,
@@ -38,15 +39,4 @@ export class AuthenticationService {
   setAuthentication(isAuthenticated) {
     this.authenticated.next(isAuthenticated)
   }
-
-  navigateToIfAlreadyAuthenticated(navigationPath: string) {
-    this.isAuthenticated().pipe(take(1))
-      .subscribe((authenticated: boolean) => {
-        if (authenticated) {
-          this.router.navigate([navigationPath]);
-        }
-      }
-      )
-  }
-
 }

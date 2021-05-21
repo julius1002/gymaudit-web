@@ -8,7 +8,7 @@
         <div class="card">
           <div class="unit-card">
             <ng-container *ngIf="unit.fileId; else noimg">
-              <img src="{{apiUrl + 'files/' + unit.fileId}}">
+              <img src="{{environment.api_url + 'files/' + unit.fileId}}">
             </ng-container>
             <ng-template #noimg>
               <span class="no-image">

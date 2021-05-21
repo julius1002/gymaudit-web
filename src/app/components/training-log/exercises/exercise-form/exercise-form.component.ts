@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
 import { Exercise, ExerciseType, MuscleGroup } from "src/app/model/exercise";
-import { Observable } from "rxjs";
 
-import { ActivatedRoute, Router } from "@angular/router";
-import { map, switchMap } from "rxjs/operators";
-import { ExerciseService } from "src/app/services/exercise.service";
+import { ActivatedRoute } from "@angular/router";
+
 import { environment } from "src/environments/environment";
 import {
   FormGroup,
@@ -13,10 +11,8 @@ import {
   FormArray,
   FormControl,
 } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ExercisesListService } from "src/app/services/exercises-list.service";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { AddExerciseComponent } from "../add-exercise/add-exercise.component";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { UploadService } from "src/app/services/upload.service";
@@ -53,7 +49,6 @@ export class ExerciseFormComponent implements OnInit {
 
   apiUri = environment.api_url;
   constructor(
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private uploadService: UploadService,
     private userInfoService: UserInfoService,
@@ -69,8 +64,7 @@ export class ExerciseFormComponent implements OnInit {
   fileEmitted($event: File) {
     this.fileToUpload = $event
   }
-
-
+  
   toggleMuscleGroups() {
     this.exerciseInformationVisible = !this.exerciseInformationVisible
   }
@@ -217,7 +211,6 @@ export class ExerciseFormComponent implements OnInit {
       this.isLoading = false;
       this.submitExercise.emit(newExercise);
       this.exerciseForm.reset;
-
     }
   }
 }

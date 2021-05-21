@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { take, share, switchMap } from 'rxjs/operators';
 import { UserInfo } from 'src/app/model/userInfo';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserInfoService } from 'src/app/services/userinfo-service';
 import { UserinfoService } from 'src/app/services/userinfo.service';
@@ -38,10 +38,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(public authenticationService: AuthenticationService,
     private router: Router,
-    private snackBar: MatSnackBar, private route: ActivatedRoute,
-    private userinfoService: UserinfoService, private userInfoService: UserInfoService) {
+    private alertService: AlertService,
+    private userinfoService: UserinfoService,
+    private userInfoService: UserInfoService) {
 
     this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
+    
     this.authenticationService.isAuthenticated()
       .subscribe(auth => this.authenticated = auth)
   }
@@ -71,22 +73,16 @@ export class HeaderComponent implements OnInit {
       this.authenticationService.logout().subscribe(res => {
         this.authenticationService.setAuthentication(false)
         this.userInfoService.setUserInfo(undefined)
-        this.openSnackBar("Successfully logged out!", "Ok")
+        this.alertService.openSnackBar("Successfully logged out!", "Ok")
         if (localStorage.getItem("jwt")) {
           localStorage.removeItem("jwt")
         }
         this.router.navigate(["/login"])
       }, (err) => {
-        this.openSnackBar("An error occured", "Ok")
+        this.alertService.openSnackBar("An error occured", "Ok")
       }
       );
     }
-  }
-
-  public openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
   }
 
   public toggleMobileBar() {
