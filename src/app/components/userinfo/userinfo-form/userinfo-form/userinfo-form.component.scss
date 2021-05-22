@@ -1,0 +1,123 @@
+@import "../../../../styles.scss";
+
+h2 {
+    margin: 1em auto;
+    text-align: center;
+}
+.profile-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4,auto);
+    gap: 1.5em;
+}
+
+.main {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.submit-button {
+    text-transform: uppercase;
+    box-sizing: border-box;
+    width:100%;
+    display:block;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    background-color:   $primary;
+    color:white;
+    text-decoration: none;
+    padding: 0.75em 1em;
+    border-radius:1em;
+    border: 2px solid $primary;
+}
+a {
+    text-align: center;
+}
+
+
+.divider {
+    border-top: 1px solid #d9dadc;
+    margin: 1.5em auto;
+}
+
+.profile-image {
+    border-radius: 50%;
+    flex:1;
+    max-width:5em;
+    height: 5em
+}
+
+.container > h2 { margin-top: 3em }
+
+ul {
+    margin:0;
+    padding: 0;
+    list-style: none;
+}
+
+img {
+    height: 1.5em;  
+}
+
+.google-img {
+    margin-right: 0.5em;
+}
+
+.key {
+    color: #a9a9a9;
+    text-align: start;
+}
+
+.value {
+    text-align: right;
+}
+
+.container__buttons {
+    display:flex;
+    flex-direction: column-reverse;
+}
+
+@media(min-width: 32em){
+
+.container__buttons {
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.container__buttons > button {
+    width: 45%;
+    margin: 1em 0em;
+}
+}
+
+.cancel-button {
+    text-transform: uppercase;
+    box-sizing: border-box;
+    width:100%;
+    display:block;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    background-color:   white;
+    color:#222326;
+    text-decoration: none;
+    padding: 0.75em 1em;
+    border-radius:1em;
+    border: 2px solid black;
+}
+
+.delete-button {
+    text-transform: uppercase;
+    box-sizing: border-box;
+    width:100%;
+    display:block;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    background-color:   rgb(250, 128, 128);
+    color: white;
+    text-decoration: none;
+    padding: 0.75em 1em;
+    border-radius:1em;
+    border: 2px solid rgb(250, 112, 112);
+    margin-top: 2em;
+}

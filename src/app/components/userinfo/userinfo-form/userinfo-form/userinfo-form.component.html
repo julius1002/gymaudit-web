@@ -1,0 +1,18 @@
+<div class="container">
+    <h2>Profil bearbeiten</h2>
+    <ng-container *ngIf="this.userinfo">
+        <div class="main">
+            <ng-container *ngIf="this.userinfo.picture">
+                <img class="profile-image" src={{this.userinfo.picture}}>
+            </ng-container>
+        </div>
+        <div class="profile-grid">
+        </div>
+        <div class="divider"></div>
+        <div class = "container__buttons">
+        <button mat-button class = "cancel-button" routerLink = "..">Abbrechen</button>
+        <button mat-button type="submit" class="submit-button" >Speichern </button>
+        </div>
+        <button (click) = "this.deleteAccount()" mat-button class = "delete-button"><mat-icon inline>close</mat-icon>Account löschen</button>
+    </ng-container>
+</div>
