@@ -1,4 +1,4 @@
-@import "../../../../styles.scss";
+@import "../../../../../styles.scss";
 
 h2 {
     margin: 1em auto;
@@ -7,7 +7,7 @@ h2 {
 .profile-grid {
     display:grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4,auto);
+    grid-template-rows: repeat(3,auto);
     gap: 1.5em;
 }
 

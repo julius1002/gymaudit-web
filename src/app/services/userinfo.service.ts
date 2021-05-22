@@ -17,4 +17,11 @@ export class UserinfoService {
       `${environment.api_url}me/profile`
     );
   }
+
+  public deleteAccount(
+    ): Observable<any> {
+      return this.httpClient.delete<any>(
+        `${environment.api_url}auth/deregister`
+      );
+    }
 }

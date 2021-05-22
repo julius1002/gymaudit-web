@@ -1,13 +1,41 @@
 <div class="container">
     <h2>Profil bearbeiten</h2>
-    <ng-container *ngIf="this.userinfo">
+    <ng-container *ngIf="this.userInfo">
         <div class="main">
-            <ng-container *ngIf="this.userinfo.picture">
-                <img class="profile-image" src={{this.userinfo.picture}}>
+            <ng-container *ngIf="this.userInfo.picture">
+                <img class="profile-image" src={{this.userInfo.picture}}>
             </ng-container>
         </div>
-        <div class="profile-grid">
-        </div>
+              <div class="profile-grid">
+                <ng-container *ngIf="this.userInfo.name">
+                    <div class="key"> Name</div>
+                    <div class="value">
+                        <mat-form-field appearance="outline" >
+                        <input matInput [placeholder] = "this.userInfo.name" [disabled] = "this.userInfo.provider !== null"/>
+                      </mat-form-field>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="this.userInfo.birthday">
+                    <div class="key">Geburtsdatum</div>
+                    <div class="value"> <mat-form-field appearance="outline" >
+                        <mat-label>{{this.userInfo.birthday}}</mat-label>
+                        <input matInput [placeholder] = "this.userInfo.birthday" [disabled] = "this.userInfo.provider !== null"/>
+                      </mat-form-field></div>
+                </ng-container>
+                <ng-container *ngIf="this.userInfo.email">
+                    <div class="key">Email</div>
+                    <div class="value">
+                        <mat-form-field appearance="outline" >
+                        <input matInput [placeholder] = "this.userInfo.email"  [disabled] = "this.userInfo.provider !== null"/>
+                      </mat-form-field></div>
+                </ng-container>
+                <ng-container *ngIf="this.userInfo.provider">
+                    <div class="key">Deine Anbieter</div>
+                    <div class="value">
+                        {{this.userInfo.provider}}
+                    </div>
+                </ng-container>
+            </div>
         <div class="divider"></div>
         <div class = "container__buttons">
         <button mat-button class = "cancel-button" routerLink = "..">Abbrechen</button>

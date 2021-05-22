@@ -72,7 +72,7 @@ export class ExerciseFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.userInfoService.getUserinfo().subscribe(res => {
-      if (res && res.providers) this.canUploadFiles = res.providers?.split(" ").includes("google")
+      if (res && res.provider) this.canUploadFiles = res.provider?.split(" ").includes("google")
     })
 
     this.initForm();

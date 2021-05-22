@@ -36,6 +36,7 @@ export class LogExercisesComponent implements OnInit {
   pageSize: number = 8;
 
   apiUrl = environment.api_url;
+
   editView: boolean = false;
 
   @HostListener("window:scroll", ["$event"])
@@ -214,5 +215,8 @@ export class LogExercisesComponent implements OnInit {
         }
       })
     ).subscribe(res => this.exercisesPage = res);
+  }
+  errorHandler(exercise){
+    exercise.fileId = undefined
   }
 }

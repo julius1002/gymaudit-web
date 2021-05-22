@@ -27,7 +27,7 @@ export class FileUploadComponent implements OnInit {
   constructor(private userInfoService: UserInfoService) { }
 
   ngOnInit(): void {
-    this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
+      this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
   }
 
   handleFileInput(files: FileList) {

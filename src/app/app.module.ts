@@ -54,6 +54,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { AgoPipe } from './pipes/ago.pipe';
 import { HeaderComponent } from './components/header/header.component';
+import { UserinfoFormComponent } from './components/userinfo/userinfo-form/userinfo-form/userinfo-form.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { HeaderComponent } from './components/header/header.component';
     EditUnitComponent,
     FileUploadComponent,
     AgoPipe,
-    HeaderComponent],
+    HeaderComponent,
+    UserinfoFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

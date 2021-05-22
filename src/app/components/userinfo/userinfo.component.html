@@ -1,38 +1,40 @@
 <div class="container">
     <h2>Profilübersicht</h2>
-    <ng-container *ngIf="this.userinfo">
+    <ng-container *ngIf="this.userInfo">
         <div class="main">
-            <ng-container *ngIf="this.userinfo.picture">
-                <img class="profile-image" src={{this.userinfo.picture}}>
+            <ng-container *ngIf="this.userInfo.picture">
+                <img class="profile-image" src={{this.userInfo.picture}}>
             </ng-container>
         </div>
         <div class="profile-grid">
-            <ng-container *ngIf="this.userinfo.name">
+            <ng-container *ngIf="this.userInfo.username">
+                <div class="key"> Username</div>
+                <div class="value">{{this.userInfo.username}}</div>
+            </ng-container>
+            <ng-container *ngIf="this.userInfo.name">
                 <div class="key"> Name</div>
-                <div class="value">{{this.userinfo.name}}</div>
+                <div class="value">{{this.userInfo.name}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userinfo.birthday">
+            <ng-container *ngIf="this.userInfo.birthday">
                 <div class="key">Geburtsdatum</div>
-                <div class="value"> {{this.userinfo.birthday | date}}</div>
+                <div class="value"> {{this.userInfo.birthday | date}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userinfo.email">
+            <ng-container *ngIf="this.userInfo.email">
                 <div class="key">Email</div>
-                <div class="value">{{this.userinfo.email}}</div>
+                <div class="value">{{this.userInfo.email}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userinfo.providers">
+            <ng-container *ngIf="this.userInfo.provider">
                 <div class="key">Deine Anbieter</div>
                 <div class="value">
-                    <ul>
-                        <li *ngFor="let provider of this.providers"> {{provider}}</li>
-                    </ul>
+                    {{this.userInfo.provider}}
                 </div>
             </ng-container>
         </div>
         <div class="divider"></div>
-        <button mat-button type="submit" class="submit-button">Profil bearbeiten </button>
-        <ng-container *ngIf="!this.providers?.includes('google')">
-            <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img class="google-img"
-                    src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
+        <button mat-button type="submit" class="submit-button" routerLink = "edit">Profil bearbeiten </button>
+        <ng-container *ngIf="!(this.userInfo?.provider ==='google')  && !(this.userInfo.provider === 'facebook')">
+                <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img class="google-img"
+                        src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
         </ng-container>
     </ng-container>
 </div>

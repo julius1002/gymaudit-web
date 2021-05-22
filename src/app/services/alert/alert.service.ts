@@ -11,6 +11,7 @@ export class AlertService {
   public openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
+      panelClass: ["snackBar"]
     });
   }
 }

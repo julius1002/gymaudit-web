@@ -9,6 +9,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { RedirectComponent } from "./components/redirect/redirect.component";
 import { UserinfoComponent } from "./components/userinfo/userinfo.component";
 import { LogSetsComponent } from "./components/training-log/sets/log-sets/log-sets.component";
+import { UserinfoFormComponent } from "./components/userinfo/userinfo-form/userinfo-form/userinfo-form.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: "userinfo",
     component: UserinfoComponent,
+    
+  },
+  {
+    path: "userinfo/edit",
+    component: UserinfoFormComponent
   },
   {
     path: "training-log",
