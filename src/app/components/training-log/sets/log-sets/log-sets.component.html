@@ -27,9 +27,9 @@
                     <mat-panel-description>
                         <div class="accordion-container__grid">
                             <div class="attribute"> Wiederholungen</div>
-                            <div class="value"><strong>{{set.load}}</strong></div>
-                            <div class="attribute">{{measureUnit[set.measureUnit]}}</div>
                             <div class="value"><strong>{{set.reps}}</strong></div>
+                            <div class="attribute">{{set.measureUnit?measureUnit[set.measureUnit]:'Intensität'}}</div>
+                            <div class="value"><strong>{{set.load}}</strong></div>
                         </div>
                     </mat-panel-description>
                 </mat-expansion-panel-header>

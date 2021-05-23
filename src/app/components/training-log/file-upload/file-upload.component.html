@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.userInfo?.provider === 'google'">
+<ng-container *ngIf="['google_drive', 'google'].includes(this.userInfo?.provider)">
   <ng-container *ngIf="this.data && this.data.fileId">
     <div class="preview-img">
       <img src="{{environment.api_url + 'files/' + this.data.fileId}}">
@@ -20,7 +20,7 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="!(this.userInfo?.provider === 'facebook') && !(this.userInfo?.provider ===  'google')">
+<ng-container *ngIf="!['google_drive', 'google', 'facebook'].includes(this.userInfo?.provider)">
   <div class="upload-impossible-alert">
     <p> Wir nutzen Google Drive, um Bilder zu speichern!</p>
     <a class="google-login-button" mat-raised-button href = "{{environment.api_url}}oauth2/google/drive?jwt={{this.jwt}}"><img class="google-image"

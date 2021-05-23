@@ -6,6 +6,7 @@
                 <img class="profile-image" src={{this.userInfo.picture}}>
             </ng-container>
         </div>
+        <div class="divider"></div>
         <div class="profile-grid">
             <ng-container *ngIf="this.userInfo.username">
                 <div class="key"> Username</div>
@@ -32,7 +33,7 @@
         </div>
         <div class="divider"></div>
         <button mat-button type="submit" class="submit-button" routerLink = "edit">Profil bearbeiten </button>
-        <ng-container *ngIf="!(this.userInfo?.provider ==='google')  && !(this.userInfo.provider === 'facebook')">
+        <ng-container *ngIf="!['google_drive', 'google', 'facebook'].includes(this.userInfo?.provider)">
                 <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img class="google-img"
                         src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
         </ng-container>

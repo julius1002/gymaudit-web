@@ -1,8 +1,7 @@
 export interface UserInfo{
-    id:string;
     username:string;
     name:string;
-    birthday:string;
+    birthday:Date;
     picture:string;
     provider:string;
     email:string;

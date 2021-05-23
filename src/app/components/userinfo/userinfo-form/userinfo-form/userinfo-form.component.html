@@ -1,3 +1,4 @@
+<form [formGroup]="userInfoFormGroup" (ngSubmit)="submitForm()" *ngIf="userInfoFormGroup">
 <div class="container">
     <h2>Profil bearbeiten</h2>
     <ng-container *ngIf="this.userInfo">
@@ -6,41 +7,61 @@
                 <img class="profile-image" src={{this.userInfo.picture}}>
             </ng-container>
         </div>
+        <div class="divider"></div>
               <div class="profile-grid">
                 <ng-container *ngIf="this.userInfo.name">
                     <div class="key"> Name</div>
                     <div class="value">
-                        <mat-form-field appearance="outline" >
-                        <input matInput [placeholder] = "this.userInfo.name" [disabled] = "this.userInfo.provider !== null"/>
+                        <mat-form-field style="margin-bottom: -1.25em" appearance="outline" >
+                        <input formControlName="name" matInput/>
                       </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="this.userInfo.birthday">
-                    <div class="key">Geburtsdatum</div>
-                    <div class="value"> <mat-form-field appearance="outline" >
-                        <mat-label>{{this.userInfo.birthday}}</mat-label>
-                        <input matInput [placeholder] = "this.userInfo.birthday" [disabled] = "this.userInfo.provider !== null"/>
-                      </mat-form-field></div>
+                <ng-container *ngIf="true">
+                    <div class="key">Geburtstag</div>
+                    <div class="value"> 
+                    <div class="birthday-form">
+                        <mat-form-field style="margin-bottom: -1.25em" appearance="outline" >
+                            <mat-label>Tag</mat-label>
+                            <input type="text" pattern="\d*" maxlength="2" formControlName="day" matInput/>
+                          </mat-form-field>
+                          <mat-form-field style="margin-bottom: -1.25em" appearance="outline">
+                            <mat-label>Monat</mat-label>
+                            <mat-select  formControlName="month" >
+                                <mat-option value = "{{month}}" *ngFor="let month of this.months">{{month}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field style="margin-bottom: -1.25em" appearance="outline" >
+                            <mat-label>Jahr</mat-label>
+                            <input type="text" pattern="\d*" maxlength="4" formControlName="year" matInput/>
+                          </mat-form-field>
+                      </div>
+                </div>
+                      
                 </ng-container>
                 <ng-container *ngIf="this.userInfo.email">
                     <div class="key">Email</div>
                     <div class="value">
-                        <mat-form-field appearance="outline" >
-                        <input matInput [placeholder] = "this.userInfo.email"  [disabled] = "this.userInfo.provider !== null"/>
+                        <mat-form-field style="margin-bottom: -1.25em" appearance="outline" >
+                        <input formControlName="email" matInput >
                       </mat-form-field></div>
                 </ng-container>
                 <ng-container *ngIf="this.userInfo.provider">
                     <div class="key">Deine Anbieter</div>
                     <div class="value">
                         {{this.userInfo.provider}}
+                        <ng-container *ngIf = "this.userInfo.provider === 'google_drive'">
+                            <mat-icon (click) = "revokeGoogleDrive()">close</mat-icon>
+                    </ng-container>
                     </div>
                 </ng-container>
             </div>
         <div class="divider"></div>
         <div class = "container__buttons">
-        <button mat-button class = "cancel-button" routerLink = "..">Abbrechen</button>
-        <button mat-button type="submit" class="submit-button" >Speichern </button>
+        <button mat-button type ="button" class = "cancel-button"  routerLink = "..">Abbrechen</button>
+        <button mat-button type="submit" class="submit-button" [disabled] = "noValueChanged()" >Speichern </button>
         </div>
-        <button (click) = "this.deleteAccount()" mat-button class = "delete-button"><mat-icon inline>close</mat-icon>Account löschen</button>
+        <button type ="button" (click) = "this.deleteAccount()" mat-button class = "delete-button"><mat-icon inline>close</mat-icon>Account löschen</button>
     </ng-container>
 </div>
+</form>

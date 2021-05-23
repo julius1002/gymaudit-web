@@ -8,13 +8,14 @@ h2 {
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3,auto);
-    gap: 1.5em;
+    gap: 0.8em;
+    align-items: center;
 }
 
 .main {
     text-align: center;
     margin-bottom: 2em;
-}
+}   
 
 .submit-button {
     text-transform: uppercase;
@@ -30,6 +31,23 @@ h2 {
     border-radius:1em;
     border: 2px solid $primary;
 }
+
+.birthday-form {
+    display:flex;
+}
+
+.birthday-form > mat-form-field {
+    width: 5em;
+}
+
+.birthday-form > mat-form-field + mat-form-field{
+    margin-left: 0.5em;
+}
+
+input {
+    font-size: 0.85em;
+}
+
 a {
     text-align: center;
 }

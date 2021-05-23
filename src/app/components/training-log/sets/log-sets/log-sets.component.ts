@@ -87,7 +87,6 @@ export class LogSetsComponent implements OnInit {
   }
 
   async openDialog(set: Set = undefined) {
-    var setElements = this.setElements
 
     if (set) {
       const dialogRef = this.dialog.open(EditSetComponent, {
@@ -102,7 +101,6 @@ export class LogSetsComponent implements OnInit {
           this.sets = this.sets.filter(set => set.id != result.id)
           this.sets.unshift(result)
         }
-        console.log(setElements.length - this.setElements.length)
       })
     } else {
       if (!window.history.state.date) {
@@ -117,10 +115,12 @@ export class LogSetsComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.setElements.changes
-            .pipe(take(1), tap(res => document.getElementById(result.id).classList.add("new-mat-expansion-panel")),
-              delay(600))
-            .subscribe(res => {
+          this.sets.unshift(result)
+          this.setElements.changes.pipe(
+            take(1),
+            tap(res => document.getElementById(result.id).classList.add("new-mat-expansion-panel")),
+            delay(600)
+          ).subscribe(res => {
               document.getElementById(result.id).classList.remove("new-mat-expansion-panel")
             })
         }

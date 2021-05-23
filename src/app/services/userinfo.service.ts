@@ -24,4 +24,16 @@ export class UserinfoService {
         `${environment.api_url}auth/deregister`
       );
     }
+
+    public updateUserInfo(userInfo:UserInfo
+      ): Observable<any> {
+        return this.httpClient.put<any>(
+          `${environment.api_url}me/profile`, userInfo
+        );
+      }
+      public revoke(): Observable<any> {
+          return this.httpClient.delete<any>(
+            `${environment.api_url}auth/revoke`
+          );
+        }
 }

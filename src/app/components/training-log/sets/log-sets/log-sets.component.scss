@@ -136,10 +136,12 @@ mat-panel-title {
 
 .accordion-container__grid > .attribute{
     text-align: end;
+    color: $primary;
 }
 
 .accordion-container__grid > .value{
     text-align: center;
+    color: $secondary;
 }
 
 strong { font-size: 1.3em }

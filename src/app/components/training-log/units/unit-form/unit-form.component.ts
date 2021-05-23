@@ -150,10 +150,5 @@ export class UnitFormComponent implements OnInit {
       this.submitUnit.emit(newUnit);
       this.unitForm.reset;
     }
-
-
-
-
-
   }
 }

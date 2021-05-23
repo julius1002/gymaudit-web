@@ -24,6 +24,7 @@ import { UserInfoService } from "src/app/services/userinfo-service";
   styleUrls: ["./exercise-form.component.scss"],
 })
 export class ExerciseFormComponent implements OnInit {
+  
   @Input() editing = false;
 
   @Output() submitExercise = new EventEmitter<Exercise>();
