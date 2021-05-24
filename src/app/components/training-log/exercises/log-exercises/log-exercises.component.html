@@ -25,7 +25,7 @@
           <div class="exercise-card">
             <ng-container *ngIf="exercise.fileId; else noimg">
               <img 
-               src="{{apiUrl + 'files/' + exercise.fileId}}"
+               src="{{exercise.fileId}}"
               (error) = "errorHandler(exercise)">
             </ng-container>
             <ng-template #noimg>

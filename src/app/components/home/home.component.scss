@@ -1,19 +1,29 @@
 @import "../../../styles.scss";
 
+.tile-row { margin-top: 2em }
 
 .tile {
-    border-top: 6px solid $primary;
+    border-top-left-radius: 1em;
     font-size: 0.9em;
     margin: auto 2em;
-    margin-top: 2em;
 }   
 
 .tile-content {
-    margin: 1em 1em auto 1em;
+    margin: 1em 0em auto 0em;
+    display:flex;
+    font-size: 1.1em;
+    height: 100%
 }
 
-.tile:last-child {
-    padding-bottom: 3em;
+.tile-content > mat-icon {
+    align-self: center;
+    border-radius: 1em;
+    margin: 0em 0.9em 0em 0em;
+    font-size: 3.4em;
+    background-color: rgb(228, 228, 228);
+    padding: 0.3em;
+    height: 90px;
+    width: 170px;
 }
 
 .hero {
@@ -45,13 +55,8 @@ p {
         margin-top: 2em;
 
     }
-    .tile {
-        flex-basis: 33%;
-        margin-top: 0 !important;
-    }
-    .tile + .tile {
-        margin-left: 2em;
-    }
+    .tile { margin-top: 1em !important; }
+
     .hero {
         background-size: contain;
         width: 1000px;

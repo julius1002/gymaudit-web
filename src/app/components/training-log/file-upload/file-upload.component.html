@@ -1,7 +1,7 @@
 <ng-container *ngIf="['google_drive', 'google'].includes(this.userInfo?.provider)">
   <ng-container *ngIf="this.data && this.data.fileId">
     <div class="preview-img">
-      <img src="{{environment.api_url + 'files/' + this.data.fileId}}">
+      <img src="{{this.data.fileId}}">
     </div>  
     </ng-container>
   <div class="file-upload">
