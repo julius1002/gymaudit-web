@@ -10,13 +10,27 @@ export class UploadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  postFile(fileToUpload: File): Observable<any> {
-    const endpoint = environment.api_url + "files";
+  getUploadUri(){
+    const endpoint = environment.api_url + "files/uri";
+    return this.httpClient.get<any>(endpoint);
+  }
+
+  post(uri, fileToUpload, accessToken){
     const formData: FormData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-    return this.httpClient.post(endpoint, formData, {
+    var metadata = {
+      'name': "image", // Filename at Google Drive
+      'mimeType': "image/jpeg", // mimeType at Google Drive
+      'parents': ['appDataFolder'], // Folder ID at Google Drive
+  };
+  formData.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+
+    formData.append('file', fileToUpload);
+    return this.httpClient.post(uri + "?uploadType=multipart&fields=id", formData, {
       reportProgress: true,
-      observe: 'events'
+      observe: 'events',
+      headers: {
+        "Authorization" : "Bearer " + accessToken
+      }
     })
   }
 }

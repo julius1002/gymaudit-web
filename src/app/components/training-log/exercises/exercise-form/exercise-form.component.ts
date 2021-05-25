@@ -17,6 +17,7 @@ import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { UploadService } from "src/app/services/upload.service";
 import { UserInfoService } from "src/app/services/userinfo-service";
+import { map, switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-exercise-form",
@@ -142,9 +143,6 @@ export class ExerciseFormComponent implements OnInit {
     var fileId;
 
     if (this.editing) {
-      if (this.data.fileId) {
-        fileId = this.data.fileId.split("?jwt=")[0]
-      }
       exerciseId = this.data.id;
       date = this.data.date;
       unitId = this.data.unitId
@@ -166,7 +164,12 @@ export class ExerciseFormComponent implements OnInit {
 
     if (this.fileToUpload) {
       this.isLoading = true;
-      this.uploadService.postFile(this.fileToUpload)
+    
+      this.uploadService.getUploadUri().pipe(
+        switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token))
+      )      
+
+      /*this.uploadService.postFile(this.fileToUpload)*/
         .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:
@@ -181,7 +184,7 @@ export class ExerciseFormComponent implements OnInit {
               setTimeout(() => {
                 this.progress = 0;
               }, 4);
-
+              fileId = event.body.id
               const newExercise: Exercise = {
                 id: exerciseId,
                 unitId: unitId,
@@ -190,13 +193,13 @@ export class ExerciseFormComponent implements OnInit {
                 exerciseType: exerciseType,
                 description: formValue.description,
                 muscleGroups: muscleGroups,
-                fileId: event.body.id,
+                fileId: fileId,
               };
-              this.isLoading = false;
 
+              this.isLoading = false;
               this.submitExercise.emit(newExercise);
               this.exerciseForm.reset;
-          }
+            }
         })
     } else {
       const newExercise: Exercise = {

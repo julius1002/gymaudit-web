@@ -13,6 +13,7 @@ import { UploadService } from "src/app/services/upload.service";
 import { environment } from "src/environments/environment";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-unit-form",
@@ -102,13 +103,12 @@ export class UnitFormComponent implements OnInit {
       id = this.data.id;
       date = this.data.date;
       traineeId = this.data.traineeId;
-      if (this.data.fileId) {
-        fileId = this.data.fileId.split("?jwt=")[0]
-      }
     }
     if (this.fileToUpload) {
       this.isLoading = true;
-      this.uploadService.postFile(this.fileToUpload)
+      this.uploadService.getUploadUri().pipe(
+        switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token))
+      ) 
         .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:

@@ -37,7 +37,7 @@ export class EditUnitComponent implements OnInit {
           deleteUnit.id = undefined
           this.dialogRefEdit.close(deleteUnit);
         }, (err) => {
-          this.dialogRefEdit.close(undefined);
+          this.dialogRefEdit.close(undefined);  
         });
     }
 

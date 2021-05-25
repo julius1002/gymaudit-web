@@ -14,9 +14,10 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
     var jwt = localStorage.getItem("jwt")
 
-    var clonedRequest = request
 
-    if (jwt) {
+    var clonedRequest = request
+    
+    if (jwt && !request.url.startsWith("https://www.googleapis.com/upload/drive/v3/files")) {
       clonedRequest = request.clone({
         setHeaders: {
           Authorization: `Bearer ${jwt}`

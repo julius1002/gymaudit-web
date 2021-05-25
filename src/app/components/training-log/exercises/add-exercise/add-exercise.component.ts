@@ -23,8 +23,10 @@ export class AddExerciseComponent implements OnInit {
   }
 
   postExercise(exercise: Exercise) {
+    console.log(exercise)
     this.exerciseService.postSingle(this.data.unitid, exercise).pipe(take(1))
       .subscribe((exercise) => {
+        console.log(exercise)
         this.dialogRef.close(exercise);
         this.alertService.openSnackBar(
           `${exercise.name} erfolgreich hinzugefügt!`,
