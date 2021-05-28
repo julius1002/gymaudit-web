@@ -55,9 +55,8 @@ export class UserinfoFormComponent implements OnInit {
 private setFormValues(userInfo: UserInfo) {
   this.userInfoFormGroup.patchValue(userInfo);
 
-  var date = userInfo.birthday?new Date(userInfo.birthday):new Date()
+  var date = userInfo.birthday ? new Date(userInfo.birthday) : new Date()
   this.setDateValues(date)
-
 }
 
 private setDateValues(date:Date){

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
 import { Exercise, ExerciseType, MuscleGroup } from "src/app/model/exercise";
 
-import { ActivatedRoute } from "@angular/router";
 
 import { environment } from "src/environments/environment";
 import {
@@ -17,7 +16,7 @@ import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { UploadService } from "src/app/services/upload.service";
 import { UserInfoService } from "src/app/services/userinfo-service";
-import { map, switchMap } from "rxjs/operators";
+import { switchMap, take } from "rxjs/operators";
 
 @Component({
   selector: "app-exercise-form",
@@ -164,12 +163,9 @@ export class ExerciseFormComponent implements OnInit {
 
     if (this.fileToUpload) {
       this.isLoading = true;
-    
+      
       this.uploadService.getUploadUri().pipe(
-        switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token))
-      )      
-
-      /*this.uploadService.postFile(this.fileToUpload)*/
+        switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token)))      
         .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:

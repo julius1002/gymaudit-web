@@ -108,8 +108,7 @@ export class UnitFormComponent implements OnInit {
       this.isLoading = true;
       this.uploadService.getUploadUri().pipe(
         switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token))
-      ) 
-        .subscribe((event: HttpEvent<any>) => {
+      ) .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:
               console.log('Request has been made!');

@@ -1,17 +1,10 @@
 @import "../../../styles.scss";
 
-.main{
-    width: 90%;
-    margin: 0 auto;
-    padding:0;
-    text-align: center;
-}   
 mat-form-field{
-    display:block;
     width: 100%;
 }
 
-.register-button{
+.submit-button {
     background-color: $primary;
     color:white !important;
     text-transform: uppercase   ;
@@ -19,18 +12,37 @@ mat-form-field{
     width: 100%;
     padding: 0.5em 1em;
     display:block;
-    box-sizing: border-box;
     margin: 0 auto;
     text-decoration: none;
-}
-.mat-form-field-empty.mat-form-field-label {
-    color: green;
-}
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    border: 4px solid $primary;
+    margin-top: 1.5em;
+
 }
 
+
+.birthday-form {
+    display:flex;
+}
+
+.birthday-form > mat-form-field {
+    width: calc(33.3% - 0.75em);
+}
+
+
+.birthday-form > mat-form-field:nth-child(2){
+    margin: auto 1em;
+
+}
+
+.title-container{
+    margin-top: 4em;
+    margin-bottom: 1em;
+}
 
 form{
     margin-bottom: 2em;
+}
+
+mat-icon{
+    color: $primary
 }

@@ -15,7 +15,7 @@ export class UploadService {
     return this.httpClient.get<any>(endpoint);
   }
 
-  post(uri, fileToUpload, accessToken){
+  post(uri, fileToUpload, accessToken:string = ""){
     const formData: FormData = new FormData();
     var metadata = {
       'name': "image", // Filename at Google Drive
@@ -25,7 +25,7 @@ export class UploadService {
   formData.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
 
     formData.append('file', fileToUpload);
-    return this.httpClient.post(uri + "?uploadType=multipart&fields=id", formData, {
+     return this.httpClient.post(uri, formData, {
       reportProgress: true,
       observe: 'events',
       headers: {

@@ -1,40 +1,66 @@
-<div class ="main">
-        <h2 style="text-align: center;">Registration</h2>
-        <mat-form-field>
-            <mat-label>Vorname</mat-label>
-            <input matInput [formControl]="firstName" required>
-            <mat-error *ngIf="firstName
-            .invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Nachname</mat-label>
-            <input matInput [formControl]="lastName" required>
-            <mat-error *ngIf="lastName
-            .invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>E-Mail Adresse</mat-label>
-            <input matInput placeholder="name@prodiver.com" [formControl]="email" required>
-            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Passwort wählen</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Passwort wiederholen</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
-        <button mat-raised-button class ="register-button">Register</button>
-        <div class ="divider"></div>
-        <span style ="display:block"> Bereits registriert?<a routerLink="/login"> Einloggen</a></span>
+<div class="container">    
+    <form [formGroup]="signUpForm">
+        <div class ="container">            
+            <div class="title-container">
 
+    <h2 style="text-align: center;">Registrierung</h2>
+    </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Vorname</mat-label>
+            <input matInput formControlName="firstName" required>
+            <!-- mat-error *ngIf="firstName
+            .invalid">{{getErrorMessage()}}</mat-error -->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Nachname</mat-label>
+            <input matInput formControlName="lastName" required>
+            <!-- mat-error 
+            *ngIf="lastName.invalid">{{getErrorMessage()}}
+        </mat-error-->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>E-Mail Adresse</mat-label>
+            <input matInput email formControlName="email" required>
+            <!-- mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error-->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Passwort wählen*</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Passwort bestätigen*</mat-label>
+            <input formControlName="confirmPassword" matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <div class="alert alert-danger" *ngIf = "this.confirmPassword.value && (this.confirmPassword.value !== this.password.value)">
+            Die Passwörter stimmen nicht überrein
+        </div>
+                    <div class="birthday-form">
+                        <mat-form-field style="margin-bottom: -1.25em" appearance="outline" >
+                            <mat-label>Tag</mat-label>
+                            <input type="text" pattern="\d*" maxlength="2" formControlName="day" matInput/>
+                          </mat-form-field>
+                          <mat-form-field style="margin-bottom: -1.25em" appearance="outline">
+                            <mat-label>Monat</mat-label>
+                            <mat-select  formControlName="month" >
+                                <mat-option value = "{{month}}" *ngFor="let month of this.months">{{month}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field style="margin-bottom: -1.25em" appearance="outline" >
+                            <mat-label>Jahr</mat-label>
+                            <input type="text" pattern="\d*" maxlength="4" formControlName="year" matInput/>
+                          </mat-form-field>
+                      </div>
+                      <button mat-button (click)="submitForm()" type="submit" class="submit-button">Abschicken</button>
+    </div>
+    <div class ="divider"></div>
+    </form>
+        <span style ="display:block"> Bereits registriert?<a routerLink="/login"> Einloggen</a></span>
 </div>

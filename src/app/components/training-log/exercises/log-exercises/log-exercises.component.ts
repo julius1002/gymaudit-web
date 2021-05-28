@@ -59,7 +59,6 @@ export class LogExercisesComponent implements OnInit {
     private unitService: UnitService
   ) { }
 
-
   async ngOnInit() {
 
     this.keyUp$.pipe(

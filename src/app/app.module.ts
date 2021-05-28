@@ -55,6 +55,7 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
 import { AgoPipe } from './pipes/ago.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { UserinfoFormComponent } from './components/userinfo/userinfo-form/userinfo-form/userinfo-form.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { UserinfoFormComponent } from './components/userinfo/userinfo-form/useri
     FileUploadComponent,
     AgoPipe,
     HeaderComponent,
-    UserinfoFormComponent],
+    UserinfoFormComponent,
+    FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

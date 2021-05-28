@@ -1,4 +1,4 @@
-<ng-container *ngIf="['google_drive', 'google'].includes(this.userInfo?.provider)">
+<ng-container *ngIf="['google_drive', 'google', 'facebook'].includes(this.userInfo?.provider)">
   <ng-container *ngIf="this.data && this.data.fileId">
     <div class="preview-img">
       <img src="{{this.data.fileId}}">
