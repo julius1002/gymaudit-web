@@ -56,6 +56,7 @@ import { AgoPipe } from './pipes/ago.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { UserinfoFormComponent } from './components/userinfo/userinfo-form/userinfo-form/userinfo-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MuscleGroupComponent } from './components/training-log/sets/muscle-group/muscle-group.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { FooterComponent } from './components/footer/footer.component';
     AgoPipe,
     HeaderComponent,
     UserinfoFormComponent,
-    FooterComponent],
+    FooterComponent,
+    MuscleGroupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

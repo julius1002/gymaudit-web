@@ -13,7 +13,7 @@
     close
   </mat-icon>
 </div>
-<p>{{this.selectedUnit?.description}}</p>
+<p class ="description">{{this.selectedUnit?.description}}</p>
 <ng-container *ngIf="exercisesPage">
   <ng-container *ngIf="exercisesPage.content.length; else noresults">
     <ul class="exercise-list">

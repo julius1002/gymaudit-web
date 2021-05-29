@@ -10,6 +10,7 @@ import { RedirectComponent } from "./components/redirect/redirect.component";
 import { UserinfoComponent } from "./components/userinfo/userinfo.component";
 import { LogSetsComponent } from "./components/training-log/sets/log-sets/log-sets.component";
 import { UserinfoFormComponent } from "./components/userinfo/userinfo-form/userinfo-form/userinfo-form.component";
+import { UnsavedChangesGuard } from "./components/guards/unsaved-changes.guard";
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   {
     path: "signup",
     component: SignupComponent,
+    canDeactivate: [UnsavedChangesGuard]
   },
   {
     path: "redirect",
@@ -63,7 +65,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes
+    )],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

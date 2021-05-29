@@ -169,14 +169,11 @@ export class LogExercisesComponent implements OnInit {
 
   selectExercise(exercise: Exercise) {
     if (!this.editView) {
-      this.router.navigate(["training-log", "sets", exercise.id], { state: exercise })
+      this.router.navigate(["training-log", "sets", exercise.id], { state: { exercise: exercise  } })
     } else {
       this.openDialog(exercise);
     }
-
-
   }
-
 
   toggleSearchBar() {
     var searchButton = document.getElementsByClassName("search-button").item(0);

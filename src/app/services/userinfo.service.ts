@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserInfo } from '../model/userInfo';
+import { UserInfoForm } from '../model/userinfoForm';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,10 @@ export class UserinfoService {
       );
     }
 
-    public updateUserInfo(userInfo:UserInfo
+    public updateUserInfo(userInfoForm:UserInfoForm
       ): Observable<any> {
         return this.httpClient.put<any>(
-          `${environment.api_url}me/profile`, userInfo
+          `${environment.api_url}me/profile`, userInfoForm
         );
       }
       public revoke(): Observable<any> {

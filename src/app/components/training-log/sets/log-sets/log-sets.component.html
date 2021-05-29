@@ -11,10 +11,13 @@
         <mat-datepicker touchUi #picker></mat-datepicker>
     </div>
 </div>
+<div class = "head-container">
 <p>{{this.selectedExercise?.description}}</p>
+</div>
 <div class="headline">
     <h5>{{title}} ({{sets?.length}})</h5>
-</div>
+</div>   
+<ng-container *ngIf="!showMuscleGroups">
 <ng-container *ngIf="sets && sets.length">
     <div class="accordion-container">
         <div class="divider"></div>
@@ -48,3 +51,4 @@
         </mat-icon>
     </li>
 </ul>
+</ng-container>

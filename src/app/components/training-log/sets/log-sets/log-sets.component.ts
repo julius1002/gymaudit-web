@@ -9,8 +9,8 @@ import { DatePipe } from "@angular/common";
 import { AddSetComponent } from "../add-set/add-set.component";
 import { MatDialog } from "@angular/material/dialog";
 import { EditSetComponent } from "../edit-set/edit-set.component";
-import { MatExpansionPanel } from "@angular/material/expansion";
 import { delay, take, tap } from "rxjs/operators";
+import * as moment from "moment";
 
 @Component({
   selector: "app-log-sets",
@@ -31,6 +31,8 @@ export class LogSetsComponent implements OnInit {
 
   measureUnit = MeasureUnit
 
+  showMuscleGroups:boolean = false;
+
   @ViewChildren("setElements") setElements;
 
   constructor(private router: Router,
@@ -43,7 +45,7 @@ export class LogSetsComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.selectedExercise = <Exercise>history.state.data
+    this.selectedExercise = <Exercise>history.state.exercise
 
     this.exerciseId = this.route.snapshot.paramMap.get("exerciseId")
 
@@ -52,11 +54,10 @@ export class LogSetsComponent implements OnInit {
     }
 
     this.setService.getSets(this.exerciseId)
-      .subscribe(sets => this.sets = sets)
-
-    var bottomNav = document.getElementById("set-nav");
-    setTimeout(() => bottomNav.classList.add("show-nav")
-      , 500)
+      .subscribe(sets => {this.sets = sets;
+        var bottomNav = document.getElementById("set-nav");
+        setTimeout(() => bottomNav.classList.add("show-nav")
+          , 500)})
   }
 
   async navigateBack() {
@@ -81,9 +82,21 @@ export class LogSetsComponent implements OnInit {
   }
 
   async dateChange($event: MatDatepickerInputEvent<Date>) {
+
     this.title = new DatePipe(this.locale).transform($event.value, 'dd-MM-yyyy');
 
     this.sets = await this.setService.getSets(this.exerciseId, $event.value.toISOString()).toPromise()
+
+    var bottomNav = document.getElementById("set-nav");
+
+    var isToday = moment($event.value).isSame(new Date(), "day");
+    
+    if(isToday){
+         bottomNav.classList.add("show-nav")
+    } else {
+         bottomNav.classList.remove("show-nav")
+    }
+
   }
 
   async openDialog(set: Set = undefined) {

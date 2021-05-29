@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { take, switchMap } from 'rxjs/operators';
 import { UserInfo } from 'src/app/model/userInfo';
+import { UserInfoForm } from 'src/app/model/userinfoForm';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserInfoService } from 'src/app/services/userinfo-service';
@@ -126,16 +127,15 @@ submitForm() {
     return;
   }
   const formValue = this.userInfoFormGroup.getRawValue();
+  
   var date =  formValue.year + "/" + (this.months.indexOf(formValue.month) +1 )  + "/" + formValue.day
-  var userInfo:UserInfo = { 
+
+  var userInfoForm:UserInfoForm = { 
     name: formValue.name,
     birthday: new Date(date),
-    email: formValue.email,
-    picture:undefined,
-    provider:undefined,
-    username: undefined
+    email: formValue.email
   }
-  this.userinfoService.updateUserInfo(userInfo).subscribe(res => {
+  this.userinfoService.updateUserInfo(userInfoForm).subscribe(res => {
     this.userInfoService.setUserInfo(res)
     this.alertService.openSnackBar("Ihre Daten wurden erfolgreich aktualisiert!", "Ok")
   this.router.navigate(["userinfo"])}

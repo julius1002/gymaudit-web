@@ -96,6 +96,11 @@ mat-icon{
     display:none;
 }
 
+.description {
+    word-break: break-word;
+    max-width: 90%;
+}
+
 .exercise-name-container{
     overflow:hidden;
     font-family: Roboto, sans-serif;

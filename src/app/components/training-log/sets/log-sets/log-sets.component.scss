@@ -160,6 +160,18 @@ strong { font-size: 1.3em }
 
 p { text-align: center; font-size: 0.9em}
 
+.head-container { 
+    margin:0 auto;
+    max-width: 90%;
+    display:flex; 
+}
+
+.head-container__description > p {
+    word-break: break-word;
+}
+
+.head-container__icon > mat-icon { font-size: 3em;}
+
 @keyframes land-on-top {
     0% {
         transform: translateY(-250px)
