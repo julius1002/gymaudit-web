@@ -21,17 +21,18 @@ export class FileUploadComponent implements OnInit {
   userInfo: UserInfo;
 
   environment = environment
-  
+
   jwt = localStorage.getItem("jwt")
 
   constructor(private userInfoService: UserInfoService) { }
 
   ngOnInit(): void {
-      this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
+    this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
   }
 
   handleFileInput(files: FileList) {
     var file = files.item(0);
+    console.log(file)
 
     if (!(file.size < (this.maxFileMegaBytes * Math.pow(1024, 2)))) {
       alert(`Das Bild darf ${this.maxFileMegaBytes} nicht übersteigen`)

@@ -1,54 +1,69 @@
+<div class = "header">
+<div class="back-button">
+    <mat-icon (click)="this.navigateBack()">arrow_back_ios</mat-icon>
+</div>
+<div class ="title">
+<h4>
+    {{this.selectedExercise?.name}}
+</h4>
+</div>
+<div class ="placeholder">
+</div>
+</div>
 <div class="set-option-container">
-    <mat-icon class="back-button" (click)="this.navigateBack()">arrow_back_ios</mat-icon>
-    <div class="title">
-        <h5>
-            {{this.selectedExercise?.name}}
-        </h5>
+    <div class="img-container" *ngIf = "this.selectedExercise?.fileId">
+        <img src="{{this.selectedExercise?.fileId}}" (error) = "errorHandler(this.selectedExercise)">
     </div>
+    <ng-container *ngIf = "this.selectedExercise?.description">
+    <div class ="set-option-container__description">
+        {{this.selectedExercise?.description}}
+    </div>
+</ng-container>
+</div>
+<div class="headline">
+    <div class = "placeholder">
+    </div>
+    <div class ="set-title">
+    <h5>{{title}} ({{sets?.length}})</h5></div>
     <div class="search-button">
         <input class="invisible" matInput [matDatepicker]="picker" (dateChange)="dateChange($event)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
     </div>
 </div>
-<div class = "head-container">
-<p>{{this.selectedExercise?.description}}</p>
-</div>
-<div class="headline">
-    <h5>{{title}} ({{sets?.length}})</h5>
-</div>   
 <ng-container *ngIf="!showMuscleGroups">
-<ng-container *ngIf="sets && sets.length">
-    <div class="accordion-container">
-        <div class="divider"></div>
-        <mat-accordion>
-            <mat-expansion-panel #setElements hideToggle *ngFor="let set of this.sets" id={{set.id}}>
-                <mat-expansion-panel-header [collapsedHeight]="'5em'" [expandedHeight]="'5em'">
-                    <mat-panel-title>
-                        {{date - set.date | ago}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        <div class="accordion-container__grid">
-                            <div class="attribute"> Wiederholungen</div>
-                            <div class="value"><strong>{{set.reps}}</strong></div>
-                            <div class="attribute">{{set.measureUnit?measureUnit[set.measureUnit]:'Intensität'}}</div>
-                            <div class="value"><strong>{{set.load}}</strong></div>
-                        </div>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="icon-container">
-                    <mat-icon (click)="delete(set)" mat-button>delete_forever</mat-icon>
-                    <mat-icon (click)="openDialog(set)" mat-button>settings</mat-icon>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-</ng-container>
-<ul class="bottom-nav" id="set-nav">
-    <li class="add-button">
-        <mat-icon inline (click)="openDialog()">
-            add
-        </mat-icon>
-    </li>
-</ul>
+    <ng-container *ngIf="sets && sets.length">
+        <div class="accordion-container">
+            <div class="divider"></div>
+            <mat-accordion>
+                <mat-expansion-panel class = "mat-elevation-z1" #setElements hideToggle *ngFor="let set of this.sets" id={{set.id}}>
+                    <mat-expansion-panel-header [collapsedHeight]="'5em'" [expandedHeight]="'5em'">
+                        <mat-panel-title>
+                            {{date - set.date | ago}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <div class="accordion-container__grid">
+                                <div class="attribute"> Wiederholungen</div>
+                                <div class="value"><strong>{{set.reps}}</strong></div>
+                                <div class="attribute">{{set.measureUnit?measureUnit[set.measureUnit]:'Intensität'}}
+                                </div>
+                                <div class="value"><strong>{{set.load}}</strong></div>
+                            </div>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="icon-container">
+                        <mat-icon (click)="delete(set)" mat-button>delete_forever</mat-icon>
+                        <mat-icon (click)="openDialog(set)" mat-button>settings</mat-icon>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </ng-container>
+    <ul class="bottom-nav" id="set-nav">
+        <li class="add-button">
+            <mat-icon inline (click)="openDialog()">
+                add
+            </mat-icon>
+        </li>
+    </ul>
 </ng-container>

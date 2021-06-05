@@ -160,4 +160,8 @@ export class LogSetsComponent implements OnInit {
     }
   }
 
+  errorHandler(exercise){
+    exercise.fileId = undefined
+  }
+
 }

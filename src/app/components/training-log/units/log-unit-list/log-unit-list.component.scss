@@ -40,16 +40,14 @@ ul{
 
 
 .unit-card-flipped{
-    transform: translateX(-100%) rotateY(-180deg);
-    -webkit-transform: translateX(-100%) rotateY(-180deg);
-
+    transform:  rotateX(-180deg);
+    -webkit-transform: rotateX(-180deg);
 }
 .unit-card--back {
     background: #f0f0f0;
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
-
-  }
+}
 
 
 img{
@@ -124,6 +122,7 @@ mat-spinner {
 }
 
 .unit-card > mat-icon{
+    -webkit-backface-visibility: hidden;
     margin: 0 auto;
     color:$text;
     margin-top:2em;

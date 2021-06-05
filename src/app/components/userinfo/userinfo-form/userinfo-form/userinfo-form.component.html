@@ -59,7 +59,7 @@
         <div class="divider"></div>
         <div class = "container__buttons">
         <button mat-button type ="button" class = "cancel-button"  routerLink = "..">Abbrechen</button>
-        <button mat-button type="submit" class="submit-button" [disabled] = "noValueChanged()" >Speichern </button>
+        <button mat-button type="submit" class="submit-button" [disabled] = "noValueChanged() || userInfoFormGroup.invalid" >Speichern </button>
         </div>
         <button type ="button" (click) = "this.deleteAccount()" mat-button class = "delete-button"><mat-icon inline>close</mat-icon>Account löschen</button>
     </ng-container>

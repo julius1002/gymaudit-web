@@ -2,47 +2,93 @@
 
 
 .back-button {
-    align-self: center;
     max-width: 2.5em;
-    margin-left: 0.5em;
+    margin: 3em auto auto 0.75em;
     flex: 1;
 }
 
-.title {
-    flex:3;
-    align-self: center;
-    margin-bottom: 0;
-    text-align: center;
-    overflow:hidden;
-    position:relative
-}
-
-.search-button {
-    flex:1;
-    max-width: 2.5em;
-    margin-right: 0.5em;
-    text-align:right;
-}
-
-.title > h5 {
-    margin-bottom: 0;
-    padding: 2px;
-}
-
-.headline {
-    text-align: center;
-}
-
-.set-option-container {
-    display:flex;
-    margin: 3em auto 1em auto;
-}
+.back-button > mat-icon { align-self: center;}
 
 .accordion-container {
     width: 90%;
     margin: 0 auto;
 }
 
+.title { 
+    margin-left: 0.5em;
+    align-self: center;
+    flex: 3;
+    text-align: center;
+ }
+
+.img-container > img{
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.img-container {
+    max-height: 8em;
+    flex: 3;
+}
+
+.search-button {
+    flex:1;
+    margin-right: 0.5em;
+    text-align:right;
+    align-self: center;
+    max-width: 50px;
+}
+
+.header {
+    display:flex;
+}
+
+.header {
+    margin-top: 3em;
+}
+
+.header > .back-button {
+    margin-top: 0em;
+}
+
+h5 {
+    margin-bottom: 0;
+    padding: 2px;
+}
+
+.headline {
+    display:flex;
+    text-align: center;
+}
+
+.placeholder {
+    flex: 1;
+    max-width: 50px;
+}
+
+.set-title {
+    flex: 3;
+}
+
+.set-option-container {
+    display:flex;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0.5em;
+    color:black;
+    padding:0;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.set-option-container__description{
+    flex: 3;
+    margin-left: 1em;
+}
 
 mat-expansion-panel:first-child {
     margin-top: 2em;
@@ -160,13 +206,7 @@ strong { font-size: 1.3em }
 
 p { text-align: center; font-size: 0.9em}
 
-.head-container { 
-    margin:0 auto;
-    max-width: 90%;
-    display:flex; 
-}
-
-.head-container__description > p {
+.head-container > p {
     word-break: break-word;
 }
 
@@ -197,6 +237,10 @@ p { text-align: center; font-size: 0.9em}
     .set-option-container { margin-top: 5em } 
     mat-icon { cursor: pointer }
     .accordion-container {
+        width: 35%;
+        margin: 0 auto;
+    }
+    .set-option-container{
         width: 35%;
         margin: 0 auto;
     }

@@ -66,6 +66,10 @@ export class LogUnitListComponent implements OnInit {
 
   }
 
+  errorHandler(unit){
+    unit.fileId = undefined
+  }
+
   toggleSettingsView() {
     const cards = document.getElementsByClassName("card");
     for (let i = 0; i < cards.length; i++) {
