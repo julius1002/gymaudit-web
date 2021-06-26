@@ -35,7 +35,8 @@ export class UnitFormComponent implements OnInit {
 
   mode: ProgressSpinnerMode = 'determinate';
 
-
+  submitted:boolean = false;
+  
   constructor(
     private formBuilder: FormBuilder,
     private uploadService: UploadService,
@@ -66,7 +67,6 @@ export class UnitFormComponent implements OnInit {
   fileEmitted($event: File) {
     this.fileToUpload = $event
   }
-
 
   private setFormValues(unit: Unit) {
     this.unitForm.patchValue(unit);
@@ -150,11 +150,12 @@ export class UnitFormComponent implements OnInit {
         name: formValue.name,
         description: formValue.description,
         traineeId: traineeId,
-        fileId: this.data.fileId
+        fileId: this.data?.fileId
       };
       this.isLoading = false;
       this.submitUnit.emit(newUnit);
       this.unitForm.reset;
     }
+    this.submitted = true;
   }
 }

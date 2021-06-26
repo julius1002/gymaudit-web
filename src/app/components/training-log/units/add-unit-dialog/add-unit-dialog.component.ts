@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { take } from 'rxjs/operators';
+import { debounceTime, shareReplay, take, throttleTime } from 'rxjs/operators';
 import { Unit } from 'src/app/model/unit';
 import { UnitService } from 'src/app/services/unit.service';
 
@@ -17,12 +17,11 @@ export class AddUnitDialogComponent implements OnInit {
   ngOnInit(): void {
   }
   postUnit(unit: Unit) {
-    this.unitService.postSingle(unit).pipe(take(1))
-      .subscribe((unit) => {
-        this.dialogRefAdd.close(unit);
-      }, (err) => {
-        this.dialogRefAdd.close(undefined);
-      });
+    this.unitService.postSingle(unit).subscribe((unit) => {
+      this.dialogRefAdd.close(unit);
+    }, (err) => {
+      this.dialogRefAdd.close(undefined);
+    });
 
   }
 }

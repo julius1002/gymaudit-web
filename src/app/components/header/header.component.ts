@@ -1,10 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take, share, switchMap } from 'rxjs/operators';
 import { UserInfo } from 'src/app/model/userInfo';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserInfoService } from 'src/app/services/userinfo-service';
 import { UserinfoService } from 'src/app/services/userinfo.service';
 
 @Component({
@@ -39,11 +37,10 @@ export class HeaderComponent implements OnInit {
   constructor(public authenticationService: AuthenticationService,
     private router: Router,
     private alertService: AlertService,
-    private userinfoService: UserinfoService,
-    private userInfoService: UserInfoService) {
+    private userInfoService: UserinfoService) {
 
-    this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
-    
+    this.userInfoService.getUserInfo().subscribe(userInfo => this.userInfo = userInfo)
+
     this.authenticationService.isAuthenticated()
       .subscribe(auth => this.authenticated = auth)
   }
@@ -51,35 +48,25 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem("jwt")) {
       this.authenticationService.setAuthentication(true)
-      this.userInfoService.getUserinfo()
-        .pipe(
-          take(1),
-          share(),
-          switchMap(userInfo => {
-            if (userInfo) {
-              this.userInfo = userInfo;
-            } else {
-              return this.userinfoService.getUserInfo()
-            }
-          })).subscribe(res => {
-            this.userInfo = res
-            this.userInfoService.setUserInfo(res)
-          })
+      this.userInfoService.getUserInfo()
+        .subscribe(res => {
+          this.userInfo = res
+        })
     }
   }
 
   logout(): void {
-    if (confirm("Are you sure you want to log out?")) {
+    if (confirm("Sicher ausloggen?")) {
       this.authenticationService.logout().subscribe(res => {
         this.authenticationService.setAuthentication(false)
-        this.userInfoService.setUserInfo(undefined)
-        this.alertService.openSnackBar("Successfully logged out!", "Ok")
+        this.userInfoService.logout()
+        this.alertService.openSnackBar("Erfolgreich ausgeloggt!", "Ok")
         if (localStorage.getItem("jwt")) {
           localStorage.removeItem("jwt")
         }
         this.router.navigate(["/login"])
       }, (err) => {
-        this.alertService.openSnackBar("An error occured", "Ok")
+        this.alertService.openSnackBar("Es ist ein Fehler aufgetreten", "Ok")
       }
       );
     }

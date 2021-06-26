@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserInfo } from 'src/app/model/userInfo';
-import { UserInfoService } from 'src/app/services/userinfo-service';
+import { UserinfoService } from 'src/app/services/userinfo.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -26,10 +26,10 @@ export class FileUploadComponent implements OnInit {
 
   jwt = localStorage.getItem("jwt")
 
-  constructor(private userInfoService: UserInfoService) { }
+  constructor(private userInfoService: UserinfoService) { }
 
   ngOnInit(): void {
-    this.userInfoService.getUserinfo().subscribe(userInfo => this.userInfo = userInfo)
+    this.userInfoService.getUserInfo().subscribe(userInfo => this.userInfo = userInfo)
   }
 
   handleFileInput(files: FileList) {

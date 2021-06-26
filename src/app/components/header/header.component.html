@@ -8,8 +8,8 @@
       GymAudit
     </div>
     <div class="nav-right">
-      <ng-container *ngIf="this.userInfo && this.userInfo.picture && this.authenticated">
-        <img class="header-image" src={{this.userInfo.picture}} routerLink="userinfo">
+      <ng-container *ngIf="this.userInfo && this.userInfo?.picture && this.authenticated">
+        <img class="header-image" src={{this.userInfo?.picture}} routerLink="userinfo">
       </ng-container>
     </div>
   </mat-toolbar>

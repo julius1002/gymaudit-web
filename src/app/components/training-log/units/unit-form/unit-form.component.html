@@ -38,7 +38,7 @@
       </button>
     </ng-container>
     <ng-container *ngIf="!this.isLoading; else loading">
-      <button mat-raised-button type="submit" class="btn" [disabled]="unitForm.invalid">
+      <button mat-raised-button type="submit" class="btn" [disabled]="unitForm.invalid || submitted">
         <mat-icon>save</mat-icon>
       </button>
     </ng-container>

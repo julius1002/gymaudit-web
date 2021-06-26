@@ -15,8 +15,8 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { UploadService } from "src/app/services/upload.service";
-import { UserInfoService } from "src/app/services/userinfo-service";
-import { switchMap, take } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
+import { UserinfoService } from "src/app/services/userinfo.service";
 
 @Component({
   selector: "app-exercise-form",
@@ -49,10 +49,13 @@ export class ExerciseFormComponent implements OnInit {
   canUploadFiles: boolean = false;
 
   apiUri = environment.api_url;
+
+  submitted:boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private uploadService: UploadService,
-    private userInfoService: UserInfoService,
+    private userInfoService: UserinfoService,
     @Inject(MAT_DIALOG_DATA) public data: Exercise
 
   ) { }
@@ -72,7 +75,7 @@ export class ExerciseFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userInfoService.getUserinfo().subscribe(res => {
+    this.userInfoService.getUserInfo().subscribe(res => {
       if (res && res.provider) this.canUploadFiles = res.provider?.split(" ").includes("google")
     })
 
@@ -219,6 +222,7 @@ export class ExerciseFormComponent implements OnInit {
       this.submitExercise.emit(newExercise);
       this.exerciseForm.reset;
     }
+    this.submitted = true
   }
 }
 
