@@ -131,6 +131,12 @@ export class ExerciseFormComponent implements OnInit {
     this.muscleGroups.removeAt(index);
   }
 
+  imageDeleted($event) {
+    if ($event) {
+      this.data.fileId = null;
+    }
+  }
+
   submitForm() {
     const formValue = this.exerciseForm.value;
 
@@ -145,6 +151,7 @@ export class ExerciseFormComponent implements OnInit {
       exerciseId = this.data.id;
       date = this.data.date;
       unitId = this.data.unitId
+      fileId = this.data.fileId
     }
 
     if (formValue.exerciseType === "") {

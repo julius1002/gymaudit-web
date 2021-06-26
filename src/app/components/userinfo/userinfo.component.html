@@ -1,39 +1,39 @@
 <div class="container">
     <h2>Profilübersicht</h2>
-    <ng-container *ngIf="this.userInfo">
+    <ng-container *ngIf="this.$userInfo | async as userInfo">
         <div class="main">
-            <ng-container *ngIf="this.userInfo.picture">
-                <img class="profile-image" src={{this.userInfo.picture}}>
+            <ng-container *ngIf="userInfo.picture">
+                <img class="profile-image" src={{userInfo.picture}}>
             </ng-container>
         </div>
         <div class="divider"></div>
         <div class="profile-grid">
-            <ng-container *ngIf="this.userInfo.username">
+            <ng-container *ngIf="userInfo.username">
                 <div class="key"> Username</div>
-                <div class="value">{{this.userInfo.username}}</div>
+                <div class="value">{{userInfo.username}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userInfo.name">
+            <ng-container *ngIf="userInfo.name">
                 <div class="key"> Name</div>
-                <div class="value">{{this.userInfo.name}}</div>
+                <div class="value">{{userInfo.name}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userInfo.birthday">
+            <ng-container *ngIf="userInfo.birthday">
                 <div class="key">Geburtsdatum</div>
-                <div class="value"> {{this.userInfo.birthday | date}}</div>
+                <div class="value"> {{userInfo.birthday | date}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userInfo.email">
+            <ng-container *ngIf="userInfo.email">
                 <div class="key">Email</div>
-                <div class="value">{{this.userInfo.email}}</div>
+                <div class="value">{{userInfo.email}}</div>
             </ng-container>
-            <ng-container *ngIf="this.userInfo.provider">
+            <ng-container *ngIf="userInfo.provider">
                 <div class="key">Deine Anbieter</div>
                 <div class="value">
-                    {{this.userInfo.provider}}
+                    {{userInfo.provider}}
                 </div>
             </ng-container>
         </div>
         <div class="divider"></div>
         <button mat-button type="submit" class="submit-button" routerLink = "edit">Profil bearbeiten </button>
-        <ng-container *ngIf="!['google_drive', 'google', 'facebook'].includes(this.userInfo?.provider)">
+        <ng-container *ngIf="!['google_drive', 'google', 'facebook'].includes(userInfo?.provider)">
                 <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img class="google-img"
                         src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
         </ng-container>

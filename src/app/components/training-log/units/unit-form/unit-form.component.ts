@@ -38,7 +38,7 @@ export class UnitFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-        private uploadService: UploadService,
+    private uploadService: UploadService,
     @Inject(MAT_DIALOG_DATA) public data: Unit) { }
 
   ngOnInit(): void {
@@ -92,6 +92,12 @@ export class UnitFormComponent implements OnInit {
     });
   }
 
+  imageDeleted($event) {
+    if ($event) {
+      this.data.fileId = null;
+    }
+  }
+
 
   submitForm() {
     const formValue = this.unitForm.value;
@@ -103,39 +109,40 @@ export class UnitFormComponent implements OnInit {
       id = this.data.id;
       date = this.data.date;
       traineeId = this.data.traineeId;
+      fileId = this.data.fileId;
     }
     if (this.fileToUpload) {
       this.isLoading = true;
       this.uploadService.getUploadUri().pipe(
         switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token))
-      ) .subscribe((event: HttpEvent<any>) => {
-          switch (event.type) {
-            case HttpEventType.Sent:
-              console.log('Request has been made!');
-              break;
-            case HttpEventType.ResponseHeader:
-              break;
-            case HttpEventType.UploadProgress:
-              this.progress = Math.round(event.loaded / event.total * 100);
-              break;
-            case HttpEventType.Response:
-              setTimeout(() => {
-                this.progress = 0;
-              }, 4);
-              const newUnit: Unit = {
-                id: id,
-                date: date,
-                name: formValue.name,
-                description: formValue.description,
-                traineeId: traineeId,
-                fileId: event.body.id
-              };
-              this.isLoading = false;
+      ).subscribe((event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            break;
+          case HttpEventType.ResponseHeader:
+            break;
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded / event.total * 100);
+            break;
+          case HttpEventType.Response:
+            setTimeout(() => {
+              this.progress = 0;
+            }, 4);
+            const newUnit: Unit = {
+              id: id,
+              date: date,
+              name: formValue.name,
+              description: formValue.description,
+              traineeId: traineeId,
+              fileId: event.body.id
+            };
+            this.isLoading = false;
 
-              this.submitUnit.emit(newUnit);
-              this.unitForm.reset;
-          }
-        })
+            this.submitUnit.emit(newUnit);
+            this.unitForm.reset;
+        }
+      })
     } else {
       const newUnit: Unit = {
         id: id,
@@ -143,7 +150,7 @@ export class UnitFormComponent implements OnInit {
         name: formValue.name,
         description: formValue.description,
         traineeId: traineeId,
-        fileId: fileId
+        fileId: this.data.fileId
       };
       this.isLoading = false;
       this.submitUnit.emit(newUnit);

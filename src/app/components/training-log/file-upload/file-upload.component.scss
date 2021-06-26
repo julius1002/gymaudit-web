@@ -11,6 +11,19 @@
     margin: 1em 0;
   }
 
+.file-upload__options{
+    display:flex;
+  }
+
+.file-upload__replace {
+  flex: 1;
+}
+
+.file-upload__close {
+  flex:1;
+}
+
+  
 
 .upload{
     text-align: center;

@@ -14,8 +14,7 @@ export class EditUnitComponent implements OnInit {
 
 
 
-  constructor(private dialogRefEdit: MatDialogRef<EditUnitComponent>, private unitService: UnitService, private alertService:AlertService
-  ) { }
+  constructor(private dialogRefEdit: MatDialogRef<EditUnitComponent>, private unitService: UnitService) { }
 
   ngOnInit(): void {
   }

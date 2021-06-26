@@ -4,9 +4,11 @@
             <div class="title-container">
                 <mat-icon inline>account_circle</mat-icon>
             </div>
-            <a class="fb-login-button" href = "{{this.environment.api_url}}oauth2/facebook"><img
-                    src="../../../assets/facebook.png">Weiter mit Facebook</a>
-            <a class="google-login-button" href ="{{this.environment.api_url}}oauth2/google"><img
+            <ng-container *ngIf="false">
+                <a class="fb-login-button" href="{{this.environment.api_url}}oauth2/facebook"><img
+                        src="../../../assets/facebook.png">Weiter mit Facebook</a>
+            </ng-container>
+            <a class="google-login-button" href="{{this.environment.api_url}}oauth2/google"><img
                     src="../../../assets/google-icon-small.svg"> Weiter mit Google
             </a>
             <div class="divider"></div>
@@ -30,7 +32,7 @@
             <div class="divider"></div>
         </div>
     </form>
-
-    <span>Noch nicht angemeldet?<a routerLink="/signup"> Registrieren</a></span>
-
+    <ng-container *ngIf="false">
+        <span>Noch nicht angemeldet?<a routerLink="/signup"> Registrieren</a></span>
+    </ng-container>
 </div>

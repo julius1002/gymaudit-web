@@ -12,6 +12,8 @@ export class FileUploadComponent implements OnInit {
 
   @Output() fileEmitter = new EventEmitter<File>();
 
+  @Output() deleteImageEmitter = new EventEmitter<boolean>();
+
   @Input() data;
 
   maxFileMegaBytes: number = 10;
@@ -32,7 +34,6 @@ export class FileUploadComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     var file = files.item(0);
-    console.log(file)
 
     if (!(file.size < (this.maxFileMegaBytes * Math.pow(1024, 2)))) {
       alert(`Das Bild darf ${this.maxFileMegaBytes} nicht übersteigen`)
@@ -42,9 +43,13 @@ export class FileUploadComponent implements OnInit {
     }
   }
 
+  deleteImage() {
+    this.data.fileId = "";
+    this.deleteImageEmitter.emit(true)
+  }
+
   public removeFile() {
     this.selectedFile = undefined
     this.fileEmitter.emit(undefined);
   }
-
 }

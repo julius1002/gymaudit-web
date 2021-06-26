@@ -28,7 +28,8 @@
       Beschreibung darf maximal 100 Zeichen lang sein.
     </div>
   </div>
-  <app-file-upload (fileEmitter)="fileEmitted($event)" [data]="this.data"></app-file-upload>
+  <app-file-upload (fileEmitter)="fileEmitted($event)" (deleteImageEmitter)="imageDeleted($event)" [data]="this.data">
+  </app-file-upload>
   <div class="divider"></div>
   <div class="button-container">
     <ng-container *ngIf="this.editing">

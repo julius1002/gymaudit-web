@@ -5,13 +5,9 @@
     border: 0;
  }
 
-.active{
-    background-color: black;
-}
+.active{ background-color: black }
 
-*:focus {
-    outline: none;
-}
+*:focus { outline: none }
 
 .exercise-list{
     display:grid;
@@ -30,7 +26,7 @@
     animation: turn 500ms ease-in;
 }
 
-.unit-name-container{
+.unit-name-container {
     text-transform: uppercase;
 }
 
@@ -53,7 +49,7 @@ mat-icon{
 }
 
 
-.title{
+.title {
     flex:3;
     align-self: center;
     margin-bottom: 0;
@@ -62,24 +58,25 @@ mat-icon{
     position:relative
 }
 
-.title > h5{
+.title > h5 {
     margin-bottom: 0;
     padding: 2px;
 
 }
 
-.search-button{
+.search-button {
     flex:1;
     max-width: 2.5em;
     margin-right: 0.5em;
     text-align:right;
 }
 
-#search-bar{
+#search-bar {
     border-width: 1px;
+    width: 100%;
 }
 
-.close-button{
+.close-button {
     flex:1;
     max-width: 2.5em;
     margin-right: 0.5em;

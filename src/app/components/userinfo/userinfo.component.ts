@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { UserInfo } from 'src/app/model/userInfo';
 import { UserInfoService } from 'src/app/services/userinfo-service';
@@ -13,29 +13,27 @@ import { environment } from 'src/environments/environment';
 })
 export class UserinfoComponent implements OnInit {
 
-  userInfo:UserInfo;
+  $userInfo: Observable<UserInfo>;
 
   constructor(private userinfoService: UserinfoService, private userInfoService: UserInfoService) { }
 
   ngOnInit(): void {
 
-    this.userInfoService.getUserinfo()
+    this.$userInfo = this.userInfoService.getUserinfo()
       .pipe(
         take(1),
         switchMap(userInfo => {
+          this.userInfoService.setUserInfo(userInfo)
           if (userInfo) {
             return of(userInfo);
           } else {
             return this.userinfoService.getUserInfo()
           }
-        })).subscribe(res => {
-            this.userInfoService.setUserInfo(res)
-            this.userInfo = res
-        })
+        }))
   }
 
-  authorizeGoogleDrive($event){
+  authorizeGoogleDrive($event) {
     $event.preventDefault();
-    window.location.href = environment.api_url + "oauth2/google/drive?jwt=" +localStorage.getItem("jwt")
+    window.location.href = environment.api_url + "oauth2/google/drive?jwt=" + localStorage.getItem("jwt")
   }
 }

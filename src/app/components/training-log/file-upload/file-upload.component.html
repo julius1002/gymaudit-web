@@ -2,14 +2,23 @@
   <ng-container *ngIf="this.data && this.data.fileId">
     <div class="preview-img">
       <img src="{{this.data.fileId}}">
-    </div>  
-    </ng-container>
+    </div>
+  </ng-container>
   <div class="file-upload">
     <div class="upload">
       <ng-container *ngIf="!this.selectedFile; else rmFile">
-        <label for="file" style="cursor:pointer;">
-          <mat-icon style="display:block;">file_upload</mat-icon> Neues Bild hinzufügen
-        </label> <input type="file"  accept="image/*" id="file" (change)="handleFileInput($event.target.files)" style="display:none">
+        <div class="file-upload__options">
+          <div class="file-upload__replace">
+            <label for="file" style="cursor:pointer;">
+              <mat-icon style="display:block;">file_upload</mat-icon> Neues Bild hinzufügen
+            </label> <input type="file" accept="image/*" id="file" (change)="handleFileInput($event.target.files)"
+              style="display:none">
+          </div>
+          <div class="file-upload__close" *ngIf="this.data.fileId">
+            <mat-icon (click)="deleteImage()" style="display:block">close</mat-icon>
+            Bild entfernen
+          </div>
+        </div>
       </ng-container>
       <ng-template #rmFile>
         <button mat-button (click)="removeFile()">
@@ -23,7 +32,8 @@
 <ng-container *ngIf="!['google_drive', 'google', 'facebook'].includes(this.userInfo?.provider)">
   <div class="upload-impossible-alert">
     <p> Wir nutzen Google Drive, um Bilder zu speichern!</p>
-    <a class="google-login-button" mat-raised-button href = "{{environment.api_url}}oauth2/google/drive?jwt={{this.jwt}}"><img class="google-image"
+    <a class="google-login-button" mat-raised-button
+      href="{{environment.api_url}}oauth2/google/drive?jwt={{this.jwt}}"><img class="google-image"
         src="../../../assets/google-icon-small.svg">Zu Google Drive</a>
   </div>
 </ng-container>

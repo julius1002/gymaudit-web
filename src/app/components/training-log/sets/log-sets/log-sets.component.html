@@ -20,7 +20,9 @@
     </div>
 </ng-container>
 </div>
+<div class="divider"></div>
 <div class="headline">
+    
     <div class = "placeholder">
     </div>
     <div class ="set-title">
@@ -34,7 +36,6 @@
 <ng-container *ngIf="!showMuscleGroups">
     <ng-container *ngIf="sets && sets.length">
         <div class="accordion-container">
-            <div class="divider"></div>
             <mat-accordion>
                 <mat-expansion-panel class = "mat-elevation-z1" #setElements hideToggle *ngFor="let set of this.sets" id={{set.id}}>
                     <mat-expansion-panel-header [collapsedHeight]="'5em'" [expandedHeight]="'5em'">
