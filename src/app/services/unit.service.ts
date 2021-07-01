@@ -2,14 +2,22 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Unit } from "../model/unit";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Page } from "../model/page";
+import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class UnitService {
-  constructor(private httpClient: HttpClient) { }
+
+  private units = new BehaviorSubject<Page<Unit>>(undefined)
+
+  constructor(private httpClient: HttpClient) {
+    this.httpClient.get<Page<Unit>>(
+      `${environment.api_url}units?page=${0}&size=${5}&name_filter=`
+    ).subscribe(units => this.units.next(units));
+  }
 
   public get(
     id: string
@@ -17,14 +25,21 @@ export class UnitService {
     return this.httpClient.get<Unit>(`${environment.api_url}units/${id}`);
   }
 
-  public getByPage(
+  public getUnits() {
+    return this.units.asObservable();
+  }
+
+  public fetchByPage(
     size: number,
     page: number,
     name: string = ""
   ): Observable<Page<Unit>> {
     return this.httpClient.get<Page<Unit>>(
       `${environment.api_url}units?page=${page}&size=${size}&name_filter=${name}`
-    );
+    ).pipe(tap(units => {
+      this.units.value.content.concat(units.content)
+      this.units.next(this.units.value)
+    }));
   }
 
   public postSingle(unit: Unit): Observable<Unit> {

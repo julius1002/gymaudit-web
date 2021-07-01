@@ -1,23 +1,34 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Exercise } from "../model/exercise";
 import { Page } from "../model/page";
+import { map, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class ExerciseService {
-  constructor(private httpClient: HttpClient) { }
 
-  public getAll(unitId: string): Observable<Page<Exercise>> {
-    return this.httpClient.get<Page<Exercise>>(
-      `${environment.api_url}exercises/${unitId}`
-    );
+  private exercises = new BehaviorSubject<Page<Exercise>>(undefined)
+
+  constructor(private httpClient: HttpClient) {
+
   }
 
-  public getByPage(
+  public getExercises(unitId) {
+    return this.httpClient.get<Page<Exercise>>(
+      `${environment.api_url}exercises/${unitId}?page=${0}&size=${8}&name_filter=`
+    ).pipe(
+      tap((exercises => this.exercises.next(exercises))
+      ), map(exercisesPage => {
+        exercisesPage.content = exercisesPage.content.filter(exercise => exercise.unitId === unitId)
+        return exercisesPage;
+      }));
+  }
+
+  public fetchByPage(
     unitId: string,
     size: number,
     page: number,
@@ -25,7 +36,10 @@ export class ExerciseService {
   ): Observable<Page<Exercise>> {
     return this.httpClient.get<Page<Exercise>>(
       `${environment.api_url}exercises/${unitId}?page=${page}&size=${size}&name_filter=${name}`
-    );
+    ).pipe(tap(exercises => {
+      this.exercises.value.content.concat(exercises.content)
+      this.exercises.next(this.exercises.value)
+    }));
   }
 
 

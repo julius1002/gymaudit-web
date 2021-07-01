@@ -11,10 +11,10 @@
         Name ist erforderlich.
       </div>
       <div *ngIf="name.errors.minlength">
-        Name muss mindestens 3 Zeichen lang sein.
+        Name muss mindestens {{nameMinLength}} Zeichen lang sein.
       </div>
       <div *ngIf="name.errors.maxlength">
-        Name darf maximal 20 Zeichen lang sein.
+        Name darf maximal {{nameMaxLength}} Zeichen lang sein.
       </div>
     </div>
     <mat-form-field appearance="outline">
@@ -28,14 +28,12 @@
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
     <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
-      <div *ngIf="description.errors.minlength">
-        Beschreibung muss mindestens 3 Zeichen lang sein.
-      </div>
       <div *ngIf="description.errors.maxlength">
-        Beschreibung darf maximal 100 Zeichen lang sein.
+        Beschreibung darf maximal {{descriptionMaxLength}} Zeichen lang sein.
       </div>
     </div>
-    <app-file-upload (fileEmitter)="fileEmitted($event)" (deleteImageEmitter)="imageDeleted($event)" [data]="this.data"></app-file-upload>
+    <app-file-upload (fileEmitter)="fileEmitted($event)" (deleteImageEmitter)="imageDeleted($event)" [data]="this.data">
+    </app-file-upload>
     <div class="divider"></div>
     <div style="text-align: right;">
       <button type="button" class="expansion-button" (click)="toggleMuscleGroups()" mat-raised-button> Weiter

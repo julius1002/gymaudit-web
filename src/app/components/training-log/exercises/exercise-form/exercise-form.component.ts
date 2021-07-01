@@ -24,7 +24,7 @@ import { UserinfoService } from "src/app/services/userinfo.service";
   styleUrls: ["./exercise-form.component.scss"],
 })
 export class ExerciseFormComponent implements OnInit {
-  
+
   @Input() editing = false;
 
   @Output() submitExercise = new EventEmitter<Exercise>();
@@ -50,7 +50,12 @@ export class ExerciseFormComponent implements OnInit {
 
   apiUri = environment.api_url;
 
-  submitted:boolean = false;
+  submitted: boolean = false;
+
+  nameMaxLength: number = 20;
+  nameMinLength: number = 3;
+
+  descriptionMaxLength: number = 100;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,7 +73,7 @@ export class ExerciseFormComponent implements OnInit {
   fileEmitted($event: File) {
     this.fileToUpload = $event
   }
-  
+
   toggleMuscleGroups() {
     this.exerciseInformationVisible = !this.exerciseInformationVisible
   }
@@ -108,10 +113,10 @@ export class ExerciseFormComponent implements OnInit {
     this.exerciseForm = this.formBuilder.group({
       name: new FormControl("", [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(18)]),
+        Validators.minLength(this.nameMinLength),
+        Validators.maxLength(this.nameMaxLength)]),
       description: new FormControl("", [
-        Validators.maxLength(100)]),
+        Validators.maxLength(this.descriptionMaxLength)]),
       pictureUrl: [""],
       exerciseType: [""],
       muscleGroups: this.buildMuscleGroupsArray([""]),
@@ -173,9 +178,9 @@ export class ExerciseFormComponent implements OnInit {
 
     if (this.fileToUpload) {
       this.isLoading = true;
-      
+
       this.uploadService.getUploadUri().pipe(
-        switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token)))      
+        switchMap(res => this.uploadService.post(res.uri, this.fileToUpload, res.token)))
         .subscribe((event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Sent:
@@ -205,7 +210,7 @@ export class ExerciseFormComponent implements OnInit {
               this.isLoading = false;
               this.submitExercise.emit(newExercise);
               this.exerciseForm.reset;
-            }
+          }
         })
     } else {
       const newExercise: Exercise = {

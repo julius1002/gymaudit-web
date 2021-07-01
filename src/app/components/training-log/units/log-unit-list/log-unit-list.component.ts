@@ -34,7 +34,7 @@ export class LogUnitListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private alertService:AlertService
+    private alertService: AlertService
   ) { }
 
   @HostListener("window:scroll", ["$event"])
@@ -42,7 +42,7 @@ export class LogUnitListComponent implements OnInit {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       if (!this.unitsPage?.last) {
         this.isLoading = true
-        this.unitService.getByPage(this.pageSize, this.index += 1, "").pipe(take(1)).subscribe((res: Page<Unit>) => {
+        this.unitService.fetchByPage(this.pageSize, this.index += 1, "").pipe(take(1)).subscribe((res: Page<Unit>) => {
           this.unitsPage.content = this.unitsPage.content.concat(res.content)
           this.unitsPage.last = res.last
           this.isLoading = false
@@ -62,11 +62,12 @@ export class LogUnitListComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.getUnitsPage(this.pageSize, this.index)
-
+    this.unitService.getUnits().subscribe(units => this.unitsPage = units)
+    setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
+      , 500)
   }
 
-  errorHandler(unit){
+  errorHandler(unit) {
     unit.fileId = undefined
   }
 
@@ -85,14 +86,10 @@ export class LogUnitListComponent implements OnInit {
   }
 
   private getUnitsPage(size: number, page: number): void {
-    this.unitService.getByPage(size, page, "").pipe(
+    this.unitService.fetchByPage(size, page, "").pipe(
       take(1))
       .subscribe(res => {
         this.unitsPage = res;
-        if (res.content.length < 7) {
-          setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
-            , 500)
-        }
       });
   }
 

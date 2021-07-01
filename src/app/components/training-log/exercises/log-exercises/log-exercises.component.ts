@@ -54,8 +54,8 @@ export class LogExercisesComponent implements OnInit {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public exerciseListService: ExercisesListService,
-    private alertService:AlertService,
-        private router: Router,
+    private alertService: AlertService,
+    private router: Router,
     private unitService: UnitService
   ) { }
 
@@ -67,7 +67,7 @@ export class LogExercisesComponent implements OnInit {
       distinctUntilChanged(),
       switchMap(filter => {
         return this.unitId$.pipe(
-          switchMap((unitId) => this.exerciseService.getByPage(unitId, this.pageSize, 0, filter)),
+          switchMap((unitId) => this.exerciseService.fetchByPage(unitId, this.pageSize, 0, filter)),
           take(1),
           tap((res) => {
             if (res.content.length < 7) {
@@ -89,23 +89,16 @@ export class LogExercisesComponent implements OnInit {
         }
       }),
       switchMap((paramMap) =>
-        this.exerciseService.getByPage(paramMap.get("unitId")
-          , this.pageSize, this.index)
-      ),
-      share(),
-      tap((res) => {
-        if (res.content.length < 7) {
-          setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
-            , 500)
-        }
-      })
+        this.exerciseService.getExercises(paramMap.get("unitId"))
+      )
     ).subscribe(res => this.exercisesPage = res);
+
+    setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
+      , 500)
 
     this.unitId$ = this.route.paramMap.pipe(
       map((paramMap) => paramMap.get("unitId"))
     );
-
-
   }
 
   toggleSettingsView() {
@@ -169,7 +162,7 @@ export class LogExercisesComponent implements OnInit {
 
   selectExercise(exercise: Exercise) {
     if (!this.editView) {
-      this.router.navigate(["training-log", "sets", exercise.id], { state: { exercise: exercise  } })
+      this.router.navigate(["training-log", "sets", exercise.id], { state: { exercise: exercise } })
     } else {
       this.openDialog(exercise);
     }
@@ -202,7 +195,7 @@ export class LogExercisesComponent implements OnInit {
 
   private getExercisesPageFromUnit(size: number, page: number): void {
     this.unitId$.pipe(
-      switchMap((unitId) => this.exerciseService.getByPage(unitId, size, page)),
+      switchMap((unitId) => this.exerciseService.fetchByPage(unitId, size, page)),
       take(1),
       tap((res) => {
         if (res.content.length < 7) {
@@ -212,7 +205,7 @@ export class LogExercisesComponent implements OnInit {
       })
     ).subscribe(res => this.exercisesPage = res);
   }
-  errorHandler(exercise){
+  errorHandler(exercise) {
     exercise.fileId = undefined
   }
 }
