@@ -14,7 +14,7 @@
             </label> <input type="file" accept="image/*" id="file" (change)="handleFileInput($event.target.files)"
               style="display:none">
           </div>
-          <div class="file-upload__close" *ngIf="this.data.fileId">
+          <div class="file-upload__close" *ngIf="this.data?.fileId">
             <mat-icon (click)="deleteImage()" style="display:block">close</mat-icon>
             Bild entfernen
           </div>
