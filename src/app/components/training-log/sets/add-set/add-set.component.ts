@@ -16,8 +16,8 @@ export class AddSetComponent implements OnInit {
   constructor(
     private setService: SetService,
     @Inject(MAT_DIALOG_DATA) data,
-    private alertService:AlertService,
-        public dialogRef: MatDialogRef<AddSetComponent>
+    private alertService: AlertService,
+    public dialogRef: MatDialogRef<AddSetComponent>
   ) {
     this.exercise = data
   }
@@ -32,6 +32,12 @@ export class AddSetComponent implements OnInit {
         this.alertService.openSnackBar(
           `Satz erfolgreich hinzugefügt!`,
           "schließen");
+      }, err => {
+        if (err.status == 409) {
+          this.alertService.openSnackBar(
+            `Für eine Übung sind maximal 10 Sätze pro Tag zulässig.`,
+            "schließen");
+        }
       });
   }
 }

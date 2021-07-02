@@ -1,0 +1,36 @@
+.search-button {
+    flex:1;
+    max-width: 2.5em;
+    margin-right: 0.5em;
+    text-align:right;
+}
+
+#search-bar {
+    border-width: 1px;
+    flex:2;
+}
+
+.close-button {
+    flex:1;
+    max-width: 2.5em;
+    margin-right: 0.5em;
+    text-align:right;
+    display:none;
+}
+
+.visible {
+    display:block;
+}
+
+.invisible {
+    display:none;
+}
+
+#placeHolder {
+    flex: 1;
+    margin-bottom: 0em;
+}
+
+#placeHolder > h5 {
+    margin-bottom: 0em;
+}

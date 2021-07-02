@@ -63,15 +63,33 @@ img{
     margin: 0 auto;
 }
 
+.unit-option-container {
+    display:flex;   
+    margin: 3em auto 1em auto;
+}
+
 .unit-list > li + li{
     margin-top: 1em;
 }
 
-.unit-list > li:first-child{
-    margin-top: 3em;
+.title {
+    flex:3;
+    align-self: center;
+    margin-bottom: 0;
+    text-align: center;
+    overflow:hidden;
+    position:relative
 }
-.unit-list > li:last-child{
-    margin-bottom: 5em;
+
+.title > h5 {
+    margin-bottom: 0;
+    padding: 2px;
+}
+.back-button{
+    align-self: center;
+    max-width: 2.5em;
+    margin-left: 0.5em;
+    flex: 1;
 }
 
 .unit-name-container{
@@ -228,4 +246,8 @@ mat-spinner {
 
 @media (min-width: 35em){
     mat-icon { cursor: pointer }
+
+        .unit-option-container{ margin: 5em auto 2em auto; }
+    
+        mat-icon { cursor: pointer }
 }

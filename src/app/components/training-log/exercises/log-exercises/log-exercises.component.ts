@@ -1,10 +1,10 @@
 import { Component, HostListener, OnInit } from "@angular/core";
 import { ExerciseService } from "src/app/services/exercise.service";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { Page } from "src/app/model/page";
 import { Exercise } from "src/app/model/exercise";
 import { ActivatedRoute, Router } from "@angular/router";
-import { switchMap, share, take, map, tap, debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
+import { switchMap, take, map, tap} from "rxjs/operators";
 import { ViewChild, ElementRef } from '@angular/core';
 import { Unit } from "src/app/model/unit";
 import { MatDialog } from "@angular/material/dialog";
@@ -30,8 +30,6 @@ export class LogExercisesComponent implements OnInit {
   exercisesPage: Page<Exercise>;
   unitId$: Observable<string>;
 
-  keyUp$ = new Subject<string>();
-
   index: number = 0;
   pageSize: number = 8;
 
@@ -50,7 +48,7 @@ export class LogExercisesComponent implements OnInit {
   }
 
   constructor(
-    private exerciseService: ExerciseService,
+    public exerciseService: ExerciseService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public exerciseListService: ExercisesListService,
@@ -59,26 +57,11 @@ export class LogExercisesComponent implements OnInit {
     private unitService: UnitService
   ) { }
 
+  public updateResult(result) {
+    this.exercisesPage = result;
+  }
+  
   async ngOnInit() {
-
-    this.keyUp$.pipe(
-      filter(filter => filter.length >= 3 || filter.length == 0),
-      debounceTime(500),
-      distinctUntilChanged(),
-      switchMap(filter => {
-        return this.unitId$.pipe(
-          switchMap((unitId) => this.exerciseService.fetchByPage(unitId, this.pageSize, 0, filter)),
-          take(1),
-          tap((res) => {
-            if (res.content.length < 7) {
-              var bottomNav = document.getElementById("bottom-nav");
-              setTimeout(() => bottomNav.classList.add("show-nav")
-                , 500)
-            }
-          })
-        );
-      }),
-    ).subscribe(res => this.exercisesPage = res)
 
     this.selectedUnit = <Unit>history.state.data
 
@@ -107,8 +90,8 @@ export class LogExercisesComponent implements OnInit {
       cards.item(i).classList.toggle("exercise-card-flipped")
     }
     this.editView = !this.editView
-
   }
+
   openDialog(exercise: Exercise = null): void {
     if (exercise) {
 
@@ -167,26 +150,6 @@ export class LogExercisesComponent implements OnInit {
       this.openDialog(exercise);
     }
   }
-
-  toggleSearchBar() {
-    var searchButton = document.getElementsByClassName("search-button").item(0);
-    var closeButton = document.getElementsByClassName("close-button").item(0);
-    var searchBar = <HTMLInputElement>document.getElementById("search-bar");
-    var unitTitle = document.getElementById("unit-title");
-
-    if (!searchButton.classList.contains("invisible")) {
-      searchBar.focus();
-    } else {
-      searchBar.value = ""
-      this.keyUp$.next("")
-    }
-    searchBar.classList.toggle("invisible")
-    unitTitle.classList.toggle("invisible")
-    searchButton.classList.toggle("invisible")
-    closeButton.classList.toggle("visible")
-
-  }
-
 
   public turn(currentPage: Page<Exercise>, value: number) {
     this.index += value

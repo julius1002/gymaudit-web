@@ -1,19 +1,12 @@
 <div class="unit-option-container">
   <mat-icon class="back-button" routerLink="..">arrow_back_ios</mat-icon>
   <div class="title">
-    <h5 id="unit-title">
-      {{this.selectedUnit?.name }}
-    </h5>
-    <input id="search-bar" class="invisible" (keyup)="keyUp$.next($event.target.value)">
+    <app-search (resultPage)="updateResult($event)" [service]="exerciseService" [unitId$]="unitId$"
+      [pageSize]="pageSize" [placeHolder]="this.selectedUnit?.name">
+    </app-search>
   </div>
-  <mat-icon class="search-button" (click)="toggleSearchBar()">
-    search
-  </mat-icon>
-  <mat-icon class="close-button" (click)="toggleSearchBar()">
-    close
-  </mat-icon>
 </div>
-<p class ="description">{{this.selectedUnit?.description}}</p>
+<p class="description">{{this.selectedUnit?.description}}</p>
 <ng-container *ngIf="exercisesPage">
   <ng-container *ngIf="exercisesPage.content.length; else noresults">
     <ul class="exercise-list">
@@ -24,16 +17,14 @@
         <div class="card">
           <div class="exercise-card">
             <ng-container *ngIf="exercise.fileId; else noimg">
-              <img 
-               src="{{exercise.fileId}}"
-              (error) = "errorHandler(exercise)">
+              <img src="{{exercise.fileId}}" (error)="errorHandler(exercise)">
             </ng-container>
             <ng-template #noimg>
               <span class="no-image">
                 <mat-icon>fitness_center</mat-icon>
               </span>
             </ng-template>
-          </div>        
+          </div>
           <div class="exercise-card exercise-card--back">
             <mat-icon>
               settings

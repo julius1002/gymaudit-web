@@ -5,11 +5,12 @@ import { Exercise } from 'src/app/model/exercise';
 import { UnitService } from 'src/app/services/unit.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
 import { AddUnitDialogComponent } from '../add-unit-dialog/add-unit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUnitComponent } from '../edit-unit/edit-unit.component';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-log-unit-list',
@@ -17,6 +18,9 @@ import { AlertService } from 'src/app/services/alert/alert.service';
   styleUrls: ['./log-unit-list.component.scss']
 })
 export class LogUnitListComponent implements OnInit {
+
+  keyUp$ = new Subject<string>();
+
   unitsPage: Page<Unit>;
   selectedUnit: Unit;
   selectedExercise: Exercise;
@@ -30,7 +34,7 @@ export class LogUnitListComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(
-    private unitService: UnitService,
+    public unitService: UnitService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -65,10 +69,27 @@ export class LogUnitListComponent implements OnInit {
     this.unitService.getUnits().subscribe(units => this.unitsPage = units)
     setTimeout(() => document.getElementById("bottom-nav").classList.add("show-nav")
       , 500)
+
+    this.keyUp$.pipe(
+      filter(filter => filter.length >= 3 || filter.length == 0),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(filter =>
+        this.unitService.fetchByPage(this.pageSize, 0, filter)
+      ),
+    ).subscribe(res => this.unitsPage = res)
+  }
+
+  public updateResult(result) {
+    this.unitsPage = result;
   }
 
   errorHandler(unit) {
     unit.fileId = undefined
+  }
+
+  toggleSearchBar() {
+    console.log("toggle")
   }
 
   toggleSettingsView() {

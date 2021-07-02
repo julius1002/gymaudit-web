@@ -1,32 +1,33 @@
-<div class = "header">
-<div class="back-button">
-    <mat-icon (click)="this.navigateBack()">arrow_back_ios</mat-icon>
-</div>
-<div class ="title">
-<h4>
-    {{this.selectedExercise?.name}}
-</h4>
-</div>
-<div class ="placeholder">
-</div>
+<div class="header">
+    <div class="back-button">
+        <mat-icon (click)="this.navigateBack()">arrow_back_ios</mat-icon>
+    </div>
+    <div class="title">
+        <h4>
+            {{this.selectedExercise?.name}}
+        </h4>
+    </div>
+    <div class="placeholder">
+    </div>
 </div>
 <div class="set-option-container">
-    <div class="img-container" *ngIf = "this.selectedExercise?.fileId">
-        <img src="{{this.selectedExercise?.fileId}}" (error) = "errorHandler(this.selectedExercise)">
+    <div class="img-container" *ngIf="this.selectedExercise?.fileId">
+        <img src="{{this.selectedExercise?.fileId}}" (error)="errorHandler(this.selectedExercise)">
     </div>
-    <ng-container *ngIf = "this.selectedExercise?.description">
-    <div class ="set-option-container__description">
-        {{this.selectedExercise?.description}}
-    </div>
-</ng-container>
+    <ng-container *ngIf="this.selectedExercise?.description">
+        <div class="set-option-container__description">
+            {{this.selectedExercise?.description}}
+        </div>
+    </ng-container>
 </div>
 <div class="divider"></div>
 <div class="headline">
-    
-    <div class = "placeholder">
+
+    <div class="placeholder">
     </div>
-    <div class ="set-title">
-    <h5>{{title}} ({{sets?.length}})</h5></div>
+    <div class="set-title">
+        <h5>{{title}} ({{sets?.length}})</h5>
+    </div>
     <div class="search-button">
         <input class="invisible" matInput [matDatepicker]="picker" (dateChange)="dateChange($event)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -37,18 +38,19 @@
     <ng-container *ngIf="sets && sets.length">
         <div class="accordion-container">
             <mat-accordion>
-                <mat-expansion-panel class = "mat-elevation-z1" #setElements hideToggle *ngFor="let set of this.sets" id={{set.id}}>
+                <mat-expansion-panel class="mat-elevation-z1" #setElements hideToggle *ngFor="let set of this.sets"
+                    id={{set.id}}>
                     <mat-expansion-panel-header [collapsedHeight]="'5em'" [expandedHeight]="'5em'">
                         <mat-panel-title>
                             {{date - set.date | ago}}
                         </mat-panel-title>
                         <mat-panel-description>
                             <div class="accordion-container__grid">
-                                <div class="attribute"> Wiederholungen</div>
-                                <div class="value"><strong>{{set.reps}}</strong></div>
-                                <div class="attribute">{{set.measureUnit?measureUnit[set.measureUnit]:'Intensität'}}
+                                <div class="attribute">{{set.measureUnit?measureUnit[set.measureUnit]:'Intensität'}}:
                                 </div>
                                 <div class="value"><strong>{{set.load}}</strong></div>
+                                <div class="attribute"> Wiederholungen:</div>
+                                <div class="value"><strong>{{set.reps}}</strong></div>
                             </div>
                         </mat-panel-description>
                     </mat-expansion-panel-header>

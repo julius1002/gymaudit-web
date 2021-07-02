@@ -1,0 +1,12 @@
+<div style="display:flex">
+        <h5 id="placeHolder">
+            {{this.placeHolder }}
+        </h5>
+    <input id="search-bar" class="invisible" (keyup)="keyUp$.next($event.target.value)">
+    <mat-icon class="search-button" (click)="toggleSearchBar()">
+        search
+    </mat-icon>
+    <mat-icon class="close-button" (click)="toggleSearchBar()">
+        close
+    </mat-icon>
+</div>

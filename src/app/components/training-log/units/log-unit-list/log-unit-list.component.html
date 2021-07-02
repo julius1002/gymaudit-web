@@ -1,3 +1,11 @@
+<div class="unit-option-container">
+  <mat-icon class="back-button" routerLink="/home">arrow_back_ios</mat-icon>
+  <div class="title">
+    <app-search (resultPage)="updateResult($event)" [service]="unitService" [pageSize]="pageSize"
+      [placeHolder]="'Deine Einheiten'">
+    </app-search>
+  </div>
+</div>
 <ng-container *ngIf="unitsPage">
   <ng-container *ngIf="unitsPage.content.length;else nounitresults">
     <ul class="unit-list">
@@ -8,12 +16,11 @@
         <div class="card">
           <div class="unit-card">
             <ng-container *ngIf="unit.fileId; else noimg">
-              <img src="{{unit.fileId}}"
-              (error) = "errorHandler(unit)">
+              <img src="{{unit.fileId}}" (error)="errorHandler(unit)">
             </ng-container>
             <ng-template #noimg>
               <span class="no-image">
-                <mat-icon >fitness_center</mat-icon>
+                <mat-icon>fitness_center</mat-icon>
               </span>
             </ng-template>
           </div>
@@ -25,7 +32,7 @@
         </div>
       </li>
       <ng-container *ngIf="this.isLoading">
-        <li class ="spinner-li">
+        <li class="spinner-li">
           <mat-spinner [diameter]=60>
           </mat-spinner>
         </li>
