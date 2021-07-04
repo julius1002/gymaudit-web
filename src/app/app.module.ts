@@ -57,6 +57,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { UserinfoFormComponent } from './components/userinfo/userinfo-form/userinfo-form/userinfo-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MuscleGroupComponent } from './components/training-log/sets/muscle-group/muscle-group.component';
+import { SearchComponent } from './components/training-log/search/search.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { MuscleGroupComponent } from './components/training-log/sets/muscle-grou
     HeaderComponent,
     UserinfoFormComponent,
     FooterComponent,
-    MuscleGroupComponent],
+    MuscleGroupComponent,
+    SearchComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

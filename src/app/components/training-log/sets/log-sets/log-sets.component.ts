@@ -31,7 +31,7 @@ export class LogSetsComponent implements OnInit {
 
   measureUnit = MeasureUnit
 
-  showMuscleGroups:boolean = false;
+  showMuscleGroups: boolean = false;
 
   @ViewChildren("setElements") setElements;
 
@@ -54,10 +54,12 @@ export class LogSetsComponent implements OnInit {
     }
 
     this.setService.getSets(this.exerciseId)
-      .subscribe(sets => {this.sets = sets;
-        var bottomNav = document.getElementById("set-nav");
-        setTimeout(() => bottomNav.classList.add("show-nav")
-          , 500)})
+      .subscribe(sets => {
+        this.sets = sets;
+      })
+    var bottomNav = document.getElementById("set-nav");
+    setTimeout(() => bottomNav.classList.add("show-nav")
+      , 500)
   }
 
   async navigateBack() {
@@ -90,11 +92,11 @@ export class LogSetsComponent implements OnInit {
     var bottomNav = document.getElementById("set-nav");
 
     var isToday = moment($event.value).isSame(new Date(), "day");
-    
-    if(isToday){
-         bottomNav.classList.add("show-nav")
+
+    if (isToday) {
+      bottomNav.classList.add("show-nav")
     } else {
-         bottomNav.classList.remove("show-nav")
+      bottomNav.classList.remove("show-nav")
     }
 
   }
@@ -116,9 +118,6 @@ export class LogSetsComponent implements OnInit {
         }
       })
     } else {
-      if (!window.history.state.date) {
-        this.selectedExercise = await this.exerciseService.get(this.exerciseId).toPromise()
-      }
 
       const dialogRef = this.dialog.open(AddSetComponent, {
         width: window.innerWidth < 600 ? '95%' : '25%',
@@ -134,8 +133,8 @@ export class LogSetsComponent implements OnInit {
             tap(res => document.getElementById(result.id).classList.add("new-mat-expansion-panel")),
             delay(600)
           ).subscribe(res => {
-              document.getElementById(result.id).classList.remove("new-mat-expansion-panel")
-            })
+            document.getElementById(result.id).classList.remove("new-mat-expansion-panel")
+          })
         }
 
       })
@@ -160,7 +159,7 @@ export class LogSetsComponent implements OnInit {
     }
   }
 
-  errorHandler(exercise){
+  errorHandler(exercise) {
     exercise.fileId = undefined
   }
 

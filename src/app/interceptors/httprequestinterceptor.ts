@@ -16,7 +16,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
 
     var clonedRequest = request
-    
+
     if (jwt && !request.url.startsWith("https://www.googleapis.com/upload/drive/v3/files")) {
       clonedRequest = request.clone({
         setHeaders: {
@@ -33,11 +33,10 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       }
 
     }, (err) => {
-      if(err.status == 403 || err.status == 401){
-      this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if (localStorage.getItem("jwt")) {
-        localStorage.removeItem("jwt")
-      }}else{
-        alert("Es ist ein Fehler aufgetreten.")
+      if (err.status == 403 || err.status == 401) {
+        this.authenticationService.setAuthentication(false); this.router.navigate(["/login"]); if (localStorage.getItem("jwt")) {
+          localStorage.removeItem("jwt")
+        }
       }
     }))
   }

@@ -7,7 +7,7 @@
   </div>
 </div>
 <ng-container *ngIf="unitsPage">
-  <ng-container *ngIf="unitsPage.content.length;else nounitresults">
+  <ng-container *ngIf="unitsPage.content?.length; else noResults">
     <ul class="unit-list">
       <li *ngFor="let unit of unitsPage.content; let i = index;" (click)="routeToExercise($event, unit)">
         <div class="unit-name-container">
@@ -39,13 +39,12 @@
       </ng-container>
     </ul>
   </ng-container>
+  <ng-template #noResults>
+    <h4 style="text-align: center;">
+      Keine Ergebnisse
+    </h4>
+  </ng-template>
 </ng-container>
-<ng-template #nounitresults>
-  <h4 style="text-align: center;">
-    Keine Ergebnisse
-  </h4>
-</ng-template>
-
 <div class="unit-bottom-nav" id="bottom-nav">
   <ng-container *ngIf="unitsPage && unitsPage.content.length">
     <ng-container *ngIf="!this.editView; else closeicon">
