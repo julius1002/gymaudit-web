@@ -1,0 +1,22 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymaudit-web-deployment
+  namespace: gymaudit
+spec:
+  selector:
+    matchLabels:
+      app: gymaudit-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gymaudit-web
+    spec:
+      containers:
+        - name: gymaudit-web
+          image: gymaudit/web:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
