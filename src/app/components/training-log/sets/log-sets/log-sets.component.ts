@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, LOCALE_ID, Inject, QueryList, ElementRef, ViewChildren, Renderer2 } from "@angular/core";
+import { Component, OnInit, Input, LOCALE_ID, Inject, QueryList, ElementRef, ViewChildren, Renderer2, ViewChild, AfterViewInit } from "@angular/core";
 import { Exercise } from "src/app/model/exercise";
 import { MeasureUnit, Set } from "src/app/model/set";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -17,7 +17,7 @@ import * as moment from "moment";
   templateUrl: "./log-sets.component.html",
   styleUrls: ["./log-sets.component.scss"],
 })
-export class LogSetsComponent implements OnInit {
+export class LogSetsComponent implements OnInit, AfterViewInit {
 
   sets: Set[];
 
@@ -34,6 +34,8 @@ export class LogSetsComponent implements OnInit {
   showMuscleGroups: boolean = false;
 
   @ViewChildren("setElements") setElements;
+
+  @ViewChild("setNav") setNav;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -57,9 +59,12 @@ export class LogSetsComponent implements OnInit {
       .subscribe(sets => {
         this.sets = sets;
       })
-    var bottomNav = document.getElementById("set-nav");
-    setTimeout(() => bottomNav.classList.add("show-nav")
-      , 500)
+
+      setTimeout(() => this.setNav.nativeElement.classList.add("show-nav"), 500)
+
+  }
+
+  ngAfterViewInit() {
   }
 
   async navigateBack() {
@@ -89,7 +94,7 @@ export class LogSetsComponent implements OnInit {
 
     this.sets = await this.setService.getSets(this.exerciseId, $event.value.toISOString()).toPromise()
 
-    var bottomNav = document.getElementById("set-nav");
+    var bottomNav = document.getElementById("setNav");
 
     var isToday = moment($event.value).isSame(new Date(), "day");
 
