@@ -1,0 +1,10 @@
+<div class="social-option-container">
+    <mat-icon class="back-button" routerLink="/home">arrow_back_ios</mat-icon>
+    <div class="title">
+        <app-search (resultPage)="updateResult($event)" [service]="socialService" [pageSize]="pageSize"
+            [placeHolder]="'GymAudit Social'">
+        </app-search>
+    </div>
+</div>
+<app-found-profile *ngFor="let user of users" [user]="user" (click)="showUserProfile(user)">
+</app-found-profile>

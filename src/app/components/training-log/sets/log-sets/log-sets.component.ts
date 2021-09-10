@@ -60,7 +60,7 @@ export class LogSetsComponent implements OnInit, AfterViewInit {
         this.sets = sets;
       })
 
-      setTimeout(() => this.setNav.nativeElement.classList.add("show-nav"), 500)
+    setTimeout(() => this.setNav.nativeElement.classList.add("show-nav"), 500)
 
   }
 

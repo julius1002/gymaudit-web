@@ -1,0 +1,22 @@
+<mat-accordion>
+    <mat-expansion-panel hideToggle (opened)="opened()" (closed)="closed()">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{unit.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{unit.description}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-container *ngIf="!this.isLoading; else loading">
+            <ul *ngIf="this.exercises?.length">
+                <li *ngFor="let exercise of this.exercises">
+                    {{ exercise | json}}
+                </li>
+            </ul>
+        </ng-container>
+        <ng-template #loading>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    </mat-expansion-panel>
+</mat-accordion>

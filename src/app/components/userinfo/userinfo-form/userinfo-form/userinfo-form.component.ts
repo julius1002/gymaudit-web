@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { take, switchMap } from 'rxjs/operators';
 import { UserInfo } from 'src/app/model/userInfo';
 import { UserInfoForm } from 'src/app/model/userinfoForm';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -44,7 +42,6 @@ export class UserinfoFormComponent implements OnInit {
 
   private setFormValues(userInfo: UserInfo) {
     this.userInfoFormGroup.patchValue(userInfo);
-
     var date = userInfo.birthday ? new Date(userInfo.birthday) : new Date()
     this.setDateValues(date)
   }
@@ -64,7 +61,7 @@ export class UserinfoFormComponent implements OnInit {
 
     this.userInfoFormGroup = this.formBuilder.group({
       name: new FormControl({
-        value: "",
+        value: this.userInfo?.biography,
         disabled: ["facebook", "google"].includes(this.userInfo.provider)
       }, [
         Validators.required,
@@ -77,6 +74,12 @@ export class UserinfoFormComponent implements OnInit {
         value: "",
         disabled: ["facebook", "google"].includes(this.userInfo.provider)
       }, Validators.email],
+      biography: new FormControl({
+        value: "",
+      }, [
+        Validators.minLength(3),
+        Validators.maxLength(50)
+      ])
     });
   }
 
@@ -86,7 +89,7 @@ export class UserinfoFormComponent implements OnInit {
     var month = date.getUTCMonth() + 1;
     var year = date.getUTCFullYear();
 
-    return date.getDate() == formValue.day && year == formValue.year && this.months[month - 1] == formValue.month && this.userInfo.name === formValue.name && this.userInfo.email === formValue.email;
+    return formValue.biography == this.userInfo.biography && date.getDate() == formValue.day && year == formValue.year && this.months[month - 1] == formValue.month && this.userInfo.name === formValue.name && this.userInfo.email === formValue.email;
   }
 
   deleteAccount() {
@@ -112,6 +115,7 @@ export class UserinfoFormComponent implements OnInit {
 
   submitForm() {
 
+
     if (!confirm("Sind die Daten korrekt?")) {
       return;
     }
@@ -122,8 +126,10 @@ export class UserinfoFormComponent implements OnInit {
     var userInfoForm: UserInfoForm = {
       name: formValue.name,
       birthday: new Date(date),
-      email: formValue.email
+      email: formValue.email,
+      biography: formValue.biography
     }
+
     this.userinfoService.updateUserInfo(userInfoForm).subscribe(res => {
       this.alertService.openSnackBar("Ihre Daten wurden erfolgreich aktualisiert!", "Ok")
       this.router.navigate(["userinfo"])

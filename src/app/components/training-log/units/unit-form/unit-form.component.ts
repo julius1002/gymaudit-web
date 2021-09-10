@@ -35,8 +35,8 @@ export class UnitFormComponent implements OnInit {
 
   mode: ProgressSpinnerMode = 'determinate';
 
-  submitted:boolean = false;
-  
+  submitted: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private uploadService: UploadService,
@@ -107,7 +107,6 @@ export class UnitFormComponent implements OnInit {
     var fileId;
     if (this.editing) {
       id = this.data.id;
-      date = this.data.date;
       traineeId = this.data.traineeId;
       fileId = this.data.fileId;
     }
@@ -131,7 +130,6 @@ export class UnitFormComponent implements OnInit {
             }, 4);
             const newUnit: Unit = {
               id: id,
-              date: date,
               name: formValue.name,
               description: formValue.description,
               traineeId: traineeId,
@@ -146,7 +144,6 @@ export class UnitFormComponent implements OnInit {
     } else {
       const newUnit: Unit = {
         id: id,
-        date: date,
         name: formValue.name,
         description: formValue.description,
         traineeId: traineeId,

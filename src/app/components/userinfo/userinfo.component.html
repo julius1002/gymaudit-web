@@ -30,12 +30,18 @@
                     {{userInfo.provider}}
                 </div>
             </ng-container>
+            <ng-container *ngIf="userInfo.biography">
+                <div class="key">Biographie</div>
+                <div class="value">
+                    {{userInfo.biography}}
+                </div>
+            </ng-container>
         </div>
         <div class="divider"></div>
-        <button mat-button type="submit" class="submit-button" routerLink = "edit">Profil bearbeiten </button>
+        <button mat-button type="submit" class="submit-button" routerLink="edit">Profil bearbeiten </button>
         <ng-container *ngIf="!['google_drive', 'google', 'facebook'].includes(userInfo?.provider)">
-                <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img class="google-img"
-                        src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
+            <a class="google-login-button" (click)="authorizeGoogleDrive($event)"><img class="google-img"
+                    src="../../../assets/google-icon-small.svg">Google Drive nutzen</a>
         </ng-container>
     </ng-container>
 </div>

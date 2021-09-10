@@ -1,0 +1,42 @@
+@import"../../../../../../styles.scss";
+
+.profile-container {
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    margin-top: 1em;
+    height: 4em;
+}
+
+.profile-container__username__biography {
+    align-self: center;
+}
+
+.profile-container__username {
+    font-weight: bold;
+}
+
+.profile-container__biography {
+    font-size: 0.9em;
+}
+
+.profile-container__picture {
+    margin-right: 1em;
+    border-radius: 50%;
+    margin-left: 0.5em;
+    height: auto;
+    max-width: 100%;
+}
+
+.profile-container__picture > mat-icon{
+    font-size: 2em;
+    width: 100%;
+    height: 100%;
+    margin-top: 0.5em;
+    color: $primary;
+}
+
+.profile-container__picture > img {
+    width: 100%;
+    height: 100%;
+}

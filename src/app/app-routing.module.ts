@@ -11,6 +11,8 @@ import { UserinfoComponent } from "./components/userinfo/userinfo.component";
 import { LogSetsComponent } from "./components/training-log/sets/log-sets/log-sets.component";
 import { UserinfoFormComponent } from "./components/userinfo/userinfo-form/userinfo-form/userinfo-form.component";
 import { UnsavedChangesGuard } from "./components/guards/unsaved-changes.guard";
+import { SearchPageComponent } from "./components/social/search/search-page/search-page.component";
+import { ProfileComponent } from "./components/social/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -38,11 +40,19 @@ const routes: Routes = [
   {
     path: "userinfo",
     component: UserinfoComponent,
-    
+
   },
   {
     path: "userinfo/edit",
     component: UserinfoFormComponent
+  },
+  {
+    path: "social",
+    component: SearchPageComponent
+  },
+  {
+    path: "profile/:username",
+    component: ProfileComponent
   },
   {
     path: "training-log",
@@ -66,7 +76,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes
-    )],
+  )],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

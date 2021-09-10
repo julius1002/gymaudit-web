@@ -1,0 +1,31 @@
+<div class="container">
+    <ng-container *ngIf="this.user$ | async as user">
+        <div class="picture">
+            <ng-container *ngIf="user.picture; else defaultPicture">
+                <img class="profile-image" src={{this.user.picture}}>
+            </ng-container>
+            <ng-template #defaultPicture>
+                <mat-icon>account_circle</mat-icon>
+            </ng-template>
+        </div>
+        <div class="profile-grid">
+            <ng-container *ngIf="this.user.username">
+                <div class="key"> Username</div>
+                <div class="value">{{user.username}}</div>
+            </ng-container>
+            <ng-container *ngIf="this.user.biography">
+                <div class="key">Biographie</div>
+                <div class="value">
+                    {{user.biography}}
+                </div>
+            </ng-container>
+        </div>
+        <div class="divider"></div>
+        <h5>{{user.username}}s' Trainingseinheiten</h5>
+        <ng-container *ngIf="unitsPage">
+            <app-profile-unit *ngFor="let unit of unitsPage.content" [unit]="unit">
+            </app-profile-unit>
+        </ng-container>
+    </ng-container>
+
+</div>

@@ -1,0 +1,21 @@
+.social-option-container {
+    margin: 3em auto 1em auto;
+    display:flex
+}
+
+
+.title {
+    flex:3;
+    align-self: center;
+    margin-bottom: 0;
+    text-align: center;
+    overflow:hidden;
+    position:relative
+}
+
+.back-button{
+    align-self: center;
+    max-width: 2.5em;
+    margin-left: 0.5em;
+    flex: 1;
+}

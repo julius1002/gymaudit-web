@@ -5,4 +5,5 @@ export interface UserInfo{
     picture:string;
     provider:string;
     email:string;
+    biography: string;
 }

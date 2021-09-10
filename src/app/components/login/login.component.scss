@@ -32,14 +32,11 @@ input:-webkit-autofill {
 
 .title-container > mat-icon{
     font-size: 4em;
+    color: $primary
 }
 
 form{
     margin-bottom: 2em;
-}
-
-mat-icon{
-    color: $primary
 }
 
 .fb-login-button{

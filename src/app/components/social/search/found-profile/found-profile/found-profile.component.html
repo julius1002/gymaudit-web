@@ -1,0 +1,15 @@
+<div class="profile-container">
+    <div class="profile-container__picture">
+        <ng-container *ngIf="this.user.picutre; else defaultPicture">
+        </ng-container>
+        <ng-template #defaultPicture>
+            <mat-icon>account_circle</mat-icon>
+        </ng-template>
+    </div>
+    <div class="profile-container__username__biography">
+        <div class="profile-container__username">{{user.username}}
+        </div>
+        <div class="profile-container__biography">
+            {{user.biography}}
+        </div>
+    </div>
