@@ -11,7 +11,9 @@
         <ng-container *ngIf="!this.isLoading; else loading">
             <ul *ngIf="this.exercises?.length">
                 <li *ngFor="let exercise of this.exercises">
-                    {{ exercise | json}}
+                    <div class = "exercise-name">{{ exercise.name}}</div>
+                    <div>{{exerciseTypeEnum[exercise.exerciseType]}}</div>
+                    <mat-divider></mat-divider>
                 </li>
             </ul>
         </ng-container>

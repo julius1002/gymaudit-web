@@ -14,7 +14,7 @@ import { AlertService } from "src/app/services/alert/alert.service";
 export class AddExerciseComponent implements OnInit {
   constructor(
     private exerciseService: ExerciseService,
-    private alertService:AlertService,
+    private alertService: AlertService,
     @Inject(MAT_DIALOG_DATA) public data: { unitid: string },
     public dialogRef: MatDialogRef<AddExerciseComponent>) { }
 
@@ -23,7 +23,6 @@ export class AddExerciseComponent implements OnInit {
   }
 
   postExercise(exercise: Exercise) {
-    console.log(exercise)
     this.exerciseService.postSingle(this.data.unitid, exercise).pipe(take(1))
       .subscribe((exercise) => {
         console.log(exercise)

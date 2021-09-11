@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ExerciseType } from 'src/app/model/exercise';
 
 @Component({
   selector: 'app-profile-unit',
@@ -13,14 +14,16 @@ export class ProfileUnitComponent implements OnInit {
 
   exercises
   isLoading: boolean;
+
+  exerciseTypeEnum = ExerciseType;
   constructor() { }
 
   ngOnInit(): void {
   }
 
   opened() {
-    this.isLoading = true;
     if (!this.exercises) {
+      this.isLoading = true;
       var uri = this.unit.links.filter(link => link.rel === "exercises")[0].href
       fetch(uri, { headers: { "Authorization": "Bearer " + localStorage.getItem("jwt") } })
         .then(res => res.json())
