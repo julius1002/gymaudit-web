@@ -19,4 +19,4 @@ spec:
           image: gymaudit/web:1.0.0
           imagePullPolicy: Never
           ports:
-            - containerPort: 8080
+            - containerPort: 80
