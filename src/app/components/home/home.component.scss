@@ -9,13 +9,14 @@
 }   
 
 .tile-content {
-    margin: 1em 0em auto 0em;
+    margin: 2em 0em auto 0em;
     display:flex;
     font-size: 1.1em;
     height: 100%
 }
 
 .tile-content > mat-icon {
+    flex-basis: 25%;
     align-self: center;
     border-radius: 1em;
     margin: 0em 0.9em 0em 0em;
@@ -24,6 +25,10 @@
     padding: 0.3em;
     height: 90px;
     width: 170px;
+}
+
+.tile-content > div {
+    flex-basis: 75%;
 }
 
 .hero {
@@ -50,18 +55,21 @@ p {
 @media(min-width: 32em){
     .tile-row {
         display:flex;
-        max-width: 1080px;
         margin: 0 auto;
         margin-top: 2em;
-
     }
-    .tile { margin-top: 1em !important; }
+
+    .tile { margin-top: 1em !important; flex-basis: 25%}
 
     .hero {
         background-size: contain;
         width: 1000px;
         margin: 0 auto;
         height: 500px;
+    }
+
+    .tile-content > mat-icon {
+        margin-right: 1em;
     }
 
     .hero {

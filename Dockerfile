@@ -1,4 +1,4 @@
-FROM node:16.9 as node
+FROM node:14.15 as node
 WORKDIR /app
 COPY package*.json ./
 RUN npm config set user 0

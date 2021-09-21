@@ -9,13 +9,16 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-container *ngIf="!this.isLoading; else loading">
-            <ul *ngIf="this.exercises?.length">
+            <ul *ngIf="this.exercises?.length; else emptyExercises">
                 <li *ngFor="let exercise of this.exercises">
                     <div class = "exercise-name">{{ exercise.name}}</div>
                     <div>{{exerciseTypeEnum[exercise.exerciseType]}}</div>
                     <mat-divider></mat-divider>
                 </li>
             </ul>
+            <ng-template #emptyExercises>
+                Keine Übungen vorhanden
+            </ng-template>
         </ng-container>
         <ng-template #loading>
             <mat-spinner></mat-spinner>
