@@ -22,7 +22,8 @@ export class RedirectComponent implements OnInit {
 
     var token = params.get("token");
 
-    if (token) {
+    if (
+      token) {
       localStorage.setItem("jwt", token)
       this.userinfoService.fetchUserInfo().subscribe(res => {
         this.alertService.openSnackBar(`Willkommen ${res.name.split(" ")[0]}!`, "Ok")

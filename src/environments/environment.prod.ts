@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: "http://gymaudit.de/api/"
+  api_url: "https://gymaudit.com/api/"
 };
