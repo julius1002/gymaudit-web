@@ -94,8 +94,11 @@ export class LogUnitListComponent implements OnInit {
 
   toggleSettingsView() {
     const cards = document.getElementsByClassName("card");
+    const backCards = document.getElementsByClassName("unit-card--back")
+
     for (let i = 0; i < cards.length; i++) {
       cards.item(i).classList.toggle("unit-card-flipped")
+      backCards.item(i).classList.toggle("to-foreground")
     }
     this.editView = !this.editView
 

@@ -15,7 +15,7 @@
         </div>
         <div class="card">
           <div class="unit-card">
-            <ng-container *ngIf="unit.fileId; else noimg">
+            <ng-container *ngIf="unit.fileId && false; else noimg">
               <img src="{{unit.fileId}}" (error)="errorHandler(unit)">
             </ng-container>
             <ng-template #noimg>

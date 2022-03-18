@@ -27,7 +27,7 @@ export enum MuscleGroup {
   TRAPS = "Nacken",
   SHOULDERS = "Schultern",
   ABS = "Bauch",
-  BOOTY = "Booty",
+//  BOOTY = "Booty",
   QUADS = "Vordere Beinmuskulatur",
   HAMSTRINGS = "Hintere Beinmuskulatur"
 }

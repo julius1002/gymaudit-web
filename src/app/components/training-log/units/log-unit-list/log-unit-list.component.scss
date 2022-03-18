@@ -24,6 +24,8 @@ ul{
     background-color: #f0f0f0;
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+    z-index: 1;
+
 }
 
 
@@ -47,8 +49,13 @@ ul{
     background: #f0f0f0;
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
+    z-index: 0;
 }
 
+.to-foreground {
+    
+    z-index: 2;
+}
 
 img{
     height: 100%;

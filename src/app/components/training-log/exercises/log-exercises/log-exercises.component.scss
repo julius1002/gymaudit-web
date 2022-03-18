@@ -207,6 +207,7 @@ mat-icon{
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
     display:flex;
+    z-index: 1;
 }
 
 .exercise-card-flipped{
@@ -217,6 +218,7 @@ mat-icon{
 .exercise-card--back {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
+    z-index: 0;
 }
 
 img{
@@ -235,6 +237,10 @@ img{
 }
 
 p { text-align: center; font-size: 0.9em}
+
+.to-foreground {
+    z-index:2 
+}
 
 @media (min-width: 35em){
     .unit-option-container{ margin: 5em auto 2em auto; }
