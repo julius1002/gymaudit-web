@@ -36,6 +36,13 @@
     background-size: cover;
 }
 
+.park {
+    background: url("../../../assets/IMG_2241.png") no-repeat;
+    background-size: cover;
+    max-height: 100%;
+    max-width: 100%;
+}
+
 .hero-inner {
    margin-top: 2.5em;
    margin-left: 0.5em; 
@@ -80,4 +87,15 @@ p {
 
 a {
     margin: 1em auto;
+}
+
+@keyframes turn{
+    0%{
+        opacity: 0;
+
+    }
+    
+    100%{
+        opacity: 1;
+    }
 }

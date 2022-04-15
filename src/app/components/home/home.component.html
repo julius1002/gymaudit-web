@@ -2,8 +2,9 @@
     <div class="hero-inner">
     </div>
 </div>
-<div class="tile-row">
+<div class="tile-row" *ngIf="(this.showElements$ | async) >= 0">
     <div class="tile">
+
         <div class="tile-content">
             <mat-icon>thumb_up</mat-icon>
             <div>
@@ -35,9 +36,51 @@
             <mat-icon>people_alt</mat-icon>
             <div>
                 <h4>Share!</h4>
-                <p>Lass dich von Trainingsplänen anderer Nutzer inspirieren!    </p>
+                <p>Lass dich von Trainingsplänen anderer Nutzer inspirieren! </p>
             </div>
         </div>
     </div>
 </div>
-<app-footer></app-footer>
+<h4 *ngIf="(this.showElements$ | async) > 0"
+    style="margin: 2em auto; width: 80%; animation: turn 800ms ease-in; text-align: center;">Überspringe die
+    Registrierung und logge dich mit anderen Accounts ein!
+</h4>
+<div class="tile-row" *ngIf="(this.showElements$ | async) > 1"
+    style="animation: turn 800ms ease-in; margin: 0 auto; width: 90%">
+    <div class="park" style="flex:1">
+        <div class="hero-inner">
+        </div>
+    </div>
+    <div class="tile" style="flex:1">
+        <div class="tile-content">
+            <mat-icon routerLink="/login">login</mat-icon>
+            <div>
+                <h4>Einloggen mit GymAudit Account</h4>
+            </div>
+        </div>
+        <div class="tile-content">
+            <img style="flex-basis: 25%;
+            align-self: center;
+            border-radius: 2em;
+            margin: 0em 0.9em 0em 0em;
+            font-size: 3.4em;
+            background-color: rgb(228, 228, 228);
+            height: 90px;
+            width: 90px" src="../../../assets/facebook.png">
+            <div>
+                <h4>Einloggen mit Facebook</h4>
+            </div>
+        </div>
+        <div class="tile-content">
+            <img src="../../../assets/google-icon-small.svg">
+            <div>
+                <h4>Einloggen mit Google</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<h4 *ngIf="(this.showElements$ | async) > 2" style="margin: 2em auto; width: 80%; animation: turn 800ms ease-in; text-align: center;">
+    Mittels des Timers kannst du deine HIIT- und Ausdauereinheiten tracken!
+    <mat-icon>timer</mat-icon></h4>
+    
+<app-footer style="animation: turn 800ms ease-in;" *ngIf="(this.showElements$ | async) > 3"></app-footer>

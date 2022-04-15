@@ -13,6 +13,7 @@ import { UserinfoFormComponent } from "./components/userinfo/userinfo-form/useri
 import { UnsavedChangesGuard } from "./components/guards/unsaved-changes.guard";
 import { SearchPageComponent } from "./components/social/search/search-page/search-page.component";
 import { ProfileComponent } from "./components/social/profile/profile.component";
+import { TimerComponent } from "./components/timer/timer.component";
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
   {
     path: "profile/:username",
     component: ProfileComponent
+  },
+  {
+    path: "timer",
+    component: TimerComponent
   },
   {
     path: "training-log",

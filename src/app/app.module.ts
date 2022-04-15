@@ -58,7 +58,7 @@ import { FoundProfileComponent } from './components/social/search/found-profile/
 import { ProfileComponent } from './components/social/profile/profile.component';
 import { ProfileUnitComponent } from './components/social/profile/profile-unit/profile-unit.component';
 import { ProfileExerciseComponent } from './components/social/profile/profile-unit/profile-exercise/profile-exercise.component';
-
+import { TimerComponent } from "./components/timer/timer.component";
 
 @NgModule({
   declarations: [
@@ -92,7 +92,8 @@ import { ProfileExerciseComponent } from './components/social/profile/profile-un
     FoundProfileComponent,
     ProfileComponent,
     ProfileUnitComponent,
-    ProfileExerciseComponent],
+    ProfileExerciseComponent,
+    TimerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
